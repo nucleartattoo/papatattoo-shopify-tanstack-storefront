@@ -161,9 +161,12 @@ export const ProductDetailPage: React.FC = () => {
             <div className="relative aspect-square rounded-2xl overflow-hidden border border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#12151B] flex items-center justify-center p-8 group">
               {images.length > 0 ? (
                 <img
-                  src={images[activeImageIndex]?.url}
+                  src={images[activeImageIndex]?.url || '/slides/slide_2_premium_cartridges.png'}
                   alt={images[activeImageIndex]?.altText || product.title}
                   className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).src = '/slides/slide_2_premium_cartridges.png'
+                  }}
                 />
               ) : (
                 <div className="text-zinc-400 font-mono text-xs">NO ASSET IMAGE</div>

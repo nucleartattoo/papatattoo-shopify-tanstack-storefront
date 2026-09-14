@@ -24,7 +24,7 @@ export const MEGA_MENU_DATA: MegaMenuCategory[] = [
     subtitle: 'Direct-Drive Rotary Pens',
     badge: 'PRO MOTORS',
     badgeColor: 'cyan',
-    image: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/1.jpg?v=1789099921',
+    image: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/img_214_img_5795_cutout.webp?v=1789132146',
     categoryId: 'machines',
     subcategories: [
       { label: 'Papa Pen', query: 'Papa Pen' },
@@ -40,7 +40,7 @@ export const MEGA_MENU_DATA: MegaMenuCategory[] = [
     subtitle: 'Medical 316L Surgical Steel',
     badge: 'SAFETY MEMBRANE',
     badgeColor: 'amber',
-    image: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/new_premium-1_47.jpg?v=1789098619',
+    image: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/new_premium-1_47_ad77cc27-ebef-437d-b3e7-cc4b5ddbd082.jpg?v=1789118485',
     categoryId: 'needles',
     subcategories: [
       { label: '⭐ Papa Premium Cartridges', series: 'premium', isFeatured: true },
@@ -53,7 +53,7 @@ export const MEGA_MENU_DATA: MegaMenuCategory[] = [
     subtitle: '6061-T6 Aircraft Alloy & Foam',
     badge: 'CLICK SYSTEM',
     badgeColor: 'cyan',
-    image: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/papa_adjustment_grips_1.jpg?v=1789096517',
+    image: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/img_111_papa_adjustment_grips_1__cutout.webp?v=1789132494',
     categoryId: 'grips',
     subcategories: [
       { label: 'Disposable Cartridge Grips', query: 'disposable' },
@@ -68,7 +68,7 @@ export const MEGA_MENU_DATA: MegaMenuCategory[] = [
     subtitle: 'Official Studio Uniforms',
     badge: 'STUDIO WEAR',
     badgeColor: 'zinc',
-    image: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/papa_shirt1.jpg?v=1789099455',
+    image: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/img_012_papa_shirt1_cutout_b1c7462c-ae55-490e-8c99-b7f8e4814fdd.webp?v=1789130926',
     categoryId: 'all',
     subcategories: [
       { label: 'PAPA Tattoo Hat', query: 'Hat' },
@@ -82,7 +82,7 @@ export const MEGA_MENU_DATA: MegaMenuCategory[] = [
     subtitle: 'Pure Copper & Digital Control',
     badge: 'VOLT REGULATION',
     badgeColor: 'emerald',
-    image: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/papa_foot_pedal.jpg?v=1789099419',
+    image: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/img_139_papa_foot_pedal_cutout.webp?v=1789131965',
     categoryId: 'all',
     subcategories: [
       { label: 'RCA Cord (Straight & Angled)', query: 'RCA' },
@@ -97,7 +97,7 @@ export const MEGA_MENU_DATA: MegaMenuCategory[] = [
     subtitle: 'Station Hygiene & Essentials',
     badge: 'WORKFLOW GEAR',
     badgeColor: 'zinc',
-    image: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/stationttray1.jpg?v=1789097560',
+    image: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/img_020_img_4371_1_cutout_bba43d18-fc58-417f-aeb5-0fa69f2be710.webp?v=1789131238',
     categoryId: 'all',
     subcategories: [
       { label: 'PAPA Travel Case', query: 'Travel Case' },

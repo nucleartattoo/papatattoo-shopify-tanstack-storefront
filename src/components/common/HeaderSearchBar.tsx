@@ -364,6 +364,9 @@ export const HeaderSearchBar: React.FC<HeaderSearchBarProps> = ({
                             src={imageUrl}
                             alt={prod.title}
                             className="w-full h-full object-cover"
+                            onError={(e) => {
+                              (e.currentTarget as HTMLImageElement).src = '/slides/slide_2_premium_cartridges.png'
+                            }}
                           />
                         </div>
 

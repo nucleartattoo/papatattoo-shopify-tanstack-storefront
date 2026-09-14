@@ -24,7 +24,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
   const images = product.images?.edges?.map(e => e.node.url) || []
-  const currentImage = images[currentImageIndex] || images[0] || 'https://via.placeholder.com/400?text=Papa+Gear'
+  const currentImage = images[currentImageIndex] || images[0] || '/slides/slide_2_premium_cartridges.png'
 
   const handleAddToCart = () => {
     addToCart(product, selectedVariant, 1)
@@ -117,6 +117,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             alt={product.title}
             className="relative max-h-52 object-contain transition-transform duration-500 group-hover:scale-110 drop-shadow-md"
             loading="lazy"
+            onError={(e) => {
+              (e.currentTarget as HTMLImageElement).src = '/slides/slide_2_premium_cartridges.png'
+            }}
           />
 
           {/* Alternate Thumbnail Dots if multiple images */}

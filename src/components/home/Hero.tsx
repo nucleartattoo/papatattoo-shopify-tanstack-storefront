@@ -121,7 +121,7 @@ export const Hero: React.FC<HeroProps> = ({ onCtaClick, onStudioClick }) => {
               <div className="my-auto relative flex items-center justify-center p-4">
                 <div className="absolute inset-0 bg-[#2EE6CA]/10 blur-3xl rounded-full scale-75 group-hover:scale-100 transition-transform duration-700"></div>
                 <img
-                  src="https://cdn.shopify.com/s/files/1/0780/2955/3716/files/papa_adjustment_grips_1.jpg?v=1789096517"
+                  src="https://cdn.shopify.com/s/files/1/0780/2955/3716/files/img_111_papa_adjustment_grips_1__cutout.webp?v=1789132494"
                   alt="Papa Adjustable Click Grip"
                   className="relative max-h-56 object-contain drop-shadow-[0_20px_25px_rgba(0,0,0,0.6)] transform group-hover:scale-105 transition-transform duration-500"
                 />

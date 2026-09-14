@@ -647,8 +647,8 @@ export const FALLBACK_PRODUCTS: ShopifyProduct[] = [
     },
     images: {
       edges: [
-        { node: { url: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/papa_adjustment_grips_1.jpg?v=1789096517' } },
-        { node: { url: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/papa_adjustment_grips_2.jpg?v=1789096517' } },
+        { node: { url: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/img_111_papa_adjustment_grips_1__cutout.webp?v=1789132494' } },
+        { node: { url: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/img_126_papa_adjustment_grips_2__cutout.webp?v=1789132497' } },
       ],
     },
     variants: {
@@ -672,8 +672,8 @@ export const FALLBACK_PRODUCTS: ShopifyProduct[] = [
     },
     images: {
       edges: [
-        { node: { url: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/papaag_1.jpg?v=1789096690' } },
-        { node: { url: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/papaag_2.jpg?v=1789096690' } },
+        { node: { url: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/img_268_papaag_1__cutout.webp?v=1789132609' } },
+        { node: { url: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/img_122_papaag_2__cutout.webp?v=1789132613' } },
       ],
     },
     variants: {
@@ -697,8 +697,8 @@ export const FALLBACK_PRODUCTS: ShopifyProduct[] = [
     },
     images: {
       edges: [
-        { node: { url: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/papaag_7.jpg?v=1789096703' } },
-        { node: { url: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/papaag_8.jpg?v=1789096703' } },
+        { node: { url: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/img_224_papaag_7__cutout.webp?v=1789132347' } },
+        { node: { url: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/img_166_papaag_8__cutout.webp?v=1789132351' } },
       ],
     },
     variants: {
@@ -722,8 +722,8 @@ export const FALLBACK_PRODUCTS: ShopifyProduct[] = [
     },
     images: {
       edges: [
-        { node: { url: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/papa_adjustable_cartridge_grips_10.jpg?v=1789096722' } },
-        { node: { url: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/papa_adjustable_cartridge_grips_11.jpg?v=1789096722' } },
+        { node: { url: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/img_091_papa_adjustable_cartridge_grips_10__cutout.webp?v=1789132100' } },
+        { node: { url: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/img_187_papa_adjustable_cartridge_grips_11__cutout.webp?v=1789132104' } },
       ],
     },
     variants: {
@@ -747,8 +747,8 @@ export const FALLBACK_PRODUCTS: ShopifyProduct[] = [
     },
     images: {
       edges: [
-        { node: { url: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/papa_adjustable_cartridge_grips_13.jpg?v=1789096734' } },
-        { node: { url: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/papa_adjustable_cartridge_grips_14.jpg?v=1789096734' } },
+        { node: { url: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/img_117_papa_adjustable_cartridge_grips_13__cutout.webp?v=1789132547' } },
+        { node: { url: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/img_269_papa_adjustable_cartridge_grips_14__cutout.webp?v=1789132551' } },
       ],
     },
     variants: {
