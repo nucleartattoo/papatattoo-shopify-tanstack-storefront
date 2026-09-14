@@ -178,116 +178,61 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
       </div>
 
-      {/* Bottom Section: Variants, Pricing, Add to Cart */}
-      <div className="mt-5 pt-4 border-t border-zinc-100 dark:border-[#1E232E] space-y-3">
-        {/* Size Variant Selector: if complex multi-variant matrix (>4), render sleek spec badge; if simple (<=4), render buttons */}
-        {variants.length > 4 ? (
+      {/* Bottom Section: Pricing & Dynamic Action Button */}
+      <div className="mt-4 pt-4 border-t border-zinc-100 dark:border-[#1E232E] flex items-center justify-between gap-3">
+        {/* Price display */}
+        <div className="min-w-0">
+          <span className="text-[10px] font-mono text-zinc-400 dark:text-zinc-500 uppercase tracking-wider block truncate">
+            {isNeedle ? 'BOX OF 20' : variants.length > 1 ? 'STARTING AT' : 'STUDIO PRICE'}
+          </span>
+          <span
+            className={`text-lg font-extrabold font-mono tracking-tight ${
+              isPremiumCartridge
+                ? 'text-amber-600 dark:text-amber-400'
+                : 'text-zinc-950 dark:text-[#2ee6ca]'
+            }`}
+          >
+            {priceFormatted}
+          </span>
+        </div>
+
+        {/* Dynamic Action Button: Multiple variants -> "Options →"; Single/No variant -> "+ ShoppingBag" */}
+        {variants.length > 1 ? (
           <Link
             to="/products/$handle"
             params={{ handle: product.handle }}
-            className={`group/cfg flex items-center justify-between p-2.5 rounded-lg border transition-all cursor-pointer select-none ${
+            className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider transition-all transform active:scale-95 shrink-0 cursor-pointer shadow-xs ${
               isPremiumCartridge
-                ? 'border-amber-500/30 bg-amber-500/5 hover:border-amber-500/60 hover:bg-amber-500/10'
-                : 'border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#0e1117] hover:border-zinc-400 dark:hover:border-[#2ee6ca]/50'
+                ? 'bg-amber-500 text-zinc-950 hover:bg-amber-400 hover:shadow-[0_0_15px_rgba(245,158,11,0.3)]'
+                : 'bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-[#26cbb1] hover:shadow-[0_0_15px_rgba(46,230,202,0.25)]'
             }`}
           >
-            <div>
-              <div className="text-[10px] font-mono uppercase font-bold text-zinc-500 dark:text-zinc-400 flex items-center gap-1.5">
-                <SlidersHorizontal className="w-3 h-3 text-[#0d9488] dark:text-[#2ee6ca]" />
-                <span>{isNeedle ? 'FULL SPECIFICATION MATRIX' : 'CONFIGURATIONS'}</span>
-              </div>
-              <div className="text-xs font-mono font-bold text-zinc-800 dark:text-zinc-200 truncate mt-0.5">
-                {isNeedle ? 'RL · RS · M1 · M1C (#08–#14 Gauge)' : `${variants.length} Options Available`}
-              </div>
-            </div>
-            <span className={`text-[11px] font-mono font-bold group-hover/cfg:translate-x-0.5 transition-transform shrink-0 flex items-center gap-1 ${
-              isPremiumCartridge ? 'text-amber-600 dark:text-amber-400' : 'text-[#0d9488] dark:text-[#2ee6ca]'
-            }`}>
-              <span>{variants.length} Specs</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </span>
+            <span>Options</span>
+            <ArrowRight className="w-3.5 h-3.5" />
           </Link>
-        ) : variants.length > 1 ? (
-          <div>
-            <div className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-1.5 flex justify-between">
-              <span>{t('card_select_size')}</span>
-              <span className="font-bold text-zinc-700 dark:text-zinc-300">{selectedVariant.title}</span>
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              {variants.map(v => (
-                <button
-                  key={v.id}
-                  onClick={() => setSelectedVariant(v)}
-                  className={`py-1.5 px-2 rounded text-xs font-mono font-medium transition-all cursor-pointer ${
-                    selectedVariant.id === v.id
-                      ? isPremiumCartridge
-                        ? 'bg-amber-500 text-zinc-950 font-bold shadow-xs'
-                        : 'bg-zinc-900 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 font-bold shadow-xs'
-                      : 'bg-zinc-100 dark:bg-[#181C24] text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-[#272D3A] hover:border-zinc-400'
-                  }`}
-                >
-                  {v.title}
-                </button>
-              ))}
-            </div>
-          </div>
-        ) : null}
-
-        {/* Price and Action */}
-        <div className="flex items-center justify-between pt-1">
-          <div>
-            <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block">
-              {isNeedle ? 'BOX OF 20' : 'STUDIO PRICE'}
-            </span>
-            <span
-              className={`text-lg font-extrabold font-mono ${
-                isPremiumCartridge
-                  ? 'text-amber-600 dark:text-amber-400'
-                  : 'text-zinc-950 dark:text-[#2ee6ca]'
-              }`}
-            >
-              {priceFormatted}
-            </span>
-          </div>
-
-          {variants.length > 4 ? (
-            <Link
-              to="/products/$handle"
-              params={{ handle: product.handle }}
-              className={`flex items-center gap-2 px-3.5 py-2.5 rounded-lg text-xs font-mono font-bold uppercase tracking-wider transition-all transform active:scale-95 cursor-pointer ${
-                isPremiumCartridge
-                  ? 'bg-amber-500 text-zinc-950 hover:bg-amber-400 hover:shadow-[0_0_20px_rgba(245,158,11,0.35)]'
-                  : 'bg-zinc-950 text-white dark:bg-[#2ee6ca] dark:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-[#26cbb1]'
-              }`}
-            >
-              <span>SELECT OPTIONS</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          ) : (
-            <button
-              onClick={handleAddToCart}
-              className={`flex items-center gap-2 px-3.5 py-2.5 rounded-lg text-xs font-mono font-bold uppercase tracking-wider transition-all transform active:scale-95 cursor-pointer ${
-                addedAnimation
-                  ? 'bg-emerald-500 text-white shadow-[0_0_15px_rgba(16,185,129,0.5)]'
-                  : isPremiumCartridge
-                  ? 'bg-amber-500 text-zinc-950 hover:bg-amber-400 hover:shadow-[0_0_20px_rgba(245,158,11,0.35)]'
-                  : 'bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-[#2ee6ca] dark:hover:text-zinc-950'
-              }`}
-            >
-              {addedAnimation ? (
-                <>
-                  <Check className="w-3.5 h-3.5" />
-                  <span>ADDED</span>
-                </>
-              ) : (
-                <>
-                  <ShoppingBag className="w-3.5 h-3.5" />
-                  <span>{t('card_quick_add')}</span>
-                </>
-              )}
-            </button>
-          )}
-        </div>
+        ) : (
+          <button
+            type="button"
+            onClick={handleAddToCart}
+            className={`inline-flex items-center justify-center p-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider transition-all transform active:scale-95 shrink-0 cursor-pointer shadow-xs ${
+              addedAnimation
+                ? 'bg-emerald-500 text-white shadow-[0_0_15px_rgba(16,185,129,0.5)]'
+                : isPremiumCartridge
+                ? 'bg-amber-500 text-zinc-950 hover:bg-amber-400 hover:shadow-[0_0_15px_rgba(245,158,11,0.3)]'
+                : 'bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-[#26cbb1] hover:shadow-[0_0_15px_rgba(46,230,202,0.25)]'
+            }`}
+            title="Quick add to cart"
+          >
+            {addedAnimation ? (
+              <Check className="w-4 h-4" />
+            ) : (
+              <div className="flex items-center gap-1">
+                <span className="text-sm font-bold leading-none">+</span>
+                <ShoppingBag className="w-4 h-4" />
+              </div>
+            )}
+          </button>
+        )}
       </div>
     </div>
   )
