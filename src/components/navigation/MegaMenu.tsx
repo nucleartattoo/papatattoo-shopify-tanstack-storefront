@@ -40,7 +40,7 @@ export const MEGA_MENU_DATA: MegaMenuCategory[] = [
     subtitle: 'Medical 316L Surgical Steel',
     badge: 'SAFETY MEMBRANE',
     badgeColor: 'amber',
-    image: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/new_premium-1_47_ad77cc27-ebef-437d-b3e7-cc4b5ddbd082.jpg?v=1789118485',
+    image: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/papa-premium-tattoo-cartridges-round-cutout.webp?v=1789392343',
     categoryId: 'needles',
     subcategories: [
       { label: '⭐ Papa Premium Cartridges', series: 'premium', isFeatured: true },

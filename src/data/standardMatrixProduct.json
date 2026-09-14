@@ -65,14 +65,20 @@
     "edges": [
       {
         "node": {
-          "url": "https://cdn.shopify.com/s/files/1/0780/2955/3716/files/papa-cartridges-needles-round_2_5_1_1_65dce158-1deb-44aa-b489-2c1407542222.jpg?v=1789122487",
-          "altText": "PAPA Standard Tattoo Cartridges"
+          "url": "https://cdn.shopify.com/s/files/1/0780/2955/3716/files/papa-standard-tattoo-cartridges-round-cutout.webp?v=1789392324",
+          "altText": "PAPA Standard Tattoo Cartridges - Round Liner"
         }
       },
       {
         "node": {
-          "url": "https://cdn.shopify.com/s/files/1/0780/2955/3716/files/papa-cartridges-needles-magnum_4_1_1_1_1_1_1_eda1d617-40a0-4fbd-a0ba-fea1914f237f.jpg?v=1789122487",
-          "altText": "PAPA Standard Tattoo Cartridges"
+          "url": "https://cdn.shopify.com/s/files/1/0780/2955/3716/files/papa-standard-tattoo-cartridges-magnum-cutout.webp?v=1789392328",
+          "altText": "PAPA Standard Tattoo Cartridges - Magnum"
+        }
+      },
+      {
+        "node": {
+          "url": "https://cdn.shopify.com/s/files/1/0780/2955/3716/files/papa-standard-tattoo-cartridges-pair-cutout.webp?v=1789392332",
+          "altText": "PAPA Standard Tattoo Cartridges - Pair"
         }
       }
     ]
