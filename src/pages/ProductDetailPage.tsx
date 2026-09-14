@@ -307,31 +307,6 @@ export const ProductDetailPage: React.FC = () => {
               </span>
             </div>
 
-            {/* Volume Tier Discount Table */}
-            <div className="rounded-xl border border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#101319] p-4 space-y-3">
-              <div className="flex items-center justify-between text-xs font-mono font-bold text-zinc-400 uppercase">
-                <span>STUDIO VOLUME TIER DISCOUNTS</span>
-                <span className="text-[#0d9488] dark:text-[#2EE6CA]">WHOLESALE PRICING</span>
-              </div>
-              <div className="grid grid-cols-3 gap-2 text-center text-xs font-mono">
-                <div className="p-2.5 rounded-lg border border-zinc-100 dark:border-[#1E232E] bg-zinc-50 dark:bg-[#14171E]">
-                  <div className="text-zinc-500 text-[10px]">1 - 4 UNITS</div>
-                  <div className="font-bold text-zinc-900 dark:text-white mt-0.5">${price.toFixed(2)}</div>
-                  <div className="text-[9px] text-zinc-400 mt-0.5">STANDARD</div>
-                </div>
-                <div className="p-2.5 rounded-lg border border-teal-500/30 bg-teal-500/10 text-teal-700 dark:text-[#2EE6CA]">
-                  <div className="text-[10px]">5 - 19 UNITS</div>
-                  <div className="font-bold mt-0.5">${(price * 0.85).toFixed(2)}</div>
-                  <div className="text-[9px] font-bold mt-0.5">SAVE 15%</div>
-                </div>
-                <div className="p-2.5 rounded-lg border border-amber-500/40 bg-amber-500/10 text-amber-600 dark:text-amber-400">
-                  <div className="text-[10px]">20+ UNITS</div>
-                  <div className="font-bold mt-0.5">${(price * 0.75).toFixed(2)}</div>
-                  <div className="text-[9px] font-bold mt-0.5">PRO SAVE 25%</div>
-                </div>
-              </div>
-            </div>
-
             {/* Variant Selector: Matrix 3-Option Selector or Standard Pills */}
             {product.options && product.options.some(o => o.name.toLowerCase() === 'type') ? (
               <CartridgeMatrixSelector
