@@ -21,6 +21,7 @@ export interface ShopifyProduct {
   id: string
   title: string
   handle: string
+  productType?: string
   description?: string
   descriptionHtml?: string
   availableForSale?: boolean

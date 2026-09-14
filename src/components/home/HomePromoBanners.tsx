@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from '@tanstack/react-router'
-import { ArrowRight, Sparkles, ShieldCheck, Gauge, Sliders, Zap } from 'lucide-react'
+import { ArrowRight, Sparkles, ShieldCheck, Gauge, Sliders, Zap, Box, Image as ImageIcon } from 'lucide-react'
+import { ModelViewer3D } from '../common/ModelViewer3D'
 
 export const HomePromoBanners: React.FC = () => {
+  const [penViewMode, setPenViewMode] = useState<'3d' | '2d'>('3d')
   return (
     <section className="py-16 bg-zinc-100/60 dark:bg-[#0B0D11] border-b border-zinc-200 dark:border-[#1E232E]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
@@ -25,20 +27,61 @@ export const HomePromoBanners: React.FC = () => {
         {/* 1. Large Showcase: Papa Pen V3 Black Full Set */}
         <div className="group relative rounded-2xl overflow-hidden border border-zinc-200 dark:border-[#1F2430] bg-white dark:bg-[#11141B] shadow-xl hover:border-zinc-300 dark:hover:border-[#2ee6ca]/40 transition-all duration-300">
           <div className="grid grid-cols-1 lg:grid-cols-12 items-center">
-            {/* Left Image Showcase */}
-            <div className="lg:col-span-7 relative overflow-hidden bg-zinc-950 aspect-16/10 lg:aspect-auto lg:h-[380px] flex items-center justify-center">
-              <img
-                src="/promos/papapenfullstack.jpeg"
-                alt="Papa Pen V3 Black Full Set"
-                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-[#11141B]/90" />
+            {/* Left Image/3D Showcase */}
+            <div className="lg:col-span-7 relative overflow-hidden bg-zinc-950 aspect-16/10 lg:aspect-auto lg:h-[400px] flex items-center justify-center">
+              {penViewMode === '3d' ? (
+                <ModelViewer3D
+                  src="/models/papapenv2.glb"
+                  poster="/promos/papapenfullstack.jpeg"
+                  alt="Papa Pen V3 3D Machine"
+                  className="w-full h-full"
+                  cameraOrbit="45deg 65deg 2.2m"
+                />
+              ) : (
+                <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
+                  <img
+                    src="/promos/papapenfullstack.jpeg"
+                    alt="Papa Pen V3 Black Full Set"
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-[#11141B]/90 pointer-events-none" />
 
-              {/* Badge */}
-              <div className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-[#2ee6ca]/30 text-[#2ee6ca] text-[10px] font-mono font-bold uppercase tracking-wider">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#2ee6ca] animate-pulse" />
-                <span>FLAGSHIP ROTARY APPARATUS</span>
+                  {/* Badge */}
+                  <div className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-[#2ee6ca]/30 text-[#2ee6ca] text-[10px] font-mono font-bold uppercase tracking-wider">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#2ee6ca] animate-pulse" />
+                    <span>FLAGSHIP ROTARY APPARATUS</span>
+                  </div>
+                </div>
+              )}
+
+              {/* 2D / 3D Mode Switcher Pills */}
+              <div className="absolute bottom-4 right-4 z-20 flex items-center gap-1 p-1 rounded-xl bg-black/80 backdrop-blur-md border border-white/15 shadow-xl font-mono text-xs">
+                <button
+                  type="button"
+                  onClick={() => setPenViewMode('3d')}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-bold text-[11px] transition-all cursor-pointer ${
+                    penViewMode === '3d'
+                      ? 'bg-[#2EE6CA] text-zinc-950 shadow-xs'
+                      : 'text-zinc-400 hover:text-white'
+                  }`}
+                >
+                  <Box className="w-3.5 h-3.5" />
+                  <span>3D INTERACTIVE</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setPenViewMode('2d')}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-bold text-[11px] transition-all cursor-pointer ${
+                    penViewMode === '2d'
+                      ? 'bg-zinc-800 text-white shadow-xs'
+                      : 'text-zinc-400 hover:text-white'
+                  }`}
+                >
+                  <ImageIcon className="w-3.5 h-3.5" />
+                  <span>2D PHOTO</span>
+                </button>
               </div>
             </div>
 

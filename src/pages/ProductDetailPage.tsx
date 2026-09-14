@@ -21,7 +21,10 @@ import {
   FileText,
   Wrench,
   Download,
+  Box,
+  Image as ImageIcon,
 } from 'lucide-react'
+import { ModelViewer3D } from '../components/common/ModelViewer3D'
 
 export const ProductDetailPage: React.FC = () => {
   const { handle } = useParams({ strict: false }) as { handle: string }
@@ -37,6 +40,11 @@ export const ProductDetailPage: React.FC = () => {
   const [quantity, setQuantity] = useState(1)
   const [addedAnimation, setAddedAnimation] = useState(false)
   const [activeTab, setActiveTab] = useState<'description' | 'specs' | 'rma'>('description')
+  const [mediaViewMode, setMediaViewMode] = useState<'photo' | '3d'>('photo')
+
+  const has3DModel = Boolean(
+    handle && (handle.includes('pen') || handle.includes('machine') || product?.productType?.toLowerCase().includes('machine'))
+  )
 
   useEffect(() => {
     let isMounted = true
@@ -159,7 +167,14 @@ export const ProductDetailPage: React.FC = () => {
           {/* Left Column: Media Gallery */}
           <div className="space-y-4">
             <div className="relative aspect-square rounded-2xl overflow-hidden border border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#12151B] flex items-center justify-center p-8 group">
-              {images.length > 0 ? (
+              {mediaViewMode === '3d' ? (
+                <ModelViewer3D
+                  src="/models/papapenv2.glb"
+                  poster={images[activeImageIndex]?.url}
+                  alt={product.title}
+                  className="w-full h-full"
+                />
+              ) : images.length > 0 ? (
                 <img
                   src={images[activeImageIndex]?.url || '/slides/slide_2_premium_cartridges.png'}
                   alt={images[activeImageIndex]?.altText || product.title}
@@ -173,7 +188,7 @@ export const ProductDetailPage: React.FC = () => {
               )}
 
               {/* Badges Over Image */}
-              <div className="absolute top-4 left-4 flex flex-col gap-2">
+              <div className="absolute top-4 left-4 flex flex-col gap-2 pointer-events-none">
                 {isPremium && (
                   <span className="px-2.5 py-1 rounded-md bg-amber-500 text-zinc-950 font-mono text-[11px] font-black uppercase flex items-center gap-1 shadow-lg">
                     <Sparkles className="w-3 h-3" />
@@ -184,30 +199,77 @@ export const ProductDetailPage: React.FC = () => {
                   ISO 13485 CERTIFIED
                 </span>
               </div>
+
+              {/* 3D / 2D Quick Switcher */}
+              {has3DModel && (
+                <div className="absolute top-4 right-4 z-20 flex items-center gap-1 p-1 rounded-xl bg-black/80 backdrop-blur-md border border-white/15 shadow-xl font-mono text-xs">
+                  <button
+                    type="button"
+                    onClick={() => setMediaViewMode('3d')}
+                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg font-bold text-[11px] transition-all cursor-pointer ${
+                      mediaViewMode === '3d'
+                        ? 'bg-[#2EE6CA] text-zinc-950 shadow-xs'
+                        : 'text-zinc-400 hover:text-white'
+                    }`}
+                  >
+                    <Box className="w-3.5 h-3.5" />
+                    <span>3D / AR</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setMediaViewMode('photo')}
+                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg font-bold text-[11px] transition-all cursor-pointer ${
+                      mediaViewMode === 'photo'
+                        ? 'bg-zinc-800 text-white shadow-xs'
+                        : 'text-zinc-400 hover:text-white'
+                    }`}
+                  >
+                    <ImageIcon className="w-3.5 h-3.5" />
+                    <span>2D</span>
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Thumbnail Strip */}
-            {images.length > 1 && (
-              <div className="grid grid-cols-5 gap-3">
-                {images.map((img, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setActiveImageIndex(idx)}
-                    className={`aspect-square rounded-xl border p-2 bg-white dark:bg-[#12151B] transition-all overflow-hidden ${
-                      activeImageIndex === idx
-                        ? 'border-[#2EE6CA] shadow-[0_0_10px_rgba(46,230,202,0.3)] ring-1 ring-[#2EE6CA]'
-                        : 'border-zinc-200 dark:border-[#222731] opacity-70 hover:opacity-100'
-                    }`}
-                  >
-                    <img
-                      src={img.url}
-                      alt=""
-                      className="w-full h-full object-contain"
-                    />
-                  </button>
-                ))}
-              </div>
-            )}
+            <div className="grid grid-cols-5 gap-3">
+              {has3DModel && (
+                <button
+                  type="button"
+                  onClick={() => setMediaViewMode('3d')}
+                  className={`aspect-square rounded-xl border p-2 flex flex-col items-center justify-center gap-1 bg-zinc-950 transition-all cursor-pointer ${
+                    mediaViewMode === '3d'
+                      ? 'border-[#2EE6CA] shadow-[0_0_10px_rgba(46,230,202,0.3)] ring-1 ring-[#2EE6CA] text-[#2EE6CA]'
+                      : 'border-zinc-200 dark:border-[#222731] text-zinc-400 hover:text-white'
+                  }`}
+                >
+                  <Box className="w-5 h-5 text-[#2EE6CA] animate-pulse" />
+                  <span className="text-[9px] font-mono font-bold uppercase tracking-wider">3D Model</span>
+                </button>
+              )}
+
+              {images.map((img, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => {
+                    setActiveImageIndex(idx)
+                    setMediaViewMode('photo')
+                  }}
+                  className={`aspect-square rounded-xl border p-2 bg-white dark:bg-[#12151B] transition-all overflow-hidden cursor-pointer ${
+                    mediaViewMode === 'photo' && activeImageIndex === idx
+                      ? 'border-[#2EE6CA] shadow-[0_0_10px_rgba(46,230,202,0.3)] ring-1 ring-[#2EE6CA]'
+                      : 'border-zinc-200 dark:border-[#222731] opacity-70 hover:opacity-100'
+                  }`}
+                >
+                  <img
+                    src={img.url}
+                    alt=""
+                    className="w-full h-full object-contain"
+                  />
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Right Column: Specimen Data & Ordering Interface */}
