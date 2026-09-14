@@ -28,7 +28,7 @@ export const HomePromoBanners: React.FC = () => {
         <div className="group relative rounded-2xl overflow-hidden border border-zinc-200 dark:border-[#1F2430] bg-white dark:bg-[#11141B] shadow-xl hover:border-zinc-300 dark:hover:border-[#2ee6ca]/40 transition-all duration-300">
           <div className="grid grid-cols-1 lg:grid-cols-12 items-center">
             {/* Left Image/3D Showcase */}
-            <div className="lg:col-span-7 relative overflow-hidden bg-zinc-950 aspect-16/10 lg:aspect-auto lg:h-[400px] flex items-center justify-center">
+            <div className="lg:col-span-7 relative overflow-hidden bg-zinc-50 dark:bg-[#0c0e14] aspect-16/10 lg:aspect-auto lg:h-[400px] flex items-center justify-center border-b lg:border-b-0 lg:border-r border-zinc-200 dark:border-[#1E232E]">
               {penViewMode === '3d' ? (
                 <ModelViewer3D
                   src="/models/papapenv2.glb"
@@ -48,22 +48,22 @@ export const HomePromoBanners: React.FC = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-[#11141B]/90 pointer-events-none" />
 
                   {/* Badge */}
-                  <div className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-[#2ee6ca]/30 text-[#2ee6ca] text-[10px] font-mono font-bold uppercase tracking-wider">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#2ee6ca] animate-pulse" />
+                  <div className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/80 dark:bg-black/70 backdrop-blur-md border border-zinc-200 dark:border-[#2ee6ca]/30 text-[#0d9488] dark:text-[#2ee6ca] text-[10px] font-mono font-bold uppercase tracking-wider shadow-xs">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#0d9488] dark:bg-[#2ee6ca] animate-pulse" />
                     <span>FLAGSHIP ROTARY APPARATUS</span>
                   </div>
                 </div>
               )}
 
               {/* 2D / 3D Mode Switcher Pills */}
-              <div className="absolute bottom-4 right-4 z-20 flex items-center gap-1 p-1 rounded-xl bg-black/80 backdrop-blur-md border border-white/15 shadow-xl font-mono text-xs">
+              <div className="absolute bottom-4 right-4 z-20 flex items-center gap-1 p-1 rounded-xl bg-white/85 dark:bg-black/80 backdrop-blur-md border border-zinc-200 dark:border-white/15 shadow-xl font-mono text-xs">
                 <button
                   type="button"
                   onClick={() => setPenViewMode('3d')}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-bold text-[11px] transition-all cursor-pointer ${
                     penViewMode === '3d'
-                      ? 'bg-[#2EE6CA] text-zinc-950 shadow-xs'
-                      : 'text-zinc-400 hover:text-white'
+                      ? 'bg-[#0d9488] text-white dark:bg-[#2EE6CA] dark:text-zinc-950 shadow-xs'
+                      : 'text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white'
                   }`}
                 >
                   <Box className="w-3.5 h-3.5" />
@@ -75,8 +75,8 @@ export const HomePromoBanners: React.FC = () => {
                   onClick={() => setPenViewMode('2d')}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-bold text-[11px] transition-all cursor-pointer ${
                     penViewMode === '2d'
-                      ? 'bg-zinc-800 text-white shadow-xs'
-                      : 'text-zinc-400 hover:text-white'
+                      ? 'bg-zinc-950 text-white dark:bg-zinc-800 dark:text-white shadow-xs'
+                      : 'text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white'
                   }`}
                 >
                   <ImageIcon className="w-3.5 h-3.5" />

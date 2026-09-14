@@ -202,14 +202,14 @@ export const ProductDetailPage: React.FC = () => {
 
               {/* 3D / 2D Quick Switcher */}
               {has3DModel && (
-                <div className="absolute top-4 right-4 z-20 flex items-center gap-1 p-1 rounded-xl bg-black/80 backdrop-blur-md border border-white/15 shadow-xl font-mono text-xs">
+                <div className="absolute top-4 right-4 z-20 flex items-center gap-1 p-1 rounded-xl bg-white/85 dark:bg-black/80 backdrop-blur-md border border-zinc-200 dark:border-white/15 shadow-xl font-mono text-xs">
                   <button
                     type="button"
                     onClick={() => setMediaViewMode('3d')}
                     className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg font-bold text-[11px] transition-all cursor-pointer ${
                       mediaViewMode === '3d'
-                        ? 'bg-[#2EE6CA] text-zinc-950 shadow-xs'
-                        : 'text-zinc-400 hover:text-white'
+                        ? 'bg-[#0d9488] text-white dark:bg-[#2EE6CA] dark:text-zinc-950 shadow-xs'
+                        : 'text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white'
                     }`}
                   >
                     <Box className="w-3.5 h-3.5" />
@@ -221,8 +221,8 @@ export const ProductDetailPage: React.FC = () => {
                     onClick={() => setMediaViewMode('photo')}
                     className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg font-bold text-[11px] transition-all cursor-pointer ${
                       mediaViewMode === 'photo'
-                        ? 'bg-zinc-800 text-white shadow-xs'
-                        : 'text-zinc-400 hover:text-white'
+                        ? 'bg-zinc-950 text-white dark:bg-zinc-800 dark:text-white shadow-xs'
+                        : 'text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white'
                     }`}
                   >
                     <ImageIcon className="w-3.5 h-3.5" />
@@ -238,13 +238,13 @@ export const ProductDetailPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setMediaViewMode('3d')}
-                  className={`aspect-square rounded-xl border p-2 flex flex-col items-center justify-center gap-1 bg-zinc-950 transition-all cursor-pointer ${
+                  className={`aspect-square rounded-xl border p-2 flex flex-col items-center justify-center gap-1 bg-zinc-100 dark:bg-zinc-950 transition-all cursor-pointer ${
                     mediaViewMode === '3d'
-                      ? 'border-[#2EE6CA] shadow-[0_0_10px_rgba(46,230,202,0.3)] ring-1 ring-[#2EE6CA] text-[#2EE6CA]'
-                      : 'border-zinc-200 dark:border-[#222731] text-zinc-400 hover:text-white'
+                      ? 'border-[#2EE6CA] shadow-[0_0_10px_rgba(46,230,202,0.3)] ring-1 ring-[#2EE6CA] text-[#0d9488] dark:text-[#2EE6CA]'
+                      : 'border-zinc-200 dark:border-[#222731] text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white'
                   }`}
                 >
-                  <Box className="w-5 h-5 text-[#2EE6CA] animate-pulse" />
+                  <Box className="w-5 h-5 text-[#0d9488] dark:text-[#2EE6CA] animate-pulse" />
                   <span className="text-[9px] font-mono font-bold uppercase tracking-wider">3D Model</span>
                 </button>
               )}
