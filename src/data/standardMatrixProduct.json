@@ -1,0 +1,2334 @@
+{
+  "id": "gid://shopify/Product/8950110748724",
+  "title": "PAPA Standard Tattoo Cartridges",
+  "handle": "papa-standard-tattoo-cartridges",
+  "description": "Professional everyday studio cartridge needles.",
+  "descriptionHtml": "<p><strong>PAPA Standard Tattoo Cartridge Needles</strong> provide consistent, high-precision everyday performance for professional tattoo studios. Engineered with medical-grade 316L stainless steel and internal elastic safety membranes.</p>\n<ul>\n<li><strong>Japanese 316L Surgical Stainless Steel</strong> needle pins ground with ultra-smooth tapers.</li>\n<li><strong>Medical Elastic Membrane</strong> system prevents pigment backflow into the machine grip.</li>\n<li><strong>Optical-Clear Polycarbonate Tip</strong> provides uninterrupted ink reservoir monitoring and smooth fluid delivery.</li>\n<li><strong>100% EO Gas Sterilized</strong> in sterile individual blister packaging.</li>\n<li><strong>Universal Cartridge Docking</strong> fits Cheyenne, Bishop, FK Irons, Critical, and all rotary pens.</li>\n</ul>",
+  "availableForSale": true,
+  "tags": [
+    "PAPA STANDARD",
+    "Needle Cartridges",
+    "consolidated-matrix"
+  ],
+  "options": [
+    {
+      "name": "Type",
+      "values": [
+        "ROUND LINER",
+        "ROUND LINER TIGHT",
+        "ROUND SHADER",
+        "MAGNUM",
+        "MAGNUM CURVED",
+        "ROUND LINER HOLLOW",
+        "ROUND LINER DOUBLE TIGHT"
+      ]
+    },
+    {
+      "name": "Gauge",
+      "values": [
+        "#14 EXTRA THICK (0.40)",
+        "#12 STANDARD (0.35)",
+        "#10 BUGPIN (0.30)",
+        "#8 BUGPIN (0.25)"
+      ]
+    },
+    {
+      "name": "Size",
+      "values": [
+        "1",
+        "3",
+        "5",
+        "7",
+        "9",
+        "11",
+        "8",
+        "14",
+        "13",
+        "15",
+        "17",
+        "23",
+        "4",
+        "18",
+        "27",
+        "6",
+        "10"
+      ]
+    }
+  ],
+  "priceRange": {
+    "minVariantPrice": {
+      "amount": "22.0",
+      "currencyCode": "USD"
+    }
+  },
+  "images": {
+    "edges": [
+      {
+        "node": {
+          "url": "https://cdn.shopify.com/s/files/1/0780/2955/3716/files/papa-cartridges-needles-round_2_5_1_1.jpg?v=1789097328",
+          "altText": "PAPA Standard Tattoo Cartridges"
+        }
+      },
+      {
+        "node": {
+          "url": "https://cdn.shopify.com/s/files/1/0780/2955/3716/files/papa-cartridges-needles-magnum_4_1_1_1_1_1_1.jpg?v=1789096964",
+          "altText": "PAPA Standard Tattoo Cartridges"
+        }
+      }
+    ]
+  },
+  "variants": {
+    "edges": [
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327753170996",
+          "title": "ROUND LINER / #14 EXTRA THICK (0.40) / 1",
+          "availableForSale": true,
+          "price": {
+            "amount": "22.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#14 EXTRA THICK (0.40)"
+            },
+            {
+              "name": "Size",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327753203764",
+          "title": "ROUND LINER / #12 STANDARD (0.35) / 3",
+          "availableForSale": true,
+          "price": {
+            "amount": "22.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "3"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327753236532",
+          "title": "ROUND LINER / #12 STANDARD (0.35) / 5",
+          "availableForSale": true,
+          "price": {
+            "amount": "22.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "5"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327753269300",
+          "title": "ROUND LINER / #12 STANDARD (0.35) / 7",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "7"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327753302068",
+          "title": "ROUND LINER / #12 STANDARD (0.35) / 9",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "9"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327753334836",
+          "title": "ROUND LINER TIGHT / #12 STANDARD (0.35) / 9",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER TIGHT"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "9"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327753367604",
+          "title": "ROUND LINER / #12 STANDARD (0.35) / 11",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "11"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327753400372",
+          "title": "ROUND SHADER / #12 STANDARD (0.35) / 5",
+          "availableForSale": true,
+          "price": {
+            "amount": "22.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND SHADER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "5"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327753433140",
+          "title": "ROUND SHADER / #12 STANDARD (0.35) / 7",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND SHADER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "7"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327753465908",
+          "title": "ROUND SHADER / #12 STANDARD (0.35) / 8",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND SHADER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "8"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327753498676",
+          "title": "ROUND SHADER / #12 STANDARD (0.35) / 9",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND SHADER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "9"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327753531444",
+          "title": "ROUND SHADER / #12 STANDARD (0.35) / 11",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND SHADER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "11"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327753564212",
+          "title": "ROUND SHADER / #12 STANDARD (0.35) / 14",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND SHADER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "14"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327753596980",
+          "title": "MAGNUM / #12 STANDARD (0.35) / 9",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "9"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327753629748",
+          "title": "MAGNUM / #12 STANDARD (0.35) / 11",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "11"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327753662516",
+          "title": "MAGNUM / #12 STANDARD (0.35) / 13",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "13"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327753695284",
+          "title": "MAGNUM / #12 STANDARD (0.35) / 15",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "15"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327753728052",
+          "title": "MAGNUM / #12 STANDARD (0.35) / 17",
+          "availableForSale": true,
+          "price": {
+            "amount": "29.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "17"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327753760820",
+          "title": "MAGNUM / #12 STANDARD (0.35) / 23",
+          "availableForSale": true,
+          "price": {
+            "amount": "29.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "23"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327753793588",
+          "title": "MAGNUM CURVED / #12 STANDARD (0.35) / 7",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "7"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327753826356",
+          "title": "MAGNUM CURVED / #12 STANDARD (0.35) / 9",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "9"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327753859124",
+          "title": "MAGNUM CURVED / #12 STANDARD (0.35) / 13",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "13"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327753891892",
+          "title": "MAGNUM CURVED / #12 STANDARD (0.35) / 15",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "15"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327753924660",
+          "title": "MAGNUM CURVED / #12 STANDARD (0.35) / 17",
+          "availableForSale": true,
+          "price": {
+            "amount": "29.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "17"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327753957428",
+          "title": "MAGNUM CURVED / #12 STANDARD (0.35) / 23",
+          "availableForSale": true,
+          "price": {
+            "amount": "29.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "23"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327753990196",
+          "title": "ROUND LINER TIGHT / #12 STANDARD (0.35) / 11",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER TIGHT"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "11"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754022964",
+          "title": "ROUND LINER TIGHT / #12 STANDARD (0.35) / 14",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER TIGHT"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "14"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754055732",
+          "title": "ROUND LINER / #12 STANDARD (0.35) / 14",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "14"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754088500",
+          "title": "MAGNUM CURVED / #12 STANDARD (0.35) / 11",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "11"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754121268",
+          "title": "MAGNUM CURVED / #12 STANDARD (0.35) / 5",
+          "availableForSale": true,
+          "price": {
+            "amount": "22.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "5"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754154036",
+          "title": "ROUND LINER TIGHT / #12 STANDARD (0.35) / 3",
+          "availableForSale": true,
+          "price": {
+            "amount": "22.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER TIGHT"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "3"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754186804",
+          "title": "ROUND LINER TIGHT / #12 STANDARD (0.35) / 5",
+          "availableForSale": true,
+          "price": {
+            "amount": "22.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER TIGHT"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "5"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754219572",
+          "title": "ROUND LINER TIGHT / #12 STANDARD (0.35) / 7",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER TIGHT"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "7"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754252340",
+          "title": "ROUND LINER TIGHT / #10 BUGPIN (0.30) / 3",
+          "availableForSale": true,
+          "price": {
+            "amount": "22.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER TIGHT"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "3"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754285108",
+          "title": "ROUND LINER TIGHT / #10 BUGPIN (0.30) / 5",
+          "availableForSale": true,
+          "price": {
+            "amount": "22.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER TIGHT"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "5"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754317876",
+          "title": "ROUND LINER TIGHT / #10 BUGPIN (0.30) / 7",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER TIGHT"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "7"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754350644",
+          "title": "ROUND LINER TIGHT / #10 BUGPIN (0.30) / 8",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER TIGHT"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "8"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754383412",
+          "title": "ROUND LINER TIGHT / #10 BUGPIN (0.30) / 9",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER TIGHT"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "9"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754416180",
+          "title": "MAGNUM / #10 BUGPIN (0.30) / 7",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "7"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754448948",
+          "title": "MAGNUM / #10 BUGPIN (0.30) / 9",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "9"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754481716",
+          "title": "MAGNUM / #10 BUGPIN (0.30) / 11",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "11"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754514484",
+          "title": "MAGNUM / #10 BUGPIN (0.30) / 13",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "13"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754547252",
+          "title": "MAGNUM / #10 BUGPIN (0.30) / 15",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "15"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754580020",
+          "title": "MAGNUM / #10 BUGPIN (0.30) / 23",
+          "availableForSale": true,
+          "price": {
+            "amount": "29.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "23"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754612788",
+          "title": "MAGNUM CURVED / #10 BUGPIN (0.30) / 7",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "7"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754645556",
+          "title": "MAGNUM CURVED / #10 BUGPIN (0.30) / 9",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "9"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754678324",
+          "title": "MAGNUM CURVED / #10 BUGPIN (0.30) / 11",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "11"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754711092",
+          "title": "MAGNUM CURVED / #10 BUGPIN (0.30) / 13",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "13"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754743860",
+          "title": "MAGNUM CURVED / #10 BUGPIN (0.30) / 23",
+          "availableForSale": true,
+          "price": {
+            "amount": "29.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "23"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754776628",
+          "title": "ROUND LINER / #12 STANDARD (0.35) / 4",
+          "availableForSale": true,
+          "price": {
+            "amount": "22.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "4"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754809396",
+          "title": "ROUND LINER / #12 STANDARD (0.35) / 15",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "15"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754842164",
+          "title": "MAGNUM / #12 STANDARD (0.35) / 5",
+          "availableForSale": true,
+          "price": {
+            "amount": "22.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "5"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754874932",
+          "title": "ROUND LINER / #12 STANDARD (0.35) / 8",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "8"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754907700",
+          "title": "ROUND LINER / #12 STANDARD (0.35) / 13",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "13"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754940468",
+          "title": "MAGNUM / #12 STANDARD (0.35) / 7",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "7"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327754973236",
+          "title": "ROUND LINER TIGHT / #8 BUGPIN (0.25) / 3",
+          "availableForSale": true,
+          "price": {
+            "amount": "22.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER TIGHT"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "3"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755006004",
+          "title": "ROUND LINER TIGHT / #8 BUGPIN (0.25) / 5",
+          "availableForSale": true,
+          "price": {
+            "amount": "22.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER TIGHT"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "5"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755038772",
+          "title": "ROUND LINER TIGHT / #8 BUGPIN (0.25) / 9",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER TIGHT"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "9"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755071540",
+          "title": "ROUND LINER TIGHT / #8 BUGPIN (0.25) / 7",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER TIGHT"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "7"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755104308",
+          "title": "ROUND LINER / #12 STANDARD (0.35) / 18",
+          "availableForSale": true,
+          "price": {
+            "amount": "29.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "18"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755137076",
+          "title": "MAGNUM CURVED / #10 BUGPIN (0.30) / 15",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "15"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755169844",
+          "title": "MAGNUM CURVED / #10 BUGPIN (0.30) / 17",
+          "availableForSale": true,
+          "price": {
+            "amount": "29.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "17"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755202612",
+          "title": "MAGNUM CURVED / #10 BUGPIN (0.30) / 27",
+          "availableForSale": true,
+          "price": {
+            "amount": "29.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "27"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755235380",
+          "title": "MAGNUM / #8 BUGPIN (0.25) / 9",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "9"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755268148",
+          "title": "MAGNUM / #8 BUGPIN (0.25) / 11",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "11"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755300916",
+          "title": "MAGNUM / #8 BUGPIN (0.25) / 13",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "13"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755333684",
+          "title": "MAGNUM / #8 BUGPIN (0.25) / 15",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "15"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755366452",
+          "title": "MAGNUM / #8 BUGPIN (0.25) / 17",
+          "availableForSale": true,
+          "price": {
+            "amount": "29.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "17"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755399220",
+          "title": "MAGNUM CURVED / #8 BUGPIN (0.25) / 9",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "9"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755431988",
+          "title": "MAGNUM CURVED / #8 BUGPIN (0.25) / 11",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "11"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755464756",
+          "title": "MAGNUM CURVED / #8 BUGPIN (0.25) / 13",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "13"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755497524",
+          "title": "MAGNUM CURVED / #8 BUGPIN (0.25) / 15",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "15"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755530292",
+          "title": "MAGNUM CURVED / #8 BUGPIN (0.25) / 17",
+          "availableForSale": true,
+          "price": {
+            "amount": "29.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "17"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755563060",
+          "title": "ROUND LINER TIGHT / #12 STANDARD (0.35) / 4",
+          "availableForSale": true,
+          "price": {
+            "amount": "22.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER TIGHT"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "4"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755595828",
+          "title": "ROUND LINER TIGHT / #12 STANDARD (0.35) / 8",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER TIGHT"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "8"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755628596",
+          "title": "ROUND LINER TIGHT / #12 STANDARD (0.35) / 13",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER TIGHT"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "13"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755661364",
+          "title": "ROUND LINER TIGHT / #12 STANDARD (0.35) / 15",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER TIGHT"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "15"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755694132",
+          "title": "ROUND LINER TIGHT / #12 STANDARD (0.35) / 18",
+          "availableForSale": true,
+          "price": {
+            "amount": "29.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER TIGHT"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "18"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755726900",
+          "title": "ROUND SHADER / #12 STANDARD (0.35) / 13",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND SHADER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "13"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755759668",
+          "title": "ROUND SHADER / #12 STANDARD (0.35) / 15",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND SHADER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "15"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755792436",
+          "title": "MAGNUM / #10 BUGPIN (0.30) / 17",
+          "availableForSale": true,
+          "price": {
+            "amount": "29.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "17"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755825204",
+          "title": "MAGNUM / #10 BUGPIN (0.30) / 27",
+          "availableForSale": true,
+          "price": {
+            "amount": "29.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "27"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755857972",
+          "title": "MAGNUM / #8 BUGPIN (0.25) / 23",
+          "availableForSale": true,
+          "price": {
+            "amount": "29.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "23"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755890740",
+          "title": "MAGNUM / #8 BUGPIN (0.25) / 27",
+          "availableForSale": true,
+          "price": {
+            "amount": "29.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "27"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755923508",
+          "title": "MAGNUM CURVED / #8 BUGPIN (0.25) / 23",
+          "availableForSale": true,
+          "price": {
+            "amount": "29.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "23"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755956276",
+          "title": "MAGNUM CURVED / #8 BUGPIN (0.25) / 27",
+          "availableForSale": true,
+          "price": {
+            "amount": "29.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "27"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327755989044",
+          "title": "ROUND LINER HOLLOW / #12 STANDARD (0.35) / 6",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER HOLLOW"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "6"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327756021812",
+          "title": "ROUND LINER HOLLOW / #12 STANDARD (0.35) / 8",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER HOLLOW"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "8"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327756054580",
+          "title": "ROUND LINER HOLLOW / #12 STANDARD (0.35) / 10",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER HOLLOW"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "10"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327756087348",
+          "title": "ROUND LINER DOUBLE TIGHT / #12 STANDARD (0.35) / 3",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER DOUBLE TIGHT"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "3"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

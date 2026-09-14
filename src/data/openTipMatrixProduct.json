@@ -1,0 +1,912 @@
+{
+  "id": "gid://shopify/Product/8950111469620",
+  "title": "PAPA Open Tip Tattoo Cartridges",
+  "handle": "papa-open-tip-tattoo-cartridges",
+  "description": "Professional open reservoir tattoo cartridge needles.",
+  "descriptionHtml": "<p><strong>PAPA Open Tip Tattoo Cartridge Needles</strong> feature an unobstructed cutaway needle reservoir designed for rapid pigment dipping, instant tip rinsing, and maximum needle stroke visibility during intense shading and packing sessions.</p>\n<ul>\n<li><strong>Japanese 316L Surgical Stainless Steel</strong> precision magnum configurations.</li>\n<li><strong>Cutaway Open-Reservoir Housing</strong> for high-volume pigment flow and zero tip clutter.</li>\n<li><strong>Medical Anti-Backflow Membrane</strong> prevents ink contamination into motor mechanisms.</li>\n<li><strong>100% EO Gas Sterilized</strong> in individual medical packaging.</li>\n<li><strong>Universal Compatibility</strong> with all rotary tattoo machines and grips.</li>\n</ul>",
+  "availableForSale": true,
+  "tags": [
+    "PAPA OPEN TIP",
+    "Needle Cartridges",
+    "consolidated-matrix"
+  ],
+  "options": [
+    {
+      "name": "Type",
+      "values": [
+        "MAGNUM (OPEN)",
+        "MAGNUM CURVED (OPEN)"
+      ]
+    },
+    {
+      "name": "Gauge",
+      "values": [
+        "#12 STANDARD (0.35)",
+        "#10 BUGPIN (0.30)",
+        "#8 BUGPIN (0.25)"
+      ]
+    },
+    {
+      "name": "Size",
+      "values": [
+        "5",
+        "7",
+        "9",
+        "11",
+        "13",
+        "15",
+        "17"
+      ]
+    }
+  ],
+  "priceRange": {
+    "minVariantPrice": {
+      "amount": "24.0",
+      "currencyCode": "USD"
+    }
+  },
+  "images": {
+    "edges": [
+      {
+        "node": {
+          "url": "https://cdn.shopify.com/s/files/1/0780/2955/3716/files/papa-cartridges-needles-magnum_4_1_1_1_1_1_1.jpg?v=1789096964",
+          "altText": "PAPA Open Tip Tattoo Cartridges"
+        }
+      }
+    ]
+  },
+  "variants": {
+    "edges": [
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327757561908",
+          "title": "MAGNUM (OPEN) / #12 STANDARD (0.35) / 5",
+          "availableForSale": true,
+          "price": {
+            "amount": "22.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "5"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327757594676",
+          "title": "MAGNUM (OPEN) / #12 STANDARD (0.35) / 7",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "7"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327757627444",
+          "title": "MAGNUM (OPEN) / #12 STANDARD (0.35) / 9",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "9"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327757660212",
+          "title": "MAGNUM (OPEN) / #12 STANDARD (0.35) / 11",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "11"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327757692980",
+          "title": "MAGNUM (OPEN) / #12 STANDARD (0.35) / 13",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "13"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327757725748",
+          "title": "MAGNUM (OPEN) / #12 STANDARD (0.35) / 15",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "15"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327757758516",
+          "title": "MAGNUM CURVED (OPEN) / #12 STANDARD (0.35) / 5",
+          "availableForSale": true,
+          "price": {
+            "amount": "22.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "5"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327757791284",
+          "title": "MAGNUM CURVED (OPEN) / #12 STANDARD (0.35) / 7",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "7"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327757824052",
+          "title": "MAGNUM CURVED (OPEN) / #12 STANDARD (0.35) / 9",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "9"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327757856820",
+          "title": "MAGNUM CURVED (OPEN) / #12 STANDARD (0.35) / 11",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "11"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327757889588",
+          "title": "MAGNUM CURVED (OPEN) / #12 STANDARD (0.35) / 13",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "13"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327757922356",
+          "title": "MAGNUM CURVED (OPEN) / #12 STANDARD (0.35) / 15",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "15"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327757955124",
+          "title": "MAGNUM (OPEN) / #10 BUGPIN (0.30) / 7",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "7"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327757987892",
+          "title": "MAGNUM (OPEN) / #10 BUGPIN (0.30) / 9",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "9"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327758020660",
+          "title": "MAGNUM (OPEN) / #10 BUGPIN (0.30) / 11",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "11"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327758053428",
+          "title": "MAGNUM (OPEN) / #10 BUGPIN (0.30) / 13",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "13"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327758086196",
+          "title": "MAGNUM (OPEN) / #10 BUGPIN (0.30) / 15",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "15"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327758118964",
+          "title": "MAGNUM (OPEN) / #10 BUGPIN (0.30) / 17",
+          "availableForSale": true,
+          "price": {
+            "amount": "29.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "17"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327758151732",
+          "title": "MAGNUM CURVED (OPEN) / #10 BUGPIN (0.30) / 7",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "7"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327758184500",
+          "title": "MAGNUM CURVED (OPEN) / #10 BUGPIN (0.30) / 9",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "9"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327758217268",
+          "title": "MAGNUM CURVED (OPEN) / #10 BUGPIN (0.30) / 11",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "11"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327758250036",
+          "title": "MAGNUM CURVED (OPEN) / #10 BUGPIN (0.30) / 13",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "13"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327758282804",
+          "title": "MAGNUM CURVED (OPEN) / #10 BUGPIN (0.30) / 15",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "15"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327758315572",
+          "title": "MAGNUM CURVED (OPEN) / #10 BUGPIN (0.30) / 17",
+          "availableForSale": true,
+          "price": {
+            "amount": "29.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "17"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327758348340",
+          "title": "MAGNUM (OPEN) / #8 BUGPIN (0.25) / 9",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "9"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327758381108",
+          "title": "MAGNUM (OPEN) / #8 BUGPIN (0.25) / 11",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "11"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327758413876",
+          "title": "MAGNUM (OPEN) / #8 BUGPIN (0.25) / 13",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "13"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327758446644",
+          "title": "MAGNUM (OPEN) / #8 BUGPIN (0.25) / 15",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "15"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327758512180",
+          "title": "MAGNUM (OPEN) / #8 BUGPIN (0.25) / 17",
+          "availableForSale": true,
+          "price": {
+            "amount": "29.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "17"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327758544948",
+          "title": "MAGNUM CURVED (OPEN) / #8 BUGPIN (0.25) / 9",
+          "availableForSale": true,
+          "price": {
+            "amount": "24.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "9"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327758577716",
+          "title": "MAGNUM CURVED (OPEN) / #8 BUGPIN (0.25) / 11",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "11"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327758610484",
+          "title": "MAGNUM CURVED (OPEN) / #8 BUGPIN (0.25) / 13",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "13"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327758643252",
+          "title": "MAGNUM CURVED (OPEN) / #8 BUGPIN (0.25) / 15",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "15"
+            }
+          ]
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327758676020",
+          "title": "MAGNUM CURVED (OPEN) / #8 BUGPIN (0.25) / 17",
+          "availableForSale": true,
+          "price": {
+            "amount": "29.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED (OPEN)"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "17"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

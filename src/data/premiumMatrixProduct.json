@@ -1,0 +1,1689 @@
+{
+  "id": "gid://shopify/Product/8949899984948",
+  "title": "PAPA Premium Tattoo Cartridges",
+  "handle": "papa-premium-tattoo-cartridges",
+  "description": "PAPA Premium Tattoo Cartridges. Engineered with Japanese 316L Surgical Steel, micro-stabilized safety membrane, and optical-grade polycarbonate casing.",
+  "descriptionHtml": "<p><strong>PAPA Premium Tattoo Cartridge Needles</strong> are engineered specifically for high-end professional tattoo artists demanding utmost precision, needle stabilization, and hygienic safety.</p>\n<ul>\n<li>\n<strong>Japanese 316L Surgical Stainless Steel</strong> needle pins with razor-sharp taper profiles.</li>\n<li>\n<strong>Micro-Stabilized Poly-Elastomer Membrane</strong> system prevents ink spit-back and provides silent, zero-vibration needle guidance.</li>\n<li>\n<strong>Optical-Grade Polycarbonate Casing</strong> ensures clear ink reservoir visibility and effortless fluid flow.</li>\n<li>\n<strong>100% EO Gas Sterilized</strong> in individual medical blister packs with sterile batch verification.</li>\n<li>\n<strong>Universal Compatibility</strong> with all rotary cartridge machines and grips (Cheyenne, Bishop, FK Irons, Critical).</li>\n</ul>",
+  "availableForSale": true,
+  "tags": [
+    "PAPA PREMIUM",
+    "Needle Cartridges",
+    "consolidated-matrix"
+  ],
+  "priceRange": {
+    "minVariantPrice": {
+      "amount": "25.00",
+      "currencyCode": "USD"
+    }
+  },
+  "images": {
+    "edges": [
+      {
+        "node": {
+          "url": "https://cdn.shopify.com/s/files/1/0780/2955/3716/files/new_premium-1_47.jpg?v=1789098619",
+          "altText": "PAPA Premium Tattoo Cartridges"
+        }
+      }
+    ]
+  },
+  "options": [
+    {
+      "name": "Type",
+      "values": [
+        "ROUND LINER",
+        "MAGNUM",
+        "ROUND SHADER",
+        "ROUND LINER HOLLOW",
+        "ROUND LINER DOUBLE TIGHT",
+        "MAGNUM CURVED"
+      ]
+    },
+    {
+      "name": "Gauge",
+      "values": [
+        "#8 BUGPIN (0.25)",
+        "#10 BUGPIN (0.30)",
+        "#12 STANDARD (0.35)",
+        "#6 BUGPIN (0.20)",
+        "#4 BUGPIN (0.18)"
+      ]
+    },
+    {
+      "name": "Size",
+      "values": [
+        "3",
+        "5",
+        "7",
+        "1",
+        "9",
+        "17",
+        "6",
+        "8",
+        "10",
+        "11",
+        "14",
+        "23",
+        "13",
+        "15",
+        "18",
+        "27"
+      ]
+    }
+  ],
+  "variants": {
+    "edges": [
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327413661748",
+          "title": "ROUND LINER / #8 BUGPIN (0.25) / 3",
+          "availableForSale": true,
+          "price": {
+            "amount": "25.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "3"
+            }
+          ],
+          "sku": "PM0803RLLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327413694516",
+          "title": "ROUND LINER / #8 BUGPIN (0.25) / 5",
+          "availableForSale": true,
+          "price": {
+            "amount": "25.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "5"
+            }
+          ],
+          "sku": "PM0805RLLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327413727284",
+          "title": "ROUND LINER / #8 BUGPIN (0.25) / 7",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "7"
+            }
+          ],
+          "sku": "PM0807RLLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327413760052",
+          "title": "ROUND LINER / #10 BUGPIN (0.30) / 1",
+          "availableForSale": true,
+          "price": {
+            "amount": "25.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "1"
+            }
+          ],
+          "sku": "PM1001RLLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327413792820",
+          "title": "ROUND LINER / #10 BUGPIN (0.30) / 3",
+          "availableForSale": true,
+          "price": {
+            "amount": "25.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "3"
+            }
+          ],
+          "sku": "PM1003RLLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327413825588",
+          "title": "ROUND LINER / #10 BUGPIN (0.30) / 5",
+          "availableForSale": true,
+          "price": {
+            "amount": "25.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "5"
+            }
+          ],
+          "sku": "PM1005RLLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327413858356",
+          "title": "ROUND LINER / #10 BUGPIN (0.30) / 7",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "7"
+            }
+          ],
+          "sku": "PM1007RLLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327413891124",
+          "title": "ROUND LINER / #10 BUGPIN (0.30) / 9",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "9"
+            }
+          ],
+          "sku": "PM1009RLLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327413923892",
+          "title": "ROUND LINER / #8 BUGPIN (0.25) / 9",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "9"
+            }
+          ],
+          "sku": "PM0809RLLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327413956660",
+          "title": "MAGNUM / #12 STANDARD (0.35) / 17",
+          "availableForSale": true,
+          "price": {
+            "amount": "33.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "17"
+            }
+          ],
+          "sku": "PM1217MGLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327413989428",
+          "title": "ROUND LINER / #6 BUGPIN (0.20) / 3",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#6 BUGPIN (0.20)"
+            },
+            {
+              "name": "Size",
+              "value": "3"
+            }
+          ],
+          "sku": "PM0603RLLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414022196",
+          "title": "ROUND SHADER / #12 STANDARD (0.35) / 7",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND SHADER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "7"
+            }
+          ],
+          "sku": "PM1207RSLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414054964",
+          "title": "ROUND SHADER / #12 STANDARD (0.35) / 9",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND SHADER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "9"
+            }
+          ],
+          "sku": "PM1209RSLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414087732",
+          "title": "ROUND LINER HOLLOW / #12 STANDARD (0.35) / 6",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER HOLLOW"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "6"
+            }
+          ],
+          "sku": "PMH1206RLLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414120500",
+          "title": "ROUND LINER HOLLOW / #12 STANDARD (0.35) / 8",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER HOLLOW"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "8"
+            }
+          ],
+          "sku": "PMH1208RLLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414153268",
+          "title": "ROUND LINER HOLLOW / #12 STANDARD (0.35) / 10",
+          "availableForSale": true,
+          "price": {
+            "amount": "30.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER HOLLOW"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "10"
+            }
+          ],
+          "sku": "PMH1210RLLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414186036",
+          "title": "ROUND LINER / #12 STANDARD (0.35) / 1",
+          "availableForSale": true,
+          "price": {
+            "amount": "25.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "1"
+            }
+          ],
+          "sku": "PM1201RLLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414218804",
+          "title": "ROUND LINER / #12 STANDARD (0.35) / 3",
+          "availableForSale": true,
+          "price": {
+            "amount": "25.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "3"
+            }
+          ],
+          "sku": "PM1203RLLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414251572",
+          "title": "ROUND LINER / #12 STANDARD (0.35) / 5",
+          "availableForSale": true,
+          "price": {
+            "amount": "25.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "5"
+            }
+          ],
+          "sku": "PM1205RLLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414284340",
+          "title": "ROUND LINER / #12 STANDARD (0.35) / 7",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "7"
+            }
+          ],
+          "sku": "PM1207RLLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414317108",
+          "title": "ROUND LINER / #12 STANDARD (0.35) / 9",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "9"
+            }
+          ],
+          "sku": "PM1209RLLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414349876",
+          "title": "ROUND LINER / #12 STANDARD (0.35) / 11",
+          "availableForSale": true,
+          "price": {
+            "amount": "30.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "11"
+            }
+          ],
+          "sku": "PM1211RLLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414382644",
+          "title": "ROUND LINER DOUBLE TIGHT / #12 STANDARD (0.35) / 3",
+          "availableForSale": true,
+          "price": {
+            "amount": "30.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER DOUBLE TIGHT"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "3"
+            }
+          ],
+          "sku": "PM1203RLDT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414415412",
+          "title": "ROUND LINER / #12 STANDARD (0.35) / 14",
+          "availableForSale": true,
+          "price": {
+            "amount": "30.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "14"
+            }
+          ],
+          "sku": "PM1214RLLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414448180",
+          "title": "ROUND LINER / #4 BUGPIN (0.18) / 3",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#4 BUGPIN (0.18)"
+            },
+            {
+              "name": "Size",
+              "value": "3"
+            }
+          ],
+          "sku": "PM0403RLLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414480948",
+          "title": "ROUND SHADER / #12 STANDARD (0.35) / 11",
+          "availableForSale": true,
+          "price": {
+            "amount": "30.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND SHADER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "11"
+            }
+          ],
+          "sku": "PM1211RSLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414513716",
+          "title": "ROUND SHADER / #10 BUGPIN (0.30) / 5",
+          "availableForSale": true,
+          "price": {
+            "amount": "25.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND SHADER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "5"
+            }
+          ],
+          "sku": "PM1005RSLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414546484",
+          "title": "ROUND SHADER / #10 BUGPIN (0.30) / 7",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND SHADER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "7"
+            }
+          ],
+          "sku": "PM1007RSLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414579252",
+          "title": "ROUND SHADER / #10 BUGPIN (0.30) / 9",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND SHADER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "9"
+            }
+          ],
+          "sku": "PM1009RSLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414612020",
+          "title": "MAGNUM CURVED / #10 BUGPIN (0.30) / 23",
+          "availableForSale": true,
+          "price": {
+            "amount": "33.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "23"
+            }
+          ],
+          "sku": "PM1023SEMLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414644788",
+          "title": "ROUND SHADER / #12 STANDARD (0.35) / 5",
+          "availableForSale": true,
+          "price": {
+            "amount": "25.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND SHADER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "5"
+            }
+          ],
+          "sku": "PM1205RSLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414677556",
+          "title": "ROUND SHADER / #12 STANDARD (0.35) / 3",
+          "availableForSale": true,
+          "price": {
+            "amount": "25.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND SHADER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "3"
+            }
+          ],
+          "sku": "PM1203RSLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414710324",
+          "title": "ROUND SHADER / #12 STANDARD (0.35) / 13",
+          "availableForSale": true,
+          "price": {
+            "amount": "30.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND SHADER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "13"
+            }
+          ],
+          "sku": "PM1213RSLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414743092",
+          "title": "MAGNUM / #12 STANDARD (0.35) / 5",
+          "availableForSale": true,
+          "price": {
+            "amount": "25.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "5"
+            }
+          ],
+          "sku": "PM1205MGLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414775860",
+          "title": "MAGNUM / #12 STANDARD (0.35) / 7",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "7"
+            }
+          ],
+          "sku": "PM1207MGLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414808628",
+          "title": "MAGNUM / #12 STANDARD (0.35) / 9",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "9"
+            }
+          ],
+          "sku": "PM1209MGLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414841396",
+          "title": "MAGNUM / #12 STANDARD (0.35) / 15",
+          "availableForSale": true,
+          "price": {
+            "amount": "30.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "15"
+            }
+          ],
+          "sku": "PM1215MGLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414874164",
+          "title": "MAGNUM CURVED / #10 BUGPIN (0.30) / 7",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "7"
+            }
+          ],
+          "sku": "PM1007SEMLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414906932",
+          "title": "MAGNUM CURVED / #10 BUGPIN (0.30) / 9",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "9"
+            }
+          ],
+          "sku": "PM1009SEMLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414939700",
+          "title": "MAGNUM CURVED / #12 STANDARD (0.35) / 7",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "7"
+            }
+          ],
+          "sku": "PM1207SEMLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327414972468",
+          "title": "MAGNUM CURVED / #12 STANDARD (0.35) / 9",
+          "availableForSale": true,
+          "price": {
+            "amount": "27.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "9"
+            }
+          ],
+          "sku": "PM1209SEMLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327415005236",
+          "title": "MAGNUM CURVED / #12 STANDARD (0.35) / 11",
+          "availableForSale": true,
+          "price": {
+            "amount": "30.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "11"
+            }
+          ],
+          "sku": "PM1211SEMLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327415038004",
+          "title": "MAGNUM CURVED / #12 STANDARD (0.35) / 13",
+          "availableForSale": true,
+          "price": {
+            "amount": "30.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "13"
+            }
+          ],
+          "sku": "PM1213SEMLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327415070772",
+          "title": "MAGNUM CURVED / #12 STANDARD (0.35) / 15",
+          "availableForSale": true,
+          "price": {
+            "amount": "30.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "15"
+            }
+          ],
+          "sku": "PM1215SEMLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327415103540",
+          "title": "ROUND SHADER / #12 STANDARD (0.35) / 18",
+          "availableForSale": true,
+          "price": {
+            "amount": "33.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND SHADER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "18"
+            }
+          ],
+          "sku": "PM1218RSLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327415136308",
+          "title": "ROUND LINER / #8 BUGPIN (0.25) / 1",
+          "availableForSale": true,
+          "price": {
+            "amount": "25.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#8 BUGPIN (0.25)"
+            },
+            {
+              "name": "Size",
+              "value": "1"
+            }
+          ],
+          "sku": "PM0801RLLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327415169076",
+          "title": "ROUND LINER / #12 STANDARD (0.35) / 15",
+          "availableForSale": true,
+          "price": {
+            "amount": "30.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "15"
+            }
+          ],
+          "sku": "PM1215RLLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327415201844",
+          "title": "MAGNUM / #12 STANDARD (0.35) / 11",
+          "availableForSale": true,
+          "price": {
+            "amount": "30.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "11"
+            }
+          ],
+          "sku": "PM1211MGLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327415234612",
+          "title": "MAGNUM CURVED / #10 BUGPIN (0.30) / 11",
+          "availableForSale": true,
+          "price": {
+            "amount": "30.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "11"
+            }
+          ],
+          "sku": "PM1011SEMLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327415267380",
+          "title": "MAGNUM CURVED / #12 STANDARD (0.35) / 17",
+          "availableForSale": true,
+          "price": {
+            "amount": "33.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "17"
+            }
+          ],
+          "sku": "PM1217SEMLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327415300148",
+          "title": "MAGNUM CURVED / #12 STANDARD (0.35) / 23",
+          "availableForSale": true,
+          "price": {
+            "amount": "33.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "23"
+            }
+          ],
+          "sku": "PM1223SEMLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327415332916",
+          "title": "ROUND SHADER / #12 STANDARD (0.35) / 15",
+          "availableForSale": true,
+          "price": {
+            "amount": "30.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND SHADER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "15"
+            }
+          ],
+          "sku": "PM1215RSLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327415365684",
+          "title": "ROUND LINER / #12 STANDARD (0.35) / 13",
+          "availableForSale": true,
+          "price": {
+            "amount": "30.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "13"
+            }
+          ],
+          "sku": "PM1213RLLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327415398452",
+          "title": "MAGNUM / #12 STANDARD (0.35) / 23",
+          "availableForSale": true,
+          "price": {
+            "amount": "33.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "23"
+            }
+          ],
+          "sku": "PM1223MGLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327415431220",
+          "title": "MAGNUM CURVED / #10 BUGPIN (0.30) / 13",
+          "availableForSale": true,
+          "price": {
+            "amount": "30.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "13"
+            }
+          ],
+          "sku": "PM1013SEMLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327415463988",
+          "title": "MAGNUM CURVED / #10 BUGPIN (0.30) / 15",
+          "availableForSale": true,
+          "price": {
+            "amount": "30.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "15"
+            }
+          ],
+          "sku": "PM1015SEMLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327415496756",
+          "title": "MAGNUM CURVED / #10 BUGPIN (0.30) / 17",
+          "availableForSale": true,
+          "price": {
+            "amount": "33.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "17"
+            }
+          ],
+          "sku": "PM1017SEMLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327415529524",
+          "title": "MAGNUM CURVED / #10 BUGPIN (0.30) / 27",
+          "availableForSale": true,
+          "price": {
+            "amount": "33.03",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "27"
+            }
+          ],
+          "sku": "PM1027SEMLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327415562292",
+          "title": "MAGNUM / #12 STANDARD (0.35) / 13",
+          "availableForSale": true,
+          "price": {
+            "amount": "30.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "13"
+            }
+          ],
+          "sku": "PM1213MGLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327415595060",
+          "title": "ROUND SHADER / #10 BUGPIN (0.30) / 3",
+          "availableForSale": true,
+          "price": {
+            "amount": "25.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND SHADER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#10 BUGPIN (0.30)"
+            },
+            {
+              "name": "Size",
+              "value": "3"
+            }
+          ],
+          "sku": "PM1003RSLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327415627828",
+          "title": "MAGNUM CURVED / #12 STANDARD (0.35) / 5",
+          "availableForSale": true,
+          "price": {
+            "amount": "25.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "MAGNUM CURVED"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "5"
+            }
+          ],
+          "sku": "PM1205SEMLT"
+        }
+      },
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/48327415660596",
+          "title": "ROUND LINER / #12 STANDARD (0.35) / 18",
+          "availableForSale": true,
+          "price": {
+            "amount": "33.00",
+            "currencyCode": "USD"
+          },
+          "selectedOptions": [
+            {
+              "name": "Type",
+              "value": "ROUND LINER"
+            },
+            {
+              "name": "Gauge",
+              "value": "#12 STANDARD (0.35)"
+            },
+            {
+              "name": "Size",
+              "value": "18"
+            }
+          ],
+          "sku": "PM1218RLLT"
+        }
+      }
+    ]
+  }
+}

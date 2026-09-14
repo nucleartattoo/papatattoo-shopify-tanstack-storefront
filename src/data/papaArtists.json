@@ -1,0 +1,296 @@
+[
+  {
+    "id": "artist-1",
+    "name": "Alec Turner",
+    "handle": "@alecturnertattoos",
+    "instagram": "https://www.instagram.com/alecturnertattoos/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/wysiwyg/artist/Alec_Turner_Papa_Tattoo.jpg"
+  },
+  {
+    "id": "artist-2",
+    "name": "Alissa Jung",
+    "handle": "@alissajungink",
+    "instagram": "https://www.instagram.com/alissajungink/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/wysiwyg/artist/Alissa_Jung.jpg"
+  },
+  {
+    "id": "artist-3",
+    "name": "Allay Anderson",
+    "handle": "@allaytattoo",
+    "instagram": "https://www.instagram.com/allaytattoo/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/wysiwyg/artist/Allay_Anderson.jpg"
+  },
+  {
+    "id": "artist-4",
+    "name": "Andy Trejo",
+    "handle": "@andydestroy",
+    "instagram": "https://www.instagram.com/andydestroy/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/AndyTrejo.jpg"
+  },
+  {
+    "id": "artist-5",
+    "name": "Angel Gonzalez",
+    "handle": "@agtattooartis",
+    "instagram": "https://www.instagram.com/agtattooartis/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/wysiwyg/artist/AngelGonzalez-2.jpg"
+  },
+  {
+    "id": "artist-6",
+    "name": "Angel Reynosa",
+    "handle": "@angel.reynosa",
+    "instagram": "https://www.instagram.com/angel.reynosa/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Angel_Reynosa_from_Papa_Tattoo.jpg"
+  },
+  {
+    "id": "artist-7",
+    "name": "Arnold Bautista",
+    "handle": "@mrgrouchtattoos",
+    "instagram": "https://www.instagram.com/mrgrouchtattoos/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/wysiwyg/artist/Arnoldo_Bautista.jpg"
+  },
+  {
+    "id": "artist-8",
+    "name": "Ashton Vermillion",
+    "handle": "@avermillionink",
+    "instagram": "https://www.instagram.com/avermillionink/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Ashton_Vermillion.jpg"
+  },
+  {
+    "id": "artist-9",
+    "name": "Audie Fulfer Jr.",
+    "handle": "@audie_tattoos",
+    "instagram": "https://www.instagram.com/audie_tattoos/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/wysiwyg/artist/AudieFulfer.jpg"
+  },
+  {
+    "id": "artist-10",
+    "name": "Brad Harris",
+    "handle": "@wizdomcali",
+    "instagram": "https://www.instagram.com/wizdomcali/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Brad.jpg"
+  },
+  {
+    "id": "artist-11",
+    "name": "Brookelle Bombshelle",
+    "handle": "@brookelle.bombshelle",
+    "instagram": "https://www.instagram.com/brookelle.bombshelle/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Brookelle_Bombshelle_1.jpg"
+  },
+  {
+    "id": "artist-12",
+    "name": "Cate Cen",
+    "handle": "@_crispyaura",
+    "instagram": "https://www.instagram.com/_crispyaura/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Cate_Cen.jpeg"
+  },
+  {
+    "id": "artist-13",
+    "name": "Chris Deshields",
+    "handle": "@tattoosbychrisd",
+    "instagram": "https://www.instagram.com/tattoosbychrisd/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Chris_DeShields_from_Papa_Tattoo.jpg"
+  },
+  {
+    "id": "artist-14",
+    "name": "Christine Barnum",
+    "handle": "@christinebarnum",
+    "instagram": "https://www.instagram.com/christinebarnum/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Christine_Barnum_from_Papa_Tattoo.jpg"
+  },
+  {
+    "id": "artist-15",
+    "name": "Cynthia Medina",
+    "handle": "@cynxoxotattoos",
+    "instagram": "https://www.instagram.com/cynxoxotattoos/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Cynthia_Mendina.jpg"
+  },
+  {
+    "id": "artist-16",
+    "name": "Ej",
+    "handle": "@ej_tatts",
+    "instagram": "https://www.instagram.com/ej_tatts/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Edward_Croaker.jpg"
+  },
+  {
+    "id": "artist-17",
+    "name": "Erick Foreman",
+    "handle": "@erickforemantattoos",
+    "instagram": "https://www.instagram.com/erickforemantattoos/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/ErickDominguez.jpg"
+  },
+  {
+    "id": "artist-18",
+    "name": "Gregory Emmerson",
+    "handle": "@lord_gregory_emerson",
+    "instagram": "https://www.instagram.com/lord_gregory_emerson/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Papa_Tattoo_Gregory_Emmerson.jpg"
+  },
+  {
+    "id": "artist-19",
+    "name": "Greg Mayorga",
+    "handle": "@gregmayorga_",
+    "instagram": "https://www.instagram.com/gregmayorga_/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Gregory_Mayorga_Papa_Tattoo.jpg"
+  },
+  {
+    "id": "artist-20",
+    "name": "Greg Sumii",
+    "handle": "@sumii_liquidfetishtattoo",
+    "instagram": "https://www.instagram.com/sumii_liquidfetishtattoo/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Greg_Sumi.jpeg"
+  },
+  {
+    "id": "artist-21",
+    "name": "Jason Hartz",
+    "handle": "@jhartz_tat2",
+    "instagram": "https://www.instagram.com/jhartz_tat2/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Jason_Hartz.png"
+  },
+  {
+    "id": "artist-22",
+    "name": "Jennal Wang",
+    "handle": "@jennal_wang",
+    "instagram": "https://www.instagram.com/jennal_wang/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Jennal_Wang.png"
+  },
+  {
+    "id": "artist-23",
+    "name": "Jeremy Looney",
+    "handle": "@jeremylooneytattoos",
+    "instagram": "https://www.instagram.com/jeremylooneytattoos/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Papa_Tattoo_Sponsor.jpg"
+  },
+  {
+    "id": "artist-24",
+    "name": "Jeromy Hunt",
+    "handle": "@nemo619one",
+    "instagram": "https://www.instagram.com/nemo619one/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Papa_Tattoo_Nemo.jpg"
+  },
+  {
+    "id": "artist-25",
+    "name": "Jesse Krydick",
+    "handle": "@jesse.tattoo",
+    "instagram": "https://www.instagram.com/jesse.tattoo/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Jesse_Krydick.jpg"
+  },
+  {
+    "id": "artist-26",
+    "name": "Joshua Benard",
+    "handle": "@joshua_benard_",
+    "instagram": "https://www.instagram.com/joshua_benard_/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Papa_Tattoo_Joshua_Bernard.jpg"
+  },
+  {
+    "id": "artist-27",
+    "name": "Lisa Marie",
+    "handle": "@lisa_marie_ink",
+    "instagram": "https://www.instagram.com/lisa_marie_ink/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Papa_Tattoo_Lisa_Marie.jpg"
+  },
+  {
+    "id": "artist-28",
+    "name": "Mario Beltran",
+    "handle": "@mariio_iinks_sdt",
+    "instagram": "https://www.instagram.com/mariio_iinks_sdt/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Mario_Beltran.jpg"
+  },
+  {
+    "id": "artist-29",
+    "name": "Peter Paun",
+    "handle": "@thedragonoffunan",
+    "instagram": "https://www.instagram.com/thedragonoffunan/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/PeterPaun-2.jpg"
+  },
+  {
+    "id": "artist-30",
+    "name": "Phillip Spearman",
+    "handle": "@phillipspearmantattoo",
+    "instagram": "https://www.instagram.com/phillipspearmantattoo/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Papa_Tattoo_Sponsor_Phillip_Spearman.jpg"
+  },
+  {
+    "id": "artist-31",
+    "name": "Ralph Perez",
+    "handle": "@ralphpereztattoo",
+    "instagram": "https://www.instagram.com/ralphpereztattoo/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Ralph_Perez.jpg"
+  },
+  {
+    "id": "artist-32",
+    "name": "Raul Ocampo",
+    "handle": "@raultattoo",
+    "instagram": "https://www.instagram.com/raultattoo/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/RaulOcampo.jpg"
+  },
+  {
+    "id": "artist-33",
+    "name": "Ricardo Montenegro",
+    "handle": "@ricardo_montenegroart",
+    "instagram": "https://www.instagram.com/ricardo_montenegroart/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Ricardo_Montenegro_from_Papa_Tattoo.jpg"
+  },
+  {
+    "id": "artist-34",
+    "name": "Rudy Baltier",
+    "handle": "@rudybaltier",
+    "instagram": "https://www.instagram.com/rudybaltier/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Rudy_Baltier.jpg"
+  },
+  {
+    "id": "artist-35",
+    "name": "Sam Chacon",
+    "handle": "@samchacontattoo",
+    "instagram": "https://www.instagram.com/samchacontattoo",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Papa_Tattoo_Sponsor_Sam_Chacon.jpg"
+  },
+  {
+    "id": "artist-36",
+    "name": "Stefanie Bieri",
+    "handle": "@inkbykiakaha",
+    "instagram": "https://www.instagram.com/inkbykiakaha/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Stefanie_Bieri1.jpg"
+  },
+  {
+    "id": "artist-37",
+    "name": "Steve De Los Reyes",
+    "handle": "@stevedelosreyes",
+    "instagram": "https://www.instagram.com/stevedelosreyes/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Steve_De_Los_Reyes.jpg"
+  },
+  {
+    "id": "artist-38",
+    "name": "Sun Mi",
+    "handle": "@sunmi.tattoo",
+    "instagram": "https://www.instagram.com/sunmi.tattoo/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/SunMiChang.jpg"
+  },
+  {
+    "id": "artist-39",
+    "name": "Sydney Smith",
+    "handle": "@sydsmithhh",
+    "instagram": "https://www.instagram.com/sydsmithhh/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Sydney_Smith.jpg"
+  },
+  {
+    "id": "artist-40",
+    "name": "Valerie Sachko",
+    "handle": "@sachkoart",
+    "instagram": "https://www.instagram.com/sachkoart/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Valerie_Sachko_Papa_Tattoo.jpg"
+  },
+  {
+    "id": "artist-41",
+    "name": "Vu Tran",
+    "handle": "@vudoo_tattoo",
+    "instagram": "https://www.instagram.com/vudoo_tattoo/",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/VuTran.jpg"
+  },
+  {
+    "id": "artist-42",
+    "name": "Winona Taylor",
+    "handle": "@winonataylortattoos",
+    "instagram": "https://www.instagram.com/winonataylortattoos",
+    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Winona.jpg"
+  }
+]
