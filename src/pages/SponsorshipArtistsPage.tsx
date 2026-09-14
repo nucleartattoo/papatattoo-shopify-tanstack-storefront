@@ -7,6 +7,7 @@ import {
   Sparkles,
   Mail,
   ShieldCheck,
+  FileText,
 } from 'lucide-react'
 import PAPA_ARTISTS from '../data/papaArtists.json'
 
@@ -57,6 +58,29 @@ export const SponsorshipArtistsPage: React.FC = () => {
             <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed">
               Official roster of professional tattoo artists worldwide sponsored by Papa Tattoo Supply apparatus &amp; precision cartridge needles.
             </p>
+
+            {/* Official Sponsorship Application Actions */}
+            <div className="pt-2 flex flex-wrap items-center gap-3">
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSfgQxxTK1SsF62fydK8bJuJyZ-KIilUX8N-fvpclkZvngMeOA/viewform"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-5 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 font-mono font-bold uppercase text-xs tracking-wider flex items-center gap-2 hover:bg-zinc-800 dark:hover:bg-[#26cbb1] active:scale-[0.99] transition-all shadow-sm cursor-pointer"
+              >
+                <span>JOIN OUR TEAM (APPLY ONLINE)</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
+
+              <a
+                href="https://drive.google.com/file/d/1zMU7VE6YcrKKkjqP3wMo2H69Fz9SnOr1/view?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#14171E] text-zinc-700 dark:text-zinc-300 hover:text-[#0d9488] dark:hover:text-[#2EE6CA] hover:border-[#0d9488] dark:hover:border-[#2EE6CA] font-mono font-bold uppercase text-xs tracking-wider flex items-center gap-2 transition-colors cursor-pointer"
+              >
+                <FileText className="w-3.5 h-3.5 text-zinc-400 dark:text-zinc-500" />
+                <span>DOWNLOAD APPLICATION (PDF)</span>
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -176,16 +200,36 @@ export const SponsorshipArtistsPage: React.FC = () => {
               CONNECT WITH PAPA TATTOO
             </h2>
             <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed">
-              Interested in becoming a Papa sponsored artist? Tag <span className="text-zinc-900 dark:text-white font-mono font-bold">@papatattoosupply</span> in your tattoo work on Instagram or reach out directly to our factory team.
+              Interested in joining the Papa Pro Team? Submit your artist application online, enclose your portfolio, or connect with our artist relations desk on Instagram.
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto shrink-0">
+          <div className="flex flex-col sm:flex-row flex-wrap items-center gap-3 w-full md:w-auto shrink-0">
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLSfgQxxTK1SsF62fydK8bJuJyZ-KIilUX8N-fvpclkZvngMeOA/viewform"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto px-5 py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 font-mono font-bold uppercase text-xs tracking-wider flex items-center justify-center gap-2 hover:bg-zinc-800 dark:hover:bg-[#26cbb1] active:scale-[0.99] transition-all shadow-sm cursor-pointer"
+            >
+              <span>JOIN OUR TEAM</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </a>
+
+            <a
+              href="https://drive.google.com/file/d/1zMU7VE6YcrKKkjqP3wMo2H69Fz9SnOr1/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto px-4 py-3 rounded-xl border border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#14171E] text-zinc-800 dark:text-zinc-200 hover:text-[#0d9488] dark:hover:text-[#2EE6CA] hover:border-[#2EE6CA] font-mono font-bold uppercase text-xs tracking-wider flex items-center justify-center gap-2 transition-colors cursor-pointer"
+            >
+              <FileText className="w-3.5 h-3.5 text-zinc-400 dark:text-zinc-500" />
+              <span>APPLICATION (PDF)</span>
+            </a>
+
             <a
               href="https://instagram.com/papatattoosupply"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto px-5 py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 font-mono font-bold uppercase text-xs tracking-wider flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-sm cursor-pointer"
+              className="w-full sm:w-auto px-4 py-3 rounded-xl border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#14171E] text-zinc-700 dark:text-zinc-300 hover:text-[#0d9488] dark:hover:text-[#2EE6CA] hover:border-[#2EE6CA] font-mono font-bold uppercase text-xs tracking-wider flex items-center justify-center gap-2 transition-colors cursor-pointer"
             >
               <svg
                 className="w-3.5 h-3.5"
@@ -201,15 +245,14 @@ export const SponsorshipArtistsPage: React.FC = () => {
                 <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
               </svg>
               <span>@papatattoosupply</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
 
             <Link
               to="/contact"
-              className="w-full sm:w-auto px-5 py-3 rounded-xl border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#14171E] text-zinc-800 dark:text-zinc-200 hover:text-[#0d9488] dark:hover:text-[#2EE6CA] font-mono font-bold uppercase text-xs tracking-wider flex items-center justify-center gap-2 hover:border-[#2EE6CA] transition-colors cursor-pointer"
+              className="w-full sm:w-auto px-4 py-3 rounded-xl border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#14171E] text-zinc-700 dark:text-zinc-300 hover:text-[#0d9488] dark:hover:text-[#2EE6CA] hover:border-[#2EE6CA] font-mono font-bold uppercase text-xs tracking-wider flex items-center justify-center gap-2 transition-colors cursor-pointer"
             >
               <Mail className="w-3.5 h-3.5 text-[#0d9488] dark:text-[#2EE6CA]" />
-              <span>Contact Us</span>
+              <span>Contact</span>
             </Link>
           </div>
         </div>
