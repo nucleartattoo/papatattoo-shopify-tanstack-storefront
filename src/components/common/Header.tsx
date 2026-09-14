@@ -7,7 +7,7 @@ import { useCart } from '../../context/CartContext'
 import { RadixMegaMenu } from '../navigation/RadixMegaMenu'
 import { MEGA_MENU_DATA } from '../navigation/MegaMenu'
 import { HeaderSearchBar } from './HeaderSearchBar'
-import { Sun, Moon, ShoppingBag, Globe, Menu, X, ShieldCheck, ChevronDown, Sparkles, User, ArrowRight, Award, Mail, Building2, Info, Search } from 'lucide-react'
+import { Sun, Moon, ShoppingBag, Globe, Menu, X, ShieldCheck, ChevronDown, Sparkles, User, ArrowRight, Award, Mail, Info, Search } from 'lucide-react'
 import { CustomerAuthModal } from '../account/CustomerAuthModal'
 import { CustomerProfile } from '../../lib/shopify'
 
@@ -427,20 +427,6 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
               <div className="flex items-center gap-2">
                 <Award className="w-4 h-4 text-[#0d9488] dark:text-[#2ee6ca]" />
                 <span>Sponsorship Artists</span>
-              </div>
-              <ArrowRight className="w-3.5 h-3.5 text-zinc-400" />
-            </button>
-
-            <button
-              onClick={() => {
-                navigate({ to: '/distributors' })
-                setMobileMenuOpen(false)
-              }}
-              className="w-full flex items-center justify-between p-3 rounded-lg bg-zinc-50 dark:bg-[#12151B] border border-zinc-200 dark:border-[#1E232E] text-xs font-mono font-bold uppercase text-zinc-900 dark:text-white hover:text-[#0d9488] dark:hover:text-[#2ee6ca]"
-            >
-              <div className="flex items-center gap-2">
-                <Building2 className="w-4 h-4 text-[#0d9488] dark:text-[#2ee6ca]" />
-                <span>Distributors</span>
               </div>
               <ArrowRight className="w-3.5 h-3.5 text-zinc-400" />
             </button>

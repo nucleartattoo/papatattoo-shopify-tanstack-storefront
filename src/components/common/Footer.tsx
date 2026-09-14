@@ -212,6 +212,9 @@ export const Footer: React.FC = () => {
             <Link to="/about" className="hover:text-zinc-950 dark:hover:text-[#2EE6CA] transition-colors">
               ABOUT US
             </Link>
+            <Link to="/distributors" className="hover:text-zinc-950 dark:hover:text-[#2EE6CA] transition-colors">
+              DISTRIBUTORS
+            </Link>
             <Link to="/privacy-policy" hash="privacy" className="hover:text-zinc-950 dark:hover:text-[#2EE6CA] transition-colors">
               PRIVACY DISCLOSURE
             </Link>

@@ -9,7 +9,6 @@ import {
   LayoutGrid,
   Award,
   Mail,
-  Building2,
 } from 'lucide-react'
 import { MEGA_MENU_DATA } from './MegaMenu'
 
@@ -203,21 +202,7 @@ export const RadixMegaMenu: React.FC<RadixMegaMenuProps> = ({ onSelectCategory }
           </button>
         </NavigationMenu.Item>
 
-        {/* 3. Distributors Direct Link */}
-        <NavigationMenu.Item>
-          <button
-            onClick={() => {
-              navigate({ to: '/distributors' })
-              setValue('')
-            }}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-[#2ee6ca] hover:bg-zinc-100/70 dark:hover:bg-[#14171E] transition-all cursor-pointer"
-          >
-            <Building2 className="w-3.5 h-3.5 text-[#0d9488] dark:text-[#2ee6ca]" />
-            <span>Distributors</span>
-          </button>
-        </NavigationMenu.Item>
-
-        {/* 4. Contact Direct Link */}
+        {/* 3. Contact Direct Link */}
         <NavigationMenu.Item>
           <button
             onClick={() => {
