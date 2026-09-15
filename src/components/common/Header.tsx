@@ -71,7 +71,7 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
         <div className="flex items-center gap-4">
           <span>GLOBAL EXPRESS DISPATCH</span>
           <span className="text-zinc-300 dark:text-zinc-700">|</span>
-          <span>ISO 13485 CERTIFIED MANUFACTURING</span>
+          <span>OFFICIAL FACTORY DIRECT APPARATUS</span>
         </div>
       </div>
 

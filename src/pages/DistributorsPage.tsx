@@ -119,7 +119,7 @@ export const DistributorsPage: React.FC = () => {
 
             <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 font-mono leading-relaxed">
               Official regional supply partners and certified distributors authorized to distribute authentic Papa
-              Tattoo Supply hardware, ISO 13485 sterile cartridges, and precision direct-drive rotary apparatus.
+              Tattoo Supply hardware, needle cartridges, and precision direct-drive rotary apparatus.
             </p>
 
             <div className="pt-2 flex flex-wrap items-center gap-4 justify-center sm:justify-start">
@@ -152,8 +152,8 @@ export const DistributorsPage: React.FC = () => {
               <div className="text-[11px] font-mono text-zinc-500 uppercase mt-1">EO Gas Certified</div>
             </div>
             <div className="p-4 rounded-xl border border-zinc-200 dark:border-[#1E232E] bg-zinc-50/50 dark:bg-[#12151B] backdrop-blur-xs text-center">
-              <div className="text-3xl font-black font-mono text-amber-500">ISO</div>
-              <div className="text-[11px] font-mono text-zinc-500 uppercase mt-1">13485 Standard</div>
+              <div className="text-3xl font-black font-mono text-amber-500">QC</div>
+              <div className="text-[11px] font-mono text-zinc-500 uppercase mt-1">Factory Tested</div>
             </div>
             <div className="p-4 rounded-xl border border-zinc-200 dark:border-[#1E232E] bg-zinc-50/50 dark:bg-[#12151B] backdrop-blur-xs text-center">
               <div className="text-3xl font-black font-mono text-[#0d9488] dark:text-[#2EE6CA]">24H</div>
@@ -261,7 +261,7 @@ export const DistributorsPage: React.FC = () => {
               WHY PARTNER WITH PAPA TATTOO SUPPLY
             </h2>
             <p className="text-xs font-mono text-zinc-500">
-              Direct factory pricing tiers and certified ISO cleanroom sterilization support for professional distribution.
+              Direct factory pricing tiers and volume wholesale support for professional distribution.
             </p>
           </div>
 
@@ -274,7 +274,7 @@ export const DistributorsPage: React.FC = () => {
                 DIRECT FACTORY SHIPMENT
               </h3>
               <p className="text-xs font-mono text-zinc-500 leading-relaxed">
-                Direct export container and air express logistics from our cleanroom facilities to your regional warehouse.
+                Direct export container and air express logistics from our manufacturing facilities to your regional warehouse.
               </p>
             </div>
 
@@ -283,10 +283,10 @@ export const DistributorsPage: React.FC = () => {
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <h3 className="font-mono font-bold text-sm text-zinc-950 dark:text-white uppercase">
-                ISO 13485 CERTIFIED
+                FACTORY QUALITY CONTROL
               </h3>
               <p className="text-xs font-mono text-zinc-500 leading-relaxed">
-                Full EO Gas sterilization certificates and biocompatibility test reports provided for all needle batches.
+                Rigorous multi-stage factory quality control and consistent manufacturing standards across all apparatus batches.
               </p>
             </div>
 

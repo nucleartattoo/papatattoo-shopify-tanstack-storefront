@@ -49,8 +49,8 @@ export const PrivacyPolicyPage: React.FC = () => {
             3. Terms of Commercial Sale
           </a>
           <span>·</span>
-          <a href="#iso" className="text-[#0d9488] dark:text-[#2EE6CA] hover:underline">
-            4. ISO 13485 & Sterilization
+          <a href="#quality" className="text-[#0d9488] dark:text-[#2EE6CA] hover:underline">
+            4. Product Quality Standards
           </a>
           <span>·</span>
           <a href="#warranty" className="text-[#0d9488] dark:text-[#2EE6CA] hover:underline">
@@ -121,15 +121,15 @@ export const PrivacyPolicyPage: React.FC = () => {
           </div>
         </section>
 
-        {/* Section 4: ISO 13485 */}
-        <section id="iso" className="space-y-4 scroll-mt-28">
+        {/* Section 4: Quality Standards */}
+        <section id="quality" className="space-y-4 scroll-mt-28">
           <div className="flex items-center gap-2 text-base font-mono font-bold uppercase text-zinc-950 dark:text-white">
             <AlertCircle className="w-5 h-5 text-emerald-500" />
-            <h2>4. ISO 13485 CLEANROOM COMPLIANCE & STERILIZATION</h2>
+            <h2>4. PRODUCT QUALITY STANDARDS & STERILIZATION</h2>
           </div>
           <div className="p-6 rounded-xl border border-zinc-200 dark:border-[#1E232E] bg-white dark:bg-[#11141B] space-y-3 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed">
             <p>
-              All Papa Tattoo cartridge needles are assembled in medical cleanroom environments compliant with ISO 13485 medical apparatus standards. Each individual blister package incorporates an EO Gas sterilization indicator dot that confirms gas penetration, alongside batch-specific lot tracking numbers.
+              Papa Tattoo cartridge needles are manufactured with Japanese 316L surgical stainless steel pins and sealed with safety rebound membranes. Cartridges are individually packaged with EO Gas sterilization alongside batch-specific lot tracking. All rotary apparatus and hardware undergo rigorous factory multi-point inspection prior to dispatch.
             </p>
           </div>
         </section>

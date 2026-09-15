@@ -332,7 +332,7 @@ export const RadixMegaMenu: React.FC<RadixMegaMenuProps> = ({ onSelectCategory }
                 <div className="flex items-center gap-3 text-zinc-500 dark:text-zinc-400">
                   <ShieldCheck className="w-4 h-4 text-[#0d9488] dark:text-[#2EE6CA] shrink-0" />
                   <span className="tracking-wide">
-                    ISO 13485 CERTIFIED MEDICAL SPECIFICATION · 6061-T6 AEROSPACE ALLOY · ZERO TOLERANCE STABILIZATION
+                    FACTORY DIRECT PROFESSIONAL TATTOO APPARATUS · 6061-T6 AIRCRAFT ALLOY · WORLDWIDE STUDIO DISPATCH
                   </span>
                 </div>
 

@@ -195,9 +195,11 @@ export const ProductDetailPage: React.FC = () => {
                     <span>PAPA PREMIUM SERIES</span>
                   </span>
                 )}
-                <span className="px-2.5 py-1 rounded-md bg-zinc-900/80 text-white dark:bg-black/80 dark:text-[#2EE6CA] border border-zinc-700/50 font-mono text-[10px] font-bold uppercase backdrop-blur-md">
-                  ISO 13485 CERTIFIED
-                </span>
+                {isCartridge && (
+                  <span className="px-2.5 py-1 rounded-md bg-zinc-900/80 text-white dark:bg-black/80 dark:text-[#2EE6CA] border border-zinc-700/50 font-mono text-[10px] font-bold uppercase backdrop-blur-md">
+                    SAFETY MEMBRANE
+                  </span>
+                )}
               </div>
 
               {/* 3D / 2D Quick Switcher */}
@@ -389,7 +391,7 @@ export const ProductDetailPage: React.FC = () => {
             <div className="grid grid-cols-2 gap-3 pt-4 border-t border-zinc-200 dark:border-[#1E232E] text-xs font-mono text-zinc-500">
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-[#0d9488] dark:text-[#2EE6CA]" />
-                <span>100% EO Gas Sterilized</span>
+                <span>{isCartridge ? '100% EO Gas Sterilized' : 'Factory Inspected'}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Truck className="w-4 h-4 text-[#0d9488] dark:text-[#2EE6CA]" />
@@ -397,11 +399,11 @@ export const ProductDetailPage: React.FC = () => {
               </div>
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-[#0d9488] dark:text-[#2EE6CA]" />
-                <span>ISO 13485 Verified</span>
+                <span>{isCartridge ? 'Medical 316L Grade' : 'Studio Grade Apparatus'}</span>
               </div>
               <div className="flex items-center gap-2">
                 <RotateCcw className="w-4 h-4 text-[#0d9488] dark:text-[#2EE6CA]" />
-                <span>Factory Batch Guarantee</span>
+                <span>Official Quality Guarantee</span>
               </div>
             </div>
           </div>
@@ -475,7 +477,7 @@ export const ProductDetailPage: React.FC = () => {
               ) : (
                 <div className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed space-y-3">
                   <p>
-                    Professional tattoo apparatus engineered to medical ISO 13485 standards. Precision CNC-machined from aircraft-grade aluminum alloy and surgical stainless steel for consistent daily studio performance.
+                    Professional tattoo apparatus engineered for high performance studio reliability. Precision CNC-machined from aircraft-grade aluminum alloy and surgical stainless steel for consistent daily studio performance.
                   </p>
                   <p>
                     Designed by tattooists for tattooists, balancing ergonomic weight distribution with low-vibration acoustic dampening.
@@ -532,9 +534,9 @@ export const ProductDetailPage: React.FC = () => {
                       </span>
                     </div>
                     <div className="flex justify-between py-2.5 border-b border-zinc-100 dark:border-[#1C2028]">
-                      <span className="text-zinc-400">MANUFACTURING AUDIT</span>
+                      <span className="text-zinc-400">PRODUCTION AUDIT</span>
                       <span className="font-bold text-zinc-900 dark:text-zinc-100">
-                        ISO 13485:2016 Certified Cleanroom
+                        Factory Batch Quality Inspection
                       </span>
                     </div>
                   </div>
@@ -576,9 +578,9 @@ export const ProductDetailPage: React.FC = () => {
                       </span>
                     </div>
                     <div className="flex justify-between py-2.5 border-b border-zinc-100 dark:border-[#1C2028]">
-                      <span className="text-zinc-400">FACTORY CERTIFICATION</span>
+                      <span className="text-zinc-400">QUALITY ASSURANCE</span>
                       <span className="font-bold text-zinc-900 dark:text-zinc-100">
-                        CE / FCC / ISO 13485:2016 Compliant
+                        100% Factory Tested & Calibrated
                       </span>
                     </div>
                   </div>

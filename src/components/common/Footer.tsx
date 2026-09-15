@@ -221,8 +221,8 @@ export const Footer: React.FC = () => {
             <Link to="/privacy-policy" hash="terms" className="hover:text-zinc-950 dark:hover:text-[#2EE6CA] transition-colors">
               TERMS OF SALE
             </Link>
-            <Link to="/privacy-policy" hash="iso" className="hover:text-zinc-950 dark:hover:text-[#2EE6CA] transition-colors">
-              ISO 13485 COMPLIANCE
+            <Link to="/privacy-policy" hash="quality" className="hover:text-zinc-950 dark:hover:text-[#2EE6CA] transition-colors">
+              QUALITY STANDARDS
             </Link>
           </div>
         </div>

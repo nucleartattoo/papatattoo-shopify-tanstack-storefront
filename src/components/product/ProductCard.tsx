@@ -173,7 +173,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               ? 'Ultra-stabilized safety membrane · 316L Japanese surgical stainless steel · 20 pcs/box'
               : isStandardCartridge
               ? 'Medical grade polymer casing · Precision micro-grouping · 20 pcs/box'
-              : product.description || 'Precision apparatus engineered to ISO surgical standards for professional studio artists.'}
+              : product.description || 'Precision tattoo apparatus engineered for professional studio artists.'}
           </p>
         </div>
       </div>

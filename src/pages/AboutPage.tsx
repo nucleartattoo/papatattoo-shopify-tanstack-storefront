@@ -75,8 +75,8 @@ export const AboutPage: React.FC = () => {
               <div className="text-[11px] font-mono text-zinc-500 uppercase mt-1">Global Destinations</div>
             </div>
             <div className="p-4 rounded-xl border border-zinc-200 dark:border-[#1E232E] bg-zinc-50/50 dark:bg-[#12151B] text-center">
-              <div className="text-3xl font-black font-mono text-amber-500">ISO</div>
-              <div className="text-[11px] font-mono text-zinc-500 uppercase mt-1">13485 Cleanroom</div>
+              <div className="text-3xl font-black font-mono text-amber-500">QC</div>
+              <div className="text-[11px] font-mono text-zinc-500 uppercase mt-1">Factory Tested</div>
             </div>
             <div className="p-4 rounded-xl border border-zinc-200 dark:border-[#1E232E] bg-zinc-50/50 dark:bg-[#12151B] text-center">
               <div className="text-3xl font-black font-mono text-[#0d9488] dark:text-[#2EE6CA]">100%</div>

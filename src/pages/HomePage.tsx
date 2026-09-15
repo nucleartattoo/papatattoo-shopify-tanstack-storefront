@@ -104,10 +104,10 @@ export const HomePage: React.FC = () => {
             <div className="p-6 rounded-xl border border-zinc-200 dark:border-[#1E232E] bg-white dark:bg-[#13161D]">
               <ShieldCheck className="w-8 h-8 text-[#0d9488] dark:text-[#2EE6CA] mb-3" />
               <h3 className="text-sm font-mono font-black uppercase text-zinc-900 dark:text-white">
-                ISO 13485 MEDICAL MANUFACTURING
+                FACTORY QUALITY CONTROL
               </h3>
               <p className="text-xs text-zinc-500 mt-2 leading-relaxed">
-                Manufactured under ISO 13485 cleanroom protocols. 100% EO Gas sterilized with individual blister verification codes.
+                Direct factory manufacturing quality assurance. Multi-point inspection across rotary pens, cartridge systems, and studio hardware.
               </p>
             </div>
 

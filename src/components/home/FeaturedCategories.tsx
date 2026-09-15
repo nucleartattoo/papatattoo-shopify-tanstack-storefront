@@ -54,7 +54,7 @@ export const FeaturedCategories: React.FC<FeaturedCategoriesProps> = ({
             </h2>
           </div>
           <div className="text-xs font-mono text-zinc-500">
-            ENGINEERED TO MEDICAL ISO STANDARDS
+            PROFESSIONAL TATTOO HARDWARE & GEAR
           </div>
         </div>
 
