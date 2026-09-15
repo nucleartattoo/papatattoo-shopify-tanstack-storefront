@@ -1,109 +1,144 @@
 import React from 'react'
 import { ArrowRight, Sparkles, ChevronRight, ShieldCheck } from 'lucide-react'
 
+export interface MegaMenuSubcategory {
+  label: string
+  subId?: string
+  query?: string
+  series?: 'premium' | 'standard'
+  handle?: string
+  isFeatured?: boolean
+}
+
 export interface MegaMenuCategory {
   id: string
+  number: string
   title: string
   subtitle: string
   badge: string
   badgeColor?: 'cyan' | 'amber' | 'emerald' | 'zinc'
   image: string
-  categoryId: string // matches main category filter: 'machines' | 'needles' | 'grips' | 'all'
-  subcategories: {
-    label: string
-    query?: string
-    isFeatured?: boolean
-    series?: 'premium' | 'standard'
-  }[]
+  categoryId: string
+  subcategories: MegaMenuSubcategory[]
 }
 
 export const MEGA_MENU_DATA: MegaMenuCategory[] = [
   {
     id: 'machines',
+    number: '01',
     title: 'PAPA MACHINES',
-    subtitle: 'Direct-Drive Rotary Pens',
+    subtitle: 'Rotary Pens & Motors',
     badge: 'PRO MOTORS',
     badgeColor: 'cyan',
-    image: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/img_214_img_5795_cutout.webp?v=1789132146',
+    image: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/img_113_papa_pen_jet_black_1__cutout.webp?v=1789132511',
     categoryId: 'machines',
     subcategories: [
-      { label: 'Papa Pen', query: 'Papa Pen' },
-      { label: 'Papa Pen V2', query: 'Papa Pen V2' },
-      { label: 'Papa Pen V3', query: 'Papa Pen V3', isFeatured: true },
-      { label: 'PAPA PEN V3 - BLACK (FULL SET)', query: 'Full Set' },
-      { label: 'Papa Apollo Rotary', query: 'Apollo' },
+      { label: 'Papa Pen', subId: 'papa-pen' },
+      { label: 'Papa Pen V2', subId: 'papa-pen-v2' },
+      { label: 'Papa Pen V3', subId: 'papa-pen-v3', isFeatured: true },
+      { label: 'Papa Apollo Rotary', subId: 'papa-apollo', isFeatured: true },
     ],
   },
   {
     id: 'cartridges',
+    number: '02',
     title: 'PAPA CARTRIDGES',
-    subtitle: 'Medical 316L Surgical Steel',
+    subtitle: 'Medical 316L Needles',
     badge: 'SAFETY MEMBRANE',
     badgeColor: 'amber',
     image: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/papa-premium-tattoo-cartridges-round-cutout.webp?v=1789392343',
-    categoryId: 'needles',
+    categoryId: 'cartridges',
     subcategories: [
-      { label: '⭐ Papa Premium Cartridges', series: 'premium', isFeatured: true },
-      { label: 'Papa Standard Cartridges', series: 'standard', isFeatured: true },
+      {
+        label: '⭐ Papa Premium Cartridges',
+        series: 'premium',
+        subId: 'premium',
+        handle: 'papa-premium-tattoo-cartridges',
+        isFeatured: true,
+      },
+      {
+        label: 'Papa Standard Cartridges',
+        series: 'standard',
+        subId: 'standard',
+        handle: 'papa-standard-tattoo-cartridges',
+        isFeatured: true,
+      },
     ],
   },
   {
     id: 'grips',
+    number: '03',
     title: 'CARTRIDGE GRIPS',
-    subtitle: '6061-T6 Aircraft Alloy & Foam',
+    subtitle: '6061-T6 Alloy & Foam',
     badge: 'CLICK SYSTEM',
     badgeColor: 'cyan',
     image: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/img_111_papa_adjustment_grips_1__cutout.webp?v=1789132494',
     categoryId: 'grips',
     subcategories: [
-      { label: 'Disposable Cartridge Grips', query: 'disposable' },
-      { label: 'Adjustable Click Grip V2', query: 'Grip V2' },
-      { label: 'Adjustable Click Grip V3', query: 'Grip V3', isFeatured: true },
-      { label: 'Autoclavable Click Grip', query: 'Adjustable Click Grip' },
-    ],
-  },
-  {
-    id: 'apparel',
-    title: 'PAPA APPAREL',
-    subtitle: 'Official Studio Uniforms',
-    badge: 'STUDIO WEAR',
-    badgeColor: 'zinc',
-    image: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/img_012_papa_shirt1_cutout_b1c7462c-ae55-490e-8c99-b7f8e4814fdd.webp?v=1789130926',
-    categoryId: 'all',
-    subcategories: [
-      { label: 'PAPA Tattoo Hat', query: 'Hat' },
-      { label: 'Papa Tattoo Shirt Small Logo', query: 'Shirt' },
-      { label: 'Papa Apron', query: 'Apron', isFeatured: true },
+      { label: 'Adjustable Click Grip V2', subId: 'adjustable-v2' },
+      { label: 'Adjustable Grip V3', subId: 'adjustable-v3', isFeatured: true },
+      { label: 'Autoclavable Click Grip', subId: 'adjustable-click' },
+      { label: 'Disposable Cartridge Grips', subId: 'disposable-grips' },
+      { label: 'Foam Grips & Accessories', subId: 'foam-cover-grips' },
     ],
   },
   {
     id: 'power',
+    number: '04',
     title: 'PAPA POWER SUPPLY',
-    subtitle: 'Pure Copper & Digital Control',
+    subtitle: 'Pure Copper & Voltage',
     badge: 'VOLT REGULATION',
     badgeColor: 'emerald',
     image: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/img_139_papa_foot_pedal_cutout.webp?v=1789131965',
-    categoryId: 'all',
+    categoryId: 'power',
     subcategories: [
-      { label: 'RCA Cord (Straight & Angled)', query: 'RCA' },
-      { label: 'Papa Foot Pedal (360° Switch)', query: 'Foot Pedal', isFeatured: true },
-      { label: 'Papa Power Bullet', query: 'Power Bullet' },
-      { label: 'Papa Volt Battery Pack', query: 'Volt' },
+      { label: 'RCA & Clip Cords', subId: 'cords' },
+      { label: 'Papa Foot Pedal', subId: 'pedal', isFeatured: true },
+      { label: 'Papa Power Bullet', subId: 'power-units' },
+      { label: 'Papa Volt Battery', subId: 'power-units' },
+    ],
+  },
+  {
+    id: 'apparel',
+    number: '05',
+    title: 'PAPA APPAREL',
+    subtitle: 'Official Studio Wear',
+    badge: 'STUDIO WEAR',
+    badgeColor: 'zinc',
+    image: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/img_012_papa_shirt1_cutout_b1c7462c-ae55-490e-8c99-b7f8e4814fdd.webp?v=1789130926',
+    categoryId: 'apparel',
+    subcategories: [
+      { label: 'Papa Apron', subId: 'apron', isFeatured: true },
+      { label: 'PAPA Tattoo Hat', subId: 'hat' },
+      { label: 'Papa Tattoo Shirt', subId: 'shirt' },
     ],
   },
   {
     id: 'accessories',
+    number: '06',
     title: 'PAPA ACCESSORIES',
-    subtitle: 'Station Hygiene & Essentials',
-    badge: 'WORKFLOW GEAR',
+    subtitle: 'Station Hygiene & Setup',
+    badge: 'STATION GEAR',
     badgeColor: 'zinc',
     image: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/img_020_img_4371_1_cutout_bba43d18-fc58-417f-aeb5-0fa69f2be710.webp?v=1789131238',
-    categoryId: 'all',
+    categoryId: 'accessories',
     subcategories: [
-      { label: 'PAPA Travel Case', query: 'Travel Case' },
-      { label: 'Finger Ledge Grip', query: 'Finger Ledge' },
+      { label: 'Papa Station Trays', subId: 'trays', isFeatured: true },
+      { label: 'PAPA Travel Case', subId: 'travel-case' },
+      { label: 'Papa Phone Holder', query: 'Phone Holder' },
+    ],
+  },
+  {
+    id: 'stencil',
+    number: '07',
+    title: 'PAPA STENCIL',
+    subtitle: 'High-Definition Transfer',
+    badge: 'STERILE PREP',
+    badgeColor: 'cyan',
+    image: 'https://cdn.shopify.com/s/files/1/0780/2955/3716/files/img_236_9d0d527d6aac9a314dddb0b577f0fb9b_cutout.webp?v=1789132711',
+    categoryId: 'stencil',
+    subcategories: [
       { label: 'StenciLock Stencil Solution', query: 'Stencil', isFeatured: true },
-      { label: 'Papa Station Ink Tray', query: 'Tray' },
     ],
   },
 ]

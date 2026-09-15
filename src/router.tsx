@@ -44,6 +44,7 @@ const collectionsRoute = createRoute({
   path: '/collections',
   validateSearch: (search: Record<string, unknown>): CollectionSearchProps => ({
     category: (search.category as string) || undefined,
+    sub: (search.sub as string) || undefined,
     q: (search.q as string) || undefined,
     series: (search.series as 'all' | 'premium' | 'standard') || undefined,
     needle: (search.needle as string) || undefined,

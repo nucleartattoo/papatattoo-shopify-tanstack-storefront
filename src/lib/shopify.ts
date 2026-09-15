@@ -355,6 +355,21 @@ export function isGranularCartridge(prod: { handle?: string; title?: string }): 
   return false
 }
 
+// Helper to identify and filter out Nuclear Tattoo products (Cheyenne, Critical, Atom)
+export function isNuclearTattooProduct(prod: { handle?: string; title?: string }): boolean {
+  if (!prod) return false
+  const title = (prod.title || '').toLowerCase()
+  if (
+    title.includes('cheyenne') ||
+    title.includes('critical') ||
+    title.includes('atom-x') ||
+    title.includes('atom critical')
+  ) {
+    return true
+  }
+  return false
+}
+
 // Fetch catalog products with language context and comprehensive series aggregation
 export async function getProducts(options: {
   first?: number
@@ -383,8 +398,8 @@ export async function getProducts(options: {
       }>(query, { first, language, query: searchQuery })
 
       const rawItems = data.products.edges.map(e => e.node)
-      // Exclude granular individual single-needle products
-      const filtered = rawItems.filter(p => !isGranularCartridge(p))
+      // Exclude granular individual single-needle products and Nuclear Tattoo products
+      const filtered = rawItems.filter(p => !isGranularCartridge(p) && !isNuclearTattooProduct(p))
 
       const qLower = searchQuery.toLowerCase()
       // Inject consolidated products if search matches cartridge keywords
@@ -410,10 +425,10 @@ export async function getProducts(options: {
         grips: products(first: 40, query: "title:grip") {
           edges { node { ...ProductFields } }
         }
-        machines: products(first: 40, query: "title:pen OR title:atom OR title:power OR title:critical OR title:cheyenne") {
+        machines: products(first: 40, query: "title:pen OR title:apollo OR title:machine") {
           edges { node { ...ProductFields } }
         }
-        supplies: products(first: 30, query: "title:tray OR title:pedal OR title:cord OR title:case OR title:stencil OR title:shirt OR title:hat") {
+        supplies: products(first: 40, query: "title:tray OR title:pedal OR title:cord OR title:case OR title:stencil OR title:shirt OR title:hat OR title:bullet OR title:volt OR title:apron OR title:holder") {
           edges { node { ...ProductFields } }
         }
       }
@@ -435,18 +450,22 @@ export async function getProducts(options: {
       productMap.set(standardMatrixProduct.id, standardMatrixProduct as unknown as ShopifyProduct)
     }
 
-    // Add hardware, machines, and studio supplies (filtering out any old single-needle products)
+    // Add hardware, machines, and studio supplies (filtering out single-needle and Nuclear Tattoo products)
     data.grips?.edges?.forEach(e => {
-      if (!isGranularCartridge(e.node)) productMap.set(e.node.id, e.node)
+      if (!isGranularCartridge(e.node) && !isNuclearTattooProduct(e.node)) {
+        productMap.set(e.node.id, e.node)
+      }
     })
     data.machines?.edges?.forEach(e => {
-      if (!isGranularCartridge(e.node)) productMap.set(e.node.id, e.node)
+      if (!isGranularCartridge(e.node) && !isNuclearTattooProduct(e.node)) {
+        productMap.set(e.node.id, e.node)
+      }
     })
     data.supplies?.edges?.forEach(e => {
-      if (!isGranularCartridge(e.node)) productMap.set(e.node.id, e.node)
+      if (!isGranularCartridge(e.node) && !isNuclearTattooProduct(e.node)) {
+        productMap.set(e.node.id, e.node)
+      }
     })
-
-    return Array.from(productMap.values())
 
     return Array.from(productMap.values())
   } catch (error) {

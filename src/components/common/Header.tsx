@@ -12,7 +12,7 @@ import { CustomerAuthModal } from '../account/CustomerAuthModal'
 import { CustomerProfile } from '../../lib/shopify'
 
 interface HeaderProps {
-  onSelectCategory?: (category: string, searchKeyword?: string, series?: 'premium' | 'standard') => void
+  onSelectCategory?: (category: string, searchKeyword?: string, series?: 'premium' | 'standard', sub?: string) => void
 }
 
 export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
@@ -52,11 +52,11 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
     { code: 'FR', label: 'Français', flag: '🇫🇷' },
   ]
 
-  const handleNavClick = (id: string, query?: string, series?: 'premium' | 'standard') => {
+  const handleNavClick = (id: string, query?: string, series?: 'premium' | 'standard', sub?: string) => {
     if (onSelectCategory) {
-      onSelectCategory(id, query, series)
+      onSelectCategory(id, query, series, sub)
     }
-    navigate({ to: '/collections', search: { category: id, q: query, series } })
+    navigate({ to: '/collections', search: { category: id, q: query, series, sub } })
     setMobileMenuOpen(false)
   }
 
@@ -398,7 +398,14 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
                     {col.subcategories.map((sub, i) => (
                       <button
                         key={i}
-                        onClick={() => handleNavClick(col.categoryId, sub.query, sub.series)}
+                        onClick={() => {
+                          if (sub.handle) {
+                            navigate({ to: '/products/$handle', params: { handle: sub.handle } })
+                            setMobileMenuOpen(false)
+                          } else {
+                            handleNavClick(col.categoryId, sub.query, sub.series, sub.subId)
+                          }
+                        }}
                         className={`w-full text-left py-1.5 px-2 rounded flex items-center justify-between ${
                           sub.series === 'premium'
                             ? 'text-amber-500 font-bold bg-amber-500/10'
