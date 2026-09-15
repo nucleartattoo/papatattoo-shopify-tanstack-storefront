@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { RotateCw, RefreshCw, Maximize2, Sparkles, Box } from 'lucide-react'
+import { RotateCw, RefreshCw, Maximize2, Box } from 'lucide-react'
 
 interface ModelViewer3DProps {
   src: string
@@ -22,7 +22,6 @@ export const ModelViewer3D: React.FC<ModelViewer3DProps> = ({
 }) => {
   const [isLoaded, setIsLoaded] = useState(false)
   const [isRotating, setIsRotating] = useState(autoRotate)
-  const [hasInteracted, setHasInteracted] = useState(false)
   const modelViewerRef = useRef<any>(null)
 
   // Dynamically load the @google/model-viewer custom element
@@ -68,7 +67,6 @@ export const ModelViewer3D: React.FC<ModelViewer3DProps> = ({
   return (
     <div
       className={`relative w-full h-full overflow-hidden bg-transparent select-none ${className}`}
-      onPointerDown={() => setHasInteracted(true)}
     >
       {/* 3D Model Viewer Web Component */}
       <model-viewer
@@ -117,20 +115,6 @@ export const ModelViewer3D: React.FC<ModelViewer3DProps> = ({
           )}
         </div>
       </model-viewer>
-
-      {/* Top Left Badge: Active 3D Engine Indicator */}
-      <div className="absolute top-3 left-3 pointer-events-none flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/80 dark:bg-black/75 backdrop-blur-md border border-zinc-200 dark:border-[#2ee6ca]/40 text-[#0d9488] dark:text-[#2ee6ca] text-[10px] font-mono font-bold uppercase tracking-wider shadow-xs">
-        <span className="w-1.5 h-1.5 rounded-full bg-[#0d9488] dark:bg-[#2ee6ca] animate-pulse" />
-        <span>3D HARDWARE VIEW</span>
-      </div>
-
-      {/* Bottom Hint: Disappears upon user interaction */}
-      {!hasInteracted && (
-        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 pointer-events-none px-3 py-1 rounded-full bg-white/80 dark:bg-black/70 backdrop-blur-md border border-zinc-200 dark:border-white/10 text-zinc-700 dark:text-zinc-300 text-[10px] font-mono flex items-center gap-1.5 whitespace-nowrap animate-bounce shadow-xs">
-          <Sparkles className="w-3 h-3 text-[#0d9488] dark:text-[#2EE6CA]" />
-          <span>DRAG TO ROTATE · PINCH / SCROLL TO ZOOM</span>
-        </div>
-      )}
 
       {/* Top Right Quick Controls */}
       <div className="absolute top-3 right-3 flex items-center gap-1.5 bg-white/80 dark:bg-black/60 backdrop-blur-md border border-zinc-200 dark:border-zinc-800 rounded-lg p-1 shadow-xs">
