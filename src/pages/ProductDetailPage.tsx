@@ -43,7 +43,7 @@ export const ProductDetailPage: React.FC = () => {
   const [mediaViewMode, setMediaViewMode] = useState<'photo' | '3d'>('photo')
 
   const has3DModel = Boolean(
-    handle && (handle.includes('pen') || handle.includes('machine') || product?.productType?.toLowerCase().includes('machine'))
+    handle && (handle.includes('papa-pen-v2') || handle.includes('papapenv2'))
   )
 
   useEffect(() => {
