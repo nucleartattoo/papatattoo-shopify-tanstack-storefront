@@ -199,32 +199,45 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
                     </div>
 
                     <div className="space-y-1">
-                      <a
-                        href="https://ftff5p-yr.myshopify.com/account/orders"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-[#1A1E27] hover:text-[#0d9488] dark:hover:text-[#2ee6ca] transition-colors"
+                      <button
+                        onClick={() => {
+                          navigate({ to: '/account' })
+                          setIsAccountOpen(false)
+                        }}
+                        className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-[#1A1E27] hover:text-[#0d9488] dark:hover:text-[#2ee6ca] transition-colors text-left cursor-pointer"
+                      >
+                        <span>Customer Dashboard</span>
+                        <ArrowRight className="w-3 h-3 text-zinc-400" />
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          navigate({ to: '/account' })
+                          setIsAccountOpen(false)
+                        }}
+                        className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-[#1A1E27] hover:text-[#0d9488] dark:hover:text-[#2ee6ca] transition-colors text-left cursor-pointer"
                       >
                         <span>My Orders & Tracking</span>
                         <ArrowRight className="w-3 h-3 text-zinc-400" />
-                      </a>
+                      </button>
 
-                      <a
-                        href="https://ftff5p-yr.myshopify.com/account/addresses"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-[#1A1E27] hover:text-[#0d9488] dark:hover:text-[#2ee6ca] transition-colors"
+                      <button
+                        onClick={() => {
+                          navigate({ to: '/account' })
+                          setIsAccountOpen(false)
+                        }}
+                        className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-[#1A1E27] hover:text-[#0d9488] dark:hover:text-[#2ee6ca] transition-colors text-left cursor-pointer"
                       >
                         <span>Saved Addresses</span>
                         <ArrowRight className="w-3 h-3 text-zinc-400" />
-                      </a>
+                      </button>
 
                       <button
                         onClick={() => {
                           navigate({ to: '/wholesale' })
                           setIsAccountOpen(false)
                         }}
-                        className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-[#0d9488] dark:text-[#2ee6ca] font-bold hover:bg-zinc-100 dark:hover:bg-[#1A1E27] transition-colors text-left"
+                        className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-[#0d9488] dark:text-[#2ee6ca] font-bold hover:bg-zinc-100 dark:hover:bg-[#1A1E27] transition-colors text-left cursor-pointer"
                       >
                         <span>Studio Wholesale Portal</span>
                       </button>
@@ -284,15 +297,16 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
                       <hr className="border-zinc-100 dark:border-[#1E232E]" />
 
                       <div className="space-y-0.5">
-                        <a
-                          href="https://ftff5p-yr.myshopify.com/account/orders"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-[#181B22] hover:text-zinc-900 dark:hover:text-white transition-colors"
+                        <button
+                          onClick={() => {
+                            navigate({ to: '/account' })
+                            setIsAccountOpen(false)
+                          }}
+                          className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-[#181B22] hover:text-zinc-900 dark:hover:text-white transition-colors text-left cursor-pointer"
                         >
                           <span>Track an Order</span>
                           <ArrowRight className="w-3 h-3 text-zinc-400" />
-                        </a>
+                        </button>
 
                         <button
                           onClick={() => {

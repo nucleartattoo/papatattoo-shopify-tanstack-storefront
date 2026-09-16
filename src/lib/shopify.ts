@@ -517,26 +517,90 @@ export interface CustomerTokenResult {
   expiresAt: string
 }
 
+export interface CustomerAddress {
+  id: string
+  address1?: string
+  address2?: string
+  city?: string
+  province?: string
+  provinceCode?: string
+  zip?: string
+  country?: string
+  countryCodeV2?: string
+  firstName?: string
+  lastName?: string
+  phone?: string
+  company?: string
+  formatted?: string[]
+}
+
+export interface CustomerOrderLineItem {
+  title: string
+  quantity: number
+  variant?: {
+    title: string
+    price: {
+      amount: string
+      currencyCode: string
+    }
+    image?: {
+      url: string
+      altText?: string
+    }
+  }
+}
+
+export interface CustomerOrder {
+  id: string
+  name: string
+  orderNumber: number
+  processedAt: string
+  financialStatus: string
+  fulfillmentStatus: string
+  statusUrl?: string
+  totalPrice: {
+    amount: string
+    currencyCode: string
+  }
+  subtotalPrice?: {
+    amount: string
+    currencyCode: string
+  }
+  totalShippingPrice?: {
+    amount: string
+    currencyCode: string
+  }
+  lineItems: {
+    edges: {
+      node: CustomerOrderLineItem
+    }[]
+  }
+  successfulFulfillments?: {
+    trackingCompany?: string
+    trackingInfo?: {
+      number?: string
+      url?: string
+    }[]
+  }[]
+}
+
 export interface CustomerProfile {
   id: string
   firstName: string
   lastName: string
+  displayName?: string
   email: string
   phone?: string
+  tags?: string[]
+  defaultAddress?: CustomerAddress
+  addresses?: {
+    edges: {
+      node: CustomerAddress
+    }[]
+  }
   orders?: {
     edges: {
-      node: {
-        id: string
-        name: string
-        orderNumber: number
-        processedAt: string
-        financialStatus: string
-        fulfillmentStatus: string
-        totalPrice: {
-          amount: string
-          currencyCode: string
-        }
-      }
+      node: CustomerOrder
     }[]
   }
 }
@@ -602,9 +666,47 @@ export async function getCustomerProfile(accessToken: string): Promise<CustomerP
         id
         firstName
         lastName
+        displayName
         email
         phone
-        orders(first: 10) {
+        tags
+        defaultAddress {
+          id
+          address1
+          address2
+          city
+          province
+          provinceCode
+          zip
+          country
+          countryCodeV2
+          firstName
+          lastName
+          phone
+          company
+          formatted
+        }
+        addresses(first: 20) {
+          edges {
+            node {
+              id
+              address1
+              address2
+              city
+              province
+              provinceCode
+              zip
+              country
+              countryCodeV2
+              firstName
+              lastName
+              phone
+              company
+              formatted
+            }
+          }
+        }
+        orders(first: 20, sortKey: PROCESSED_AT, reverse: true) {
           edges {
             node {
               id
@@ -613,9 +715,44 @@ export async function getCustomerProfile(accessToken: string): Promise<CustomerP
               processedAt
               financialStatus
               fulfillmentStatus
+              statusUrl
               totalPrice {
                 amount
                 currencyCode
+              }
+              subtotalPrice {
+                amount
+                currencyCode
+              }
+              totalShippingPrice {
+                amount
+                currencyCode
+              }
+              lineItems(first: 20) {
+                edges {
+                  node {
+                    title
+                    quantity
+                    variant {
+                      title
+                      price {
+                        amount
+                        currencyCode
+                      }
+                      image {
+                        url
+                        altText
+                      }
+                    }
+                  }
+                }
+              }
+              successfulFulfillments {
+                trackingCompany
+                trackingInfo {
+                  number
+                  url
+                }
               }
             }
           }
@@ -626,8 +763,247 @@ export async function getCustomerProfile(accessToken: string): Promise<CustomerP
   try {
     const res = await shopifyFetch(query, { customerAccessToken: accessToken })
     return res?.customer || null
-  } catch {
+  } catch (err) {
+    console.error('Failed to get customer profile:', err)
     return null
+  }
+}
+
+export async function createCustomerAddress(
+  accessToken: string,
+  address: Partial<CustomerAddress>
+): Promise<CustomerAddress> {
+  const mutation = `
+    mutation customerAddressCreate($customerAccessToken: String!, $address: MailingAddressInput!) {
+      customerAddressCreate(customerAccessToken: $customerAccessToken, address: $address) {
+        customerAddress {
+          id
+          address1
+          address2
+          city
+          province
+          provinceCode
+          zip
+          country
+          countryCodeV2
+          firstName
+          lastName
+          phone
+          company
+          formatted
+        }
+        customerUserErrors {
+          code
+          field
+          message
+        }
+      }
+    }
+  `
+  const res = await shopifyFetch(mutation, {
+    customerAccessToken: accessToken,
+    address: {
+      address1: address.address1 || '',
+      address2: address.address2 || '',
+      city: address.city || '',
+      province: address.province || '',
+      zip: address.zip || '',
+      country: address.country || '',
+      firstName: address.firstName || '',
+      lastName: address.lastName || '',
+      company: address.company || '',
+      phone: address.phone || '',
+    },
+  })
+
+  const errors = res?.customerAddressCreate?.customerUserErrors
+  if (errors && errors.length > 0) {
+    throw new Error(errors[0].message)
+  }
+  const created = res?.customerAddressCreate?.customerAddress
+  if (!created) {
+    throw new Error('Failed to create address')
+  }
+  return created
+}
+
+export async function updateCustomerAddress(
+  accessToken: string,
+  addressId: string,
+  address: Partial<CustomerAddress>
+): Promise<CustomerAddress> {
+  const mutation = `
+    mutation customerAddressUpdate($customerAccessToken: String!, $id: ID!, $address: MailingAddressInput!) {
+      customerAddressUpdate(customerAccessToken: $customerAccessToken, id: $id, address: $address) {
+        customerAddress {
+          id
+          address1
+          address2
+          city
+          province
+          provinceCode
+          zip
+          country
+          countryCodeV2
+          firstName
+          lastName
+          phone
+          company
+          formatted
+        }
+        customerUserErrors {
+          code
+          field
+          message
+        }
+      }
+    }
+  `
+  const res = await shopifyFetch(mutation, {
+    customerAccessToken: accessToken,
+    id: addressId,
+    address: {
+      address1: address.address1 || '',
+      address2: address.address2 || '',
+      city: address.city || '',
+      province: address.province || '',
+      zip: address.zip || '',
+      country: address.country || '',
+      firstName: address.firstName || '',
+      lastName: address.lastName || '',
+      company: address.company || '',
+      phone: address.phone || '',
+    },
+  })
+
+  const errors = res?.customerAddressUpdate?.customerUserErrors
+  if (errors && errors.length > 0) {
+    throw new Error(errors[0].message)
+  }
+  const updated = res?.customerAddressUpdate?.customerAddress
+  if (!updated) {
+    throw new Error('Failed to update address')
+  }
+  return updated
+}
+
+export async function deleteCustomerAddress(
+  accessToken: string,
+  addressId: string
+): Promise<string> {
+  const mutation = `
+    mutation customerAddressDelete($customerAccessToken: String!, $id: ID!) {
+      customerAddressDelete(customerAccessToken: $customerAccessToken, id: $id) {
+        deletedCustomerAddressId
+        customerUserErrors {
+          code
+          field
+          message
+        }
+      }
+    }
+  `
+  const res = await shopifyFetch(mutation, {
+    customerAccessToken: accessToken,
+    id: addressId,
+  })
+
+  const errors = res?.customerAddressDelete?.customerUserErrors
+  if (errors && errors.length > 0) {
+    throw new Error(errors[0].message)
+  }
+  return res?.customerAddressDelete?.deletedCustomerAddressId || addressId
+}
+
+export async function setDefaultCustomerAddress(
+  accessToken: string,
+  addressId: string
+): Promise<void> {
+  const mutation = `
+    mutation customerDefaultAddressUpdate($customerAccessToken: String!, $addressId: ID!) {
+      customerDefaultAddressUpdate(customerAccessToken: $customerAccessToken, addressId: $addressId) {
+        customer {
+          id
+        }
+        customerUserErrors {
+          code
+          field
+          message
+        }
+      }
+    }
+  `
+  const res = await shopifyFetch(mutation, {
+    customerAccessToken: accessToken,
+    addressId,
+  })
+
+  const errors = res?.customerDefaultAddressUpdate?.customerUserErrors
+  if (errors && errors.length > 0) {
+    throw new Error(errors[0].message)
+  }
+}
+
+export async function updateCustomerProfile(
+  accessToken: string,
+  input: {
+    firstName?: string
+    lastName?: string
+    phone?: string
+    email?: string
+    password?: string
+  }
+): Promise<{ customer: any; newToken?: string }> {
+  const mutation = `
+    mutation customerUpdate($customerAccessToken: String!, $customer: CustomerUpdateInput!) {
+      customerUpdate(customerAccessToken: $customerAccessToken, customer: $customer) {
+        customer {
+          id
+          firstName
+          lastName
+          email
+          phone
+        }
+        customerAccessToken {
+          accessToken
+          expiresAt
+        }
+        customerUserErrors {
+          code
+          field
+          message
+        }
+      }
+    }
+  `
+  const res = await shopifyFetch(mutation, {
+    customerAccessToken: accessToken,
+    customer: input,
+  })
+
+  const errors = res?.customerUpdate?.customerUserErrors
+  if (errors && errors.length > 0) {
+    throw new Error(errors[0].message)
+  }
+
+  return {
+    customer: res?.customerUpdate?.customer,
+    newToken: res?.customerUpdate?.customerAccessToken?.accessToken,
+  }
+}
+
+export async function logoutCustomer(accessToken: string): Promise<void> {
+  try {
+    const mutation = `
+      mutation customerAccessTokenDelete($customerAccessToken: String!) {
+        customerAccessTokenDelete(customerAccessToken: $customerAccessToken) {
+          deletedAccessToken
+        }
+      }
+    `
+    await shopifyFetch(mutation, { customerAccessToken: accessToken })
+  } catch (err) {
+    console.warn('Customer token deletion failed, clearing client session:', err)
   }
 }
 
