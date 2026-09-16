@@ -73,36 +73,36 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   return (
     <div
-      className={`group relative rounded-2xl border p-5 flex flex-col justify-between transition-all duration-300 hover:shadow-lg ${
+      className={`group relative rounded-2xl border p-4 sm:p-5 flex flex-col justify-between transition-all duration-300 ${
         isPremiumCartridge
-          ? 'border-amber-500/30 dark:border-amber-500/20 bg-white dark:bg-[#141517] hover:border-amber-400 dark:hover:border-amber-400/80 hover:shadow-[0_10px_30px_rgba(245,158,11,0.12)]'
-          : 'border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#11141A] hover:border-zinc-300 dark:hover:border-zinc-700 dark:hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
+          ? 'border-amber-500/30 dark:border-amber-500/30 bg-white dark:bg-[#0d0e13] hover:border-amber-400 dark:hover:border-amber-400/80 hover:shadow-lg dark:hover:shadow-[0_0_30px_rgba(245,158,11,0.18)]'
+          : 'border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-[#0a0d14] hover:border-zinc-400 dark:hover:border-[#00f0ff]/50 hover:shadow-lg dark:hover:shadow-[0_0_25px_rgba(0,240,255,0.15)]'
       }`}
     >
       {/* Top Header Tags */}
       <div>
-        <div className="flex items-center justify-between gap-2 mb-3.5">
+        <div className="flex items-center justify-between gap-2 mb-3">
           {/* Contextual Category / Series Badge */}
           {isPremiumCartridge ? (
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-[10px] font-mono font-bold tracking-wider uppercase bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-mono font-bold tracking-wider uppercase bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30">
               <Sparkles className="w-3 h-3 text-amber-500 animate-pulse" />
               <span>PREMIUM SERIES</span>
             </span>
           ) : (
-            <span className="text-[10px] font-mono font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider">
+            <span className="text-[10px] font-mono font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest">
               {isNeedle ? "CARTRIDGES" : isGrip ? "GRIPS" : isPen ? "MACHINES" : "EQUIPMENT"}
             </span>
           )}
 
           {isAnyVariantAvailable ? (
-            <span className="inline-flex items-center gap-1 text-[10px] font-mono font-semibold text-emerald-600 dark:text-emerald-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-              {t('card_in_stock')}
+            <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-semibold text-emerald-600 dark:text-emerald-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span>{t('card_in_stock')}</span>
             </span>
           ) : (
-            <span className="inline-flex items-center gap-1 text-[10px] font-mono font-semibold text-red-500 dark:text-red-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-red-500"></span>
-              OUT OF STOCK
+            <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-semibold text-red-500 dark:text-red-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
+              <span>OUT OF STOCK</span>
             </span>
           )}
         </div>
@@ -111,18 +111,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <Link
           to="/products/$handle"
           params={{ handle: product.handle }}
-          className="relative aspect-square w-full rounded-xl bg-zinc-50/80 dark:bg-[#0A0C0F] p-3 flex items-center justify-center overflow-hidden border border-zinc-100 dark:border-zinc-800/50"
+          className="relative aspect-square w-full rounded-xl bg-zinc-50/80 dark:bg-[#06070a] flex items-center justify-center overflow-hidden border border-zinc-100 dark:border-zinc-800/60 hud-corner-bracket"
         >
           {/* Visual Color Glow Accent behind product */}
           <div
             className="absolute inset-0 opacity-15 blur-2xl transition-opacity duration-500 group-hover:opacity-35"
             style={{ backgroundColor: accentColor }}
-          ></div>
+          />
 
           <img
             src={currentImage}
             alt={product.title}
-            className="relative w-full h-full object-contain p-2 transition-transform duration-500 group-hover:scale-105 drop-shadow-md"
+            className="relative max-h-[85%] max-w-[85%] w-auto h-auto object-contain scale-140 sm:scale-150 group-hover:scale-160 transition-transform duration-500 drop-shadow-[0_15px_30px_rgba(0,0,0,0.8)]"
             loading="lazy"
             onError={(e) => {
               const fallback = formatProductImageUrl(images[0])
@@ -131,31 +131,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               }
             }}
           />
-
-          {/* Alternate Thumbnail Dots if multiple images */}
-          {images.length > 1 && (
-            <div
-              onClick={e => e.preventDefault()}
-              className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10 bg-white/70 dark:bg-black/60 px-2 py-1 rounded-full backdrop-blur-xs"
-            >
-              {images.slice(0, 4).map((img, idx) => (
-                <button
-                  key={idx}
-                  onClick={(e) => {
-                    e.preventDefault()
-                    e.stopPropagation()
-                    setCurrentImageIndex(idx)
-                  }}
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    currentImageIndex === idx
-                      ? isPremiumCartridge ? 'bg-amber-400 scale-125' : 'bg-[#2ee6ca] scale-125'
-                      : 'bg-zinc-400/60 dark:bg-zinc-600'
-                  }`}
-                  aria-label={`View photo ${idx + 1}`}
-                />
-              ))}
-            </div>
-          )}
         </Link>
 
         {/* Title & Info */}
@@ -169,14 +144,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               className={`font-bold text-base leading-snug tracking-tight transition-colors ${
                 isPremiumCartridge
                   ? 'text-zinc-950 dark:text-zinc-100 group-hover:text-amber-500 dark:group-hover:text-amber-400'
-                  : 'text-zinc-950 dark:text-zinc-100 group-hover:text-[#0d9488] dark:group-hover:text-[#2ee6ca]'
+                  : 'text-zinc-950 dark:text-zinc-100 group-hover:text-[#0d9488] dark:group-hover:text-[#00f0ff]'
               }`}
             >
               {product.title}
             </h3>
           </Link>
-
-          
         </div>
       </div>
 
@@ -191,7 +164,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             className={`text-lg font-extrabold font-mono tracking-tight ${
               isPremiumCartridge
                 ? 'text-amber-600 dark:text-amber-400'
-                : 'text-zinc-950 dark:text-[#2ee6ca]'
+                : 'text-zinc-950 dark:text-[#00f0ff]'
             }`}
           >
             {priceFormatted}
@@ -214,7 +187,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider transition-all transform active:scale-95 shrink-0 cursor-pointer shadow-xs ${
               isPremiumCartridge
                 ? 'bg-amber-500 text-zinc-950 hover:bg-amber-400 hover:shadow-[0_0_15px_rgba(245,158,11,0.3)]'
-                : 'bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-[#26cbb1] hover:shadow-[0_0_15px_rgba(46,230,202,0.25)]'
+                : 'bg-zinc-950 text-white dark:bg-[#00f0ff] dark:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-[#38f4ff] hover:shadow-[0_0_20px_rgba(0,240,255,0.35)]'
             }`}
           >
             <span>Options</span>
@@ -229,7 +202,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 ? 'bg-emerald-500 text-white shadow-[0_0_15px_rgba(16,185,129,0.5)]'
                 : isPremiumCartridge
                 ? 'bg-amber-500 text-zinc-950 hover:bg-amber-400 hover:shadow-[0_0_15px_rgba(245,158,11,0.3)]'
-                : 'bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-[#26cbb1] hover:shadow-[0_0_15px_rgba(46,230,202,0.25)]'
+                : 'bg-zinc-950 text-white dark:bg-[#00f0ff] dark:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-[#38f4ff] hover:shadow-[0_0_20px_rgba(0,240,255,0.35)]'
             }`}
             title="Quick add to cart"
           >

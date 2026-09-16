@@ -9,10 +9,13 @@
   --color-papa-cyan: #2ee6ca;
   --color-papa-cyan-glow: rgba(46, 230, 202, 0.35);
   --color-papa-cyan-dim: rgba(46, 230, 202, 0.12);
+  --color-cyber-cyan: #00f0ff;
+  --color-cyber-amber: #ffb800;
   --color-obsidian: #090a0c;
+  --color-obsidian-void: #060709;
   --color-obsidian-subtle: #0f1115;
-  --color-obsidian-card: #14171d;
-  --color-obsidian-border: #222731;
+  --color-obsidian-card: #0c0e14;
+  --color-obsidian-border: #1a202c;
   --color-titanium: #94a3b8;
   --color-titanium-bright: #e2e8f0;
 }
@@ -102,6 +105,111 @@ button:disabled,
   background-image:
     linear-gradient(to right, rgba(46, 230, 202, 0.04) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(46, 230, 202, 0.04) 1px, transparent 1px);
+}
+
+/* Cyberpunk High-Tech Apparatus Utilities */
+.cyber-grid-overlay {
+  background-size: 24px 24px;
+  background-image:
+    radial-gradient(circle, rgba(0, 240, 255, 0.12) 1px, transparent 1px);
+}
+
+.dark .cyber-grid-overlay {
+  background-image:
+    radial-gradient(circle, rgba(0, 240, 255, 0.18) 1px, transparent 1px);
+}
+
+/* Technical HUD Corner Brackets */
+.hud-corner-bracket {
+  position: relative;
+}
+.hud-corner-bracket::before,
+.hud-corner-bracket::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+.hud-corner-bracket::before {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid #00f0ff;
+  border-left: 2px solid #00f0ff;
+  opacity: 0.6;
+}
+.hud-corner-bracket::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 2px solid #00f0ff;
+  border-right: 2px solid #00f0ff;
+  opacity: 0.6;
+}
+.group:hover .hud-corner-bracket::before,
+.group:hover .hud-corner-bracket::after {
+  opacity: 1;
+  border-color: #2ee6ca;
+  filter: drop-shadow(0 0 4px rgba(0, 240, 255, 0.7));
+}
+
+/* Subtle Sci-Fi Angled Chamfer Cut-Path */
+.cyber-chamfer-sm {
+  clip-path: polygon(
+    0 0,
+    calc(100% - 8px) 0,
+    100% 8px,
+    100% 100%,
+    8px 100%,
+    0 calc(100% - 8px)
+  );
+}
+
+.cyber-chamfer-md {
+  clip-path: polygon(
+    0 0,
+    calc(100% - 14px) 0,
+    100% 14px,
+    100% 100%,
+    14px 100%,
+    0 calc(100% - 14px)
+  );
+}
+
+/* High-Voltage Neon Glows */
+.cyber-glow-cyan {
+  box-shadow: 0 0 25px -5px rgba(0, 240, 255, 0.25);
+}
+
+.cyber-glow-cyan-hover:hover {
+  box-shadow: 0 0 30px -3px rgba(0, 240, 255, 0.4);
+}
+
+.cyber-glow-amber {
+  box-shadow: 0 0 25px -5px rgba(255, 184, 0, 0.25);
+}
+
+/* Subtle Technical Scanline Texture */
+.cyber-scanlines {
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0),
+    rgba(255,255,255,0) 50%,
+    rgba(0, 240, 255, 0.02) 50%,
+    rgba(0, 240, 255, 0.02)
+  );
+  background-size: 100% 4px;
+}
+
+.dark .cyber-scanlines {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0) 50%,
+    rgba(0, 240, 255, 0.03) 50%,
+    rgba(0, 240, 255, 0.03)
+  );
+  background-size: 100% 4px;
 }
 
 /* Product WYSIWYG Description overrides */

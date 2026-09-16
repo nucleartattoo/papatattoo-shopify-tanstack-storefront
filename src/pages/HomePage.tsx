@@ -53,16 +53,16 @@ export const HomePage: React.FC = () => {
       />
 
       {/* 3. Flagship Curated Apparatus */}
-      <section className="py-16 sm:py-20 bg-zinc-50/60 dark:bg-[#08090C] border-b border-zinc-200/70 dark:border-zinc-800/70">
+      <section className="py-16 sm:py-20 bg-zinc-50/60 dark:bg-[#06070a] border-b border-zinc-200/70 dark:border-zinc-800/70">
         <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 pb-5 border-b border-zinc-200/70 dark:border-zinc-800/70 gap-4">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-zinc-950 dark:text-white uppercase tracking-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-zinc-950 dark:text-white uppercase tracking-tight font-sans">
               FEATURED PRODUCTS
             </h2>
             <Link
               to="/collections"
               search={{ category: 'all' }}
-              className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase text-[#0d9488] dark:text-[#2EE6CA] hover:underline"
+              className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase text-[#0d9488] dark:text-[#00f0ff] hover:underline"
             >
               <span>View All</span>
               <ArrowRight className="w-3.5 h-3.5" />

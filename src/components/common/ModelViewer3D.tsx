@@ -77,9 +77,9 @@ export const ModelViewer3D: React.FC<ModelViewer3DProps> = ({
         camera-controls
         auto-rotate={isRotating ? '' : undefined}
         rotation-per-second="20deg"
-        shadow-intensity="1.2"
+        shadow-intensity="1.5"
         shadow-softness="0.8"
-        exposure="1.0"
+        exposure="1.35"
         camera-orbit={cameraOrbit}
         field-of-view={fieldOfView}
         touch-action="pan-y"

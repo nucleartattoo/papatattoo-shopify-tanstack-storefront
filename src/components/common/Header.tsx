@@ -64,12 +64,12 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
   }
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-zinc-200/70 dark:border-zinc-800/70 bg-white/85 dark:bg-[#090A0C]/90 backdrop-blur-md transition-colors duration-200">
+    <header className="sticky top-0 z-40 w-full border-b border-zinc-200/70 dark:border-[#00f0ff]/20 bg-white/85 dark:bg-[#060709]/90 backdrop-blur-md transition-colors duration-200">
       {/* Top Announcement Bar */}
-      <div className="hidden sm:flex items-center justify-between px-6 py-1.5 bg-zinc-100/70 dark:bg-[#0C0E12] border-b border-zinc-200/60 dark:border-zinc-800/60 text-[11px] font-mono text-zinc-500 dark:text-zinc-400">
+      <div className="hidden sm:flex items-center justify-between px-6 py-1.5 bg-zinc-100/70 dark:bg-[#090b10] border-b border-zinc-200/60 dark:border-zinc-800/80 text-[11px] font-mono text-zinc-500 dark:text-zinc-400">
         <div className="flex items-center gap-2">
-          <ShieldCheck className="w-3.5 h-3.5 text-[#0d9488] dark:text-[#2EE6CA]" />
-          <span>Professional Tattoo Supplies · Global Express Dispatch</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-[#0d9488] dark:bg-[#00f0ff] animate-pulse" />
+          <span>Professional Tattoo Supplies · Worldwide Dispatch</span>
         </div>
         <div>
           <span>Free express shipping on orders over $150</span>
