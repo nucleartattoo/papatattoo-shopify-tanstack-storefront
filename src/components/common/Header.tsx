@@ -27,8 +27,11 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
   const [authModalMode, setAuthModalMode] = useState<'signin' | 'register'>('signin')
   const [customer, setCustomer] = useState<CustomerProfile | null>(() => {
     try {
-      const saved = localStorage.getItem('shopify_customer_profile')
-      return saved ? JSON.parse(saved) : null
+      if (typeof window !== 'undefined') {
+        const saved = localStorage.getItem('shopify_customer_profile')
+        return saved ? JSON.parse(saved) : null
+      }
+      return null
     } catch {
       return null
     }
@@ -61,51 +64,49 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
   }
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-zinc-200/80 dark:border-[#222731]/80 bg-white/80 dark:bg-[#090A0C]/85 backdrop-blur-md transition-colors duration-200">
-      {/* Top Professional Micro-Bar */}
-      <div className="hidden sm:flex items-center justify-between px-6 py-1 bg-zinc-100 dark:bg-[#0F1115] border-b border-zinc-200/60 dark:border-[#1A1D24] text-[11px] font-mono text-zinc-500 dark:text-zinc-400">
+    <header className="sticky top-0 z-40 w-full border-b border-zinc-200/70 dark:border-zinc-800/70 bg-white/85 dark:bg-[#090A0C]/90 backdrop-blur-md transition-colors duration-200">
+      {/* Top Announcement Bar */}
+      <div className="hidden sm:flex items-center justify-between px-6 py-1.5 bg-zinc-100/70 dark:bg-[#0C0E12] border-b border-zinc-200/60 dark:border-zinc-800/60 text-[11px] font-mono text-zinc-500 dark:text-zinc-400">
         <div className="flex items-center gap-2">
-          <ShieldCheck className="w-3.5 h-3.5 text-[#0d9488] dark:text-[#2ee6ca]" />
-          <span>For Professionals Only!</span>
+          <ShieldCheck className="w-3.5 h-3.5 text-[#0d9488] dark:text-[#2EE6CA]" />
+          <span>Professional Tattoo Supplies · Global Express Dispatch</span>
         </div>
-        <div className="flex items-center gap-4">
-          <span>GLOBAL EXPRESS DISPATCH</span>
-          <span className="text-zinc-300 dark:text-zinc-700">|</span>
-          <span>OFFICIAL FACTORY DIRECT APPARATUS</span>
+        <div>
+          <span>Free express shipping on orders over $150</span>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-3 xl:gap-6">
-        {/* Logo & Desktop Mega Menu */}
-        <div className="flex items-center gap-4 xl:gap-6 shrink-0">
+      <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 h-16 lg:h-18 flex items-center justify-between gap-4 xl:gap-8">
+        {/* Logo & Desktop Nav Menu */}
+        <div className="flex items-center gap-4 xl:gap-8 shrink-0">
           <Link to="/" className="cursor-pointer flex items-center" aria-label="Papa Tattoo Supply Home">
             <Logo size="md" showText={false} />
           </Link>
 
-          {/* Desktop Radix UI Mega Menu */}
+          {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center">
             <RadixMegaMenu onSelectCategory={handleNavClick} />
           </nav>
         </div>
 
-        {/* Center: Elongated Desktop Search Bar */}
-        <div className="hidden lg:flex flex-1 max-w-sm xl:max-w-md mx-2">
+        {/* Center: Search Bar */}
+        <div className="hidden lg:flex flex-1 max-w-xs xl:max-w-sm mx-2">
           <HeaderSearchBar />
         </div>
 
-        {/* Right Minimalist Action Icons: Mobile Search, Language, Theme, Account, Cart */}
-        <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+        {/* Right Action Icons: Mobile Search, Language, Theme, Account, Cart */}
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
           {/* Mobile Search Toggle (Visible on tablet & mobile) */}
           <button
             onClick={() => {
               setIsMobileSearchOpen(!isMobileSearchOpen)
               setMobileMenuOpen(false)
             }}
-            className="lg:hidden w-9 h-9 flex items-center justify-center rounded-lg border border-zinc-200 dark:border-[#222731] hover:border-zinc-300 dark:hover:border-[#2ee6ca]/50 text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-[#2ee6ca] bg-zinc-50 dark:bg-[#14171D] transition-colors cursor-pointer"
+            className="lg:hidden w-9 h-9 flex items-center justify-center rounded-lg border border-zinc-200/70 dark:border-zinc-800/70 hover:border-zinc-300 dark:hover:border-[#2EE6CA]/50 text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-[#2EE6CA] bg-zinc-50 dark:bg-[#14171D] transition-colors cursor-pointer"
             aria-label="Search"
             title="Search Entire Store"
           >
-            <Search className="w-4 h-4 text-[#0d9488] dark:text-[#2ee6ca]" />
+            <Search className="w-4 h-4 text-[#0d9488] dark:text-[#2EE6CA]" />
           </button>
 
           {/* 1. Language Selector (Icon Only) */}
@@ -115,15 +116,15 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
                 setIsLangOpen(!isLangOpen)
                 setIsAccountOpen(false)
               }}
-              className="w-9 h-9 flex items-center justify-center rounded-lg border border-zinc-200 dark:border-[#222731] hover:border-zinc-300 dark:hover:border-[#2ee6ca]/50 text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-[#2ee6ca] bg-zinc-50 dark:bg-[#14171D] transition-colors cursor-pointer"
+              className="w-9 h-9 flex items-center justify-center rounded-lg border border-zinc-200/70 dark:border-zinc-800/70 hover:border-zinc-300 dark:hover:border-[#2EE6CA]/50 text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-[#2EE6CA] bg-zinc-50 dark:bg-[#14171D] transition-colors cursor-pointer"
               title={`Language: ${locale}`}
               aria-label="Change Language"
             >
-              <Globe className="w-4 h-4 text-[#0d9488] dark:text-[#2ee6ca]" />
+              <Globe className="w-4 h-4 text-[#0d9488] dark:text-[#2EE6CA]" />
             </button>
 
             {isLangOpen && (
-              <div className="absolute right-0 mt-2 w-40 rounded-xl shadow-2xl border border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#14171D] p-1.5 z-50 animate-in fade-in slide-in-from-top-1">
+              <div className="absolute right-0 mt-2 w-40 rounded-xl shadow-2xl border border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#14171D] p-1.5 z-50 animate-in fade-in slide-in-from-top-1">
                 {languages.map(lang => (
                   <button
                     key={lang.code}
@@ -133,7 +134,7 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
                     }}
                     className={`w-full flex items-center justify-between px-3 py-2 text-xs rounded-md text-left transition-colors font-mono ${
                       locale === lang.code
-                        ? 'bg-zinc-100 dark:bg-[#1E222B] text-zinc-950 dark:text-[#2ee6ca] font-bold'
+                        ? 'bg-zinc-100 dark:bg-[#1E222B] text-zinc-950 dark:text-[#2EE6CA] font-bold'
                         : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-[#191D24]'
                     }`}
                   >
@@ -148,7 +149,7 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
           {/* 2. Theme Toggle Button (Icon Only) */}
           <button
             onClick={toggleTheme}
-            className="w-9 h-9 flex items-center justify-center rounded-lg border border-zinc-200 dark:border-[#222731] hover:border-zinc-300 dark:hover:border-[#2ee6ca]/50 text-zinc-600 dark:text-zinc-300 bg-zinc-50 dark:bg-[#14171D] transition-colors cursor-pointer"
+            className="w-9 h-9 flex items-center justify-center rounded-lg border border-zinc-200/70 dark:border-zinc-800/70 hover:border-zinc-300 dark:hover:border-[#2EE6CA]/50 text-zinc-600 dark:text-zinc-300 bg-zinc-50 dark:bg-[#14171D] transition-colors cursor-pointer"
             aria-label="Toggle Theme"
             title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
           >
@@ -168,8 +169,8 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
               }}
               className={`relative w-9 h-9 flex items-center justify-center rounded-lg border transition-colors cursor-pointer ${
                 customer
-                  ? 'border-[#2ee6ca] bg-[#2ee6ca]/10 text-[#0d9488] dark:text-[#2ee6ca]'
-                  : 'border-zinc-200 dark:border-[#222731] hover:border-zinc-300 dark:hover:border-[#2ee6ca]/50 text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-[#2ee6ca] bg-zinc-50 dark:bg-[#14171D]'
+                  ? 'border-[#2EE6CA] bg-[#2EE6CA]/10 text-[#0d9488] dark:text-[#2EE6CA]'
+                  : 'border-zinc-200/70 dark:border-zinc-800/70 hover:border-zinc-300 dark:hover:border-[#2EE6CA]/50 text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-[#2EE6CA] bg-zinc-50 dark:bg-[#14171D]'
               }`}
               aria-label="Customer Account"
               title={customer ? `Buyer: ${customer.firstName || customer.email}` : 'Buyer Sign In / Create Account'}
@@ -181,13 +182,13 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
             </button>
 
             {isAccountOpen && (
-              <div className="absolute right-0 mt-2 w-64 rounded-2xl shadow-2xl border border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#0E1015] p-3 z-50 animate-in fade-in slide-in-from-top-1 text-xs font-mono">
+              <div className="absolute right-0 mt-2 w-64 rounded-2xl shadow-2xl border border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#0E1015] p-3 z-50 animate-in fade-in slide-in-from-top-1 text-xs font-mono">
                 {customer ? (
                   // Logged In Buyer View
                   <>
-                    <div className="p-3 rounded-xl bg-zinc-50 dark:bg-[#14171E] border border-zinc-100 dark:border-[#1E232E] mb-2">
+                    <div className="p-3 rounded-xl bg-zinc-50 dark:bg-[#14171E] border border-zinc-100 dark:border-zinc-800/70 mb-2">
                       <div className="text-[10px] text-[#0d9488] dark:text-[#2ee6ca] font-bold uppercase tracking-wider">
-                        // REGISTERED BUYER
+                        REGISTERED BUYER
                       </div>
                       <div className="text-zinc-950 dark:text-white font-bold text-sm truncate mt-0.5">
                         Hello, {customer.firstName || 'Shopper'} 👋
@@ -228,7 +229,7 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
                         <span>Studio Wholesale Portal</span>
                       </button>
 
-                      <hr className="border-zinc-100 dark:border-[#1E232E] my-1" />
+                      <hr className="border-zinc-100 dark:border-zinc-800/70 my-1" />
 
                       <button
                         onClick={handleSignOut}
@@ -243,7 +244,7 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
                   <>
                     <div className="px-2 pt-1 pb-3 text-left">
                       <div className="text-[10px] text-[#0d9488] dark:text-[#2ee6ca] font-bold uppercase tracking-wider">
-                        // CUSTOMER ACCOUNT
+                        CUSTOMER ACCOUNT
                       </div>
                       <div className="text-zinc-950 dark:text-white font-black text-sm uppercase tracking-tight mt-0.5">
                         Welcome, Shopper
@@ -355,7 +356,7 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
 
           <div className="flex items-center justify-between pb-2 border-b border-zinc-200 dark:border-zinc-800">
             <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-widest">
-              // PAPA PRODUCTS & CATEGORIES
+              Categories
             </span>
             <button
               onClick={() => {
@@ -380,9 +381,11 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
                     <span className="text-xs font-mono font-bold uppercase text-zinc-900 dark:text-white">
                       {col.title}
                     </span>
-                    <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300">
-                      {col.badge}
-                    </span>
+                    {col.badge && (
+                      <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300">
+                        {col.badge}
+                      </span>
+                    )}
                   </div>
                   <ChevronDown className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
                 </button>

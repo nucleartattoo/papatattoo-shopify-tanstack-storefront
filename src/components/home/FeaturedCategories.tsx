@@ -1,5 +1,5 @@
 import React from 'react'
-import { Sliders, Disc, Sparkles, Layers } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 
 interface FeaturedCategoriesProps {
   activeCategory: string
@@ -12,95 +12,77 @@ export const FeaturedCategories: React.FC<FeaturedCategoriesProps> = ({
 }) => {
   const categories = [
     {
-      id: 'grips',
-      name: 'Adjustable Grips',
-      desc: 'Dual-click stainless steel detent systems & aircraft alloy sleeves',
-      icon: Sliders,
-      count: '5 Models',
+      id: 'cartridges',
+      name: 'Needle Cartridges',
+      image: '/product-images/papa-premium-tattoo-cartridges-round-cutout.webp',
+      glow: '#0d9488',
     },
     {
       id: 'machines',
       name: 'Rotary Machines',
-      desc: 'Direct-drive brushless motors engineered for ultra-smooth shading & lining',
-      icon: Disc,
-      count: 'Pro Grade',
+      image: '/product-images/img_113_papa_pen_jet_black_1__cutout.webp',
+      glow: '#2ee6ca',
     },
     {
-      id: 'needles',
-      name: 'Needle Cartridges',
-      desc: 'Membrane-sealed medical grade 316L surgical steel configurations',
-      icon: Layers,
-      count: 'All Gauges',
+      id: 'grips',
+      name: 'Adjustable Grips',
+      image: '/product-images/img_111_papa_adjustment_grips_1__cutout.webp',
+      glow: '#38bdf8',
     },
     {
-      id: 'studio',
+      id: 'accessories',
       name: 'Studio Supplies',
-      desc: 'Autoclave pouches, barrier film, disposable grips & sanitization gear',
-      icon: Sparkles,
-      count: 'Bulk Packs',
+      image: '/product-images/img_201_papa_travel_case_cutout.webp',
+      glow: '#a855f7',
     },
   ]
 
   return (
-    <section className="py-12 border-b border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#0C0E12]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
-          <div>
-            <div className="text-[11px] font-mono font-bold tracking-widest text-[#0d9488] dark:text-[#2EE6CA] uppercase">
-              // PRODUCT CATEGORIES
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-zinc-950 dark:text-white uppercase tracking-tight">
-              PAPA PRODUCT CATEGORIES
-            </h2>
-          </div>
-          <div className="text-xs font-mono text-zinc-500">
-            PROFESSIONAL TATTOO HARDWARE & GEAR
-          </div>
+    <section className="py-16 sm:py-20 border-b border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#0A0C0F]">
+      <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-end justify-between mb-8 pb-5 border-b border-zinc-200/70 dark:border-zinc-800/70">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-zinc-950 dark:text-white uppercase tracking-tight">
+            PRODUCT CATEGORIES
+          </h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8">
           {categories.map(cat => {
-            const Icon = cat.icon
             const isSelected = activeCategory === cat.id
 
             return (
               <button
                 key={cat.id}
+                type="button"
                 onClick={() => onSelectCategory(cat.id)}
-                className={`relative text-left p-5 rounded-xl border transition-all duration-300 group overflow-hidden ${
+                className={`relative text-left p-5 rounded-2xl border transition-all duration-300 group overflow-hidden cursor-pointer flex flex-col justify-between ${
                   isSelected
-                    ? 'border-[#2EE6CA] bg-zinc-100 dark:bg-[#151921] shadow-[0_0_20px_rgba(46,230,202,0.15)]'
-                    : 'border-zinc-200 dark:border-[#222731] bg-zinc-50/70 dark:bg-[#121419]/70 hover:border-zinc-400 dark:hover:border-zinc-600'
+                    ? 'border-[#0d9488] dark:border-[#2EE6CA] bg-zinc-50 dark:bg-[#141720] shadow-[0_10px_30px_rgba(46,230,202,0.12)]'
+                    : 'border-zinc-200/70 dark:border-zinc-800/70 bg-zinc-50/60 dark:bg-[#11141B] hover:border-zinc-300 dark:hover:border-zinc-700 hover:bg-white dark:hover:bg-[#151922] hover:shadow-lg'
                 }`}
               >
-                {/* Background subtle wireframe hint */}
-                <div className="absolute -right-6 -bottom-6 w-24 h-24 rounded-full border border-zinc-200 dark:border-[#222731] pointer-events-none group-hover:scale-125 transition-transform duration-500"></div>
-
-                <div className="flex items-center justify-between mb-4">
+                {/* Square Product Image Stage */}
+                <div className="relative aspect-square w-full rounded-xl bg-white dark:bg-[#080A0E] p-4 flex items-center justify-center overflow-hidden border border-zinc-100 dark:border-zinc-800/50">
                   <div
-                    className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${
-                      isSelected
-                        ? 'bg-[#2EE6CA] text-zinc-950'
-                        : 'bg-zinc-200/80 dark:bg-[#1A1E27] text-zinc-800 dark:text-[#2EE6CA] group-hover:bg-[#2EE6CA] group-hover:text-zinc-950'
-                    }`}
-                  >
-                    <Icon className="w-5 h-5" />
-                  </div>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-200/60 dark:bg-[#1B202A] text-zinc-600 dark:text-zinc-400">
-                    {cat.count}
-                  </span>
+                    className="absolute inset-0 opacity-10 blur-xl group-hover:opacity-25 transition-opacity duration-500 pointer-events-none"
+                    style={{ backgroundColor: cat.glow }}
+                  />
+                  <img
+                    src={cat.image}
+                    alt={cat.name}
+                    className="relative w-full h-full object-contain transition-transform duration-500 group-hover:scale-108 drop-shadow-md"
+                    loading="lazy"
+                  />
                 </div>
 
-                <h3 className="text-base font-bold text-zinc-950 dark:text-white uppercase mb-1">
-                  {cat.name}
-                </h3>
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
-                  {cat.desc}
-                </p>
-
-                <div className="mt-4 flex items-center gap-1 text-[11px] font-mono font-bold text-[#0d9488] dark:text-[#2EE6CA]">
-                  <span>EXPLORE CATEGORY</span>
-                  <span className="transform group-hover:translate-x-1 transition-transform">→</span>
+                {/* Title & Action */}
+                <div className="mt-5 flex items-center justify-between gap-2">
+                  <h3 className="font-bold text-base uppercase tracking-tight text-zinc-950 dark:text-white group-hover:text-[#0d9488] dark:group-hover:text-[#2EE6CA] transition-colors">
+                    {cat.name}
+                  </h3>
+                  <span className="inline-flex items-center text-xs font-mono font-bold text-[#0d9488] dark:text-[#2EE6CA] transition-transform group-hover:translate-x-1 shrink-0">
+                    <ArrowRight className="w-4 h-4" />
+                  </span>
                 </div>
               </button>
             )

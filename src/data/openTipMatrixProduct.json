@@ -79,7 +79,8 @@
               "name": "Size",
               "value": "5"
             }
-          ]
+          ],
+          "sku": "C1205MO-1"
         }
       },
       {
@@ -104,7 +105,8 @@
               "name": "Size",
               "value": "7"
             }
-          ]
+          ],
+          "sku": "C1207MO-1"
         }
       },
       {
@@ -129,7 +131,8 @@
               "name": "Size",
               "value": "9"
             }
-          ]
+          ],
+          "sku": "C1209MO-1"
         }
       },
       {
@@ -154,7 +157,8 @@
               "name": "Size",
               "value": "11"
             }
-          ]
+          ],
+          "sku": "C1211MO-1"
         }
       },
       {
@@ -179,7 +183,8 @@
               "name": "Size",
               "value": "13"
             }
-          ]
+          ],
+          "sku": "C1213MO-1"
         }
       },
       {
@@ -204,14 +209,15 @@
               "name": "Size",
               "value": "15"
             }
-          ]
+          ],
+          "sku": "C1215MO-1"
         }
       },
       {
         "node": {
           "id": "gid://shopify/ProductVariant/48327757758516",
           "title": "MAGNUM CURVED (OPEN) / #12 STANDARD (0.35) / 5",
-          "availableForSale": true,
+          "availableForSale": false,
           "price": {
             "amount": "22.00",
             "currencyCode": "USD"
@@ -229,7 +235,8 @@
               "name": "Size",
               "value": "5"
             }
-          ]
+          ],
+          "sku": "C1205MOC-1"
         }
       },
       {
@@ -254,7 +261,8 @@
               "name": "Size",
               "value": "7"
             }
-          ]
+          ],
+          "sku": "C1207MOC-1"
         }
       },
       {
@@ -279,7 +287,8 @@
               "name": "Size",
               "value": "9"
             }
-          ]
+          ],
+          "sku": "C1209MOC-1"
         }
       },
       {
@@ -304,7 +313,8 @@
               "name": "Size",
               "value": "11"
             }
-          ]
+          ],
+          "sku": "C1211MOC-1"
         }
       },
       {
@@ -329,14 +339,15 @@
               "name": "Size",
               "value": "13"
             }
-          ]
+          ],
+          "sku": "C1213MOC-1"
         }
       },
       {
         "node": {
           "id": "gid://shopify/ProductVariant/48327757922356",
           "title": "MAGNUM CURVED (OPEN) / #12 STANDARD (0.35) / 15",
-          "availableForSale": true,
+          "availableForSale": false,
           "price": {
             "amount": "27.00",
             "currencyCode": "USD"
@@ -354,7 +365,8 @@
               "name": "Size",
               "value": "15"
             }
-          ]
+          ],
+          "sku": "C1215MOC-1"
         }
       },
       {
@@ -379,7 +391,8 @@
               "name": "Size",
               "value": "7"
             }
-          ]
+          ],
+          "sku": "C1007MO-1"
         }
       },
       {
@@ -404,7 +417,8 @@
               "name": "Size",
               "value": "9"
             }
-          ]
+          ],
+          "sku": "C1009MO-1"
         }
       },
       {
@@ -429,7 +443,8 @@
               "name": "Size",
               "value": "11"
             }
-          ]
+          ],
+          "sku": "C1011MO-1"
         }
       },
       {
@@ -454,7 +469,8 @@
               "name": "Size",
               "value": "13"
             }
-          ]
+          ],
+          "sku": "C1013MO-1"
         }
       },
       {
@@ -479,7 +495,8 @@
               "name": "Size",
               "value": "15"
             }
-          ]
+          ],
+          "sku": "C1015MO-1"
         }
       },
       {
@@ -504,14 +521,15 @@
               "name": "Size",
               "value": "17"
             }
-          ]
+          ],
+          "sku": "C1017MO-1"
         }
       },
       {
         "node": {
           "id": "gid://shopify/ProductVariant/48327758151732",
           "title": "MAGNUM CURVED (OPEN) / #10 BUGPIN (0.30) / 7",
-          "availableForSale": true,
+          "availableForSale": false,
           "price": {
             "amount": "24.00",
             "currencyCode": "USD"
@@ -529,7 +547,8 @@
               "name": "Size",
               "value": "7"
             }
-          ]
+          ],
+          "sku": "C1007MOC-1"
         }
       },
       {
@@ -554,7 +573,8 @@
               "name": "Size",
               "value": "9"
             }
-          ]
+          ],
+          "sku": "C1009MOC-1"
         }
       },
       {
@@ -579,7 +599,8 @@
               "name": "Size",
               "value": "11"
             }
-          ]
+          ],
+          "sku": "C1011MOC-1"
         }
       },
       {
@@ -604,7 +625,8 @@
               "name": "Size",
               "value": "13"
             }
-          ]
+          ],
+          "sku": "C1013MOC-1"
         }
       },
       {
@@ -629,14 +651,15 @@
               "name": "Size",
               "value": "15"
             }
-          ]
+          ],
+          "sku": "C1015MOC-1"
         }
       },
       {
         "node": {
           "id": "gid://shopify/ProductVariant/48327758315572",
           "title": "MAGNUM CURVED (OPEN) / #10 BUGPIN (0.30) / 17",
-          "availableForSale": true,
+          "availableForSale": false,
           "price": {
             "amount": "29.00",
             "currencyCode": "USD"
@@ -654,7 +677,8 @@
               "name": "Size",
               "value": "17"
             }
-          ]
+          ],
+          "sku": "C1017MOC-1"
         }
       },
       {
@@ -679,7 +703,8 @@
               "name": "Size",
               "value": "9"
             }
-          ]
+          ],
+          "sku": "C0809MO-1"
         }
       },
       {
@@ -704,7 +729,8 @@
               "name": "Size",
               "value": "11"
             }
-          ]
+          ],
+          "sku": "C0811MO-1"
         }
       },
       {
@@ -729,7 +755,8 @@
               "name": "Size",
               "value": "13"
             }
-          ]
+          ],
+          "sku": "C0813MO-1"
         }
       },
       {
@@ -754,7 +781,8 @@
               "name": "Size",
               "value": "15"
             }
-          ]
+          ],
+          "sku": "C0815MO-1"
         }
       },
       {
@@ -779,7 +807,8 @@
               "name": "Size",
               "value": "17"
             }
-          ]
+          ],
+          "sku": "C0817MO-1"
         }
       },
       {
@@ -804,7 +833,8 @@
               "name": "Size",
               "value": "9"
             }
-          ]
+          ],
+          "sku": "C0809MOC-1"
         }
       },
       {
@@ -829,7 +859,8 @@
               "name": "Size",
               "value": "11"
             }
-          ]
+          ],
+          "sku": "C0811MOC-1"
         }
       },
       {
@@ -854,7 +885,8 @@
               "name": "Size",
               "value": "13"
             }
-          ]
+          ],
+          "sku": "C0813MOC-1"
         }
       },
       {
@@ -879,7 +911,8 @@
               "name": "Size",
               "value": "15"
             }
-          ]
+          ],
+          "sku": "C0815MOC-1"
         }
       },
       {
@@ -904,7 +937,8 @@
               "name": "Size",
               "value": "17"
             }
-          ]
+          ],
+          "sku": "C0817MOC-1"
         }
       }
     ]

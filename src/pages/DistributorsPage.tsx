@@ -107,7 +107,7 @@ export const DistributorsPage: React.FC = () => {
           <div className="max-w-2xl space-y-5">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#2EE6CA]/30 bg-[#2EE6CA]/10 text-[#0d9488] dark:text-[#2EE6CA] text-xs font-mono font-bold tracking-wider uppercase">
               <Globe className="w-3.5 h-3.5 animate-pulse" />
-              <span>GLOBAL FACTORY DISTRIBUTION // AUTHORIZED WHOLESALE</span>
+              <span>GLOBAL FACTORY DISTRIBUTION · AUTHORIZED WHOLESALE</span>
             </div>
 
             <h1 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-zinc-950 dark:text-white leading-none">
@@ -169,7 +169,7 @@ export const DistributorsPage: React.FC = () => {
           <div>
             <div className="text-[11px] font-mono font-bold tracking-widest text-[#0d9488] dark:text-[#2EE6CA] uppercase flex items-center gap-1.5">
               <BadgeCheck className="w-3.5 h-3.5" />
-              <span>// VERIFIED FACTORY REPRESENTATIVES</span>
+              <span>VERIFIED FACTORY REPRESENTATIVES</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-black text-zinc-950 dark:text-white uppercase tracking-tight">
               CURRENT OFFICIAL DISTRIBUTORS
@@ -255,7 +255,7 @@ export const DistributorsPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12 space-y-2">
             <div className="text-[11px] font-mono font-bold tracking-widest text-[#0d9488] dark:text-[#2EE6CA] uppercase">
-              // PARTNER BENEFITS & FACTORY STANDARDS
+              PARTNER BENEFITS & FACTORY STANDARDS
             </div>
             <h2 className="text-2xl sm:text-3xl font-black text-zinc-950 dark:text-white uppercase tracking-tight">
               WHY PARTNER WITH PAPA TATTOO SUPPLY
@@ -337,7 +337,7 @@ export const DistributorsPage: React.FC = () => {
             <div className="p-8 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-center space-y-3 animate-in fade-in zoom-in-95">
               <CheckCircle2 className="w-12 h-12 text-emerald-500 mx-auto" />
               <h3 className="text-lg font-black font-mono text-zinc-950 dark:text-white uppercase">
-                APPLICATION RECEIVED // UNDER REVIEW
+                APPLICATION RECEIVED · UNDER REVIEW
               </h3>
               <p className="text-xs font-mono text-zinc-600 dark:text-zinc-400 max-w-md mx-auto">
                 Thank you for your interest in distributing Papa Tattoo Supply apparatus. A dedicated account director will email your wholesale catalog and regional pricing sheet within 24 business hours.

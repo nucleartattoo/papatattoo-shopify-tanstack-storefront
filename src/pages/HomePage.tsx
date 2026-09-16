@@ -18,16 +18,17 @@ export const HomePage: React.FC = () => {
     async function loadFeatured() {
       try {
         const prods = await getProducts({ first: 40 })
-        // Pick a balanced set of flagship products: 2 premium needles, 1 machine, 1 grip
-        const premium = prods.filter(p => p.title.toLowerCase().includes('premium')).slice(0, 2)
-        const machines = prods.filter(p => p.title.toLowerCase().includes('pen') || p.title.toLowerCase().includes('machine')).slice(0, 1)
-        const grips = prods.filter(p => p.title.toLowerCase().includes('grip')).slice(0, 1)
+        // Curate 4 distinct flagship apparatus: Premium Needles, Standard Needles, Rotary Machine, Adjustable Grip
+        const pPremium = prods.find(p => p.handle === 'papa-premium-tattoo-cartridges') || prods[0]
+        const pStandard = prods.find(p => p.handle === 'papa-standard-tattoo-cartridges') || prods[1]
+        const pMachine = prods.find(p => p.handle === 'papa-pen-v2-1' || p.handle === 'papa-pen-jet-black' || (p.title.toLowerCase().includes('pen') && !p.title.toLowerCase().includes('grip')))
+        const pGrip = prods.find(p => p.title.toLowerCase().includes('grip') && !p.title.toLowerCase().includes('pen'))
 
-        const selected = [...premium, ...machines, ...grips]
-        if (selected.length < 4) {
-          setFeaturedProducts(prods.slice(0, 4))
-        } else {
+        const selected = [pPremium, pStandard, pMachine, pGrip].filter(Boolean) as ShopifyProduct[]
+        if (selected.length === 4) {
           setFeaturedProducts(selected)
+        } else {
+          setFeaturedProducts(prods.slice(0, 4))
         }
       } catch (err) {
         console.error(err)
@@ -51,41 +52,35 @@ export const HomePage: React.FC = () => {
         }}
       />
 
-      {/* 3. Flagship Curated Apparatus (Mall Highlight Section) */}
-      <section className="py-16 bg-zinc-50 dark:bg-[#090A0C] border-b border-zinc-200 dark:border-[#222731]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 pb-4 border-b border-zinc-200 dark:border-[#1E232E] gap-4">
-            <div>
-              <div className="text-[11px] font-mono font-bold tracking-widest text-[#0d9488] dark:text-[#2EE6CA] uppercase flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>// FLAGSHIP APPARATUS SHOWCASE</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-black text-zinc-950 dark:text-white uppercase tracking-tight">
-                STUDIO ESSENTIALS & BESTSELLERS
-              </h2>
-            </div>
+      {/* 3. Flagship Curated Apparatus */}
+      <section className="py-16 sm:py-20 bg-zinc-50/60 dark:bg-[#08090C] border-b border-zinc-200/70 dark:border-zinc-800/70">
+        <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 pb-5 border-b border-zinc-200/70 dark:border-zinc-800/70 gap-4">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-zinc-950 dark:text-white uppercase tracking-tight">
+              FEATURED PRODUCTS
+            </h2>
             <Link
               to="/collections"
               search={{ category: 'all' }}
               className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase text-[#0d9488] dark:text-[#2EE6CA] hover:underline"
             >
-              <span>Explore All Catalog Apparatus</span>
+              <span>View All</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
           {loading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8">
               {[1, 2, 3, 4].map(n => (
-                <div key={n} className="rounded-xl border border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#12151B] p-4 animate-pulse space-y-4">
-                  <div className="w-full aspect-square bg-zinc-200 dark:bg-[#1A1E27] rounded-lg"></div>
+                <div key={n} className="rounded-2xl border border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#12151B] p-5 animate-pulse space-y-4">
+                  <div className="w-full aspect-square bg-zinc-200 dark:bg-[#1A1E27] rounded-xl"></div>
                   <div className="h-4 bg-zinc-200 dark:bg-[#1A1E27] rounded-sm w-3/4"></div>
                   <div className="h-3 bg-zinc-200 dark:bg-[#1A1E27] rounded-sm w-1/2"></div>
                 </div>
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8">
               {featuredProducts.map(product => (
                 <ProductCard key={product.id} product={product} />
               ))}
@@ -94,45 +89,8 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* 4. Equipment Engineering Spotlight & Modular Hardware Banners */}
+      {/* 4. Equipment Spotlight & Promo Banners */}
       <HomePromoBanners />
-
-      {/* 5. Technical Quality Standards (B2B Authority Banner) */}
-      <section className="py-12 bg-zinc-100 dark:bg-[#0E1116] border-b border-zinc-200 dark:border-[#1C2028]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-xl border border-zinc-200 dark:border-[#1E232E] bg-white dark:bg-[#13161D]">
-              <ShieldCheck className="w-8 h-8 text-[#0d9488] dark:text-[#2EE6CA] mb-3" />
-              <h3 className="text-sm font-mono font-black uppercase text-zinc-900 dark:text-white">
-                FACTORY QUALITY CONTROL
-              </h3>
-              <p className="text-xs text-zinc-500 mt-2 leading-relaxed">
-                Direct factory manufacturing quality assurance. Multi-point inspection across rotary pens, cartridge systems, and studio hardware.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-xl border border-zinc-200 dark:border-[#1E232E] bg-white dark:bg-[#13161D]">
-              <Layers className="w-8 h-8 text-amber-500 mb-3" />
-              <h3 className="text-sm font-mono font-black uppercase text-zinc-900 dark:text-white">
-                JAPANESE 316L SURGICAL ALLOY
-              </h3>
-              <p className="text-xs text-zinc-500 mt-2 leading-relaxed">
-                Razor-sharp needle pins engineered from genuine Japanese 316L surgical stainless steel with micro-stabilized rebound membranes.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-xl border border-zinc-200 dark:border-[#1E232E] bg-white dark:bg-[#13161D]">
-              <Cpu className="w-8 h-8 text-[#0d9488] dark:text-[#2EE6CA] mb-3" />
-              <h3 className="text-sm font-mono font-black uppercase text-zinc-900 dark:text-white">
-                DIRECT DRIVE ZERO VIBRATION
-              </h3>
-              <p className="text-xs text-zinc-500 mt-2 leading-relaxed">
-                Brushless DC custom coreless motors delivering constant torque with sub-0.01mm concentricity tolerance for ultra-clean lines.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* 5. Studio Wholesale Section */}
       <div id="studio-section">

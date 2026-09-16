@@ -22,8 +22,11 @@ const CartContext = createContext<CartContextType | undefined>(undefined)
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [items, setItems] = useState<CartLineItem[]>(() => {
     try {
-      const saved = localStorage.getItem('papa_cart')
-      return saved ? JSON.parse(saved) : []
+      if (typeof window !== 'undefined') {
+        const saved = localStorage.getItem('papa_cart')
+        return saved ? JSON.parse(saved) : []
+      }
+      return []
     } catch {
       return []
     }
@@ -34,7 +37,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     try {
-      localStorage.setItem('papa_cart', JSON.stringify(items))
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('papa_cart', JSON.stringify(items))
+      }
     } catch (e) {
       console.error('Failed to save cart to localStorage', e)
     }

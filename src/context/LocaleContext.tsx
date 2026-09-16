@@ -164,13 +164,17 @@ const LocaleContext = createContext<LocaleContextType | undefined>(undefined)
 
 export const LocaleProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [locale, setLocaleState] = useState<Locale>(() => {
-    const saved = localStorage.getItem('papa_locale') as Locale | null
-    if (saved && ['EN', 'ES', 'DE', 'FR'].includes(saved)) return saved
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('papa_locale') as Locale | null
+      if (saved && ['EN', 'ES', 'DE', 'FR'].includes(saved)) return saved
+    }
     return 'EN'
   })
 
   useEffect(() => {
-    localStorage.setItem('papa_locale', locale)
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('papa_locale', locale)
+    }
   }, [locale])
 
   const setLocale = (newLocale: Locale) => {

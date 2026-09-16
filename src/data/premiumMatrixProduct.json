@@ -368,7 +368,7 @@
         "node": {
           "id": "gid://shopify/ProductVariant/48327414022196",
           "title": "ROUND SHADER / #12 STANDARD (0.35) / 7",
-          "availableForSale": true,
+          "availableForSale": false,
           "price": {
             "amount": "27.00",
             "currencyCode": "USD"
@@ -1044,7 +1044,7 @@
         "node": {
           "id": "gid://shopify/ProductVariant/48327414874164",
           "title": "MAGNUM CURVED / #10 BUGPIN (0.30) / 7",
-          "availableForSale": true,
+          "availableForSale": false,
           "price": {
             "amount": "27.00",
             "currencyCode": "USD"

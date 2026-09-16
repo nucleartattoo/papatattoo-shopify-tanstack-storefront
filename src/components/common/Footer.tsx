@@ -8,10 +8,10 @@ export const Footer: React.FC = () => {
   const { t } = useLocale()
 
   return (
-    <footer className="border-t border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#07080A] text-zinc-600 dark:text-zinc-400 font-sans transition-colors duration-200">
+    <footer className="border-t border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#07080A] text-zinc-600 dark:text-zinc-400 font-sans transition-colors duration-200">
       {/* Top Banner */}
-      <div className="border-b border-zinc-200 dark:border-[#1C202A] py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-6 text-xs font-mono">
+      <div className="border-b border-zinc-100 dark:border-zinc-800/60 py-8">
+        <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-6 text-xs font-mono">
           <div className="flex items-center gap-3">
             <Cpu className="w-5 h-5 text-[#0d9488] dark:text-[#2EE6CA] shrink-0" />
             <div>
@@ -47,7 +47,7 @@ export const Footer: React.FC = () => {
       </div>
 
       {/* Main Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
           {/* Brand & Mission */}
           <div className="md:col-span-5 space-y-4">
@@ -206,7 +206,7 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-zinc-200 dark:border-[#1C202A] flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono text-zinc-500">
+        <div className="mt-12 pt-8 border-t border-zinc-100 dark:border-zinc-800/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono text-zinc-500">
           <div>© {new Date().getFullYear()} {t('footer_rights')}</div>
           <div className="flex flex-wrap items-center gap-6">
             <Link to="/about" className="hover:text-zinc-950 dark:hover:text-[#2EE6CA] transition-colors">

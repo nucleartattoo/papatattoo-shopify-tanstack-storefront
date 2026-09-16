@@ -92,7 +92,7 @@ export const AboutPage: React.FC = () => {
           <div className="lg:col-span-6 space-y-6">
             <div className="text-[11px] font-mono font-bold tracking-widest text-[#0d9488] dark:text-[#2EE6CA] uppercase flex items-center gap-1.5">
               <Award className="w-3.5 h-3.5" />
-              <span>// DIRECT MANUFACTURER HERITAGE</span>
+              <span>DIRECT MANUFACTURER HERITAGE</span>
             </div>
 
             <h2 className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-zinc-950 dark:text-white leading-tight">
@@ -161,7 +161,7 @@ export const AboutPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center max-w-2xl mx-auto space-y-2">
             <div className="text-[11px] font-mono font-bold tracking-widest text-[#0d9488] dark:text-[#2EE6CA] uppercase">
-              // STUDIO PROMISES & QUALITY ASSURANCE
+              STUDIO PROMISES & QUALITY ASSURANCE
             </div>
             <h2 className="text-2xl sm:text-3xl font-black text-zinc-950 dark:text-white uppercase tracking-tight">
               OUR COMMITMENT TO YOUR PARLOR

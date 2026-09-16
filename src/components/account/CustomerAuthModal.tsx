@@ -148,14 +148,14 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
         onClick={e => e.stopPropagation()}
       >
         {/* Top Header */}
-        <div className="flex items-center justify-between pb-4 mb-4 border-b border-zinc-100 dark:border-[#1E232E]">
+        <div className="flex items-center justify-between pb-4 mb-4 border-b border-zinc-100 dark:border-zinc-800/70">
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 rounded-lg bg-[#2EE6CA]/15 flex items-center justify-center text-[#0d9488] dark:text-[#2EE6CA]">
               <User className="w-4 h-4" />
             </div>
             <div>
               <div className="text-[10px] font-mono font-bold text-[#0d9488] dark:text-[#2EE6CA] uppercase tracking-wider">
-                // CUSTOMER PORTAL
+                CUSTOMER PORTAL
               </div>
               <h3 className="text-base font-black uppercase text-zinc-950 dark:text-white tracking-tight">
                 {mode === 'signin' && 'Customer Sign In'}

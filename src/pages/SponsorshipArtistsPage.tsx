@@ -45,7 +45,7 @@ export const SponsorshipArtistsPage: React.FC = () => {
           <div className="max-w-3xl space-y-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#2EE6CA]/30 bg-[#2EE6CA]/10 text-[#0d9488] dark:text-[#2EE6CA] text-xs font-mono font-bold tracking-wider uppercase">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>OFFICIAL PRO TEAM // SPONSORSHIP DIRECTORY</span>
+              <span>OFFICIAL PRO TEAM · SPONSORSHIP DIRECTORY</span>
             </div>
 
             <h1 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-zinc-950 dark:text-white leading-tight">

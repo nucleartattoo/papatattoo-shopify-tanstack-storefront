@@ -214,6 +214,13 @@ export const CartridgeMatrixSelector: React.FC<CartridgeMatrixSelectorProps> = (
           {catalogSizes.map(size => {
             const isSelected = currentSize === size
             const isAvailable = availableCombinations.has(`${currentType}:::${currentGauge}:::${size}`)
+            const matchingVariant = variants.find(v => {
+              const t = v.selectedOptions?.find(o => o.name.toLowerCase() === 'type')?.value
+              const g = v.selectedOptions?.find(o => o.name.toLowerCase() === 'gauge')?.value
+              const s = v.selectedOptions?.find(o => o.name.toLowerCase() === 'size')?.value
+              return t === currentType && g === currentGauge && s === size
+            })
+            const inStock = matchingVariant ? matchingVariant.availableForSale !== false : true
 
             return (
               <button
@@ -221,16 +228,29 @@ export const CartridgeMatrixSelector: React.FC<CartridgeMatrixSelectorProps> = (
                 type="button"
                 onClick={() => isAvailable && handleSelect(currentType, currentGauge, size)}
                 disabled={!isAvailable}
-                className={`min-w-[42px] h-10 px-2 flex items-center justify-center text-xs font-mono font-bold rounded-md border transition-all select-none active:scale-[0.98] ${
+                className={`relative min-w-[42px] h-10 px-2 flex items-center justify-center text-xs font-mono font-bold rounded-md border transition-all select-none active:scale-[0.98] ${
                   isSelected
-                    ? 'border-zinc-950 bg-zinc-950 text-white dark:border-[#2ee6ca] dark:bg-[#2ee6ca] dark:text-zinc-950 shadow-sm ring-1 ring-zinc-950/20 dark:ring-[#2ee6ca]/30 cursor-pointer'
+                    ? inStock
+                      ? 'border-zinc-950 bg-zinc-950 text-white dark:border-[#2ee6ca] dark:bg-[#2ee6ca] dark:text-zinc-950 shadow-sm ring-1 ring-zinc-950/20 dark:ring-[#2ee6ca]/30 cursor-pointer'
+                      : 'border-red-500 bg-red-950/30 text-red-400 dark:border-red-400 dark:bg-red-950/50 dark:text-red-300 shadow-sm cursor-pointer'
                     : isAvailable
-                    ? 'border-zinc-300 dark:border-[#2a303c] bg-white dark:bg-[#12151B] text-zinc-800 dark:text-zinc-300 hover:border-zinc-950 dark:hover:border-[#2ee6ca] hover:bg-zinc-50 dark:hover:bg-[#171a22] cursor-pointer'
+                    ? inStock
+                      ? 'border-zinc-300 dark:border-[#2a303c] bg-white dark:bg-[#12151B] text-zinc-800 dark:text-zinc-300 hover:border-zinc-950 dark:hover:border-[#2ee6ca] hover:bg-zinc-50 dark:hover:bg-[#171a22] cursor-pointer'
+                      : 'border-red-300/60 dark:border-red-900/50 bg-red-50/30 dark:bg-red-950/20 text-zinc-400 dark:text-zinc-500 hover:border-red-400 cursor-pointer'
                     : 'border-zinc-200 dark:border-[#191d24] bg-zinc-100/50 dark:bg-[#0a0c10] text-zinc-300 dark:text-zinc-700 cursor-not-allowed line-through opacity-40'
                 }`}
-                title={isAvailable ? `${currentType} ${currentGauge} Size ${size}` : 'Configuration unavailable'}
+                title={
+                  !isAvailable
+                    ? 'Configuration unavailable'
+                    : !inStock
+                    ? `${currentType} ${currentGauge} Size ${size} - OUT OF STOCK`
+                    : `${currentType} ${currentGauge} Size ${size}`
+                }
               >
-                {size}
+                <span>{size}</span>
+                {isAvailable && !inStock && (
+                  <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-red-500 ring-2 ring-white dark:ring-[#11141A]" />
+                )}
               </button>
             )
           })}

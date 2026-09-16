@@ -6,11 +6,11 @@ export const StudioB2B: React.FC = () => {
   const { t } = useLocale()
 
   return (
-    <section className="py-20 border-t border-b border-zinc-200 dark:border-[#222731] bg-gradient-to-b from-zinc-100 to-white dark:from-[#090A0C] dark:to-[#0F1218] relative overflow-hidden">
+    <section className="py-20 sm:py-24 border-t border-b border-zinc-200/70 dark:border-zinc-800/70 bg-gradient-to-b from-zinc-100/70 to-white dark:from-[#080A0E] dark:to-[#0F1218] relative overflow-hidden">
       {/* Subtle Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#2EE6CA]/5 blur-[120px] rounded-full pointer-events-none"></div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-teal-600/30 dark:border-[#2EE6CA]/30 bg-teal-500/10 dark:bg-[#2EE6CA]/10 text-teal-700 dark:text-[#2EE6CA] text-[10px] font-mono font-bold uppercase tracking-widest mb-3">
             <Award className="w-3.5 h-3.5" />
@@ -27,9 +27,9 @@ export const StudioB2B: React.FC = () => {
         </div>
 
         {/* Volume Tier Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 xl:gap-8">
           {/* Tier 1 */}
-          <div className="rounded-xl border border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#14171E] p-6 flex flex-col justify-between hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors shadow-sm">
+          <div className="rounded-2xl border border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#14171E] p-7 flex flex-col justify-between hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors shadow-xs">
             <div>
               <div className="flex items-center justify-between mb-4">
                 <span className="text-[11px] font-mono font-bold text-zinc-500 uppercase">TIER I · STUDIO STARTER</span>
@@ -42,15 +42,15 @@ export const StudioB2B: React.FC = () => {
                 Ideal for independent artists stocking backup machine grips and primary daily stations.
               </p>
             </div>
-            <div className="mt-6 pt-4 border-t border-zinc-100 dark:border-[#1E232E] text-[11px] font-mono text-zinc-500 flex items-center gap-2">
+            <div className="mt-6 pt-4 border-t border-zinc-100 dark:border-zinc-800/70 text-[11px] font-mono text-zinc-500 flex items-center gap-2">
               <FileCheck2 className="w-4 h-4 text-emerald-500" />
               <span>Standard Batch Certificate</span>
             </div>
           </div>
 
           {/* Tier 2 */}
-          <div className="rounded-xl border-2 border-teal-600/60 dark:border-[#2EE6CA] bg-white dark:bg-[#151922] p-6 flex flex-col justify-between relative shadow-lg dark:shadow-[0_0_30px_rgba(46,230,202,0.15)]">
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#0d9488] dark:bg-[#2EE6CA] text-white dark:text-zinc-950 text-[10px] font-mono font-black uppercase tracking-widest px-3 py-0.5 rounded-full">
+          <div className="rounded-2xl border-2 border-teal-600/60 dark:border-[#2EE6CA] bg-white dark:bg-[#151922] p-7 flex flex-col justify-between relative shadow-md dark:shadow-[0_0_30px_rgba(46,230,202,0.12)]">
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#0d9488] dark:bg-[#2EE6CA] text-white dark:text-zinc-950 text-[10px] font-mono font-black uppercase tracking-widest px-3.5 py-0.5 rounded-full shadow-xs">
               MOST POPULAR FOR SHOPS
             </div>
 
@@ -66,14 +66,14 @@ export const StudioB2B: React.FC = () => {
                 Tailored for multi-station tattoo parlors. Mix & match across all anodized colorways (Black, Blue, Silver, Pink, Green).
               </p>
             </div>
-            <div className="mt-6 pt-4 border-t border-zinc-100 dark:border-[#1E232E] text-[11px] font-mono text-zinc-500 dark:text-zinc-400 flex items-center gap-2">
+            <div className="mt-6 pt-4 border-t border-zinc-100 dark:border-zinc-800/70 text-[11px] font-mono text-zinc-500 dark:text-zinc-400 flex items-center gap-2">
               <Truck className="w-4 h-4 text-[#2EE6CA]" />
               <span>Priority Warehouse Dispatch</span>
             </div>
           </div>
 
           {/* Tier 3 */}
-          <div className="rounded-xl border border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#14171E] p-6 flex flex-col justify-between hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors shadow-sm">
+          <div className="rounded-2xl border border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#14171E] p-7 flex flex-col justify-between hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors shadow-xs">
             <div>
               <div className="flex items-center justify-between mb-4">
                 <span className="text-[11px] font-mono font-bold text-zinc-500 uppercase">TIER III · MASTER DISTRO</span>
@@ -86,7 +86,7 @@ export const StudioB2B: React.FC = () => {
                 Full studio outfit with custom studio laser logo marking and dedicated account concierge.
               </p>
             </div>
-            <div className="mt-6 pt-4 border-t border-zinc-100 dark:border-[#1E232E] text-[11px] font-mono text-zinc-500 flex items-center gap-2">
+            <div className="mt-6 pt-4 border-t border-zinc-100 dark:border-zinc-800/70 text-[11px] font-mono text-zinc-500 flex items-center gap-2">
               <Award className="w-4 h-4 text-amber-500" />
               <span>Dedicated Commercial Line</span>
             </div>
@@ -94,7 +94,7 @@ export const StudioB2B: React.FC = () => {
         </div>
 
         {/* Official Contact Dispatch Strip */}
-        <div className="mt-12 rounded-xl border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#101217] p-6 flex flex-wrap items-center justify-between gap-6">
+        <div className="mt-12 rounded-2xl border border-zinc-200/70 dark:border-zinc-800/70 bg-zinc-50/70 dark:bg-[#101217] p-7 flex flex-wrap items-center justify-between gap-6">
           <div>
             <div className="text-xs font-mono font-bold text-zinc-950 dark:text-zinc-200 uppercase tracking-wider">
               NEED CUSTOM INVOICE OR STUDIO CONTRACT?

@@ -13,15 +13,18 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setThemeState] = useState<Theme>(() => {
     // Default to dark mode for tattoo industry aesthetic
-    const saved = localStorage.getItem('papa_theme') as Theme | null
-    if (saved === 'dark' || saved === 'light') return saved
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-      return 'light'
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('papa_theme') as Theme | null
+      if (saved === 'dark' || saved === 'light') return saved
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        return 'light'
+      }
     }
     return 'dark'
   })
 
   useEffect(() => {
+    if (typeof window === 'undefined') return
     const root = document.documentElement
     if (theme === 'dark') {
       root.classList.add('dark')

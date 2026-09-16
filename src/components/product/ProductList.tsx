@@ -99,18 +99,14 @@ export const ProductList: React.FC<ProductListProps> = ({
     return true
   })
 
-  // Count statistics for the badge
-  const premiumCount = products.filter(p => p.handle === 'papa-premium-tattoo-cartridges').length
-  const standardCount = products.filter(p => p.handle === 'papa-standard-tattoo-cartridges').length
-
   return (
     <section id="catalog-section" className="py-16 bg-zinc-50 dark:bg-[#090A0C]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header with Search */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-6 border-b border-zinc-200 dark:border-[#222731] gap-4">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-6 border-b border-zinc-200/70 dark:border-zinc-800/70 gap-4">
           <div>
             <div className="text-[11px] font-mono font-bold tracking-widest text-[#0d9488] dark:text-[#2EE6CA] uppercase">
-              // STUDIO INVENTORY SYSTEM ({products.length} APPARATUS SYNCED)
+              STUDIO INVENTORY SYSTEM
             </div>
             <h2 className="text-3xl sm:text-4xl font-black text-zinc-950 dark:text-white uppercase tracking-tight">
               AVAILABLE GEAR & HARDWARE
@@ -142,10 +138,10 @@ export const ProductList: React.FC<ProductListProps> = ({
         <div className="flex items-center justify-between flex-wrap gap-4 mb-6">
           <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
             {[
-              { id: 'all', label: t('filter_all'), count: products.length },
-              { id: 'needles', label: t('filter_cartridges'), count: standardCount + premiumCount },
-              { id: 'grips', label: t('filter_grips'), count: products.filter(p => p.title.toLowerCase().includes('grip')).length },
-              { id: 'machines', label: t('filter_machines'), count: products.filter(p => p.title.toLowerCase().includes('pen') || p.title.toLowerCase().includes('machine') || p.title.toLowerCase().includes('atom')).length },
+              { id: 'all', label: t('filter_all') },
+              { id: 'needles', label: t('filter_cartridges') },
+              { id: 'grips', label: t('filter_grips') },
+              { id: 'machines', label: t('filter_machines') },
             ].map(tab => (
               <button
                 key={tab.id}
@@ -156,18 +152,13 @@ export const ProductList: React.FC<ProductListProps> = ({
                     setNeedleType('all')
                   }
                 }}
-                className={`flex items-center gap-2 px-4 py-2 rounded-md text-xs font-mono font-bold uppercase whitespace-nowrap transition-all ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono font-bold uppercase whitespace-nowrap transition-all ${
                   activeTab === tab.id
                     ? 'bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 shadow-sm'
-                    : 'bg-white dark:bg-[#14171D] text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-[#222731] hover:border-zinc-400'
+                    : 'bg-white dark:bg-[#14171D] text-zinc-600 dark:text-zinc-400 border border-zinc-200/70 dark:border-zinc-800/70 hover:border-zinc-400'
                 }`}
               >
                 <span>{tab.label}</span>
-                <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${
-                  activeTab === tab.id ? 'bg-zinc-800 text-white dark:bg-zinc-900 dark:text-[#2EE6CA]' : 'bg-zinc-100 dark:bg-[#1B202A] text-zinc-500'
-                }`}>
-                  {tab.count}
-                </span>
               </button>
             ))}
           </div>
@@ -175,9 +166,9 @@ export const ProductList: React.FC<ProductListProps> = ({
 
         {/* Specialized Cartridge Series & Configuration Bar */}
         {(activeTab === 'needles' || activeTab === 'all') && (
-          <div className="mb-8 p-4 rounded-xl border border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#11141B] space-y-3">
+          <div className="mb-8 p-4 rounded-2xl border border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#11141B] space-y-3">
             {/* Series Selector */}
-            <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-zinc-100 dark:border-[#1E232E]">
+            <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-zinc-100 dark:border-zinc-800/70">
               <div className="flex items-center gap-2 text-xs font-mono font-bold text-zinc-500 uppercase">
                 <SlidersHorizontal className="w-3.5 h-3.5 text-[#0d9488] dark:text-[#2EE6CA]" />
                 <span>CARTRIDGE SERIES:</span>
@@ -192,7 +183,7 @@ export const ProductList: React.FC<ProductListProps> = ({
                       : 'bg-zinc-100 dark:bg-[#181C25] text-zinc-600 dark:text-zinc-400 hover:text-white'
                   }`}
                 >
-                  All Series ({standardCount + premiumCount})
+                  All Series
                 </button>
 
                 {/* ⭐ Premium Cartridges Tab */}
@@ -205,7 +196,7 @@ export const ProductList: React.FC<ProductListProps> = ({
                   }`}
                 >
                   <Sparkles className="w-3.5 h-3.5" />
-                  <span>PAPA PREMIUM SERIES ({premiumCount})</span>
+                  <span>PAPA PREMIUM SERIES</span>
                 </button>
 
                 {/* Standard Cartridges Tab */}
@@ -218,7 +209,7 @@ export const ProductList: React.FC<ProductListProps> = ({
                   }`}
                 >
                   <Layers className="w-3.5 h-3.5" />
-                  <span>STANDARD SERIES ({standardCount})</span>
+                  <span>STANDARD SERIES</span>
                 </button>
               </div>
             </div>

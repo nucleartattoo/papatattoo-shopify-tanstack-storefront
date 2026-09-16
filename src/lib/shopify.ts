@@ -672,8 +672,8 @@ export const FALLBACK_PRODUCTS: ShopifyProduct[] = [
     },
     variants: {
       edges: [
-        { node: { id: 'gid://shopify/ProductVariant/48326238076980', title: '1 inch (25mm)', price: { amount: '69.0', currencyCode: 'USD' } } },
-        { node: { id: 'gid://shopify/ProductVariant/48326238109748', title: '1.25 inch (32mm)', price: { amount: '79.0', currencyCode: 'USD' } } },
+        { node: { id: 'gid://shopify/ProductVariant/48326238076980', title: '1 inch (25mm)', availableForSale: true, price: { amount: '69.0', currencyCode: 'USD' } } },
+        { node: { id: 'gid://shopify/ProductVariant/48326238109748', title: '1.25 inch (32mm)', availableForSale: false, price: { amount: '79.0', currencyCode: 'USD' } } },
       ],
     },
   },
@@ -681,6 +681,7 @@ export const FALLBACK_PRODUCTS: ShopifyProduct[] = [
     id: 'gid://shopify/Product/8949756592180',
     title: 'Papa Adjustable Click Grip - Black',
     handle: 'papa-adjustable-click-grip-black',
+    availableForSale: true,
     description: 'Matte obsidian anodized finish. Compatible with all major cartridge needle brands (Cheyenne, Kwadron, Bishop). Autoclavable design.',
     tags: ['Grip', 'Matte Black', 'Pro Choice', 'Autoclavable'],
     priceRange: {
@@ -697,8 +698,8 @@ export const FALLBACK_PRODUCTS: ShopifyProduct[] = [
     },
     variants: {
       edges: [
-        { node: { id: 'gid://shopify/ProductVariant/48326261473332', title: '1 inch (25mm)', price: { amount: '69.0', currencyCode: 'USD' } } },
-        { node: { id: 'gid://shopify/ProductVariant/48326261506100', title: '1.25 inch (32mm)', price: { amount: '79.0', currencyCode: 'USD' } } },
+        { node: { id: 'gid://shopify/ProductVariant/48326261473332', title: '1 inch (25mm)', availableForSale: false, price: { amount: '69.0', currencyCode: 'USD' } } },
+        { node: { id: 'gid://shopify/ProductVariant/48326261506100', title: '1.25 inch (32mm)', availableForSale: true, price: { amount: '79.0', currencyCode: 'USD' } } },
       ],
     },
   },
@@ -706,6 +707,7 @@ export const FALLBACK_PRODUCTS: ShopifyProduct[] = [
     id: 'gid://shopify/Product/8949756624948',
     title: 'Papa Adjustable Click Grip - Silver',
     handle: 'papa-adjustable-click-grip-silver',
+    availableForSale: false,
     description: 'Precision machined raw titanium-silver finish. Heavy duty click stop mechanism provides definitive tactile feedback.',
     tags: ['Grip', 'Titanium Silver', 'Heavy Duty'],
     priceRange: {
@@ -722,8 +724,8 @@ export const FALLBACK_PRODUCTS: ShopifyProduct[] = [
     },
     variants: {
       edges: [
-        { node: { id: 'gid://shopify/ProductVariant/48326261538868', title: '1 inch (25mm)', price: { amount: '69.0', currencyCode: 'USD' } } },
-        { node: { id: 'gid://shopify/ProductVariant/48326261571636', title: '1.25 inch (32mm)', price: { amount: '79.0', currencyCode: 'USD' } } },
+        { node: { id: 'gid://shopify/ProductVariant/48326261538868', title: '1 inch (25mm)', availableForSale: false, price: { amount: '69.0', currencyCode: 'USD' } } },
+        { node: { id: 'gid://shopify/ProductVariant/48326261571636', title: '1.25 inch (32mm)', availableForSale: false, price: { amount: '79.0', currencyCode: 'USD' } } },
       ],
     },
   },

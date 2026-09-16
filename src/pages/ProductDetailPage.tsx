@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams, useNavigate } from '@tanstack/react-router'
+import { Link, useParams, useNavigate, useLoaderData } from '@tanstack/react-router'
 import { ShopifyProduct, ShopifyVariant } from '../types/shopify'
 import { getProductByHandle, getProducts } from '../lib/shopify'
 import { useCart } from '../context/CartContext'
 import { useLocale } from '../context/LocaleContext'
 import { ProductCard } from '../components/product/ProductCard'
 import { CartridgeMatrixSelector } from '../components/product/CartridgeMatrixSelector'
+import { formatProductImageUrl } from '../utils/imageUrl'
 import {
   ChevronRight,
   ShieldCheck,
@@ -26,30 +27,62 @@ import {
 } from 'lucide-react'
 import { ModelViewer3D } from '../components/common/ModelViewer3D'
 
-export const ProductDetailPage: React.FC = () => {
+interface ProductDetailPageProps {
+  initialProduct?: ShopifyProduct | null
+}
+
+export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
+  initialProduct: propInitialProduct,
+}) => {
   const { handle } = useParams({ strict: false }) as { handle: string }
+  const loaderData = useLoaderData({ strict: false }) as
+    | { product?: ShopifyProduct | null }
+    | undefined
+  const initialProduct = propInitialProduct || loaderData?.product || null
+
   const navigate = useNavigate()
   const { addToCart, openCart } = useCart()
   const { locale } = useLocale()
 
-  const [product, setProduct] = useState<ShopifyProduct | null>(null)
+  const has3DModel = Boolean(
+    handle && (handle.includes('papa-pen-v2') || handle.includes('papapenv2'))
+  )
+
+  const [product, setProduct] = useState<ShopifyProduct | null>(initialProduct)
   const [relatedProducts, setRelatedProducts] = useState<ShopifyProduct[]>([])
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(!initialProduct)
   const [activeImageIndex, setActiveImageIndex] = useState(0)
-  const [selectedVariant, setSelectedVariant] = useState<ShopifyVariant | null>(null)
+  const [selectedVariant, setSelectedVariant] = useState<ShopifyVariant | null>(
+    () => initialProduct?.variants?.edges?.[0]?.node || null,
+  )
   const [quantity, setQuantity] = useState(1)
   const [addedAnimation, setAddedAnimation] = useState(false)
   const [activeTab, setActiveTab] = useState<'description' | 'specs' | 'rma'>('description')
-  const [mediaViewMode, setMediaViewMode] = useState<'photo' | '3d'>('photo')
-
-  const has3DModel = Boolean(
-    handle && (handle.includes('papa-pen-v2') || handle.includes('papapenv2'))
+  const [mediaViewMode, setMediaViewMode] = useState<'photo' | '3d'>(
+    has3DModel ? '3d' : 'photo',
   )
 
   useEffect(() => {
     let isMounted = true
     async function loadData() {
       if (!handle) return
+
+      if (initialProduct && initialProduct.handle === handle) {
+        setProduct(initialProduct)
+        if (initialProduct.variants?.edges?.length > 0) {
+          setSelectedVariant(initialProduct.variants.edges[0].node)
+        }
+        setLoading(false)
+        try {
+          const allProds = await getProducts({ first: 12, language: locale })
+          if (isMounted) {
+            const others = allProds.filter((p) => p.handle !== handle).slice(0, 4)
+            setRelatedProducts(others)
+          }
+        } catch {}
+        return
+      }
+
       setLoading(true)
       try {
         const prod = await getProductByHandle(handle, locale)
@@ -64,7 +97,7 @@ export const ProductDetailPage: React.FC = () => {
         // Fetch related products
         const allProds = await getProducts({ first: 12, language: locale })
         if (isMounted) {
-          const others = allProds.filter(p => p.handle !== handle).slice(0, 4)
+          const others = allProds.filter((p) => p.handle !== handle).slice(0, 4)
           setRelatedProducts(others)
         }
       } catch (err) {
@@ -77,7 +110,7 @@ export const ProductDetailPage: React.FC = () => {
     return () => {
       isMounted = false
     }
-  }, [handle, locale])
+  }, [handle, locale, initialProduct])
 
   if (loading) {
     return (
@@ -142,7 +175,7 @@ export const ProductDetailPage: React.FC = () => {
 
   return (
     <div className="py-8 bg-zinc-50 dark:bg-[#090A0C] min-h-screen text-zinc-900 dark:text-zinc-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* 1. Breadcrumbs */}
         <nav className="flex items-center gap-2 text-xs font-mono text-zinc-500 mb-8 overflow-x-auto pb-2 scrollbar-none">
           <Link to="/" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
@@ -163,24 +196,27 @@ export const ProductDetailPage: React.FC = () => {
         </nav>
 
         {/* 2. Primary 2-Column Product Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-16 mb-16">
           {/* Left Column: Media Gallery */}
           <div className="space-y-4">
-            <div className="relative aspect-square rounded-2xl overflow-hidden border border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#12151B] flex items-center justify-center p-8 group">
+            <div className="relative aspect-square rounded-2xl overflow-hidden border border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#11141A] flex items-center justify-center p-8 group">
               {mediaViewMode === '3d' ? (
                 <ModelViewer3D
                   src="/models/papapenv2.glb"
-                  poster={images[activeImageIndex]?.url}
+                  poster={formatProductImageUrl(images[activeImageIndex]?.url)}
                   alt={product.title}
                   className="w-full h-full"
                 />
               ) : images.length > 0 ? (
                 <img
-                  src={images[activeImageIndex]?.url || '/slides/slide_2_premium_cartridges.png'}
+                  src={formatProductImageUrl(images[activeImageIndex]?.url)}
                   alt={images[activeImageIndex]?.altText || product.title}
                   className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
                   onError={(e) => {
-                    (e.currentTarget as HTMLImageElement).src = '/slides/slide_2_premium_cartridges.png'
+                    const fallback = formatProductImageUrl(images[0]?.url)
+                    if (fallback && (e.currentTarget as HTMLImageElement).src !== fallback) {
+                      ;(e.currentTarget as HTMLImageElement).src = fallback
+                    }
                   }}
                 />
               ) : (
@@ -265,7 +301,7 @@ export const ProductDetailPage: React.FC = () => {
                   }`}
                 >
                   <img
-                    src={img.url}
+                    src={formatProductImageUrl(img.url)}
                     alt=""
                     className="w-full h-full object-contain"
                   />
@@ -278,11 +314,23 @@ export const ProductDetailPage: React.FC = () => {
           <div className="space-y-6">
             {/* Header / Title / Specimen Identifier */}
             <div>
+              {/* Availability Badge */}
               <div className="flex items-center gap-2 mb-2 text-xs font-mono">
-                <span className="w-2 h-2 rounded-full bg-[#2EE6CA] animate-pulse"></span>
-                <span className="text-[#0d9488] dark:text-[#2EE6CA] font-bold tracking-wider uppercase">
-                  IN STOCK · DISPATCHES WITHIN 24 HOURS
-                </span>
+                {selectedVariant?.availableForSale !== false && product.availableForSale !== false ? (
+                  <>
+                    <span className="w-2 h-2 rounded-full bg-[#2EE6CA] animate-pulse"></span>
+                    <span className="text-[#0d9488] dark:text-[#2EE6CA] font-bold tracking-wider uppercase">
+                      IN STOCK · DISPATCHES WITHIN 24 HOURS
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <span className="w-2 h-2 rounded-full bg-red-500"></span>
+                    <span className="text-red-500 dark:text-red-400 font-bold tracking-wider uppercase">
+                      OUT OF STOCK · CURRENTLY UNAVAILABLE
+                    </span>
+                  </>
+                )}
               </div>
               <h1 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-zinc-950 dark:text-white">
                 {product.title}
@@ -290,17 +338,10 @@ export const ProductDetailPage: React.FC = () => {
               <div className="text-xs font-mono text-zinc-400 mt-1">
                 ITEM REF: {product.handle.toUpperCase()}
               </div>
-
-              {/* Short summary overview excerpt */}
-              {product.description && (
-                <p className="text-xs text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed mt-3 line-clamp-3">
-                  {product.description.slice(0, 200).trim()}...
-                </p>
-              )}
             </div>
 
             {/* Price Display */}
-            <div className="p-4 rounded-xl border border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#11141A] flex items-baseline gap-3">
+            <div className="p-4 rounded-xl border border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#11141A] flex items-baseline gap-3">
               <span className="text-3xl font-black font-mono text-zinc-950 dark:text-[#2EE6CA]">
                 ${price.toFixed(2)}
               </span>
@@ -324,17 +365,30 @@ export const ProductDetailPage: React.FC = () => {
                 <div className="flex flex-wrap gap-2">
                   {product.variants.edges.map(({ node: v }) => {
                     const isSelected = selectedVariant?.id === v.id
+                    const variantInStock = v.availableForSale !== false
                     return (
                       <button
                         key={v.id}
+                        type="button"
                         onClick={() => setSelectedVariant(v)}
-                        className={`px-4 py-2 rounded-lg text-xs font-mono font-bold uppercase border transition-all cursor-pointer ${
+                        className={`relative px-4 py-2 rounded-lg text-xs font-mono font-bold uppercase border transition-all cursor-pointer ${
                           isSelected
-                            ? 'border-[#2EE6CA] bg-zinc-900 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 shadow-sm'
-                            : 'border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#12151B] text-zinc-600 dark:text-zinc-300 hover:border-zinc-400'
+                            ? variantInStock
+                              ? 'border-[#2EE6CA] bg-zinc-900 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 shadow-sm'
+                              : 'border-red-500/80 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-300 shadow-sm ring-1 ring-red-500/40'
+                            : variantInStock
+                            ? 'border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#12151B] text-zinc-600 dark:text-zinc-300 hover:border-zinc-400'
+                            : 'border-zinc-200 dark:border-[#1E232E] bg-zinc-100/60 dark:bg-[#0B0D11] text-zinc-400 dark:text-zinc-600 opacity-60'
                         }`}
                       >
-                        {v.title}
+                        <span>{v.title}</span>
+                        {!variantInStock && (
+                          <span className={`ml-1.5 text-[10px] font-normal lowercase tracking-tight ${
+                            isSelected ? 'text-red-600 dark:text-red-300 font-semibold' : 'text-red-500/80 dark:text-red-400'
+                          }`}>
+                            (out of stock)
+                          </span>
+                        )}
                       </button>
                     )
                   })}
@@ -365,26 +419,40 @@ export const ProductDetailPage: React.FC = () => {
                 </div>
 
                 {/* Primary Add to Cart Button */}
-                <button
-                  onClick={handleAddToCart}
-                  className="flex-1 py-3 px-6 rounded-xl bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:opacity-95 shadow-lg shadow-teal-500/10 transition-all active:scale-[0.99] cursor-pointer"
-                >
-                  <ShoppingBag className="w-4 h-4" />
-                  <span>{addedAnimation ? 'ADDED TO ORDER ✓' : 'ADD TO APPARATUS CART'}</span>
-                </button>
+                {selectedVariant?.availableForSale !== false && product.availableForSale !== false ? (
+                  <button
+                    type="button"
+                    onClick={handleAddToCart}
+                    className="flex-1 py-3 px-6 rounded-xl bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:opacity-95 shadow-lg shadow-teal-500/10 transition-all active:scale-[0.99] cursor-pointer"
+                  >
+                    <ShoppingBag className="w-4 h-4" />
+                    <span>{addedAnimation ? 'ADDED TO ORDER ✓' : 'ADD TO APPARATUS CART'}</span>
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    disabled
+                    className="flex-1 py-3 px-6 rounded-xl bg-zinc-200 text-zinc-400 dark:bg-zinc-800 dark:text-zinc-500 font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-not-allowed border border-zinc-300 dark:border-zinc-700/60 shadow-none"
+                  >
+                    <ShoppingBag className="w-4 h-4 opacity-50" />
+                    <span>OUT OF STOCK</span>
+                  </button>
+                )}
               </div>
 
               {/* Instant Checkout Button */}
-              <button
-                onClick={() => {
-                  handleAddToCart()
-                  openCart()
-                }}
-                className="w-full py-2.5 rounded-xl border border-zinc-200 dark:border-[#222731] hover:border-[#2EE6CA] bg-zinc-100 dark:bg-[#14171E] font-mono text-xs font-bold uppercase text-zinc-800 dark:text-zinc-200 hover:text-[#2EE6CA] transition-colors flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <Zap className="w-3.5 h-3.5 text-amber-500" />
-                <span>DIRECT SHOPIFY CHECKOUT</span>
-              </button>
+              {selectedVariant?.availableForSale !== false && product.availableForSale !== false && (
+                <button
+                  onClick={() => {
+                    handleAddToCart()
+                    openCart()
+                  }}
+                  className="w-full py-2.5 rounded-xl border border-zinc-200 dark:border-[#222731] hover:border-[#2EE6CA] bg-zinc-100 dark:bg-[#14171E] font-mono text-xs font-bold uppercase text-zinc-800 dark:text-zinc-200 hover:text-[#2EE6CA] transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <Zap className="w-3.5 h-3.5 text-amber-500" />
+                  <span>DIRECT SHOPIFY CHECKOUT</span>
+                </button>
+              )}
             </div>
 
             {/* Quality & Assurance Grid */}
@@ -457,7 +525,7 @@ export const ProductDetailPage: React.FC = () => {
           {activeTab === 'description' && (
             <div className="p-6 sm:p-8">
               <div className="text-[11px] font-mono font-bold tracking-widest text-[#0d9488] dark:text-[#2EE6CA] uppercase mb-2">
-                // APPARATUS PROFILE & TECHNICAL OVERVIEW
+                APPARATUS PROFILE & TECHNICAL OVERVIEW
               </div>
               <h2 className="text-xl font-black uppercase text-zinc-950 dark:text-white mb-6">
                 ENGINEERING DOCUMENTATION & USAGE
@@ -491,7 +559,7 @@ export const ProductDetailPage: React.FC = () => {
           {activeTab === 'specs' && (
             <div className="p-6 sm:p-8">
               <div className="text-[11px] font-mono font-bold tracking-widest text-[#0d9488] dark:text-[#2EE6CA] uppercase mb-2">
-                // ENGINEERING SPECIFICATION SHEET
+                ENGINEERING SPECIFICATION SHEET
               </div>
               <h2 className="text-xl font-black uppercase text-zinc-950 dark:text-white mb-6">
                 TECHNICAL CHARACTERISTICS & BIOCOMPATIBILITY
@@ -593,14 +661,14 @@ export const ProductDetailPage: React.FC = () => {
           {activeTab === 'rma' && (
             <div className="p-6 sm:p-8 space-y-6">
               <div className="text-[11px] font-mono font-bold tracking-widest text-[#0d9488] dark:text-[#2EE6CA] uppercase mb-1">
-                // POST-DISPATCH SUPPORT & QUALITY PLEDGE
+                POST-DISPATCH SUPPORT & QUALITY PLEDGE
               </div>
               <h2 className="text-xl font-black uppercase text-zinc-950 dark:text-white mb-2">
                 WARRANTY COVERAGE & FACTORY REPAIR (RMA)
               </h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs font-mono">
-                <div className="p-4 rounded-xl border border-zinc-200 dark:border-[#1E232E] bg-zinc-50/50 dark:bg-[#13161D] space-y-3">
+                <div className="p-4 rounded-xl border border-zinc-200/70 dark:border-zinc-800/70 bg-zinc-50/50 dark:bg-[#13161D] space-y-3">
                   <div className="flex items-center gap-2 font-bold text-zinc-900 dark:text-white uppercase">
                     <ShieldCheck className="w-4 h-4 text-[#0d9488] dark:text-[#2EE6CA]" />
                     <span>14-DAY PRO REPLACEMENT GUARANTEE</span>
@@ -610,7 +678,7 @@ export const ProductDetailPage: React.FC = () => {
                   </p>
                 </div>
 
-                <div className="p-4 rounded-xl border border-zinc-200 dark:border-[#1E232E] bg-zinc-50/50 dark:bg-[#13161D] space-y-3">
+                <div className="p-4 rounded-xl border border-zinc-200/70 dark:border-zinc-800/70 bg-zinc-50/50 dark:bg-[#13161D] space-y-3">
                   <div className="flex items-center gap-2 font-bold text-zinc-900 dark:text-white uppercase">
                     <Wrench className="w-4 h-4 text-[#0d9488] dark:text-[#2EE6CA]" />
                     <span>1-YEAR FACTORY SERVICE PROGRAM</span>
@@ -643,7 +711,7 @@ export const ProductDetailPage: React.FC = () => {
                   </a>
                   <Link
                     to="/contact"
-                    className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-lg border border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#12151B] text-zinc-700 dark:text-zinc-300 text-xs font-mono font-bold uppercase hover:text-[#0d9488] dark:hover:text-[#2EE6CA] transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-lg border border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#12151B] text-zinc-700 dark:text-zinc-300 text-xs font-mono font-bold uppercase hover:text-[#0d9488] dark:hover:text-[#2EE6CA] transition-colors"
                   >
                     <span>Contact Support</span>
                   </Link>
@@ -655,11 +723,11 @@ export const ProductDetailPage: React.FC = () => {
 
         {/* 4. Related Apparatus Complements */}
         {relatedProducts.length > 0 && (
-          <section className="border-t border-zinc-200 dark:border-[#222731] pt-12">
+          <section className="border-t border-zinc-200/70 dark:border-zinc-800/70 pt-12">
             <div className="flex items-center justify-between mb-8">
               <div>
                 <div className="text-[11px] font-mono font-bold tracking-widest text-[#0d9488] dark:text-[#2EE6CA] uppercase">
-                  // STUDIO COMPATIBILITY
+                  STUDIO COMPATIBILITY
                 </div>
                 <h3 className="text-xl font-black uppercase text-zinc-950 dark:text-white">
                   SUGGESTED APPARATUS COMPLEMENTS

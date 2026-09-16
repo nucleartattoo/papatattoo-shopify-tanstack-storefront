@@ -116,13 +116,13 @@ export const ModelViewer3D: React.FC<ModelViewer3DProps> = ({
         </div>
       </model-viewer>
 
-      {/* Top Right Quick Controls */}
-      <div className="absolute top-3 right-3 flex items-center gap-1.5 bg-white/80 dark:bg-black/60 backdrop-blur-md border border-zinc-200 dark:border-zinc-800 rounded-lg p-1 shadow-xs">
+      {/* Bottom Right Quick Controls */}
+      <div className="absolute bottom-4 right-4 z-10 flex items-center gap-1.5 bg-white/85 dark:bg-black/80 backdrop-blur-md border border-zinc-200 dark:border-white/15 rounded-xl p-1.5 shadow-xl">
         <button
           type="button"
           onClick={toggleAutoRotate}
           title={isRotating ? 'Pause Auto-Rotation' : 'Resume Auto-Rotation'}
-          className={`p-1.5 rounded-md transition-colors cursor-pointer ${
+          className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
             isRotating
               ? 'bg-[#2EE6CA]/20 text-[#0d9488] dark:text-[#2EE6CA]'
               : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white'
@@ -135,7 +135,7 @@ export const ModelViewer3D: React.FC<ModelViewer3DProps> = ({
           type="button"
           onClick={handleResetCamera}
           title="Reset Camera Angle"
-          className="p-1.5 rounded-md text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors cursor-pointer"
+          className="p-1.5 rounded-lg text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors cursor-pointer"
         >
           <RefreshCw className="w-3.5 h-3.5" />
         </button>
@@ -144,7 +144,7 @@ export const ModelViewer3D: React.FC<ModelViewer3DProps> = ({
           type="button"
           onClick={handleFullscreen}
           title="Fullscreen 3D View"
-          className="p-1.5 rounded-md text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors cursor-pointer"
+          className="p-1.5 rounded-lg text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors cursor-pointer"
         >
           <Maximize2 className="w-3.5 h-3.5" />
         </button>

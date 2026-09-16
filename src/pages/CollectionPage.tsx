@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { Link, useSearch, useNavigate } from '@tanstack/react-router'
+import { Link, useSearch, useNavigate, useLoaderData } from '@tanstack/react-router'
 import { ShopifyProduct } from '../types/shopify'
 import { getProducts, isGranularCartridge, isNuclearTattooProduct } from '../lib/shopify'
 import { ProductCard } from '../components/product/ProductCard'
@@ -246,8 +246,13 @@ export const CollectionPage: React.FC = () => {
   const searchParams: CollectionSearchProps = useSearch({ strict: false })
   const navigate = useNavigate()
 
-  const [products, setProducts] = useState<ShopifyProduct[]>([])
-  const [loading, setLoading] = useState(true)
+  const loaderData = useLoaderData({ strict: false }) as
+    | { products?: ShopifyProduct[] }
+    | undefined
+  const initialProducts = loaderData?.products || []
+
+  const [products, setProducts] = useState<ShopifyProduct[]>(initialProducts)
+  const [loading, setLoading] = useState(initialProducts.length === 0)
 
   // Filter States initialized from URL query params
   const [activeCategory, setActiveCategory] = useState<string>(searchParams.category || 'all')
@@ -290,6 +295,7 @@ export const CollectionPage: React.FC = () => {
   useEffect(() => {
     let isMounted = true
     async function loadCatalog() {
+      if (initialProducts.length > 0 && locale === 'EN') return
       setLoading(true)
       try {
         const items = await getProducts({ first: 100, language: locale })
@@ -354,7 +360,7 @@ export const CollectionPage: React.FC = () => {
 
       // 2. Category & Subcategory Discipline
       if (activeCategory !== 'all') {
-        const normCatId = activeCategory === 'needles' ? 'cartridges' : activeCategory
+        const normCatId = activeCategory === 'needles' ? 'cartridges' : activeCategory === 'studio' ? 'accessories' : activeCategory
         const targetCat = STORE_CATEGORIES.find(c => c.id === normCatId)
         if (targetCat) {
           if (!targetCat.match(prod)) return false
@@ -460,7 +466,7 @@ export const CollectionPage: React.FC = () => {
 
   const getCategoryTitle = () => {
     if (activeCategory === 'all') return 'ALL APPARATUS & SUPPLIES'
-    const norm = activeCategory === 'needles' ? 'cartridges' : activeCategory
+    const norm = activeCategory === 'needles' ? 'cartridges' : activeCategory === 'studio' ? 'accessories' : activeCategory
     const cat = STORE_CATEGORIES.find(c => c.id === norm)
     if (!cat) return 'ALL APPARATUS & SUPPLIES'
     if (activeSubcategory && cat.subcategories) {
@@ -474,7 +480,7 @@ export const CollectionPage: React.FC = () => {
 
   return (
     <div className="py-8 bg-zinc-50 dark:bg-[#090A0C] min-h-screen text-zinc-900 dark:text-zinc-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* 1. Breadcrumbs */}
         <nav className="flex items-center gap-2 text-xs font-mono text-zinc-500 mb-6">
           <Link to="/" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
@@ -489,12 +495,12 @@ export const CollectionPage: React.FC = () => {
         </nav>
 
         {/* 2. Collection Header Banner */}
-        <div className="mb-8 p-6 sm:p-8 rounded-2xl border border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#101319] relative overflow-hidden">
+        <div className="mb-10 p-6 sm:p-8 lg:p-10 rounded-2xl border border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#101319] relative overflow-hidden">
           <div className="relative z-10 max-w-3xl">
-            <div className="text-[11px] font-mono font-bold tracking-widest text-[#0d9488] dark:text-[#2EE6CA] uppercase">
-              // PRODUCT CATALOG ({loading ? '...' : nonGranularProducts.length} REGISTERED IN SHOP)
+            <div className="text-xs font-mono font-bold tracking-widest text-[#0d9488] dark:text-[#2EE6CA] uppercase">
+              PAPA TATTOO APPARATUS
             </div>
-            <h1 className="text-3xl sm:text-4xl font-black uppercase tracking-tight mt-1 mb-2">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight mt-1 mb-3">
               {getCategoryTitle()}
             </h1>
             <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
@@ -549,34 +555,12 @@ export const CollectionPage: React.FC = () => {
 
             {/* 2. 7 Original Categories Accordion Tree */}
             <div className="space-y-1">
-              {/* All Products */}
-              <button
-                onClick={() => handleSelectCategory('all')}
-                className={`w-full flex items-center justify-between py-2 px-2.5 rounded-lg text-[13px] font-mono transition-all text-left cursor-pointer ${
-                  activeCategory === 'all'
-                    ? 'text-[#0d9488] dark:text-[#2EE6CA] font-bold bg-[#0d9488]/8 dark:bg-[#2EE6CA]/10 pl-3 border-l-2 border-[#0d9488] dark:border-[#2EE6CA]'
-                    : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-100 hover:bg-zinc-100/70 dark:hover:bg-zinc-800/40'
-                }`}
-              >
-                <span>All Products</span>
-                <span
-                  className={`text-[11px] font-mono ${
-                    activeCategory === 'all'
-                      ? 'text-[#0d9488] dark:text-[#2EE6CA] font-bold'
-                      : 'text-zinc-400'
-                  }`}
-                >
-                  ({loading ? '...' : nonGranularProducts.length})
-                </span>
-              </button>
-
               {/* 7 Categories with (+) Expandable Accordion for Subcategories */}
               {STORE_CATEGORIES.map(cat => {
                 const normActive = activeCategory === 'needles' ? 'cartridges' : activeCategory
                 const isCatActive = normActive === cat.id
                 const hasSub = !!cat.subcategories && cat.subcategories.length > 0
                 const isExpanded = expandedCategories.has(cat.id)
-                const count = categoryCounts[cat.id] || 0
 
                 return (
                   <div key={cat.id} className="space-y-0.5">
@@ -597,18 +581,9 @@ export const CollectionPage: React.FC = () => {
                         <span>{cat.label}</span>
                       </button>
 
-                      {/* Count & Toggle Expand (+) / (-) */}
-                      <div className="flex items-center gap-1.5 shrink-0 ml-2">
-                        <span
-                          className={`text-[11px] font-mono ${
-                            isCatActive && !activeSubcategory
-                              ? 'text-[#0d9488] dark:text-[#2EE6CA] font-bold'
-                              : 'text-zinc-400'
-                          }`}
-                        >
-                          ({loading ? '...' : count})
-                        </span>
-                        {hasSub && (
+                      {/* Toggle Expand (+) / (-) */}
+                      {hasSub && (
+                        <div className="flex items-center shrink-0 ml-2">
                           <button
                             type="button"
                             onClick={e => handleToggleExpand(cat.id, e)}
@@ -621,8 +596,8 @@ export const CollectionPage: React.FC = () => {
                               <Plus className="w-3.5 h-3.5" />
                             )}
                           </button>
-                        )}
-                      </div>
+                        </div>
+                      )}
                     </div>
 
                     {/* Subcategories Accordion Indented List */}
@@ -630,7 +605,6 @@ export const CollectionPage: React.FC = () => {
                       <div className="pl-3.5 ml-2.5 border-l-2 border-zinc-200/70 dark:border-zinc-800/80 space-y-0.5 py-1 animate-in fade-in slide-in-from-top-1 duration-150">
                         {cat.subcategories!.map(sub => {
                           const isSubActive = isCatActive && activeSubcategory === sub.id
-                          const subCount = subcategoryCounts[sub.id] || 0
 
                           return (
                             <button
@@ -652,9 +626,6 @@ export const CollectionPage: React.FC = () => {
                                 ></span>
                                 <span>{sub.label}</span>
                               </span>
-                              <span className="text-[10px] opacity-70 shrink-0 font-mono">
-                                ({loading ? '...' : subCount})
-                              </span>
                             </button>
                           )
                         })}
@@ -665,25 +636,10 @@ export const CollectionPage: React.FC = () => {
               })}
             </div>
 
-            {/* 3. In-Stock Availability Toggle */}
-            <div className="pt-5 border-t border-zinc-200/60 dark:border-zinc-800/60">
-              <label className="flex items-center justify-between cursor-pointer group select-none">
-                <span className="text-xs font-mono text-zinc-600 dark:text-zinc-400 group-hover:text-zinc-950 dark:group-hover:text-white transition-colors">
-                  In Stock Only
-                </span>
-                <input
-                  type="checkbox"
-                  checked={inStockOnly}
-                  onChange={e => setInStockOnly(e.target.checked)}
-                  className="w-4 h-4 rounded border-zinc-300 dark:border-zinc-700 text-[#0d9488] dark:text-[#2EE6CA] focus:ring-0 accent-[#2EE6CA] cursor-pointer"
-                />
-              </label>
-            </div>
-
-            {/* 4. Needle Matrix Info Note */}
+            {/* 3. Needle Matrix Info Note */}
             {(activeCategory === 'cartridges' || activeCategory === 'needles') && (
               <div className="pt-5 border-t border-zinc-200/60 dark:border-zinc-800/60 text-[11px] font-mono text-zinc-400 leading-relaxed">
-                <div className="font-bold text-zinc-500 uppercase mb-1">// MATRIX CONFIGS</div>
+                <div className="font-bold text-zinc-500 uppercase mb-1">CARTRIDGE CONFIGURATIONS</div>
                 <p>
                   Both master cartridge lines include 60+ unified configurations: Round Liner (RL), Round Shader (RS), Magnum (M1), and Curved Magnum (M1C) across #08, #10, #12, #14. Click a product to configure.
                 </p>
@@ -694,11 +650,11 @@ export const CollectionPage: React.FC = () => {
           {/* Right Product Grid Area */}
           <main className="flex-1 min-w-0 space-y-6">
             {/* Top Toolbar: Count & Sort Dropdown */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl border border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#11141A] gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 sm:p-5 rounded-2xl border border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#11141A] gap-4">
               <div className="text-xs font-mono text-zinc-500">
                 DISPLAYING {loading ? '...' : <strong className="text-zinc-950 dark:text-[#2EE6CA]">{sortedProducts.length}</strong>} APPARATUS
                 {activeSeries !== 'all' && (
-                  <span className="ml-2 px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 font-bold uppercase">
+                  <span className="ml-2 px-2.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 font-bold uppercase">
                     {activeSeries}
                   </span>
                 )}
@@ -711,7 +667,7 @@ export const CollectionPage: React.FC = () => {
                 <select
                   value={sortOption}
                   onChange={e => setSortOption(e.target.value)}
-                  className="px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#161922] text-xs font-mono text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#2EE6CA]"
+                  className="px-3 py-1.5 rounded-lg border border-zinc-200/80 dark:border-zinc-800 bg-zinc-50 dark:bg-[#161922] text-xs font-mono text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#2EE6CA]"
                 >
                   <option value="featured">Featured Apparatus</option>
                   <option value="price-asc">Price: Low to High</option>
@@ -723,20 +679,20 @@ export const CollectionPage: React.FC = () => {
 
             {/* Product Cards Grid */}
             {loading ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                {[1, 2, 3, 4, 5, 6].map(n => (
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 xl:gap-8">
+                {[1, 2, 3, 4, 5, 6, 7, 8].map(n => (
                   <div
                     key={n}
-                    className="rounded-xl border border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#12151B] p-4 animate-pulse space-y-4"
+                    className="rounded-2xl border border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#12151B] p-5 animate-pulse space-y-4"
                   >
-                    <div className="w-full aspect-square bg-zinc-200 dark:bg-[#1A1E27] rounded-lg"></div>
+                    <div className="w-full aspect-square bg-zinc-200 dark:bg-[#1A1E27] rounded-xl"></div>
                     <div className="h-4 bg-zinc-200 dark:bg-[#1A1E27] rounded-sm w-3/4"></div>
                     <div className="h-3 bg-zinc-200 dark:bg-[#1A1E27] rounded-sm w-1/2"></div>
                   </div>
                 ))}
               </div>
             ) : sortedProducts.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 xl:gap-8">
                 {sortedProducts.map(product => (
                   <ProductCard key={product.id} product={product} />
                 ))}
