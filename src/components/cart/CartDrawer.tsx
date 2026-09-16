@@ -18,11 +18,6 @@ export const CartDrawer: React.FC = () => {
 
   const { t } = useLocale()
 
-  // Free shipping threshold ($150 USD)
-  const FREE_SHIPPING_THRESHOLD = 150
-  const progressPercent = Math.min(100, (totalAmount / FREE_SHIPPING_THRESHOLD) * 100)
-  const remainingForFree = Math.max(0, FREE_SHIPPING_THRESHOLD - totalAmount)
-
   // Close on Escape key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -67,30 +62,6 @@ export const CartDrawer: React.FC = () => {
             >
               <X className="w-4 h-4" />
             </button>
-          </div>
-
-          {/* Free Shipping Progress Indicator */}
-          <div className="px-5 py-3 bg-zinc-50 dark:bg-[#13161D] border-b border-zinc-200/70 dark:border-zinc-800/70 text-xs">
-            <div className="flex justify-between items-center font-mono text-[11px] mb-1.5 text-zinc-600 dark:text-zinc-400">
-              <span>
-                {remainingForFree === 0 ? (
-                  <strong className="text-emerald-600 dark:text-[#2EE6CA]">
-                    {t('cart_shipping_free_reached')}
-                  </strong>
-                ) : (
-                  <span>
-                    Add <strong className="text-zinc-950 dark:text-white">${remainingForFree.toFixed(2)}</strong> more for Free Shipping
-                  </span>
-                )}
-              </span>
-              <span className="font-bold">{Math.round(progressPercent)}%</span>
-            </div>
-            <div className="w-full h-1.5 rounded-full bg-zinc-200 dark:bg-[#1F2533] overflow-hidden">
-              <div
-                className="h-full bg-gradient-to-r from-teal-500 to-[#2EE6CA] transition-all duration-300 rounded-full"
-                style={{ width: `${progressPercent}%` }}
-              />
-            </div>
           </div>
 
           {/* Item List */}
@@ -190,6 +161,9 @@ export const CartDrawer: React.FC = () => {
                   ${totalAmount.toFixed(2)} USD
                 </span>
               </div>
+              <p className="text-[11px] text-zinc-500 font-mono">
+                Taxes and shipping calculated at checkout.
+              </p>
 
               <div className="flex items-center gap-2 text-[10px] font-mono text-zinc-500">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />

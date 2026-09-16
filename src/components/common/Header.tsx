@@ -72,7 +72,7 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
           <span>Professional Tattoo Supplies · Worldwide Dispatch</span>
         </div>
         <div>
-          <span>Free express shipping on orders over $150</span>
+          <span>Direct Factory Distribution</span>
         </div>
       </div>
 
