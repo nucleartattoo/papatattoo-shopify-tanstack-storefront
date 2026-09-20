@@ -481,9 +481,9 @@ export const CollectionPage: React.FC = () => {
   }
 
   return (
-    <div className="bg-zinc-50 dark:bg-[#07080a] min-h-screen text-zinc-900 dark:text-zinc-100">
+    <div className="bg-zinc-50 dark:bg-[#20222a] min-h-screen text-zinc-900 dark:text-zinc-100 art-aurora-bg">
       {/* 1. Top Ultra-Wide Full-Screen Panoramic Stage (Compact Golden Height) */}
-      <section className="w-full border-b border-zinc-200/80 dark:border-white/[0.08] bg-[#07080a] relative overflow-hidden">
+      <section className="w-full border-b border-zinc-200/80 dark:border-white/[0.08] bg-[#eceae4] dark:bg-[#15171d] relative overflow-hidden">
         {/* Ambient Movie-Grade Studio Glow */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(46,230,202,0.1)_0%,transparent_65%)] pointer-events-none" />
 

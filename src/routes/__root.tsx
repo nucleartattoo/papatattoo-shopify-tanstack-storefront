@@ -10,6 +10,7 @@ import appCss from '../index.css?url'
 import { Header } from '../components/common/Header'
 import { Footer } from '../components/common/Footer'
 import { CartDrawer } from '../components/cart/CartDrawer'
+import { FluidInkBackground } from '../components/common/FluidInkBackground'
 import { ThemeProvider } from '../context/ThemeContext'
 import { LocaleProvider } from '../context/LocaleContext'
 import { CartProvider } from '../context/CartContext'
@@ -93,9 +94,11 @@ function RootComponent() {
       <ThemeProvider>
         <LocaleProvider>
           <CartProvider>
-            <div className="min-h-screen flex flex-col bg-zinc-50 dark:bg-[#090A0C] text-zinc-900 dark:text-zinc-100 transition-colors duration-200">
+            <div className="min-h-screen flex flex-col bg-[#f5f4f0] dark:bg-[#20222a] text-zinc-900 dark:text-zinc-100 transition-colors duration-300 relative overflow-x-hidden">
+              {/* Organic Fluid Ink & Smoke Ambient Canvas */}
+              <FluidInkBackground />
               <Header />
-              <main className="flex-1">
+              <main className="flex-1 relative z-10">
                 <Outlet />
               </main>
               <Footer />

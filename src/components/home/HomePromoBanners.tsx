@@ -6,7 +6,7 @@ import { ModelViewer3D } from '../common/ModelViewer3D'
 export const HomePromoBanners: React.FC = () => {
   const [penViewMode, setPenViewMode] = useState<'3d' | '2d'>('3d')
   return (
-    <section className="py-20 sm:py-24 bg-zinc-50/50 dark:bg-[#07080a] border-b border-zinc-200/80 dark:border-white/[0.06] relative">
+    <section className="py-20 sm:py-24 bg-zinc-50/50 dark:bg-transparent border-b border-zinc-200/80 dark:border-white/[0.06] relative z-10">
       <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 space-y-12 relative z-10">
         {/* Section Header */}
         <div className="flex items-end justify-between pb-5 border-b border-zinc-200/80 dark:border-white/[0.08]">
@@ -16,7 +16,7 @@ export const HomePromoBanners: React.FC = () => {
         </div>
 
         {/* 1. Large Showcase: Papa Pen V2 Precision Rotary Machine */}
-        <div className="group relative rounded-2xl overflow-hidden border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#0b0d12] shadow-sm hover:border-zinc-300 dark:hover:border-white/20 hover:shadow-xl dark:hover:shadow-[0_16px_36px_rgba(0,0,0,0.6)] transition-all duration-500">
+        <div className="group relative rounded-2xl overflow-hidden border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#262933] shadow-sm hover:border-zinc-300 dark:hover:border-white/20 hover:shadow-xl dark:hover:shadow-[0_16px_36px_rgba(0,0,0,0.5)] transition-all duration-500">
           <div className="grid grid-cols-1 lg:grid-cols-12 items-center">
             {/* Left Image/3D Showcase */}
             <div className="lg:col-span-7 p-4 sm:p-6 lg:p-8 border-b lg:border-b-0 lg:border-r border-zinc-100 dark:border-white/[0.06] flex items-center justify-center">
@@ -130,9 +130,9 @@ export const HomePromoBanners: React.FC = () => {
         {/* 2. Dual Promo Grid: Travel Case & Foot Pedal */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 xl:gap-8">
           {/* Card A: PAPA Travel Case */}
-          <div className="group rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#0b0d12] overflow-hidden flex flex-col justify-between hover:border-zinc-300 dark:hover:border-white/20 shadow-sm hover:shadow-xl dark:hover:shadow-[0_12px_32px_rgba(0,0,0,0.6)] transition-all duration-500">
-            <div className="relative aspect-[16/10] overflow-hidden bg-zinc-50 dark:bg-[#07080a] border-b border-zinc-100 dark:border-white/[0.06] p-6 flex items-center justify-center">
-              <div className="absolute inset-0 opacity-10 blur-3xl group-hover:opacity-20 transition-opacity duration-700 bg-[#2ee6ca] pointer-events-none" />
+          <div className="group rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#262933] overflow-hidden flex flex-col justify-between hover:border-zinc-300 dark:hover:border-white/20 shadow-sm hover:shadow-xl dark:hover:shadow-[0_12px_32px_rgba(0,0,0,0.5)] transition-all duration-500">
+            <div className="relative aspect-[16/10] overflow-hidden bg-zinc-50 dark:bg-[#1c1e24] border-b border-zinc-100 dark:border-white/[0.06] p-6 flex items-center justify-center">
+              <div className="absolute inset-0 opacity-15 blur-3xl group-hover:opacity-25 transition-opacity duration-700 bg-[#38e8c6] pointer-events-none" />
               <img
                 src="/product-images/img_201_papa_travel_case_cutout.webp"
                 alt="PAPA Travel Case"
@@ -143,8 +143,8 @@ export const HomePromoBanners: React.FC = () => {
 
             <div className="p-8 space-y-4 flex-1 flex flex-col justify-between">
               <div className="space-y-2">
-                <span className="text-[10px] font-mono font-medium text-zinc-400 dark:text-zinc-500 uppercase tracking-widest block">STUDIO GEAR</span>
-                <h4 className="text-base sm:text-lg font-bold uppercase text-zinc-950 dark:text-white tracking-tight group-hover:text-[#0d9488] dark:group-hover:text-[#2ee6ca] transition-colors font-sans">
+                <span className="text-[10px] font-mono font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-widest block">STUDIO GEAR</span>
+                <h4 className="text-base sm:text-lg font-bold uppercase text-zinc-950 dark:text-white tracking-tight group-hover:text-[#0d9488] dark:group-hover:text-[#38e8c6] transition-colors font-sans">
                   PAPA HEAVY-DUTY TRAVEL CASE
                 </h4>
                 <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed">
@@ -152,12 +152,12 @@ export const HomePromoBanners: React.FC = () => {
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-zinc-100 dark:border-white/[0.08] flex items-center justify-between">
+              <div className="pt-4 border-t border-zinc-200/80 dark:border-white/[0.08] flex items-center justify-between">
                 <span className="text-xs font-mono text-zinc-400">STUDIO TRAVEL</span>
                 <Link
                   to="/products/$handle"
                   params={{ handle: 'papa-travel-case' }}
-                  className="inline-flex items-center gap-1.5 text-xs font-mono font-medium uppercase text-zinc-700 dark:text-zinc-300 hover:text-[#0d9488] dark:hover:text-[#2ee6ca] transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-mono font-medium uppercase text-zinc-700 dark:text-zinc-300 hover:text-[#0d9488] dark:hover:text-[#38e8c6] transition-colors"
                 >
                   <span>View Details</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -167,9 +167,9 @@ export const HomePromoBanners: React.FC = () => {
           </div>
 
           {/* Card B: Papa Foot Pedal */}
-          <div className="group rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#0b0d12] overflow-hidden flex flex-col justify-between hover:border-zinc-300 dark:hover:border-white/20 shadow-sm hover:shadow-xl dark:hover:shadow-[0_12px_32px_rgba(0,0,0,0.6)] transition-all duration-500">
-            <div className="relative aspect-[16/10] overflow-hidden bg-zinc-50 dark:bg-[#07080a] border-b border-zinc-100 dark:border-white/[0.06] p-6 flex items-center justify-center">
-              <div className="absolute inset-0 opacity-10 blur-3xl group-hover:opacity-20 transition-opacity duration-700 bg-[#38bdf8] pointer-events-none" />
+          <div className="group rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#262933] overflow-hidden flex flex-col justify-between hover:border-zinc-300 dark:hover:border-white/20 shadow-sm hover:shadow-xl dark:hover:shadow-[0_12px_32px_rgba(0,0,0,0.5)] transition-all duration-500">
+            <div className="relative aspect-[16/10] overflow-hidden bg-zinc-50 dark:bg-[#1c1e24] border-b border-zinc-100 dark:border-white/[0.06] p-6 flex items-center justify-center">
+              <div className="absolute inset-0 opacity-15 blur-3xl group-hover:opacity-25 transition-opacity duration-700 bg-[#e6b366] pointer-events-none" />
               <img
                 src="/product-images/img_139_papa_foot_pedal_cutout.webp"
                 alt="Papa Foot Pedal"

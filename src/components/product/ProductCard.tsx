@@ -75,8 +75,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     <div
       className={`group relative rounded-2xl border p-5 flex flex-col justify-between transition-all duration-500 ${
         isPremiumCartridge
-          ? 'border-amber-500/20 dark:border-amber-500/20 bg-white dark:bg-[#0b0c10] hover:border-amber-500/40 dark:hover:border-amber-400/40 hover:shadow-xl dark:hover:shadow-[0_12px_32px_rgba(245,158,11,0.08)]'
-          : 'border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#0b0d12] hover:border-zinc-300 dark:hover:border-white/20 hover:shadow-xl dark:hover:shadow-[0_12px_32px_rgba(0,0,0,0.6)]'
+          ? 'border-amber-500/20 dark:border-amber-500/30 bg-white dark:bg-[#262933] hover:border-amber-500/40 dark:hover:border-amber-400/50 hover:shadow-xl dark:hover:shadow-[0_12px_32px_rgba(245,158,11,0.08)]'
+          : 'border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#262933] hover:border-zinc-300 dark:hover:border-white/20 hover:shadow-xl dark:hover:shadow-[0_12px_32px_rgba(0,0,0,0.5)]'
       }`}
     >
       {/* Top Header Tags */}
@@ -89,7 +89,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               <span>PREMIUM</span>
             </span>
           ) : (
-            <span className="text-[10px] font-mono font-medium text-zinc-400 dark:text-zinc-500 uppercase tracking-widest">
+            <span className="text-[10px] font-mono font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-widest">
               {isNeedle ? "CARTRIDGES" : isGrip ? "GRIPS" : isPen ? "MACHINES" : "EQUIPMENT"}
             </span>
           )}
@@ -100,7 +100,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               <span>{t('card_in_stock')}</span>
             </span>
           ) : (
-            <span className="inline-flex items-center gap-1.5 text-[10px] font-mono text-zinc-400 dark:text-zinc-500">
+            <span className="inline-flex items-center gap-1.5 text-[10px] font-mono text-zinc-500 dark:text-zinc-400">
               <span className="w-1.5 h-1.5 rounded-full bg-zinc-400 dark:bg-zinc-600" />
               <span>OUT OF STOCK</span>
             </span>
@@ -111,7 +111,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <Link
           to="/products/$handle"
           params={{ handle: product.handle }}
-          className="relative aspect-square w-full rounded-xl bg-zinc-50 dark:bg-[#07080a] flex items-center justify-center overflow-hidden border border-zinc-100 dark:border-white/[0.05]"
+          className="relative aspect-square w-full rounded-xl bg-zinc-50 dark:bg-[#1c1e24] flex items-center justify-center overflow-hidden border border-zinc-100 dark:border-white/[0.05]"
         >
           {/* Visual Color Glow Accent behind product */}
           <div

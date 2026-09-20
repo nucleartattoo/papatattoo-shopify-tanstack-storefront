@@ -248,7 +248,7 @@ export const PapaProductsPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-[#07080a] text-zinc-900 dark:text-zinc-100 font-sans pb-32 relative overflow-hidden transition-colors duration-300">
+    <div className="min-h-screen bg-zinc-50 dark:bg-[#20222a] text-zinc-900 dark:text-zinc-100 font-sans pb-32 relative overflow-hidden transition-colors duration-300 art-aurora-bg">
       {/* 2. Hero Monograph Header */}
       <section className="relative overflow-hidden py-16 sm:py-24 border-b border-zinc-200/80 dark:border-white/[0.08]">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(46,230,202,0.12)_0%,transparent_65%)] pointer-events-none" />

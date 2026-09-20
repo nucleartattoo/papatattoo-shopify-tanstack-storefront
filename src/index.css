@@ -7,40 +7,50 @@
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   --font-display: 'Montserrat', 'Plus Jakarta Sans', sans-serif;
 
-  --color-papa-cyan: #2ee6ca;
-  --color-papa-cyan-glow: rgba(46, 230, 202, 0.35);
-  --color-papa-cyan-dim: rgba(46, 230, 202, 0.12);
-  --color-cyber-cyan: #00f0ff;
-  --color-cyber-amber: #ffb800;
-  --color-obsidian: #07080a;
-  --color-obsidian-void: #050608;
-  --color-obsidian-subtle: #0d0f14;
-  --color-obsidian-card: #0f1218;
-  --color-obsidian-border: #1e2430;
-  --color-titanium: #94a3b8;
-  --color-titanium-bright: #e2e8f0;
+  --color-papa-cyan: #38e8c6;
+  --color-papa-cyan-glow: rgba(56, 232, 198, 0.35);
+  --color-papa-cyan-dim: rgba(56, 232, 198, 0.12);
+  --color-cyber-cyan: #38e8c6;
+  --color-cyber-amber: #e6b366;
+  --color-obsidian: #20222a;
+  --color-obsidian-void: #191b21;
+  --color-obsidian-subtle: #252832;
+  --color-obsidian-card: #2a2d38;
+  --color-obsidian-border: #3e4354;
+  --color-titanium: #b0b5c4;
+  --color-titanium-bright: #f8f9fa;
+
+  /* Option A: Concrete & Raw Paper Aesthetic Tokens */
+  --color-plaster: #f5f4f0;
+  --color-plaster-card: #ffffff;
+  --color-concrete: #eceae4;
+  --color-concrete-border: #e2dfd8;
+  --color-ink-black: #121210;
+  --color-ink-muted: #6b6860;
+  --color-ink-emerald: #0d5d50;
+  --color-artisan-bronze: #a36f39;
 
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 :root {
-  --bg-primary: #fafaf9;
-  --bg-secondary: #f4f4f5;
+  --bg-primary: #f5f4f0;
+  --bg-secondary: #eceae4;
   --bg-card: #ffffff;
-  --border-color: #e4e4e7;
-  --text-primary: #09090b;
-  --text-secondary: #71717a;
-  --brand-cyan: #0d9488;
+  --border-color: #e2dfd8;
+  --text-primary: #121210;
+  --text-secondary: #6b6860;
+  --brand-cyan: #0d5d50;
 }
 
 .dark {
-  --bg-primary: #07080a;
-  --bg-secondary: #0d0f14;
-  --bg-card: #10131a;
-  --border-color: #1f2532;
-  --text-primary: #fafaf9;
-  --text-secondary: #a1a1aa;
-  --brand-cyan: #2ee6ca;
+  --bg-primary: #20222a;
+  --bg-secondary: #252832;
+  --bg-card: #2a2d38;
+  --border-color: #3e4354;
+  --text-primary: #f8f9fa;
+  --text-secondary: #b0b5c4;
+  --brand-cyan: #38e8c6;
 }
 
 html {
@@ -106,8 +116,73 @@ button:disabled,
 
 .dark .sacred-grid-bg {
   background-image:
-    linear-gradient(to right, rgba(46, 230, 202, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(46, 230, 202, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgba(56, 232, 198, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(56, 232, 198, 0.06) 1px, transparent 1px);
+}
+
+/* Artistic Studio Lighting Atmosphere (Breaks flat dark void with soft emerald & warm amber aurora) */
+.art-aurora-bg {
+  position: relative;
+}
+.art-aurora-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 65% 50% at 20% 15%, rgba(56, 232, 198, 0.09) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 45% at 80% 55%, rgba(230, 179, 102, 0.08) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 50% at 45% 90%, rgba(56, 232, 198, 0.06) 0%, transparent 60%);
+  z-index: 0;
+}
+
+/* Tattoo Stencil Sacred Geometry Background Pattern */
+.tattoo-stencil-pattern {
+  background-size: 56px 56px;
+  background-image:
+    radial-gradient(circle at 28px 28px, rgba(56, 232, 198, 0.06) 1.5px, transparent 1.5px),
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+}
+
+/* Fluid Ink & Smoke Drift Keyframes */
+@keyframes fluid-ink-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(60px, 40px, 0) scale(1.08) rotate(4deg);
+  }
+  100% {
+    transform: translate3d(-40px, 80px, 0) scale(0.96) rotate(-3deg);
+  }
+}
+
+@keyframes fluid-ink-drift-reverse {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(-50px, -40px, 0) scale(1.06) rotate(-5deg);
+  }
+  100% {
+    transform: translate3d(30px, -70px, 0) scale(0.95) rotate(3deg);
+  }
+}
+
+@keyframes fluid-ink-pulse {
+  0% {
+    transform: scale(0.95) translate3d(0, 0, 0);
+    opacity: 0.45;
+  }
+  50% {
+    transform: scale(1.06) translate3d(20px, -20px, 0);
+    opacity: 0.65;
+  }
+  100% {
+    transform: scale(0.98) translate3d(-20px, 15px, 0);
+    opacity: 0.5;
+  }
 }
 
 /* Cyberpunk High-Tech Apparatus Utilities */

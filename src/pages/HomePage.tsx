@@ -39,7 +39,7 @@ export const HomePage: React.FC = () => {
   }, [])
 
   return (
-    <div className="space-y-0">
+    <div className="space-y-0 art-aurora-bg">
       {/* 1. Large 7-Slide Master Carousel (Papa Original Site Parity) */}
       <HomeSlider />
 
@@ -47,7 +47,7 @@ export const HomePage: React.FC = () => {
       <HomePromoBanners />
 
       {/* 3. Flagship Curated Apparatus */}
-      <section className="py-20 sm:py-24 bg-zinc-50/50 dark:bg-[#07080a] border-b border-zinc-200/80 dark:border-white/[0.06]">
+      <section className="py-20 sm:py-24 bg-zinc-50/50 dark:bg-transparent border-b border-zinc-200/80 dark:border-white/[0.06] relative z-10">
         <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 pb-5 border-b border-zinc-200/80 dark:border-white/[0.08] gap-4">
             <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-zinc-950 dark:text-white uppercase tracking-tight font-sans">
@@ -66,7 +66,7 @@ export const HomePage: React.FC = () => {
           {loading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8">
               {[1, 2, 3, 4].map(n => (
-                <div key={n} className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.06] bg-white dark:bg-[#0b0d12] p-5 animate-pulse space-y-4">
+                <div key={n} className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.06] bg-white dark:bg-[#262933] p-5 animate-pulse space-y-4">
                   <div className="w-full aspect-square bg-zinc-100 dark:bg-white/[0.03] rounded-xl"></div>
                   <div className="h-4 bg-zinc-100 dark:bg-white/[0.03] rounded-sm w-3/4"></div>
                   <div className="h-3 bg-zinc-100 dark:bg-white/[0.03] rounded-sm w-1/2"></div>

@@ -94,11 +94,11 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
   }
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-zinc-200/80 dark:border-white/[0.08] bg-white/90 dark:bg-[#07080a]/85 backdrop-blur-xl transition-colors duration-300">
-      {/* Top Announcement Bar - Clean Gallery Rule */}
-      <div className="hidden sm:flex items-center justify-center px-6 py-1.5 bg-zinc-50 dark:bg-[#050608] border-b border-zinc-200/70 dark:border-white/[0.05] text-[11px] font-mono text-zinc-500 dark:text-zinc-400">
+    <header className="sticky top-0 z-40 w-full border-b border-[#e2dfd8] dark:border-white/[0.08] bg-[#f5f4f0]/90 dark:bg-[#1c1e24]/85 backdrop-blur-xl transition-colors duration-300">
+      {/* Top Announcement Bar - Concrete & Raw Paper Accent */}
+      <div className="hidden sm:flex items-center justify-center px-6 py-1.5 bg-[#eceae4] dark:bg-[#15171d] border-b border-[#e2dfd8] dark:border-white/[0.05] text-[11px] font-mono text-[#6b6860] dark:text-zinc-400">
         <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#0d9488] dark:bg-[#2ee6ca]" />
+          <span className="w-1.5 h-1.5 rounded-full bg-[#0d5d50] dark:bg-[#2ee6ca]" />
           <span>For Professionals Only!</span>
         </div>
       </div>

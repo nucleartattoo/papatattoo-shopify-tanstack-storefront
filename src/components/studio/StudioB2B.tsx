@@ -7,11 +7,7 @@ export const StudioB2B: React.FC = () => {
   const { t } = useLocale()
 
   return (
-    <section className="py-20 sm:py-24 border-t border-b border-zinc-200/70 dark:border-zinc-800/70 bg-gradient-to-b from-zinc-50 to-white dark:from-[#06070a] dark:to-[#0a0d14] relative overflow-hidden">
-      {/* Background Cyber Glow & Grid */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-[#00f0ff]/5 blur-[140px] rounded-full pointer-events-none" />
-      <div className="absolute inset-0 sacred-grid-bg opacity-15 pointer-events-none" />
-
+    <section className="py-20 sm:py-24 border-t border-b border-zinc-200/80 dark:border-white/[0.08] bg-zinc-50/50 dark:bg-transparent relative overflow-hidden z-10">
       <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl sm:text-5xl font-black text-zinc-950 dark:text-white uppercase tracking-tight font-sans">
@@ -26,7 +22,7 @@ export const StudioB2B: React.FC = () => {
         {/* 3 Core Commercial Pillars */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 xl:gap-8">
           {/* Pillar 1 */}
-          <div className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#0b0d12] p-8 flex flex-col justify-between hover:border-zinc-300 dark:hover:border-white/20 transition-all duration-500 shadow-sm hover:shadow-xl dark:hover:shadow-[0_12px_32px_rgba(0,0,0,0.6)]">
+          <div className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#262933] p-8 flex flex-col justify-between hover:border-zinc-300 dark:hover:border-white/20 transition-all duration-500 shadow-sm hover:shadow-xl dark:hover:shadow-[0_12px_32px_rgba(0,0,0,0.5)]">
             <div>
               <div className="flex items-center justify-between mb-5">
                 <span className="text-[10px] font-mono font-medium text-zinc-400 dark:text-zinc-500 uppercase tracking-widest">FACTORY DIRECT</span>
@@ -46,7 +42,7 @@ export const StudioB2B: React.FC = () => {
           </div>
 
           {/* Pillar 2 */}
-          <div className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.15] bg-white dark:bg-[#0e1117] p-8 flex flex-col justify-between relative shadow-sm hover:shadow-xl dark:hover:shadow-[0_12px_32px_rgba(0,0,0,0.6)] transition-all duration-500">
+          <div className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.15] bg-white dark:bg-[#262933] p-8 flex flex-col justify-between relative shadow-sm hover:shadow-xl dark:hover:shadow-[0_12px_32px_rgba(0,0,0,0.5)] transition-all duration-500">
             <div>
               <div className="flex items-center justify-between mb-5">
                 <span className="text-[10px] font-mono font-medium text-[#0d9488] dark:text-[#2ee6ca] uppercase tracking-widest">EXPRESS SHIPPING</span>
@@ -66,7 +62,7 @@ export const StudioB2B: React.FC = () => {
           </div>
 
           {/* Pillar 3 */}
-          <div className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#0b0d12] p-8 flex flex-col justify-between hover:border-zinc-300 dark:hover:border-white/20 transition-all duration-500 shadow-sm hover:shadow-xl dark:hover:shadow-[0_12px_32px_rgba(0,0,0,0.6)]">
+          <div className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#262933] p-8 flex flex-col justify-between hover:border-zinc-300 dark:hover:border-white/20 transition-all duration-500 shadow-sm hover:shadow-xl dark:hover:shadow-[0_12px_32px_rgba(0,0,0,0.5)]">
             <div>
               <div className="flex items-center justify-between mb-5">
                 <span className="text-[10px] font-mono font-medium text-zinc-400 dark:text-zinc-500 uppercase tracking-widest">STUDIO ACCOUNTS</span>
@@ -87,7 +83,7 @@ export const StudioB2B: React.FC = () => {
         </div>
 
         {/* Official Contact Dispatch Strip */}
-        <div className="mt-12 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-zinc-50 dark:bg-[#090b10] p-7 flex flex-wrap items-center justify-between gap-6">
+        <div className="mt-12 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#262933] p-7 flex flex-wrap items-center justify-between gap-6">
           <div>
             <div className="text-xs font-mono font-bold text-zinc-950 dark:text-zinc-200 uppercase tracking-wider">
               NEED CUSTOM INVOICE OR STUDIO CONTRACT?
