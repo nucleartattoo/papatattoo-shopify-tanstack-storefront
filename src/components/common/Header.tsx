@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Link, useNavigate } from '@tanstack/react-router'
 import { Logo } from './Logo'
 import { useTheme } from '../../context/ThemeContext'
@@ -25,6 +25,36 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
   const [isAccountOpen, setIsAccountOpen] = useState(false)
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
   const [authModalMode, setAuthModalMode] = useState<'signin' | 'register'>('signin')
+  const accountRef = useRef<HTMLDivElement>(null)
+  const langRef = useRef<HTMLDivElement>(null)
+
+  // Auto-close dropdowns when clicking outside or pressing Escape
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (accountRef.current && !accountRef.current.contains(e.target as Node)) {
+        setIsAccountOpen(false)
+      }
+      if (langRef.current && !langRef.current.contains(e.target as Node)) {
+        setIsLangOpen(false)
+      }
+    }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsAccountOpen(false)
+        setIsLangOpen(false)
+      }
+    }
+
+    if (isAccountOpen || isLangOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+      window.addEventListener('keydown', handleKeyDown)
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside)
+        window.removeEventListener('keydown', handleKeyDown)
+      }
+    }
+  }, [isAccountOpen, isLangOpen])
   const [customer, setCustomer] = useState<CustomerProfile | null>(() => {
     try {
       if (typeof window !== 'undefined') {
@@ -64,15 +94,12 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
   }
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-zinc-200/70 dark:border-[#00f0ff]/20 bg-white/85 dark:bg-[#060709]/90 backdrop-blur-md transition-colors duration-200">
-      {/* Top Announcement Bar */}
-      <div className="hidden sm:flex items-center justify-between px-6 py-1.5 bg-zinc-100/70 dark:bg-[#090b10] border-b border-zinc-200/60 dark:border-zinc-800/80 text-[11px] font-mono text-zinc-500 dark:text-zinc-400">
+    <header className="sticky top-0 z-40 w-full border-b border-zinc-200/80 dark:border-white/[0.08] bg-white/90 dark:bg-[#07080a]/85 backdrop-blur-xl transition-colors duration-300">
+      {/* Top Announcement Bar - Clean Gallery Rule */}
+      <div className="hidden sm:flex items-center justify-center px-6 py-1.5 bg-zinc-50 dark:bg-[#050608] border-b border-zinc-200/70 dark:border-white/[0.05] text-[11px] font-mono text-zinc-500 dark:text-zinc-400">
         <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#0d9488] dark:bg-[#00f0ff] animate-pulse" />
-          <span>Professional Tattoo Supplies · Worldwide Dispatch</span>
-        </div>
-        <div>
-          <span>Direct Factory Distribution</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-[#0d9488] dark:bg-[#2ee6ca]" />
+          <span>For Professionals Only!</span>
         </div>
       </div>
 
@@ -95,36 +122,36 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
         </div>
 
         {/* Right Action Icons: Mobile Search, Language, Theme, Account, Cart */}
-        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           {/* Mobile Search Toggle (Visible on tablet & mobile) */}
           <button
             onClick={() => {
               setIsMobileSearchOpen(!isMobileSearchOpen)
               setMobileMenuOpen(false)
             }}
-            className="lg:hidden w-9 h-9 flex items-center justify-center rounded-lg border border-zinc-200/70 dark:border-zinc-800/70 hover:border-zinc-300 dark:hover:border-[#2EE6CA]/50 text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-[#2EE6CA] bg-zinc-50 dark:bg-[#14171D] transition-colors cursor-pointer"
+            className="lg:hidden p-2 text-zinc-600 dark:text-white/80 hover:text-zinc-950 dark:hover:text-[#2ee6ca] transition-colors cursor-pointer"
             aria-label="Search"
             title="Search Entire Store"
           >
-            <Search className="w-4 h-4 text-[#0d9488] dark:text-[#2EE6CA]" />
+            <Search className="w-5 h-5" />
           </button>
 
-          {/* 1. Language Selector (Icon Only) */}
-          <div className="relative">
+          {/* 1. Language Selector (Pure Icon, No Border/Background, Enlarged) */}
+          <div ref={langRef} className="relative">
             <button
               onClick={() => {
                 setIsLangOpen(!isLangOpen)
                 setIsAccountOpen(false)
               }}
-              className="w-9 h-9 flex items-center justify-center rounded-lg border border-zinc-200/70 dark:border-zinc-800/70 hover:border-zinc-300 dark:hover:border-[#2EE6CA]/50 text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-[#2EE6CA] bg-zinc-50 dark:bg-[#14171D] transition-colors cursor-pointer"
+              className="p-2 text-zinc-600 dark:text-white/80 hover:text-zinc-950 dark:hover:text-[#2ee6ca] transition-colors cursor-pointer"
               title={`Language: ${locale}`}
               aria-label="Change Language"
             >
-              <Globe className="w-4 h-4 text-[#0d9488] dark:text-[#2EE6CA]" />
+              <Globe className="w-5.5 h-5.5 sm:w-6 sm:h-6" />
             </button>
 
             {isLangOpen && (
-              <div className="absolute right-0 mt-2 w-40 rounded-xl shadow-2xl border border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#14171D] p-1.5 z-50 animate-in fade-in slide-in-from-top-1">
+              <div className="absolute right-0 mt-2 w-40 rounded-xl shadow-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#0b0d12] p-1.5 z-50 animate-in fade-in slide-in-from-top-1">
                 {languages.map(lang => (
                   <button
                     key={lang.code}
@@ -134,8 +161,8 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
                     }}
                     className={`w-full flex items-center justify-between px-3 py-2 text-xs rounded-md text-left transition-colors font-mono ${
                       locale === lang.code
-                        ? 'bg-zinc-100 dark:bg-[#1E222B] text-zinc-950 dark:text-[#2EE6CA] font-bold'
-                        : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-[#191D24]'
+                        ? 'bg-zinc-100 dark:bg-white/[0.1] text-zinc-950 dark:text-[#2ee6ca] font-bold'
+                        : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-white/[0.05]'
                     }`}
                   >
                     <span>{lang.label}</span>
@@ -146,195 +173,126 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
             )}
           </div>
 
-          {/* 2. Theme Toggle Button (Icon Only) */}
+          {/* 2. Theme Toggle Button (Pure Icon, No Border/Background, Enlarged) */}
           <button
             onClick={toggleTheme}
-            className="w-9 h-9 flex items-center justify-center rounded-lg border border-zinc-200/70 dark:border-zinc-800/70 hover:border-zinc-300 dark:hover:border-[#2EE6CA]/50 text-zinc-600 dark:text-zinc-300 bg-zinc-50 dark:bg-[#14171D] transition-colors cursor-pointer"
+            className="p-2 text-zinc-600 dark:text-white/80 hover:text-zinc-950 dark:hover:text-amber-400 transition-colors cursor-pointer"
             aria-label="Toggle Theme"
             title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
           >
             {theme === 'dark' ? (
-              <Sun className="w-4 h-4 text-amber-400 hover:rotate-45 transition-transform" />
+              <Sun className="w-5.5 h-5.5 sm:w-6 sm:h-6 text-amber-400 hover:rotate-45 transition-transform" />
             ) : (
-              <Moon className="w-4 h-4 text-zinc-700 hover:-rotate-12 transition-transform" />
+              <Moon className="w-5.5 h-5.5 sm:w-6 sm:h-6 text-zinc-700 hover:-rotate-12 transition-transform" />
             )}
           </button>
 
-          {/* 3. Customer Account Menu (Icon Only) */}
-          <div className="relative">
+          {/* 3. Customer Account Menu (Pure Icon, No Border/Background, Enlarged) */}
+          <div ref={accountRef} className="relative">
             <button
               onClick={() => {
-                setIsAccountOpen(!isAccountOpen)
-                setIsLangOpen(false)
+                if (customer) {
+                  setIsAccountOpen(!isAccountOpen)
+                  setIsLangOpen(false)
+                } else {
+                  setAuthModalMode('signin')
+                  setIsAuthModalOpen(true)
+                  setIsAccountOpen(false)
+                  setIsLangOpen(false)
+                }
               }}
-              className={`relative w-9 h-9 flex items-center justify-center rounded-lg border transition-colors cursor-pointer ${
-                customer
-                  ? 'border-[#2EE6CA] bg-[#2EE6CA]/10 text-[#0d9488] dark:text-[#2EE6CA]'
-                  : 'border-zinc-200/70 dark:border-zinc-800/70 hover:border-zinc-300 dark:hover:border-[#2EE6CA]/50 text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-[#2EE6CA] bg-zinc-50 dark:bg-[#14171D]'
-              }`}
+              className="relative p-2 text-zinc-600 dark:text-white/80 hover:text-zinc-950 dark:hover:text-[#2ee6ca] transition-colors cursor-pointer"
               aria-label="Customer Account"
               title={customer ? `Buyer: ${customer.firstName || customer.email}` : 'Buyer Sign In / Create Account'}
             >
-              <User className="w-4 h-4" />
+              <User className="w-5.5 h-5.5 sm:w-6 sm:h-6" />
               {customer && (
-                <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-[#2ee6ca] ring-2 ring-white dark:ring-[#0E1015]" />
+                <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#2ee6ca] ring-2 ring-white dark:ring-[#07080a]" />
               )}
             </button>
 
-            {isAccountOpen && (
-              <div className="absolute right-0 mt-2 w-64 rounded-2xl shadow-2xl border border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#0E1015] p-3 z-50 animate-in fade-in slide-in-from-top-1 text-xs font-mono">
-                {customer ? (
-                  // Logged In Buyer View
-                  <>
-                    <div className="p-3 rounded-xl bg-zinc-50 dark:bg-[#14171E] border border-zinc-100 dark:border-zinc-800/70 mb-2">
-                      <div className="text-[10px] text-[#0d9488] dark:text-[#2ee6ca] font-bold uppercase tracking-wider">
-                        REGISTERED BUYER
-                      </div>
-                      <div className="text-zinc-950 dark:text-white font-bold text-sm truncate mt-0.5">
-                        Hello, {customer.firstName || 'Shopper'} 👋
-                      </div>
-                      <div className="text-[11px] text-zinc-500 truncate mt-0.5">
-                        {customer.email}
-                      </div>
-                    </div>
+            {/* Account Menu - Only shown when already logged in */}
+            {isAccountOpen && customer && (
+              <div className="absolute right-0 mt-2 w-64 rounded-2xl shadow-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#0b0d12] p-3 z-50 animate-in fade-in slide-in-from-top-1 text-xs font-mono">
+                <div className="p-3 rounded-xl bg-zinc-50 dark:bg-[#14171E] border border-zinc-100 dark:border-zinc-800/70 mb-2">
+                  <div className="text-[10px] text-[#0d9488] dark:text-[#2ee6ca] font-bold uppercase tracking-wider">
+                    REGISTERED BUYER
+                  </div>
+                  <div className="text-zinc-950 dark:text-white font-bold text-sm truncate mt-0.5">
+                    Hello, {customer.firstName || 'Shopper'} 👋
+                  </div>
+                  <div className="text-[11px] text-zinc-500 truncate mt-0.5">
+                    {customer.email}
+                  </div>
+                </div>
 
-                    <div className="space-y-1">
-                      <button
-                        onClick={() => {
-                          navigate({ to: '/account' })
-                          setIsAccountOpen(false)
-                        }}
-                        className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-[#1A1E27] hover:text-[#0d9488] dark:hover:text-[#2ee6ca] transition-colors text-left cursor-pointer"
-                      >
-                        <span>Customer Dashboard</span>
-                        <ArrowRight className="w-3 h-3 text-zinc-400" />
-                      </button>
+                <div className="space-y-1">
+                  <button
+                    onClick={() => {
+                      navigate({ to: '/account' })
+                      setIsAccountOpen(false)
+                    }}
+                    className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-[#1A1E27] hover:text-[#0d9488] dark:hover:text-[#2ee6ca] transition-colors text-left cursor-pointer"
+                  >
+                    <span>Customer Dashboard</span>
+                    <ArrowRight className="w-3 h-3 text-zinc-400" />
+                  </button>
 
-                      <button
-                        onClick={() => {
-                          navigate({ to: '/account' })
-                          setIsAccountOpen(false)
-                        }}
-                        className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-[#1A1E27] hover:text-[#0d9488] dark:hover:text-[#2ee6ca] transition-colors text-left cursor-pointer"
-                      >
-                        <span>My Orders & Tracking</span>
-                        <ArrowRight className="w-3 h-3 text-zinc-400" />
-                      </button>
+                  <button
+                    onClick={() => {
+                      navigate({ to: '/account' })
+                      setIsAccountOpen(false)
+                    }}
+                    className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-[#1A1E27] hover:text-[#0d9488] dark:hover:text-[#2ee6ca] transition-colors text-left cursor-pointer"
+                  >
+                    <span>My Orders & Tracking</span>
+                    <ArrowRight className="w-3 h-3 text-zinc-400" />
+                  </button>
 
-                      <button
-                        onClick={() => {
-                          navigate({ to: '/account' })
-                          setIsAccountOpen(false)
-                        }}
-                        className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-[#1A1E27] hover:text-[#0d9488] dark:hover:text-[#2ee6ca] transition-colors text-left cursor-pointer"
-                      >
-                        <span>Saved Addresses</span>
-                        <ArrowRight className="w-3 h-3 text-zinc-400" />
-                      </button>
+                  <button
+                    onClick={() => {
+                      navigate({ to: '/account' })
+                      setIsAccountOpen(false)
+                    }}
+                    className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-[#1A1E27] hover:text-[#0d9488] dark:hover:text-[#2ee6ca] transition-colors text-left cursor-pointer"
+                  >
+                    <span>Saved Addresses</span>
+                    <ArrowRight className="w-3 h-3 text-zinc-400" />
+                  </button>
 
-                      <button
-                        onClick={() => {
-                          navigate({ to: '/wholesale' })
-                          setIsAccountOpen(false)
-                        }}
-                        className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-[#0d9488] dark:text-[#2ee6ca] font-bold hover:bg-zinc-100 dark:hover:bg-[#1A1E27] transition-colors text-left cursor-pointer"
-                      >
-                        <span>Studio Wholesale Portal</span>
-                      </button>
+                  <button
+                    onClick={() => {
+                      navigate({ to: '/wholesale' })
+                      setIsAccountOpen(false)
+                    }}
+                    className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-[#0d9488] dark:text-[#2ee6ca] font-bold hover:bg-zinc-100 dark:hover:bg-[#1A1E27] transition-colors text-left cursor-pointer"
+                  >
+                    <span>Studio Wholesale Portal</span>
+                  </button>
 
-                      <hr className="border-zinc-100 dark:border-zinc-800/70 my-1" />
+                  <hr className="border-zinc-100 dark:border-white/[0.08] my-1" />
 
-                      <button
-                        onClick={handleSignOut}
-                        className="w-full text-left px-3 py-2 rounded-lg text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 font-bold transition-colors cursor-pointer"
-                      >
-                        Sign Out
-                      </button>
-                    </div>
-                  </>
-                ) : (
-                  // Guest / Not Logged In Buyer View
-                  <>
-                    <div className="px-2 pt-1 pb-3 text-left">
-                      <div className="text-[10px] text-[#0d9488] dark:text-[#2ee6ca] font-bold uppercase tracking-wider">
-                        CUSTOMER ACCOUNT
-                      </div>
-                      <div className="text-zinc-950 dark:text-white font-black text-sm uppercase tracking-tight mt-0.5">
-                        Welcome, Shopper
-                      </div>
-                      <p className="text-[11px] text-zinc-500 leading-snug mt-1">
-                        Sign in for fast checkout, order tracking & saved studio addresses.
-                      </p>
-                    </div>
-
-                    <div className="space-y-2">
-                      <button
-                        onClick={() => {
-                          setAuthModalMode('signin')
-                          setIsAuthModalOpen(true)
-                          setIsAccountOpen(false)
-                        }}
-                        className="w-full py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 font-bold uppercase tracking-wider text-xs flex items-center justify-center gap-1.5 hover:opacity-90 transition-opacity cursor-pointer"
-                      >
-                        <span>Sign In</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </button>
-
-                      <div className="text-center text-[11px] text-zinc-500 py-0.5">
-                        <span>New customer? </span>
-                        <button
-                          onClick={() => {
-                            setAuthModalMode('register')
-                            setIsAuthModalOpen(true)
-                            setIsAccountOpen(false)
-                          }}
-                          className="font-bold text-[#0d9488] dark:text-[#2ee6ca] hover:underline cursor-pointer"
-                        >
-                          Create Account
-                        </button>
-                      </div>
-
-                      <hr className="border-zinc-100 dark:border-[#1E232E]" />
-
-                      <div className="space-y-0.5">
-                        <button
-                          onClick={() => {
-                            navigate({ to: '/account' })
-                            setIsAccountOpen(false)
-                          }}
-                          className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-[#181B22] hover:text-zinc-900 dark:hover:text-white transition-colors text-left cursor-pointer"
-                        >
-                          <span>Track an Order</span>
-                          <ArrowRight className="w-3 h-3 text-zinc-400" />
-                        </button>
-
-                        <button
-                          onClick={() => {
-                            navigate({ to: '/wholesale' })
-                            setIsAccountOpen(false)
-                          }}
-                          className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-[#181B22] hover:text-zinc-900 dark:hover:text-white transition-colors text-left"
-                        >
-                          <span>Studio Wholesale Inquiry</span>
-                        </button>
-                      </div>
-                    </div>
-                  </>
-                )}
+                  <button
+                    onClick={handleSignOut}
+                    className="w-full text-left px-3 py-2 rounded-lg text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 font-bold transition-colors cursor-pointer"
+                  >
+                    Sign Out
+                  </button>
+                </div>
               </div>
             )}
           </div>
 
-          {/* 4. Cart Trigger (Icon Only with Floating Badge) */}
+          {/* 4. Cart Trigger (Pure Icon, No Border/Background, Enlarged) */}
           <button
             onClick={openCart}
-            className="relative w-9 h-9 flex items-center justify-center rounded-lg bg-zinc-950 text-white dark:bg-[#14171D] dark:text-zinc-100 border border-transparent dark:border-[#2ee6ca]/40 hover:border-[#2ee6ca] hover:shadow-[0_0_15px_rgba(46,230,202,0.2)] transition-all cursor-pointer"
+            className="relative p-2 text-zinc-700 dark:text-white/90 hover:text-zinc-950 dark:hover:text-[#2ee6ca] transition-colors cursor-pointer"
             aria-label="Open Cart"
             title="Shopping Cart"
           >
-            <ShoppingBag className="w-4 h-4 text-[#2ee6ca]" />
+            <ShoppingBag className="w-5.5 h-5.5 sm:w-6 sm:h-6" />
             {totalQuantity > 0 && (
-              <span className="absolute -top-1.5 -right-1.5 flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full bg-[#2ee6ca] text-zinc-950 text-[10px] font-mono font-black leading-none shadow-sm animate-pulse">
+              <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-[19px] h-[19px] px-1 rounded-full bg-[#2ee6ca] text-zinc-950 text-[10px] font-mono font-black leading-none shadow-sm">
                 {totalQuantity}
               </span>
             )}
@@ -501,7 +459,11 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
         initialMode={authModalMode}
-        onAuthSuccess={profile => setCustomer(profile)}
+        onAuthSuccess={profile => {
+          setCustomer(profile)
+          setIsAuthModalOpen(false)
+          navigate({ to: '/account' })
+        }}
       />
     </header>
   )

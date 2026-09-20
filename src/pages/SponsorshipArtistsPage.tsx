@@ -109,20 +109,20 @@ export const SponsorshipArtistsPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Artist Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {/* Artist Grid - Contemporary Exhibition Lookbook */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 xl:gap-8">
           {filteredArtists.map(artist => (
             <div
               key={artist.id}
-              className="group rounded-2xl border border-zinc-200 dark:border-[#1E232E] bg-white dark:bg-[#0E1015] overflow-hidden flex flex-col justify-between hover:border-[#0d9488] dark:hover:border-[#2EE6CA]/60 transition-all duration-300 shadow-xs hover:shadow-xl hover:-translate-y-1"
+              className="group rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#0b0d12] overflow-hidden flex flex-col justify-between hover:border-zinc-300 dark:hover:border-white/20 transition-all duration-500 shadow-sm hover:shadow-xl dark:hover:shadow-[0_16px_36px_rgba(0,0,0,0.6)]"
             >
-              {/* Photo Area */}
-              <div className="relative aspect-square w-full overflow-hidden bg-zinc-100 dark:bg-zinc-900">
+              {/* Photo Area: 3:4 Vertical Exhibition Framing with Grayscale Reveal */}
+              <div className="relative aspect-[3/4] w-full overflow-hidden bg-zinc-100 dark:bg-[#07080a]">
                 <img
                   src={artist.image}
                   alt={artist.name}
                   decoding="async"
-                  className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover object-center grayscale group-hover:grayscale-0 scale-100 group-hover:scale-105 transition-all duration-700 ease-out"
                   onError={e => {
                     const target = e.currentTarget
                     target.onerror = null
@@ -131,21 +131,24 @@ export const SponsorshipArtistsPage: React.FC = () => {
                   }}
                 />
 
-                {/* Top Badge */}
-                <div className="absolute top-3 right-3 pointer-events-none">
-                  <span className="px-2 py-0.5 rounded-md bg-zinc-950/80 dark:bg-[#2EE6CA] text-white dark:text-zinc-950 text-[10px] font-mono font-black uppercase tracking-wider backdrop-blur-md shadow-xs">
-                    PAPA PRO
+                {/* Subtle Ambient Vignette */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-40 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none" />
+
+                {/* Refined Top Badge */}
+                <div className="absolute top-3.5 right-3.5 pointer-events-none">
+                  <span className="px-2.5 py-0.5 rounded-full bg-black/60 border border-white/15 text-white text-[10px] font-mono font-medium uppercase tracking-wider backdrop-blur-md shadow-xs">
+                    PRO TEAM
                   </span>
                 </div>
               </div>
 
-              {/* Card Body: Name, Handle & Link */}
-              <div className="p-4 border-t border-zinc-100 dark:border-[#1A1D24] bg-white dark:bg-[#0E1015] space-y-3">
+              {/* Card Body: Refined Typography & Clean Instagram Link */}
+              <div className="p-5 border-t border-zinc-100 dark:border-white/[0.06] bg-white dark:bg-[#0b0d12] space-y-4">
                 <div>
-                  <h3 className="text-base font-black uppercase tracking-tight text-zinc-950 dark:text-white truncate">
+                  <h3 className="text-sm sm:text-base font-bold uppercase tracking-tight text-zinc-950 dark:text-white truncate font-sans">
                     {artist.name}
                   </h3>
-                  <div className="text-xs font-mono text-zinc-500 dark:text-zinc-400 truncate mt-0.5">
+                  <div className="text-xs font-mono text-zinc-400 dark:text-zinc-500 truncate mt-0.5">
                     {artist.handle}
                   </div>
                 </div>
@@ -154,12 +157,12 @@ export const SponsorshipArtistsPage: React.FC = () => {
                   href={artist.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-2 px-3 rounded-xl border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#141720] hover:bg-zinc-100 dark:hover:bg-[#1C212B] text-zinc-800 dark:text-zinc-200 hover:text-[#0d9488] dark:hover:text-[#2EE6CA] hover:border-[#0d9488] dark:hover:border-[#2EE6CA] text-xs font-mono font-bold transition-all flex items-center justify-between cursor-pointer"
+                  className="w-full py-2 px-3 rounded-xl border border-zinc-200/80 dark:border-white/[0.08] bg-zinc-50/60 dark:bg-[#0e1117] hover:bg-zinc-100 dark:hover:bg-white/[0.06] text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-[#2ee6ca] hover:border-zinc-300 dark:hover:border-white/20 text-xs font-mono font-medium transition-all duration-200 flex items-center justify-between cursor-pointer"
                   title={`Open ${artist.name}'s Instagram`}
                 >
                   <span className="flex items-center gap-1.5">
                     <svg
-                      className="w-3.5 h-3.5 text-[#0d9488] dark:text-[#2EE6CA]"
+                      className="w-3.5 h-3.5 text-zinc-400 group-hover:text-[#2ee6ca] transition-colors"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -173,7 +176,7 @@ export const SponsorshipArtistsPage: React.FC = () => {
                     </svg>
                     <span>Instagram</span>
                   </span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400 group-hover:text-[#2EE6CA]" />
+                  <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400 group-hover:text-[#2ee6ca] transition-colors" />
                 </a>
               </div>
             </div>

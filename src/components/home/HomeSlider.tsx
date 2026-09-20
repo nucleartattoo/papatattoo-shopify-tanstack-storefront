@@ -173,34 +173,34 @@ export const HomeSlider: React.FC = () => {
           )
         })}
 
-        {/* Navigation Arrow Left */}
+        {/* Navigation Arrow Left - Minimalist Floating Glass Control */}
         <button
           type="button"
           onClick={(e) => {
             e.stopPropagation()
             handlePrev()
           }}
-          className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 bg-black/60 hover:bg-black/90 text-white/70 hover:text-[#00f0ff] border border-white/10 hover:border-[#00f0ff]/60 backdrop-blur-md flex items-center justify-center transition-all duration-200 cursor-pointer shadow-xl opacity-80 group-hover/slider:opacity-100 active:scale-95 cyber-chamfer-sm"
+          className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-black/40 hover:bg-black/75 text-white/80 hover:text-white border border-white/10 hover:border-white/25 backdrop-blur-md flex items-center justify-center transition-all duration-300 cursor-pointer shadow-lg opacity-0 group-hover/slider:opacity-100 hover:scale-105 active:scale-95"
           aria-label="Previous Slide"
         >
-          <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 transition-transform hover:-translate-x-0.5" />
+          <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover/slider:-translate-x-0.5" />
         </button>
 
-        {/* Navigation Arrow Right */}
+        {/* Navigation Arrow Right - Minimalist Floating Glass Control */}
         <button
           type="button"
           onClick={(e) => {
             e.stopPropagation()
             handleNext()
           }}
-          className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 bg-black/60 hover:bg-black/90 text-white/70 hover:text-[#00f0ff] border border-white/10 hover:border-[#00f0ff]/60 backdrop-blur-md flex items-center justify-center transition-all duration-200 cursor-pointer shadow-xl opacity-80 group-hover/slider:opacity-100 active:scale-95 cyber-chamfer-sm"
+          className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-black/40 hover:bg-black/75 text-white/80 hover:text-white border border-white/10 hover:border-white/25 backdrop-blur-md flex items-center justify-center transition-all duration-300 cursor-pointer shadow-lg opacity-0 group-hover/slider:opacity-100 hover:scale-105 active:scale-95"
           aria-label="Next Slide"
         >
-          <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 transition-transform hover:translate-x-0.5" />
+          <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover/slider:translate-x-0.5" />
         </button>
 
-        {/* Floating Minimalist Indicator Dots */}
-        <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 bg-black/60 px-3 py-1.5 rounded-full backdrop-blur-md border border-[#00f0ff]/20">
+        {/* Apple-style Linear Exhibition Progress Bars */}
+        <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-2 rounded-full bg-black/30 backdrop-blur-md border border-white/[0.08]">
           {SLIDES_DATA.map((slide, idx) => {
             const isActive = idx === currentIndex
             return (
@@ -210,13 +210,17 @@ export const HomeSlider: React.FC = () => {
                   e.stopPropagation()
                   setCurrentIndex(idx)
                 }}
-                className={`transition-all duration-300 rounded-full cursor-pointer ${
-                  isActive
-                    ? 'w-6 h-2 bg-[#00f0ff] shadow-[0_0_12px_#00f0ff]'
-                    : 'w-2 h-2 bg-white/40 hover:bg-white/75'
-                }`}
+                className="group/dot relative py-1 cursor-pointer focus:outline-hidden"
                 aria-label={`Go to slide ${idx + 1}: ${slide.title}`}
-              />
+              >
+                <div
+                  className={`h-[3px] rounded-full transition-all duration-500 ease-out ${
+                    isActive
+                      ? 'w-8 sm:w-10 bg-[#2ee6ca] shadow-[0_0_8px_rgba(46,230,202,0.6)]'
+                      : 'w-2 sm:w-2.5 bg-white/25 group-hover/dot:bg-white/50'
+                  }`}
+                />
+              </button>
             )
           })}
         </div>

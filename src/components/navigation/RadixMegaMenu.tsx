@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
-import { useNavigate } from '@tanstack/react-router'
+import { useNavigate, Link } from '@tanstack/react-router'
 import { ChevronDown, ArrowRight, LayoutGrid, Award, Mail, X } from 'lucide-react'
 import { MEGA_MENU_DATA } from './MegaMenu'
 import { formatProductImageUrl } from '../../utils/imageUrl'
@@ -18,6 +18,30 @@ export const RadixMegaMenu: React.FC<RadixMegaMenuProps> = ({ onSelectCategory }
   const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
+  const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const handleMouseEnter = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current)
+      closeTimeoutRef.current = null
+    }
+    setIsOpen(true)
+  }
+
+  const handleMouseLeave = () => {
+    closeTimeoutRef.current = setTimeout(() => {
+      setIsOpen(false)
+    }, 200)
+  }
+
+  const handleProductsClick = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current)
+      closeTimeoutRef.current = null
+    }
+    setIsOpen(false)
+    navigate({ to: '/products' })
+  }
 
   const handleSelect = (
     categoryId: string,
@@ -48,92 +72,85 @@ export const RadixMegaMenu: React.FC<RadixMegaMenuProps> = ({ onSelectCategory }
     if (isOpen) {
       window.addEventListener('keydown', handleKeyDown)
       document.addEventListener('mousedown', handleClickOutside)
-      const prevOverflow = document.body.style.overflow
-      document.body.style.overflow = 'hidden'
       return () => {
         window.removeEventListener('keydown', handleKeyDown)
         document.removeEventListener('mousedown', handleClickOutside)
-        document.body.style.overflow = prevOverflow
       }
     }
   }, [isOpen])
 
   return (
-    <div ref={menuRef} className="relative z-50 flex items-center">
-      <div className="flex items-center gap-1 xl:gap-2 font-mono text-xs xl:text-[13px] font-bold uppercase tracking-wider">
-        {/* 1. Products Trigger */}
-        <button
-          type="button"
-          onClick={() => setIsOpen(prev => !prev)}
-          className={`flex items-center gap-1.5 px-3 py-2 rounded-lg transition-colors cursor-pointer ${
+    <div
+      ref={menuRef}
+      className="relative z-50 flex items-center"
+      onMouseLeave={handleMouseLeave}
+    >
+      <div className="flex items-center gap-1.5 xl:gap-3 font-['Montserrat',sans-serif] text-[13.5px] xl:text-[16px] font-black uppercase tracking-tight [-webkit-text-stroke:0.35px_currentColor]">
+        {/* 1. PAPA PRODUCTS Link: Native Anchor with Pointer Hand, Hover to open, Click to navigate */}
+        <Link
+          to="/products"
+          onClick={() => setIsOpen(false)}
+          onMouseEnter={handleMouseEnter}
+          className={`flex items-center gap-1.5 px-3 py-2 rounded-lg uppercase tracking-tight transition-colors cursor-pointer select-none ${
             isOpen
-              ? 'text-zinc-950 dark:text-[#2EE6CA] bg-zinc-100 dark:bg-zinc-800/60'
-              : 'text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-100/70 dark:hover:bg-zinc-800/40'
+              ? 'text-zinc-950 dark:text-white bg-zinc-100 dark:bg-white/[0.12]'
+              : 'text-zinc-950 dark:text-white hover:text-zinc-950 dark:hover:text-[#2ee6ca] hover:bg-zinc-100/70 dark:hover:bg-white/[0.06]'
           }`}
         >
-          <span>Products</span>
-          <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 opacity-60 ${isOpen ? 'rotate-180' : ''}`} />
-        </button>
+          <span>PAPA PRODUCTS</span>
+          <ChevronDown className={`w-3.5 h-3.5 xl:w-4 xl:h-4 transition-transform duration-200 opacity-80 ${isOpen ? 'rotate-180' : ''}`} />
+        </Link>
 
-        {/* 2. Artists Link */}
-        <button
-          type="button"
-          onClick={() => {
-            navigate({ to: '/sponsorship-artists' })
-            setIsOpen(false)
-          }}
-          className="px-3 py-2 rounded-lg text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-100/70 dark:hover:bg-zinc-800/40 transition-colors cursor-pointer"
+        {/* 2. ARTISTS Link */}
+        <Link
+          to="/sponsorship-artists"
+          onClick={() => setIsOpen(false)}
+          className="px-3 py-2 rounded-lg uppercase tracking-tight text-zinc-950 dark:text-white hover:text-zinc-950 dark:hover:text-[#2ee6ca] hover:bg-zinc-100/70 dark:hover:bg-white/[0.06] transition-colors cursor-pointer"
         >
-          <span>Artists</span>
-        </button>
+          <span>ARTISTS</span>
+        </Link>
 
-        {/* 3. Distributors Link */}
-        <button
-          type="button"
-          onClick={() => {
-            navigate({ to: '/distributors' })
-            setIsOpen(false)
-          }}
-          className="px-3 py-2 rounded-lg text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-100/70 dark:hover:bg-zinc-800/40 transition-colors cursor-pointer"
+        {/* 3. DISTRIBUTORS Link */}
+        <Link
+          to="/distributors"
+          onClick={() => setIsOpen(false)}
+          className="px-3 py-2 rounded-lg uppercase tracking-tight text-zinc-950 dark:text-white hover:text-zinc-950 dark:hover:text-[#2ee6ca] hover:bg-zinc-100/70 dark:hover:bg-white/[0.06] transition-colors cursor-pointer"
         >
-          <span>Distributors</span>
-        </button>
+          <span>DISTRIBUTORS</span>
+        </Link>
 
-        {/* 4. About Link */}
-        <button
-          type="button"
-          onClick={() => {
-            navigate({ to: '/about' })
-            setIsOpen(false)
-          }}
-          className="px-3 py-2 rounded-lg text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-100/70 dark:hover:bg-zinc-800/40 transition-colors cursor-pointer"
+        {/* 4. ABOUT Link */}
+        <Link
+          to="/about"
+          onClick={() => setIsOpen(false)}
+          className="px-3 py-2 rounded-lg uppercase tracking-tight text-zinc-950 dark:text-white hover:text-zinc-950 dark:hover:text-[#2ee6ca] hover:bg-zinc-100/70 dark:hover:bg-white/[0.06] transition-colors cursor-pointer"
         >
-          <span>About</span>
-        </button>
+          <span>ABOUT</span>
+        </Link>
 
-        {/* 5. Contact Link */}
-        <button
-          type="button"
-          onClick={() => {
-            navigate({ to: '/contact' })
-            setIsOpen(false)
-          }}
-          className="px-3 py-2 rounded-lg text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-100/70 dark:hover:bg-zinc-800/40 transition-colors cursor-pointer"
+        {/* 5. CONTACT Link */}
+        <Link
+          to="/contact"
+          onClick={() => setIsOpen(false)}
+          className="px-3 py-2 rounded-lg uppercase tracking-tight text-zinc-950 dark:text-white hover:text-zinc-950 dark:hover:text-[#2ee6ca] hover:bg-zinc-100/70 dark:hover:bg-white/[0.06] transition-colors cursor-pointer"
         >
-          <span>Contact</span>
-        </button>
+          <span>CONTACT</span>
+        </Link>
       </div>
 
-      {/* Fullscreen Portal Overlay & Dropdown (Mounted directly on body to avoid header backdrop-blur positioning traps) */}
+      {/* Fullscreen Portal Overlay & Dropdown (Mounted below the header so the header links remain 100% unobstructed) */}
       {isOpen && typeof document !== 'undefined' && createPortal(
-        <div className="fixed inset-0 z-[100] flex flex-col pointer-events-auto">
-          {/* Top spacer to align directly below the header (header is 98px on desktop, ~76px on tablet) */}
-          <div className="h-[72px] sm:h-[76px] lg:h-[98px] pointer-events-none" />
-
+        <div
+          className="fixed inset-x-0 top-16 lg:top-[72px] bottom-0 z-30 flex flex-col pointer-events-auto"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
           {/* Minimalist Mega Menu Dropdown Panel */}
           <div
             id="papa-megamenu-dropdown"
-            className="w-full bg-white dark:bg-[#0A0C10] border-b border-zinc-200 dark:border-zinc-800 shadow-2xl max-h-[calc(100vh-110px)] overflow-y-auto animate-in fade-in slide-in-from-top-1 duration-150 relative z-10"
+            className="w-full bg-white dark:bg-[#0A0C10] border-b border-zinc-200 dark:border-zinc-800 shadow-2xl max-h-[calc(100vh-80px)] overflow-y-auto animate-in fade-in slide-in-from-top-1 duration-150 relative z-10"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
           >
             {/* Top Sub-Bar */}
             <div className="w-full border-b border-zinc-100 dark:border-zinc-800/80 bg-zinc-50/70 dark:bg-[#0C0F14]/70 px-4 sm:px-6 lg:px-8 py-3">

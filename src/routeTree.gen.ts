@@ -18,6 +18,7 @@ import { Route as DistributorsRouteImport } from './routes/distributors'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as SponsorshipArtistsRouteImport } from './routes/sponsorship-artists'
 import { Route as WholesaleRouteImport } from './routes/wholesale'
+import { Route as ProductsIndexRouteImport } from './routes/products.index'
 import { Route as ProductsHandleRouteImport } from './routes/products.$handle'
 
 const IndexRoute = IndexRouteImport.update({
@@ -65,6 +66,11 @@ const WholesaleRoute = WholesaleRouteImport.update({
   path: '/wholesale',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProductsIndexRoute = ProductsIndexRouteImport.update({
+  id: '/products/',
+  path: '/products/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductsHandleRoute = ProductsHandleRouteImport.update({
   id: '/products/$handle',
   path: '/products/$handle',
@@ -82,6 +88,7 @@ export interface FileRoutesByFullPath {
   '/sponsorship-artists': typeof SponsorshipArtistsRoute
   '/wholesale': typeof WholesaleRoute
   '/products/$handle': typeof ProductsHandleRoute
+  '/products/': typeof ProductsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -94,6 +101,7 @@ export interface FileRoutesByTo {
   '/sponsorship-artists': typeof SponsorshipArtistsRoute
   '/wholesale': typeof WholesaleRoute
   '/products/$handle': typeof ProductsHandleRoute
+  '/products': typeof ProductsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -107,6 +115,7 @@ export interface FileRoutesById {
   '/sponsorship-artists': typeof SponsorshipArtistsRoute
   '/wholesale': typeof WholesaleRoute
   '/products/$handle': typeof ProductsHandleRoute
+  '/products/': typeof ProductsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -121,6 +130,7 @@ export interface FileRouteTypes {
     | '/sponsorship-artists'
     | '/wholesale'
     | '/products/$handle'
+    | '/products/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -133,6 +143,7 @@ export interface FileRouteTypes {
     | '/sponsorship-artists'
     | '/wholesale'
     | '/products/$handle'
+    | '/products'
   id:
     | '__root__'
     | '/'
@@ -145,6 +156,7 @@ export interface FileRouteTypes {
     | '/sponsorship-artists'
     | '/wholesale'
     | '/products/$handle'
+    | '/products/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -158,6 +170,7 @@ export interface RootRouteChildren {
   SponsorshipArtistsRoute: typeof SponsorshipArtistsRoute
   WholesaleRoute: typeof WholesaleRoute
   ProductsHandleRoute: typeof ProductsHandleRoute
+  ProductsIndexRoute: typeof ProductsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -225,6 +238,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WholesaleRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/products/': {
+      id: '/products/'
+      path: '/products'
+      fullPath: '/products/'
+      preLoaderRoute: typeof ProductsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/products/$handle': {
       id: '/products/$handle'
       path: '/products/$handle'
@@ -246,6 +266,7 @@ const rootRouteChildren: RootRouteChildren = {
   SponsorshipArtistsRoute: SponsorshipArtistsRoute,
   WholesaleRoute: WholesaleRoute,
   ProductsHandleRoute: ProductsHandleRoute,
+  ProductsIndexRoute: ProductsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

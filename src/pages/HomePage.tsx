@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from '@tanstack/react-router'
 import { HomeSlider } from '../components/home/HomeSlider'
-import { FeaturedCategories } from '../components/home/FeaturedCategories'
 import { HomePromoBanners } from '../components/home/HomePromoBanners'
 import { StudioB2B } from '../components/studio/StudioB2B'
 import { ProductCard } from '../components/product/ProductCard'
 import { ShopifyProduct } from '../types/shopify'
 import { getProducts } from '../lib/shopify'
-import { ArrowRight, Sparkles, ShieldCheck, Zap, Layers, Cpu } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 
 export const HomePage: React.FC = () => {
   const navigate = useNavigate()
@@ -44,25 +43,20 @@ export const HomePage: React.FC = () => {
       {/* 1. Large 7-Slide Master Carousel (Papa Original Site Parity) */}
       <HomeSlider />
 
-      {/* 2. Precision Category Disciplines (Shopify & Magento 2 Parity) */}
-      <FeaturedCategories
-        activeCategory="all"
-        onSelectCategory={(catId) => {
-          navigate({ to: '/collections', search: { category: catId } })
-        }}
-      />
+      {/* 2. Equipment Spotlight & Promo Banners */}
+      <HomePromoBanners />
 
       {/* 3. Flagship Curated Apparatus */}
-      <section className="py-16 sm:py-20 bg-zinc-50/60 dark:bg-[#06070a] border-b border-zinc-200/70 dark:border-zinc-800/70">
+      <section className="py-20 sm:py-24 bg-zinc-50/50 dark:bg-[#07080a] border-b border-zinc-200/80 dark:border-white/[0.06]">
         <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 pb-5 border-b border-zinc-200/70 dark:border-zinc-800/70 gap-4">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-zinc-950 dark:text-white uppercase tracking-tight font-sans">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 pb-5 border-b border-zinc-200/80 dark:border-white/[0.08] gap-4">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-zinc-950 dark:text-white uppercase tracking-tight font-sans">
               FEATURED PRODUCTS
             </h2>
             <Link
               to="/collections"
               search={{ category: 'all' }}
-              className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase text-[#0d9488] dark:text-[#00f0ff] hover:underline"
+              className="inline-flex items-center gap-2 text-xs font-mono font-medium uppercase text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-[#2ee6ca] transition-colors"
             >
               <span>View All</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -72,10 +66,10 @@ export const HomePage: React.FC = () => {
           {loading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8">
               {[1, 2, 3, 4].map(n => (
-                <div key={n} className="rounded-2xl border border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#12151B] p-5 animate-pulse space-y-4">
-                  <div className="w-full aspect-square bg-zinc-200 dark:bg-[#1A1E27] rounded-xl"></div>
-                  <div className="h-4 bg-zinc-200 dark:bg-[#1A1E27] rounded-sm w-3/4"></div>
-                  <div className="h-3 bg-zinc-200 dark:bg-[#1A1E27] rounded-sm w-1/2"></div>
+                <div key={n} className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.06] bg-white dark:bg-[#0b0d12] p-5 animate-pulse space-y-4">
+                  <div className="w-full aspect-square bg-zinc-100 dark:bg-white/[0.03] rounded-xl"></div>
+                  <div className="h-4 bg-zinc-100 dark:bg-white/[0.03] rounded-sm w-3/4"></div>
+                  <div className="h-3 bg-zinc-100 dark:bg-white/[0.03] rounded-sm w-1/2"></div>
                 </div>
               ))}
             </div>
@@ -89,10 +83,7 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* 4. Equipment Spotlight & Promo Banners */}
-      <HomePromoBanners />
-
-      {/* 5. Studio Wholesale Section */}
+      {/* 4. Studio Wholesale Section */}
       <div id="studio-section">
         <StudioB2B />
       </div>

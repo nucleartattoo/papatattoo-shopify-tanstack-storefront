@@ -13,7 +13,6 @@ import {
   Lock,
   Mail,
   ArrowRight,
-  ShieldCheck,
   CheckCircle2,
   AlertCircle,
   Loader2,
@@ -60,18 +59,24 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
       localStorage.setItem('shopify_customer_token', tokenObj.accessToken)
       localStorage.setItem('shopify_customer_token_exp', tokenObj.expiresAt)
 
-      const profile = await getCustomerProfile(tokenObj.accessToken)
-      if (profile) {
-        localStorage.setItem('shopify_customer_profile', JSON.stringify(profile))
-        if (onAuthSuccess) {
-          onAuthSuccess(profile)
-        }
+      const fetchedProfile = await getCustomerProfile(tokenObj.accessToken)
+      const profile: CustomerProfile = fetchedProfile || {
+        id: 'customer',
+        email: email.trim(),
+        firstName: '',
+        lastName: '',
+      }
+
+      localStorage.setItem('shopify_customer_profile', JSON.stringify(profile))
+      if (onAuthSuccess) {
+        onAuthSuccess(profile)
       }
 
       setSuccessMessage('Sign in successful! Welcome back.')
       setTimeout(() => {
+        handleResetState()
         onClose()
-      }, 1000)
+      }, 600)
     } catch (err: any) {
       const msg = err.message || ''
       if (msg.toLowerCase().includes('unidentified') || msg.toLowerCase().includes('credential') || msg.toLowerCase().includes('password')) {
@@ -288,25 +293,6 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                 </>
               )}
             </button>
-
-            {/* Returning Customer Note */}
-            <div className="pt-2 text-[11px] font-mono text-zinc-500 dark:text-zinc-400 bg-zinc-50 dark:bg-[#14171E] p-3 rounded-lg border border-zinc-200/60 dark:border-[#222731]/60">
-              <span className="font-bold text-zinc-700 dark:text-zinc-300">Returning Papa Tattoo Customer?</span>
-              <p className="mt-0.5 text-[10px] leading-relaxed">
-                If you had an account on our previous website, click{' '}
-                <button
-                  type="button"
-                  onClick={() => {
-                    setMode('forgot')
-                    handleResetState()
-                  }}
-                  className="text-[#0d9488] dark:text-[#2EE6CA] underline font-semibold cursor-pointer"
-                >
-                  Forgot password?
-                </button>{' '}
-                to set your password and access your complete order history.
-              </p>
-            </div>
           </form>
         )}
 
@@ -451,22 +437,6 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
             </button>
           </form>
         )}
-
-        {/* Footer Security Note */}
-        <div className="mt-5 pt-4 border-t border-zinc-100 dark:border-[#1E232E] flex items-center justify-between text-[10px] font-mono text-zinc-500">
-          <div className="flex items-center gap-1.5 text-zinc-500">
-            <ShieldCheck className="w-3.5 h-3.5 text-[#0d9488] dark:text-[#2EE6CA]" />
-            <span>SHOPIFY SECURE BUYER ENCRYPTION</span>
-          </div>
-          <a
-            href="https://ftff5p-yr.myshopify.com/account/login"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-zinc-900 dark:hover:text-[#2EE6CA] hover:underline"
-          >
-            Direct Portal ↗
-          </a>
-        </div>
       </div>
     </div>,
     document.body

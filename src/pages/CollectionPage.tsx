@@ -3,6 +3,7 @@ import { Link, useSearch, useNavigate, useLoaderData } from '@tanstack/react-rou
 import { ShopifyProduct } from '../types/shopify'
 import { getProducts, isGranularCartridge, isNuclearTattooProduct } from '../lib/shopify'
 import { ProductCard } from '../components/product/ProductCard'
+import { ModelViewer3D } from '../components/common/ModelViewer3D'
 import { useLocale } from '../context/LocaleContext'
 import {
   Filter,
@@ -17,6 +18,7 @@ import {
   X,
   Plus,
   Minus,
+  Box,
 } from 'lucide-react'
 
 export interface CollectionSearchProps {
@@ -479,35 +481,109 @@ export const CollectionPage: React.FC = () => {
   }
 
   return (
-    <div className="py-8 bg-zinc-50 dark:bg-[#090A0C] min-h-screen text-zinc-900 dark:text-zinc-100">
-      <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* 1. Breadcrumbs */}
-        <nav className="flex items-center gap-2 text-xs font-mono text-zinc-500 mb-6">
-          <Link to="/" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
-            HOME
-          </Link>
-          <ChevronRight className="w-3.5 h-3.5 text-zinc-400" />
-          <Link to="/collections" search={{ category: 'all' }} className="hover:text-zinc-900 dark:hover:text-white transition-colors">
-            CATALOG
-          </Link>
-          <ChevronRight className="w-3.5 h-3.5 text-zinc-400" />
-          <span className="text-zinc-900 dark:text-[#2EE6CA] font-bold uppercase">{getCategoryTitle()}</span>
-        </nav>
+    <div className="bg-zinc-50 dark:bg-[#07080a] min-h-screen text-zinc-900 dark:text-zinc-100">
+      {/* 1. Top Ultra-Wide Full-Screen Panoramic Stage (Compact Golden Height) */}
+      <section className="w-full border-b border-zinc-200/80 dark:border-white/[0.08] bg-[#07080a] relative overflow-hidden">
+        {/* Ambient Movie-Grade Studio Glow */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(46,230,202,0.1)_0%,transparent_65%)] pointer-events-none" />
 
-        {/* 2. Collection Header Banner */}
-        <div className="mb-10 p-6 sm:p-8 lg:p-10 rounded-2xl border border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#101319] relative overflow-hidden">
-          <div className="relative z-10 max-w-3xl">
-            <div className="text-xs font-mono font-bold tracking-widest text-[#0d9488] dark:text-[#2EE6CA] uppercase">
-              PAPA TATTOO APPARATUS
-            </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight mt-1 mb-3">
+        <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 h-full min-h-[200px] sm:min-h-[220px] lg:min-h-[240px] flex flex-col lg:flex-row lg:items-center justify-between py-6 sm:py-7 gap-6 relative z-10">
+          {/* Left: Breadcrumbs & Punchy Typography */}
+          <div className="max-w-2xl space-y-2">
+            {/* Compact Breadcrumb */}
+            <nav className="flex items-center gap-1.5 text-[11px] font-mono text-zinc-400">
+              <Link to="/" className="hover:text-white transition-colors">
+                HOME
+              </Link>
+              <ChevronRight className="w-3 h-3 text-zinc-600" />
+              <Link to="/collections" search={{ category: 'all' }} className="hover:text-white transition-colors">
+                CATALOG
+              </Link>
+              <ChevronRight className="w-3 h-3 text-zinc-600" />
+              <span className="text-[#2ee6ca] font-bold uppercase">{getCategoryTitle()}</span>
+            </nav>
+
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-white font-['Montserrat',sans-serif]">
               {getCategoryTitle()}
             </h1>
-            <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
+
+            <p className="text-xs sm:text-sm text-zinc-400 font-sans leading-relaxed line-clamp-2 max-w-xl">
               Industrial grade tattoo engineering apparatus, medical 316L needle pins, and aerospace anodized alloy systems calibrated for professional artists.
             </p>
+
+            {/* Architectural Technical Specs Pills */}
+            <div className="flex flex-wrap items-center gap-2 pt-1">
+              <span className="px-2 py-0.5 rounded-md bg-white/[0.06] border border-white/[0.08] text-[10px] font-mono text-zinc-300">
+                AEROSPACE ALLOY
+              </span>
+              <span className="px-2 py-0.5 rounded-md bg-white/[0.06] border border-white/[0.08] text-[10px] font-mono text-zinc-300">
+                316L SURGICAL STEEL
+              </span>
+              <span className="px-2 py-0.5 rounded-md bg-white/[0.06] border border-white/[0.08] text-[10px] font-mono text-[#2ee6ca]">
+                CALIBRATED TOLERANCE
+              </span>
+            </div>
+          </div>
+
+          {/* Right: Compact 3D Interactive Stage / High-Res Apparatus Visual */}
+          <div className="relative w-full lg:w-96 h-40 sm:h-48 lg:h-52 shrink-0 rounded-xl bg-zinc-900/40 border border-white/[0.08] overflow-hidden flex items-center justify-center">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(46,230,202,0.15)_0%,transparent_70%)] pointer-events-none" />
+
+            {activeCategory === 'machines' ? (
+              <>
+                <ModelViewer3D
+                  src="/models/papapenv2.glb"
+                  poster="/product-images/img_113_papa_pen_jet_black_1__cutout.webp"
+                  alt="Papa Pen V2 Precision Machine"
+                  className="w-full h-full"
+                  autoRotate={true}
+                  cameraOrbit="45deg 70deg 2.2m"
+                />
+                {/* Top-Left 3D Indicator Badge */}
+                <div className="absolute top-3 left-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/15 text-white text-[10px] font-mono font-medium pointer-events-none shadow-md">
+                  <Box className="w-3 h-3 text-[#2ee6ca]" />
+                  <span>3D ROTATE</span>
+                </div>
+              </>
+            ) : activeCategory === 'cartridges' ? (
+              <div className="relative w-full h-full flex items-center justify-center p-4">
+                <img
+                  src="/product-images/papa-premium-tattoo-cartridges-round-cutout.webp"
+                  alt="Papa Cartridges Precision Needle"
+                  className="max-h-[90%] w-auto object-contain drop-shadow-[0_16px_28px_rgba(0,0,0,0.8)] scale-110"
+                />
+                <div className="absolute top-3 left-3 z-20 px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/15 text-white text-[10px] font-mono font-medium pointer-events-none shadow-md">
+                  MEMBRANE SEALED
+                </div>
+              </div>
+            ) : activeCategory === 'grips' ? (
+              <div className="relative w-full h-full flex items-center justify-center p-4">
+                <img
+                  src="/product-images/img_111_papa_adjustment_grips_1__cutout.webp"
+                  alt="Papa Adjustable Grip"
+                  className="max-h-[90%] w-auto object-contain drop-shadow-[0_16px_28px_rgba(0,0,0,0.8)] scale-110"
+                />
+                <div className="absolute top-3 left-3 z-20 px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/15 text-white text-[10px] font-mono font-medium pointer-events-none shadow-md">
+                  CNC ADJUSTABLE
+                </div>
+              </div>
+            ) : (
+              <div className="relative w-full h-full flex items-center justify-center p-4">
+                <img
+                  src="/product-images/img_201_papa_travel_case_cutout.webp"
+                  alt="Papa Travel Case"
+                  className="max-h-[90%] w-auto object-contain drop-shadow-[0_16px_28px_rgba(0,0,0,0.8)] scale-110"
+                />
+                <div className="absolute top-3 left-3 z-20 px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/15 text-white text-[10px] font-mono font-medium pointer-events-none shadow-md">
+                  STUDIO GEAR
+                </div>
+              </div>
+            )}
           </div>
         </div>
+      </section>
+
+      <div className="py-8 max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* 3. Main Layout: Sidebar Filters + Products Grid */}
         <div className="flex flex-col lg:flex-row gap-8">
@@ -718,6 +794,62 @@ export const CollectionPage: React.FC = () => {
             )}
           </main>
         </div>
+
+        {/* 4. Bottom SEO & Global Studio GEO Distribution Monograph */}
+        <section className="mt-20 pt-12 border-t border-zinc-200/80 dark:border-white/[0.08]">
+          <div className="max-w-4xl mb-8 space-y-2">
+            <div className="text-[10px] font-mono font-medium text-[#0d9488] dark:text-[#2ee6ca] uppercase tracking-widest">
+              GLOBAL STUDIO SPECIFICATION · REGULATORY &amp; DISPATCH STANDARDS
+            </div>
+            <h2 className="text-xl sm:text-2xl font-bold uppercase tracking-tight text-zinc-950 dark:text-white font-['Montserrat',sans-serif]">
+              PROFESSIONAL TATTOO APPARATUS &amp; WORLDWIDE DISTRIBUTION
+            </h2>
+            <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 font-sans leading-relaxed">
+              Engineered exclusively for licensed tattoo studios and resident artists. All Papa apparatus, cartridges, and rotary systems adhere to strict international metallurgical and sterile batch manufacturing standards.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* GEO & Dispatch Pillar */}
+            <div className="p-6 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#0b0d12] space-y-3">
+              <div className="text-xs font-mono font-bold text-zinc-950 dark:text-white uppercase tracking-wider">
+                WORLDWIDE STUDIO LOGISTICS
+              </div>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 font-sans leading-relaxed">
+                Direct express air dispatch to tattoo studios and supply partners across 40+ countries including the United States, Canada, United Kingdom, Germany, France, Italy, Spain, and Australia with dedicated customs clearance.
+              </p>
+              <div className="pt-2 text-[10px] font-mono text-[#0d9488] dark:text-[#2ee6ca]">
+                40+ Countries · Priority Tracking
+              </div>
+            </div>
+
+            {/* Metallurgy & Sterility Pillar */}
+            <div className="p-6 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#0b0d12] space-y-3">
+              <div className="text-xs font-mono font-bold text-zinc-950 dark:text-white uppercase tracking-wider">
+                316L SURGICAL METALLURGY
+              </div>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 font-sans leading-relaxed">
+                Precision ground 316L surgical stainless steel needle pins assembled in Class 100,000 cleanrooms. 100% individual EO Gas blister packed with verifiable batch sterilization indicators.
+              </p>
+              <div className="pt-2 text-[10px] font-mono text-amber-500">
+                Individual EO Blister · Medical Grade PC
+              </div>
+            </div>
+
+            {/* Machine & Battery Compatibility */}
+            <div className="p-6 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#0b0d12] space-y-3">
+              <div className="text-xs font-mono font-bold text-zinc-950 dark:text-white uppercase tracking-wider">
+                UNIVERSAL DOCK COMPATIBILITY
+              </div>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 font-sans leading-relaxed">
+                Standardized collar geometry engineered for flawless fitment across major rotary pens, wireless battery chassis, and cartridge grips (Cheyenne, Bishop, FK Irons, Critical).
+              </p>
+              <div className="pt-2 text-[10px] font-mono text-zinc-400">
+                Universal Cartridge Keyway · Zero Rattle
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   )

@@ -73,35 +73,35 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   return (
     <div
-      className={`group relative rounded-2xl border p-4 sm:p-5 flex flex-col justify-between transition-all duration-300 ${
+      className={`group relative rounded-2xl border p-5 flex flex-col justify-between transition-all duration-500 ${
         isPremiumCartridge
-          ? 'border-amber-500/30 dark:border-amber-500/30 bg-white dark:bg-[#0d0e13] hover:border-amber-400 dark:hover:border-amber-400/80 hover:shadow-lg dark:hover:shadow-[0_0_30px_rgba(245,158,11,0.18)]'
-          : 'border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-[#0a0d14] hover:border-zinc-400 dark:hover:border-[#00f0ff]/50 hover:shadow-lg dark:hover:shadow-[0_0_25px_rgba(0,240,255,0.15)]'
+          ? 'border-amber-500/20 dark:border-amber-500/20 bg-white dark:bg-[#0b0c10] hover:border-amber-500/40 dark:hover:border-amber-400/40 hover:shadow-xl dark:hover:shadow-[0_12px_32px_rgba(245,158,11,0.08)]'
+          : 'border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#0b0d12] hover:border-zinc-300 dark:hover:border-white/20 hover:shadow-xl dark:hover:shadow-[0_12px_32px_rgba(0,0,0,0.6)]'
       }`}
     >
       {/* Top Header Tags */}
       <div>
-        <div className="flex items-center justify-between gap-2 mb-3">
+        <div className="flex items-center justify-between gap-2 mb-3.5">
           {/* Contextual Category / Series Badge */}
           {isPremiumCartridge ? (
-            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-mono font-bold tracking-wider uppercase bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30">
-              <Sparkles className="w-3 h-3 text-amber-500 animate-pulse" />
-              <span>PREMIUM SERIES</span>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-[10px] font-mono font-medium tracking-wider uppercase bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+              <Sparkles className="w-3 h-3 text-amber-500" />
+              <span>PREMIUM</span>
             </span>
           ) : (
-            <span className="text-[10px] font-mono font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest">
+            <span className="text-[10px] font-mono font-medium text-zinc-400 dark:text-zinc-500 uppercase tracking-widest">
               {isNeedle ? "CARTRIDGES" : isGrip ? "GRIPS" : isPen ? "MACHINES" : "EQUIPMENT"}
             </span>
           )}
 
           {isAnyVariantAvailable ? (
-            <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-semibold text-emerald-600 dark:text-emerald-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="inline-flex items-center gap-1.5 text-[10px] font-mono text-emerald-600 dark:text-emerald-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/80" />
               <span>{t('card_in_stock')}</span>
             </span>
           ) : (
-            <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-semibold text-red-500 dark:text-red-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
+            <span className="inline-flex items-center gap-1.5 text-[10px] font-mono text-zinc-400 dark:text-zinc-500">
+              <span className="w-1.5 h-1.5 rounded-full bg-zinc-400 dark:bg-zinc-600" />
               <span>OUT OF STOCK</span>
             </span>
           )}
@@ -111,18 +111,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <Link
           to="/products/$handle"
           params={{ handle: product.handle }}
-          className="relative aspect-square w-full rounded-xl bg-zinc-50/80 dark:bg-[#06070a] flex items-center justify-center overflow-hidden border border-zinc-100 dark:border-zinc-800/60 hud-corner-bracket"
+          className="relative aspect-square w-full rounded-xl bg-zinc-50 dark:bg-[#07080a] flex items-center justify-center overflow-hidden border border-zinc-100 dark:border-white/[0.05]"
         >
           {/* Visual Color Glow Accent behind product */}
           <div
-            className="absolute inset-0 opacity-15 blur-2xl transition-opacity duration-500 group-hover:opacity-35"
+            className="absolute inset-0 opacity-10 blur-3xl transition-opacity duration-700 group-hover:opacity-25 pointer-events-none"
             style={{ backgroundColor: accentColor }}
           />
 
           <img
             src={currentImage}
             alt={product.title}
-            className="relative max-h-[85%] max-w-[85%] w-auto h-auto object-contain scale-140 sm:scale-150 group-hover:scale-160 transition-transform duration-500 drop-shadow-[0_15px_30px_rgba(0,0,0,0.8)]"
+            className="relative max-h-[82%] max-w-[82%] w-auto h-auto object-contain scale-125 sm:scale-135 group-hover:scale-145 transition-transform duration-700 ease-out drop-shadow-[0_16px_28px_rgba(0,0,0,0.8)]"
             loading="lazy"
             onError={(e) => {
               const fallback = formatProductImageUrl(images[0])
@@ -141,10 +141,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             className="block"
           >
             <h3
-              className={`font-bold text-base leading-snug tracking-tight transition-colors ${
+              className={`font-bold text-sm sm:text-base leading-snug tracking-tight transition-colors line-clamp-2 ${
                 isPremiumCartridge
-                  ? 'text-zinc-950 dark:text-zinc-100 group-hover:text-amber-500 dark:group-hover:text-amber-400'
-                  : 'text-zinc-950 dark:text-zinc-100 group-hover:text-[#0d9488] dark:group-hover:text-[#00f0ff]'
+                  ? 'text-zinc-950 dark:text-white/95 group-hover:text-amber-500 dark:group-hover:text-amber-400'
+                  : 'text-zinc-950 dark:text-white/95 group-hover:text-[#0d9488] dark:group-hover:text-[#2ee6ca]'
               }`}
             >
               {product.title}
@@ -154,17 +154,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       </div>
 
       {/* Bottom Section: Pricing & Dynamic Action Button */}
-      <div className="mt-5 pt-4 border-t border-zinc-100 dark:border-zinc-800/70 flex items-center justify-between gap-3">
+      <div className="mt-5 pt-4 border-t border-zinc-100 dark:border-white/[0.08] flex items-center justify-between gap-3">
         {/* Price display */}
         <div className="min-w-0">
           <span className="text-[10px] font-mono text-zinc-400 dark:text-zinc-500 uppercase tracking-wider block">
             {isNeedle ? 'BOX OF 20' : variants.length > 1 ? 'FROM' : 'PRICE'}
           </span>
           <span
-            className={`text-lg font-extrabold font-mono tracking-tight ${
+            className={`text-base sm:text-lg font-bold font-mono tracking-tight ${
               isPremiumCartridge
                 ? 'text-amber-600 dark:text-amber-400'
-                : 'text-zinc-950 dark:text-[#00f0ff]'
+                : 'text-zinc-950 dark:text-white'
             }`}
           >
             {priceFormatted}
@@ -176,7 +176,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <Link
             to="/products/$handle"
             params={{ handle: product.handle }}
-            className="inline-flex items-center justify-center px-3 py-1.5 rounded-xl font-mono text-[10px] font-bold uppercase tracking-wider bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700/60 shrink-0 hover:border-zinc-400 transition-colors"
+            className="inline-flex items-center justify-center px-3 py-1.5 rounded-lg font-mono text-[10px] font-medium uppercase tracking-wider bg-zinc-100 dark:bg-zinc-800 text-zinc-400 dark:text-zinc-500 border border-zinc-200 dark:border-white/[0.06] shrink-0"
           >
             <span>OUT OF STOCK</span>
           </Link>
@@ -184,10 +184,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <Link
             to="/products/$handle"
             params={{ handle: product.handle }}
-            className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider transition-all transform active:scale-95 shrink-0 cursor-pointer shadow-xs ${
+            className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-medium uppercase tracking-wider transition-all duration-200 transform active:scale-95 shrink-0 cursor-pointer ${
               isPremiumCartridge
-                ? 'bg-amber-500 text-zinc-950 hover:bg-amber-400 hover:shadow-[0_0_15px_rgba(245,158,11,0.3)]'
-                : 'bg-zinc-950 text-white dark:bg-[#00f0ff] dark:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-[#38f4ff] hover:shadow-[0_0_20px_rgba(0,240,255,0.35)]'
+                ? 'bg-amber-500 text-zinc-950 hover:bg-amber-400 shadow-xs'
+                : 'bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-zinc-200 shadow-xs'
             }`}
           >
             <span>Options</span>
@@ -197,12 +197,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <button
             type="button"
             onClick={handleAddToCart}
-            className={`inline-flex items-center justify-center p-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider transition-all transform active:scale-95 shrink-0 cursor-pointer shadow-xs ${
+            className={`inline-flex items-center justify-center p-2.5 rounded-xl font-mono text-xs font-medium uppercase tracking-wider transition-all duration-200 transform active:scale-95 shrink-0 cursor-pointer ${
               addedAnimation
-                ? 'bg-emerald-500 text-white shadow-[0_0_15px_rgba(16,185,129,0.5)]'
+                ? 'bg-emerald-500 text-white'
                 : isPremiumCartridge
-                ? 'bg-amber-500 text-zinc-950 hover:bg-amber-400 hover:shadow-[0_0_15px_rgba(245,158,11,0.3)]'
-                : 'bg-zinc-950 text-white dark:bg-[#00f0ff] dark:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-[#38f4ff] hover:shadow-[0_0_20px_rgba(0,240,255,0.35)]'
+                ? 'bg-amber-500 text-zinc-950 hover:bg-amber-400 shadow-xs'
+                : 'bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-zinc-200 shadow-xs'
             }`}
             title="Quick add to cart"
           >
@@ -219,7 +219,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <button
             type="button"
             disabled
-            className="inline-flex items-center justify-center px-3 py-1.5 rounded-xl font-mono text-[10px] font-bold uppercase tracking-wider bg-zinc-100 dark:bg-zinc-800 text-zinc-400 dark:text-zinc-500 border border-zinc-200 dark:border-zinc-700/60 cursor-not-allowed shrink-0"
+            className="inline-flex items-center justify-center px-3 py-1.5 rounded-lg font-mono text-[10px] font-medium uppercase tracking-wider bg-zinc-100 dark:bg-zinc-800 text-zinc-400 dark:text-zinc-500 border border-zinc-200 dark:border-white/[0.06] cursor-not-allowed shrink-0"
           >
             OUT OF STOCK
           </button>
