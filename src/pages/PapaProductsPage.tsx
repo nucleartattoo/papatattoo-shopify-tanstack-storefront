@@ -4,6 +4,7 @@ import { ShopifyProduct } from '../types/shopify'
 import { getProducts, getProductByHandle } from '../lib/shopify'
 import { ProductCard } from '../components/product/ProductCard'
 import { ModelViewer3D } from '../components/common/ModelViewer3D'
+import { AppleScrollytelling } from '../components/common/AppleScrollytelling'
 import {
   Sparkles,
   ArrowRight,
@@ -74,7 +75,7 @@ const TimelineNode: React.FC<TimelineNodeProps> = ({
   return (
     <div
       ref={nodeRef}
-      className={`relative py-16 sm:py-24 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+      className={`relative py-20 sm:py-28 lg:py-36 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${
         isVisible
           ? 'opacity-100 translate-y-0'
           : 'opacity-0 translate-y-20'
@@ -121,15 +122,12 @@ const TimelineNode: React.FC<TimelineNodeProps> = ({
               {description}
             </p>
 
-            {/* Spec Matrix Grid */}
-            <div className="grid grid-cols-3 gap-3 py-4 border-y border-zinc-200/80 dark:border-white/[0.08] text-center font-mono">
-              {specs.map((s, idx) => (
-                <div
-                  key={s.label}
-                  className={idx === 1 ? 'border-x border-zinc-200/80 dark:border-white/[0.08]' : ''}
-                >
-                  <div className="text-sm font-black text-zinc-950 dark:text-white">{s.value}</div>
-                  <div className="text-[10px] text-zinc-500 uppercase mt-0.5">{s.label}</div>
+            {/* Spec Matrix Grid - Clean Borderless Layout */}
+            <div className="grid grid-cols-3 gap-4 py-3 text-center font-mono">
+              {specs.map((s) => (
+                <div key={s.label} className="space-y-0.5">
+                  <div className="text-base sm:text-lg font-black text-zinc-950 dark:text-white tracking-tight">{s.value}</div>
+                  <div className="text-[10px] text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">{s.label}</div>
                 </div>
               ))}
             </div>
@@ -137,7 +135,7 @@ const TimelineNode: React.FC<TimelineNodeProps> = ({
             <div className="pt-2">
               <Link
                 to={ctaLink}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-zinc-950 text-white hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-white/90 font-mono font-bold text-xs uppercase tracking-wider active:scale-95 transition-all shadow-xs"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-zinc-950 text-white hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-white/90 font-mono font-bold text-xs uppercase tracking-wider active:scale-95 transition-all shadow-md"
               >
                 <span>{ctaText}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -146,7 +144,7 @@ const TimelineNode: React.FC<TimelineNodeProps> = ({
           </div>
         </div>
 
-        {/* Right Column: Flying / Floating Visual Apparatus Stage */}
+        {/* Right Column: Seamless Sculptural Visual Stage (Chiaroscuro Pedestal & Swiss Micro-Graticule) */}
         <div
           className={`lg:col-span-6 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${
             isLeft ? 'lg:order-2' : 'lg:order-1'
@@ -158,9 +156,36 @@ const TimelineNode: React.FC<TimelineNodeProps> = ({
               : 'opacity-0 -translate-x-14 scale-90 -rotate-2'
           }`}
         >
-          <div className="relative rounded-3xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#0b0d12] p-6 sm:p-8 overflow-hidden shadow-2xl hover:border-zinc-300 dark:hover:border-white/20 transition-all duration-500 group/stage">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(46,230,202,0.12)_0%,transparent_70%)] pointer-events-none" />
-            {visualContent}
+          <div className="relative w-full flex items-center justify-center p-4 sm:p-8 group/stage min-h-[340px] sm:min-h-[420px]">
+            {/* 1. Volumetric Chiaroscuro Studio Spotlight */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_65%_at_50%_45%,rgba(56,232,198,0.22)_0%,rgba(56,232,198,0.03)_50%,transparent_70%)] pointer-events-none" />
+
+            {/* 2. Precision Swiss Micro-Graticule Architectural Datum */}
+            <div className="absolute top-2 left-2 z-10 flex items-center gap-1.5 font-mono text-[9px] text-zinc-500/60 dark:text-zinc-400/50 pointer-events-none uppercase tracking-widest">
+              <span className="text-[#38e8c6]">+</span>
+              <span>DATUM // {epochNumber}</span>
+            </div>
+
+            <div className="absolute top-2 right-2 z-10 font-mono text-[9px] text-zinc-500/60 dark:text-zinc-400/50 pointer-events-none uppercase tracking-widest">
+              TOLERANCE ±0.005mm
+            </div>
+
+            <div className="absolute bottom-2 left-2 z-10 font-mono text-[9px] text-zinc-500/60 dark:text-zinc-400/50 pointer-events-none uppercase tracking-widest hidden sm:block">
+              METRIC SPEC // 316L &amp; CNC 6061
+            </div>
+
+            <div className="absolute bottom-2 right-2 z-10 font-mono text-[9px] text-zinc-500/60 dark:text-zinc-400/50 pointer-events-none tracking-tighter hidden sm:block">
+              |··· 25mm ···|··· 50mm ···|
+            </div>
+
+            {/* 3. The Floating Hardware Visual Content */}
+            <div className="relative z-10 w-full flex items-center justify-center">
+              {visualContent}
+            </div>
+
+            {/* 4. Elliptical Pedestal Contact Shadow with Specular Reflection Halo */}
+            <div className="absolute bottom-1 sm:bottom-2 left-1/2 -translate-x-1/2 w-3/4 max-w-sm h-6 bg-black/60 dark:bg-black/80 blur-xl rounded-[100%] pointer-events-none" />
+            <div className="absolute bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 w-1/2 max-w-xs h-2.5 bg-[#38e8c6]/20 blur-md rounded-[100%] pointer-events-none" />
           </div>
         </div>
       </div>
@@ -250,7 +275,7 @@ export const PapaProductsPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-[#20222a] text-zinc-900 dark:text-zinc-100 font-sans pb-32 relative overflow-hidden transition-colors duration-300 art-aurora-bg">
       {/* 2. Hero Monograph Header */}
-      <section className="relative overflow-hidden py-16 sm:py-24 border-b border-zinc-200/80 dark:border-white/[0.08]">
+      <section className="relative overflow-hidden pt-20 pb-12 sm:pt-28 sm:pb-16">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(46,230,202,0.12)_0%,transparent_65%)] pointer-events-none" />
 
         <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center max-w-3xl mx-auto space-y-4">
@@ -339,40 +364,18 @@ export const PapaProductsPage: React.FC = () => {
           />
         </div>
 
-        {/* NODE 02: ROTARY MACHINES (3D MODEL) */}
-        <div id="epoch-machines">
-          <TimelineNode
-            epochNumber="EPOCH 02"
-            epochYear="CONTINUOUS DRIVE"
-            title="PAPA PEN ROTARY REVOLUTION"
-            subtitle="GERMAN MOTOR · FIXED 3.5MM CONTINUOUS STROKE"
-            description="Designed for zero-vibration line work and dense color packing. Precision CNC aircraft aluminum chassis paired with custom German coreless motor operating continuously between 6V and 12.6V."
-            specs={[
-              { label: 'Fixed Stroke', value: '3.5mm' },
-              { label: 'Operating Volt', value: '6–12.6V' },
-              { label: 'Total Weight', value: '150g' },
-            ]}
-            ctaText="Shop Papa Pen V2"
-            ctaLink="/products/papa-pen-v2-1"
-            align="right"
-            visualContent={
-              <div className="relative w-full h-[320px] sm:h-[400px] flex items-center justify-center">
-                <ModelViewer3D
-                  src="/models/papapenv2.glb"
-                  poster="/product-images/img_113_papa_pen_jet_black_1__cutout.webp"
-                  alt="Papa Pen V2 Rotary Machine"
-                  className="w-full h-full"
-                  autoRotate={true}
-                  cameraOrbit="45deg 70deg 2.2m"
-                />
-                <div className="absolute top-4 left-4 z-20 flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/10 text-[10px] font-mono text-white pointer-events-none">
-                  <Box className="w-3 h-3 text-[#2ee6ca]" />
-                  <span>3D DRAG TO ROTATE</span>
-                </div>
-              </div>
-            }
-            products={machines}
-          />
+        {/* NODE 02: ROTARY MACHINES (APPLE SCROLLYTELLING 3D EXPERIENCE) */}
+        <div id="epoch-machines" className="py-12 sm:py-20 relative">
+          <AppleScrollytelling />
+
+          {/* Machine Lineup Grid under Scrollytelling */}
+          {machines.length > 0 && (
+            <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8">
+              {machines.map(m => (
+                <ProductCard key={m.id} product={m} />
+              ))}
+            </div>
+          )}
         </div>
 
         {/* NODE 03: ADJUSTABLE GRIPS */}

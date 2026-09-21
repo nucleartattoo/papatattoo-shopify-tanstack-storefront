@@ -7,7 +7,7 @@ export const StudioB2B: React.FC = () => {
   const { t } = useLocale()
 
   return (
-    <section className="py-20 sm:py-24 border-t border-b border-zinc-200/80 dark:border-white/[0.08] bg-zinc-50/50 dark:bg-transparent relative overflow-hidden z-10">
+    <section className="py-24 sm:py-32 lg:py-36 bg-transparent relative overflow-hidden z-10">
       <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl sm:text-5xl font-black text-zinc-950 dark:text-white uppercase tracking-tight font-sans">

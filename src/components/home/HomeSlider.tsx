@@ -138,7 +138,7 @@ export const HomeSlider: React.FC = () => {
 
   return (
     <section
-      className="group/slider relative w-full overflow-hidden bg-[#0A0C0F] select-none border-b border-zinc-200/80 dark:border-[#222731]"
+      className="group/slider relative w-full overflow-hidden bg-[#0A0C0F] select-none"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onTouchStart={handleTouchStart}
@@ -224,6 +224,9 @@ export const HomeSlider: React.FC = () => {
             )
           })}
         </div>
+
+        {/* Cinematic Ambient Bottom Feather Fade */}
+        <div className="absolute bottom-0 inset-x-0 h-12 sm:h-20 bg-gradient-to-t from-[#f5f4f0] dark:from-[#20222a] to-transparent pointer-events-none z-20" />
       </div>
     </section>
   )
