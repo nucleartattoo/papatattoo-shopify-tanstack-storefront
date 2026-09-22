@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import { Link } from '@tanstack/react-router'
 import { ShopifyProduct } from '../types/shopify'
 import { getProducts, getProductByHandle } from '../lib/shopify'
 import { ProductCard } from '../components/product/ProductCard'
 import { ModelViewer3D } from '../components/common/ModelViewer3D'
-import { AppleScrollytelling } from '../components/common/AppleScrollytelling'
+import { ParallaxApparatusStage } from '../components/common/ParallaxApparatusStage'
 import {
   Sparkles,
   ArrowRight,
@@ -13,251 +13,104 @@ import {
   Box,
   Layers,
   ChevronRight,
-  Sliders,
+  Search,
   CheckCircle2,
-  PackageCheck,
-  Compass,
-  FileCheck2,
-  Activity,
   Cpu,
   CircleDot,
+  Scale,
+  Sliders,
+  Maximize2,
+  Building2,
+  Truck,
+  RotateCw,
+  Gauge,
+  SlidersHorizontal,
 } from 'lucide-react'
 
-interface TimelineNodeProps {
-  epochNumber: string
-  epochYear: string
-  title: string
-  subtitle: string
-  description: string
-  specs: { label: string; value: string }[]
-  ctaText: string
-  ctaLink: string
-  align: 'left' | 'right'
-  visualContent: React.ReactNode
-  products?: ShopifyProduct[]
+type CategoryFilter = 'all' | 'machines' | 'cartridges' | 'grips' | 'power' | 'gear'
+
+interface MachineSpecComparison {
+  name: string
+  handle: string
+  tag: string
+  price: string
+  stroke: string
+  motor: string
+  voltage: string
+  weight: string
+  materials: string
+  image: string
+  badgeColor: 'cyan' | 'amber' | 'emerald'
 }
 
-const TimelineNode: React.FC<TimelineNodeProps> = ({
-  epochNumber,
-  epochYear,
-  title,
-  subtitle,
-  description,
-  specs,
-  ctaText,
-  ctaLink,
-  align,
-  visualContent,
-  products,
-}) => {
-  const [isVisible, setIsVisible] = useState(false)
-  const nodeRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.15 }
-    )
-
-    if (nodeRef.current) {
-      observer.observe(nodeRef.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
-
-  const isLeft = align === 'left'
-
-  return (
-    <div
-      ref={nodeRef}
-      className={`relative py-20 sm:py-28 lg:py-36 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-        isVisible
-          ? 'opacity-100 translate-y-0'
-          : 'opacity-0 translate-y-20'
-      }`}
-    >
-      {/* Central Laser Timeline Node Beacon */}
-      <div className="hidden lg:flex absolute left-1/2 top-20 -translate-x-1/2 z-20 items-center justify-center">
-        <div className="relative flex items-center justify-center">
-          <span className="w-5 h-5 rounded-full bg-[#2ee6ca]/20 animate-ping absolute" />
-          <span className="w-3.5 h-3.5 rounded-full bg-[#2ee6ca] shadow-[0_0_12px_#2ee6ca] border-2 border-[#07080a]" />
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
-        {/* Left Column (Content or Visual depending on alignment) */}
-        <div
-          className={`lg:col-span-6 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-            isLeft ? 'lg:order-1' : 'lg:order-2'
-          } ${
-            isVisible
-              ? 'opacity-100 translate-x-0 scale-100'
-              : isLeft
-              ? 'opacity-0 -translate-x-12 scale-95'
-              : 'opacity-0 translate-x-12 scale-95'
-          }`}
-        >
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-200/80 dark:border-white/[0.1] bg-white dark:bg-white/[0.04] text-[10px] font-mono font-bold text-[#0d9488] dark:text-[#2ee6ca] uppercase tracking-widest">
-                <CircleDot className="w-2.5 h-2.5 text-[#0d9488] dark:text-[#2ee6ca]" />
-                <span>{epochNumber} · {epochYear}</span>
-              </div>
-
-              <h2 className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-zinc-950 dark:text-white font-['Montserrat',sans-serif]">
-                {title}
-              </h2>
-
-              <p className="text-xs font-mono uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                {subtitle}
-              </p>
-            </div>
-
-            <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed">
-              {description}
-            </p>
-
-            {/* Spec Matrix Grid - Clean Borderless Layout */}
-            <div className="grid grid-cols-3 gap-4 py-3 text-center font-mono">
-              {specs.map((s) => (
-                <div key={s.label} className="space-y-0.5">
-                  <div className="text-base sm:text-lg font-black text-zinc-950 dark:text-white tracking-tight">{s.value}</div>
-                  <div className="text-[10px] text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">{s.label}</div>
-                </div>
-              ))}
-            </div>
-
-            <div className="pt-2">
-              <Link
-                to={ctaLink}
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-zinc-950 text-white hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-white/90 font-mono font-bold text-xs uppercase tracking-wider active:scale-95 transition-all shadow-md"
-              >
-                <span>{ctaText}</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        {/* Right Column: Seamless Sculptural Visual Stage (Chiaroscuro Pedestal & Swiss Micro-Graticule) */}
-        <div
-          className={`lg:col-span-6 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-            isLeft ? 'lg:order-2' : 'lg:order-1'
-          } ${
-            isVisible
-              ? 'opacity-100 translate-x-0 scale-100 rotate-0'
-              : isLeft
-              ? 'opacity-0 translate-x-14 scale-90 rotate-2'
-              : 'opacity-0 -translate-x-14 scale-90 -rotate-2'
-          }`}
-        >
-          <div className="relative w-full flex items-center justify-center p-4 sm:p-8 group/stage min-h-[340px] sm:min-h-[420px]">
-            {/* 1. Volumetric Chiaroscuro Studio Spotlight */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_65%_at_50%_45%,rgba(56,232,198,0.22)_0%,rgba(56,232,198,0.03)_50%,transparent_70%)] pointer-events-none" />
-
-            {/* 2. Precision Swiss Micro-Graticule Architectural Datum */}
-            <div className="absolute top-2 left-2 z-10 flex items-center gap-1.5 font-mono text-[9px] text-zinc-500/60 dark:text-zinc-400/50 pointer-events-none uppercase tracking-widest">
-              <span className="text-[#38e8c6]">+</span>
-              <span>DATUM // {epochNumber}</span>
-            </div>
-
-            <div className="absolute top-2 right-2 z-10 font-mono text-[9px] text-zinc-500/60 dark:text-zinc-400/50 pointer-events-none uppercase tracking-widest">
-              TOLERANCE ±0.005mm
-            </div>
-
-            <div className="absolute bottom-2 left-2 z-10 font-mono text-[9px] text-zinc-500/60 dark:text-zinc-400/50 pointer-events-none uppercase tracking-widest hidden sm:block">
-              METRIC SPEC // 316L &amp; CNC 6061
-            </div>
-
-            <div className="absolute bottom-2 right-2 z-10 font-mono text-[9px] text-zinc-500/60 dark:text-zinc-400/50 pointer-events-none tracking-tighter hidden sm:block">
-              |··· 25mm ···|··· 50mm ···|
-            </div>
-
-            {/* 3. The Floating Hardware Visual Content */}
-            <div className="relative z-10 w-full flex items-center justify-center">
-              {visualContent}
-            </div>
-
-            {/* 4. Elliptical Pedestal Contact Shadow with Specular Reflection Halo */}
-            <div className="absolute bottom-1 sm:bottom-2 left-1/2 -translate-x-1/2 w-3/4 max-w-sm h-6 bg-black/60 dark:bg-black/80 blur-xl rounded-[100%] pointer-events-none" />
-            <div className="absolute bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 w-1/2 max-w-xs h-2.5 bg-[#38e8c6]/20 blur-md rounded-[100%] pointer-events-none" />
-          </div>
-        </div>
-      </div>
-
-      {/* Embedded Product Cards under timeline node */}
-      {products && products.length > 0 && (
-        <div
-          className={`mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 transition-all duration-1000 delay-200 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-          }`}
-        >
-          {products.map(p => (
-            <ProductCard key={p.id} product={p} />
-          ))}
-        </div>
-      )}
-    </div>
-  )
-}
+const COMPARISON_MODELS: MachineSpecComparison[] = [
+  {
+    name: 'PAPA PEN V2',
+    handle: 'papa-pen-v2-1',
+    tag: 'FLAGSHIP ROTARY',
+    price: '$199.00 USD',
+    stroke: '3.5mm Fixed Precision',
+    motor: 'Custom German Coreless Motor',
+    voltage: '5.0V – 12.6V DC',
+    weight: '150g (Forward Balanced)',
+    materials: '6061-T6 Aircraft Billet Aluminum',
+    image: '/product-images/img_113_papa_pen_jet_black_1__cutout.webp',
+    badgeColor: 'cyan',
+  },
+  {
+    name: 'PAPA PEN V3',
+    handle: 'papa-pen-v3-black-full-set',
+    tag: 'MULTI-STROKE MODULAR',
+    price: '$249.00 USD',
+    stroke: '3.5 / 4.0 / 4.2 / 4.5mm Interchangeable',
+    motor: 'High-Torque German Direct-Drive',
+    voltage: '4.5V – 13.0V DC',
+    weight: '168g (Anodized Ergonomic)',
+    materials: 'Solid CNC Aerospace Billet',
+    image: '/product-images/img_113_papa_pen_jet_black_1__cutout.webp',
+    badgeColor: 'amber',
+  },
+  {
+    name: 'PAPA APOLLO ROTARY',
+    handle: 'papa-apollo-rotary-black',
+    tag: 'HEAVY HITTER DIRECT-DRIVE',
+    price: '$180.00 USD',
+    stroke: '4.0mm Fixed Punch',
+    motor: 'Precision Low-Vibration Coreless',
+    voltage: '6.0V – 11.0V DC',
+    weight: '142g (Ultra-Compact Form)',
+    materials: 'Cast & Milled Alloy Chassis',
+    image: '/product-images/img_113_papa_pen_jet_black_1__cutout.webp',
+    badgeColor: 'emerald',
+  },
+]
 
 export const PapaProductsPage: React.FC = () => {
+  const [allProducts, setAllProducts] = useState<ShopifyProduct[]>([])
   const [loading, setLoading] = useState(true)
-  const [scrollProgress, setScrollProgress] = useState(0)
+  const [activeCategory, setActiveCategory] = useState<CategoryFilter>('all')
+  const [searchQuery, setSearchQuery] = useState('')
+  const [showComparison, setShowComparison] = useState(false)
+  const [interactive3DView, setInteractive3DView] = useState(false)
+
+  // Core flagship featured master products
   const [premiumCartridge, setPremiumCartridge] = useState<ShopifyProduct | null>(null)
   const [standardCartridge, setStandardCartridge] = useState<ShopifyProduct | null>(null)
-  const [machines, setMachines] = useState<ShopifyProduct[]>([])
-  const [grips, setGrips] = useState<ShopifyProduct[]>([])
-  const [studioGear, setStudioGear] = useState<ShopifyProduct[]>([])
-
-  // Track laser timeline scroll height progress
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight
-      const progress = Math.min(Math.max((scrollY / (docHeight || 1)) * 100, 0), 100)
-      setScrollProgress(progress)
-    }
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
 
   useEffect(() => {
     async function loadCatalog() {
       try {
-        const [allProds, pPremium, pStandard] = await Promise.all([
-          getProducts({ first: 60 }),
+        const [catalog, pPremium, pStandard] = await Promise.all([
+          getProducts({ first: 100 }),
           getProductByHandle('papa-premium-tattoo-cartridges'),
           getProductByHandle('papa-standard-tattoo-cartridges'),
         ])
 
+        setAllProducts(catalog || [])
         if (pPremium) setPremiumCartridge(pPremium)
         if (pStandard) setStandardCartridge(pStandard)
-
-        const foundMachines = allProds.filter(p => {
-          const t = p.title.toLowerCase()
-          return (t.includes('pen') || t.includes('machine') || p.handle.includes('pen')) && !t.includes('grip')
-        })
-        setMachines(foundMachines.slice(0, 4))
-
-        const foundGrips = allProds.filter(p => {
-          const t = p.title.toLowerCase()
-          return t.includes('grip')
-        })
-        setGrips(foundGrips.slice(0, 4))
-
-        const foundGear = allProds.filter(p => {
-          const t = p.title.toLowerCase()
-          return t.includes('case') || t.includes('pedal') || t.includes('cord') || t.includes('power') || t.includes('tray')
-        })
-        setStudioGear(foundGear.slice(0, 4))
       } catch (err) {
-        console.error('Failed to load Papa products catalog:', err)
+        console.error('Failed to load products catalog:', err)
       } finally {
         setLoading(false)
       }
@@ -265,181 +118,576 @@ export const PapaProductsPage: React.FC = () => {
     loadCatalog()
   }, [])
 
-  const scrollToEpoch = (id: string) => {
-    const el = document.getElementById(id)
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' })
+  // Categorize products
+  const categorizedProducts = useMemo(() => {
+    const machinesList: ShopifyProduct[] = []
+    const cartridgesList: ShopifyProduct[] = []
+    const gripsList: ShopifyProduct[] = []
+    const powerList: ShopifyProduct[] = []
+    const gearList: ShopifyProduct[] = []
+
+    allProducts.forEach(p => {
+      const title = p.title.toLowerCase()
+      const handle = p.handle.toLowerCase()
+
+      if (title.includes('grip') || handle.includes('grip')) {
+        gripsList.push(p)
+      } else if (
+        title.includes('pen') ||
+        title.includes('machine') ||
+        title.includes('apollo') ||
+        handle.includes('pen') ||
+        handle.includes('apollo')
+      ) {
+        machinesList.push(p)
+      } else if (
+        title.includes('volt') ||
+        title.includes('battery') ||
+        title.includes('power') ||
+        title.includes('atom') ||
+        title.includes('critical')
+      ) {
+        powerList.push(p)
+      } else if (
+        title.includes('case') ||
+        title.includes('pedal') ||
+        title.includes('cord') ||
+        title.includes('tray')
+      ) {
+        gearList.push(p)
+      } else if (
+        title.includes('cartridge') ||
+        title.includes('liner') ||
+        title.includes('shader') ||
+        title.includes('magnum')
+      ) {
+        cartridgesList.push(p)
+      } else {
+        gearList.push(p)
+      }
+    })
+
+    return {
+      machines: machinesList,
+      cartridges: cartridgesList,
+      grips: gripsList,
+      power: powerList,
+      gear: gearList,
     }
+  }, [allProducts])
+
+  // Filtered view by active tab and search query
+  const displayedProducts = useMemo(() => {
+    let list: ShopifyProduct[] = []
+    if (activeCategory === 'all') {
+      list = allProducts
+    } else if (activeCategory === 'machines') {
+      list = categorizedProducts.machines
+    } else if (activeCategory === 'cartridges') {
+      list = categorizedProducts.cartridges
+    } else if (activeCategory === 'grips') {
+      list = categorizedProducts.grips
+    } else if (activeCategory === 'power') {
+      list = categorizedProducts.power
+    } else if (activeCategory === 'gear') {
+      list = categorizedProducts.gear
+    }
+
+    if (!searchQuery.trim()) return list
+
+    const q = searchQuery.toLowerCase().trim()
+    return list.filter(p => {
+      return (
+        p.title.toLowerCase().includes(q) ||
+        p.handle.toLowerCase().includes(q) ||
+        (p.description && p.description.toLowerCase().includes(q))
+      )
+    })
+  }, [activeCategory, allProducts, categorizedProducts, searchQuery])
+
+  const categoryCounts = {
+    all: allProducts.length,
+    machines: categorizedProducts.machines.length,
+    cartridges: categorizedProducts.cartridges.length,
+    grips: categorizedProducts.grips.length,
+    power: categorizedProducts.power.length,
+    gear: categorizedProducts.gear.length,
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-[#20222a] text-zinc-900 dark:text-zinc-100 font-sans pb-32 relative overflow-hidden transition-colors duration-300 art-aurora-bg">
-      {/* 2. Hero Monograph Header */}
-      <section className="relative overflow-hidden pt-20 pb-12 sm:pt-28 sm:pb-16">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(46,230,202,0.12)_0%,transparent_65%)] pointer-events-none" />
+    <div className="min-h-screen bg-transparent text-zinc-900 dark:text-zinc-100 font-sans pb-36 select-none transition-colors">
+      {/* ============================================================ */}
+      {/* 1. MONUMENTAL APPARATUS CATALOG HEADER */}
+      {/* ============================================================ */}
+      <section className="relative pt-20 pb-12 sm:pt-28 sm:pb-16 px-4 sm:px-6 lg:px-8 border-b border-[#e2dfd8] dark:border-white/[0.08]">
+        {/* Background Architectural Typographic Monument */}
+        <div
+          aria-hidden="true"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[16vw] font-black uppercase tracking-tighter text-zinc-950/[0.035] dark:text-white/[0.03] pointer-events-none select-none whitespace-nowrap font-['Montserrat',sans-serif] z-0"
+        >
+          APPARATUS
+        </div>
 
-        <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center max-w-3xl mx-auto space-y-4">
-          <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-zinc-950 dark:text-white uppercase font-['Montserrat',sans-serif]">
-            PAPA PRODUCTS
+        {/* Ambient Radial Spotlight */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] sm:w-[1000px] h-[350px] sm:h-[450px] bg-[radial-gradient(circle,rgba(56,232,198,0.16)_0%,transparent_65%)] pointer-events-none z-0" />
+
+        <div className="max-w-5xl mx-auto text-center space-y-4 relative z-10">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-zinc-200/80 dark:border-white/10 bg-white/70 dark:bg-white/[0.04] text-[10px] font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6] uppercase tracking-widest backdrop-blur-md shadow-xs">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#0d5d50] dark:bg-[#38e8c6] animate-pulse" />
+            <span>PAPA TATTOO CORP // HARDWARE ARSENAL MONOGRAPH</span>
+          </div>
+
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-zinc-950 dark:text-white font-['Montserrat',sans-serif] leading-none">
+            PRECISION APPARATUS CATALOG
           </h1>
 
-          <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed">
-            From surgical needle metallurgy to precision continuous rotary machines. Explore the chronological evolution of official Papa Tattoo Supply apparatus.
+          <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 font-sans max-w-2xl mx-auto leading-relaxed">
+            Continuous-drive rotary machines, Japanese 316L needle metallurgy, and CNC 6061 aerospace alloy interfaces. Engineered for high-volume resident studios and international convention tours.
           </p>
 
-          {/* Quick Epoch Navigation Pills */}
-          <div className="pt-6 flex flex-wrap items-center justify-center gap-2.5">
-            <button
-              onClick={() => scrollToEpoch('epoch-cartridges')}
-              className="px-3.5 py-1.5 rounded-full border border-zinc-200/80 dark:border-white/10 bg-white dark:bg-white/[0.04] hover:border-[#0d9488] dark:hover:border-[#2ee6ca] text-[11px] font-mono text-zinc-700 dark:text-zinc-300 hover:text-[#0d9488] dark:hover:text-[#2ee6ca] transition-all cursor-pointer shadow-xs"
-            >
-              EPOCH 01 · CARTRIDGES
-            </button>
-            <button
-              onClick={() => scrollToEpoch('epoch-machines')}
-              className="px-3.5 py-1.5 rounded-full border border-zinc-200/80 dark:border-white/10 bg-white dark:bg-white/[0.04] hover:border-[#0d9488] dark:hover:border-[#2ee6ca] text-[11px] font-mono text-zinc-700 dark:text-zinc-300 hover:text-[#0d9488] dark:hover:text-[#2ee6ca] transition-all cursor-pointer shadow-xs"
-            >
-              EPOCH 02 · ROTARY (3D)
-            </button>
-            <button
-              onClick={() => scrollToEpoch('epoch-grips')}
-              className="px-3.5 py-1.5 rounded-full border border-zinc-200/80 dark:border-white/10 bg-white dark:bg-white/[0.04] hover:border-[#0d9488] dark:hover:border-[#2ee6ca] text-[11px] font-mono text-zinc-700 dark:text-zinc-300 hover:text-[#0d9488] dark:hover:text-[#2ee6ca] transition-all cursor-pointer shadow-xs"
-            >
-              EPOCH 03 · GRIPS
-            </button>
-            <button
-              onClick={() => scrollToEpoch('epoch-gear')}
-              className="px-3.5 py-1.5 rounded-full border border-zinc-200/80 dark:border-white/10 bg-white dark:bg-white/[0.04] hover:border-[#0d9488] dark:hover:border-[#2ee6ca] text-[11px] font-mono text-zinc-700 dark:text-zinc-300 hover:text-[#0d9488] dark:hover:text-[#2ee6ca] transition-all cursor-pointer shadow-xs"
-            >
-              EPOCH 04 · HARDWARE
-            </button>
+          {/* Quick Metrics Ticker */}
+          <div className="pt-4 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs font-mono text-zinc-500 dark:text-zinc-400">
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#0d5d50] dark:text-[#38e8c6]" />
+              <span>100% EO Gas Sterile</span>
+            </div>
+            <span className="text-zinc-300 dark:text-zinc-700">·</span>
+            <div className="flex items-center gap-2">
+              <Cpu className="w-3.5 h-3.5 text-[#0d5d50] dark:text-[#38e8c6]" />
+              <span>German Coreless Motors</span>
+            </div>
+            <span className="text-zinc-300 dark:text-zinc-700">·</span>
+            <div className="flex items-center gap-2">
+              <Gauge className="w-3.5 h-3.5 text-[#0d5d50] dark:text-[#38e8c6]" />
+              <span>62 Needle Configurations</span>
+            </div>
+            <span className="text-zinc-300 dark:text-zinc-700">·</span>
+            <div className="flex items-center gap-2">
+              <Truck className="w-3.5 h-3.5 text-[#0d5d50] dark:text-[#38e8c6]" />
+              <span>40+ Countries Priority Shipped</span>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 3. DYNAMIC LASER TIMELINE STAGE */}
-      <div className="relative max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Central Vertical Glowing Laser Line Track */}
-        <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-0.5 z-0 pointer-events-none">
-          {/* Inactive Base Rail */}
-          <div className="w-full h-full bg-zinc-200 dark:bg-white/[0.08]" />
-          {/* Active Laser Flow Line that extends with scroll */}
-          <div
-            className="w-full bg-[#0d9488] dark:bg-[#2ee6ca] absolute top-0 shadow-[0_0_12px_#2ee6ca] transition-all duration-300 ease-out"
-            style={{ height: `${Math.min(scrollProgress * 1.25, 100)}%` }}
-          />
-        </div>
+      {/* ============================================================ */}
+      {/* 2. STICKY SWISS GLASSMORPHIC MATRIX FILTER BAR */}
+      {/* ============================================================ */}
+      <div className="sticky top-16 lg:top-18 z-30 w-full border-b border-[#e2dfd8]/80 dark:border-white/[0.08] bg-[#f5f4f0]/95 dark:bg-[#16181e]/90 backdrop-blur-xl transition-all duration-300 shadow-xs">
+        <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col md:flex-row md:items-center justify-between gap-3">
+          {/* Category Tabs */}
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+            {[
+              { id: 'all', label: 'All Apparatus', count: categoryCounts.all },
+              { id: 'machines', label: 'Rotary Machines', count: categoryCounts.machines },
+              { id: 'cartridges', label: 'Needles & Cartridges', count: categoryCounts.cartridges },
+              { id: 'grips', label: 'Click Grips', count: categoryCounts.grips },
+              { id: 'power', label: 'Wireless Power', count: categoryCounts.power },
+              { id: 'gear', label: 'Studio Hardware', count: categoryCounts.gear },
+            ].map(cat => {
+              const isActive = activeCategory === cat.id
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id as CategoryFilter)}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-mono font-bold uppercase whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer ${
+                    isActive
+                      ? 'bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 shadow-sm'
+                      : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-200/50 dark:hover:bg-white/[0.05]'
+                  }`}
+                >
+                  <span>{cat.label}</span>
+                  <span
+                    className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono ${
+                      isActive
+                        ? 'bg-white/20 dark:bg-black/20 text-current'
+                        : 'bg-zinc-200 dark:bg-white/[0.08] text-zinc-500'
+                    }`}
+                  >
+                    {cat.count}
+                  </span>
+                </button>
+              )
+            })}
+          </div>
 
-        {/* NODE 01: NEEDLE CARTRIDGES */}
-        <div id="epoch-cartridges">
-          <TimelineNode
-            epochNumber="EPOCH 01"
-            epochYear="METALLURGY"
-            title="MICRON CARTRIDGE METALLURGY"
-            subtitle="JAPANESE 316L SURGICAL PINS · MEMBRANE SEALED"
-            description="Engineered on continuous automated precision fixtures to eliminate needle deflection. Certified medical-grade PC housing with flexible silicone safety membrane preventing ink backflow into the machine chassis."
-            specs={[
-              { label: 'Surgical Steel', value: '316L' },
-              { label: 'Safety Seal', value: 'Membrane' },
-              { label: 'Sterile Box', value: '20 PCS' },
-            ]}
-            ctaText="Configure Needles (62 Sizes)"
-            ctaLink="/products/papa-premium-tattoo-cartridges"
-            align="left"
-            visualContent={
-              <div className="relative w-full h-[320px] sm:h-[400px] flex items-center justify-center p-4">
-                <img
-                  src="/product-images/papa-premium-tattoo-cartridges-round-cutout.webp"
-                  alt="Papa Premium Needle Cartridge"
-                  className="max-h-[85%] w-auto object-contain drop-shadow-[0_24px_45px_rgba(0,0,0,0.85)] scale-125 group-hover/stage:scale-135 transition-transform duration-700 ease-out"
-                />
-                <div className="absolute top-4 left-4 z-20 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/10 text-[10px] font-mono text-[#2ee6ca]">
-                  316L STAINLESS TIP
+          {/* Right Controls: Comparison Toggle & Realtime Search */}
+          <div className="flex items-center gap-2.5">
+            {/* Realtime Search Input */}
+            <div className="relative flex-1 md:w-56">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-zinc-400" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                placeholder="Filter by model / spec..."
+                className="w-full pl-8.5 pr-3 py-1.5 text-xs font-mono rounded-full border border-[#e2dfd8] dark:border-white/10 bg-white dark:bg-white/[0.04] text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#2EE6CA]"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] font-mono text-zinc-400 hover:text-zinc-700 dark:hover:text-white"
+                >
+                  CLEAR
+                </button>
+              )}
+            </div>
+
+            {/* Comparison Studio Toggle */}
+            <button
+              onClick={() => setShowComparison(!showComparison)}
+              className={`px-3 py-1.5 rounded-full border text-xs font-mono font-bold uppercase transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                showComparison
+                  ? 'border-[#0d5d50] dark:border-[#2ee6ca] bg-[#0d5d50]/10 dark:bg-[#2ee6ca]/15 text-[#0d5d50] dark:text-[#2ee6ca]'
+                  : 'border-[#e2dfd8] dark:border-white/10 text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-white/25 bg-white dark:bg-white/[0.04]'
+              }`}
+            >
+              <Scale className="w-3.5 h-3.5" />
+              <span>{showComparison ? 'Close Comparison' : 'Compare Machines'}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 mt-10 space-y-16">
+        {/* ============================================================ */}
+        {/* 3. INTERACTIVE MACHINE COMPARISON STUDIO (EXPANDABLE) */}
+        {/* ============================================================ */}
+        {showComparison && (
+          <section className="rounded-3xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white/90 dark:bg-[#1a1c24] p-6 sm:p-10 shadow-xl relative overflow-hidden animate-in fade-in slide-in-from-top-4 duration-500">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#e2dfd8] dark:border-white/[0.08]">
+              <div>
+                <div className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6] uppercase">
+                  <Scale className="w-3.5 h-3.5" />
+                  <span>MACHINE BENCHMARK STUDIO · SIDE-BY-SIDE</span>
                 </div>
+                <h2 className="text-xl sm:text-3xl font-black text-zinc-950 dark:text-white uppercase tracking-tight mt-1 font-['Montserrat',sans-serif]">
+                  PAPA FLAGSHIP APPARATUS COMPARISON
+                </h2>
               </div>
-            }
-            products={
-              [premiumCartridge, standardCartridge].filter(Boolean) as ShopifyProduct[]
-            }
-          />
-        </div>
 
-        {/* NODE 02: ROTARY MACHINES (APPLE SCROLLYTELLING 3D EXPERIENCE) */}
-        <div id="epoch-machines" className="py-12 sm:py-20 relative">
-          <AppleScrollytelling />
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setInteractive3DView(!interactive3DView)}
+                  className="px-3.5 py-1.5 rounded-full border border-zinc-200 dark:border-white/15 bg-zinc-50 dark:bg-white/[0.05] text-xs font-mono font-bold text-zinc-700 dark:text-zinc-200 hover:text-zinc-950 dark:hover:text-[#2ee6ca] transition-colors flex items-center gap-1.5 cursor-pointer"
+                >
+                  <RotateCw className="w-3.5 h-3.5" />
+                  <span>{interactive3DView ? 'Show Photos' : 'Interactive 3D Stage'}</span>
+                </button>
+              </div>
+            </div>
 
-          {/* Machine Lineup Grid under Scrollytelling */}
-          {machines.length > 0 && (
-            <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8">
-              {machines.map(m => (
-                <ProductCard key={m.id} product={m} />
+            {/* 3D Model Stage in Comparison */}
+            {interactive3DView && (
+              <div className="my-6 p-4 rounded-2xl border border-zinc-200/80 dark:border-white/[0.06] bg-zinc-50/70 dark:bg-[#15171d] flex flex-col items-center justify-center relative min-h-[360px]">
+                <div className="absolute top-4 left-4 z-20 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/15 text-[10px] font-mono text-[#38e8c6]">
+                  PAPA PEN V2 · 3D ORTHOGRAPHIC SPECIMEN
+                </div>
+                <ModelViewer3D
+                  src="/models/papapenv2.glb"
+                  poster="/product-images/img_113_papa_pen_jet_black_1__cutout.webp"
+                  alt="Papa Pen V2 3D Model"
+                  className="w-full h-[320px]"
+                  cameraOrbit="35deg 82deg 2.0m"
+                  fieldOfView="28deg"
+                  autoRotate={true}
+                />
+              </div>
+            )}
+
+            {/* 3-Column Comparison Matrix */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8">
+              {COMPARISON_MODELS.map(m => (
+                <div
+                  key={m.name}
+                  className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f5f4f0]/60 dark:bg-[#16181e] p-6 flex flex-col justify-between space-y-6 hover:border-zinc-400 dark:hover:border-white/20 transition-all shadow-xs"
+                >
+                  <div className="space-y-4">
+                    {/* Header Badge */}
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full border border-zinc-200 dark:border-white/10 text-zinc-600 dark:text-zinc-400 uppercase">
+                        {m.tag}
+                      </span>
+                      <span className="text-xs font-mono font-black text-zinc-950 dark:text-white">
+                        {m.price}
+                      </span>
+                    </div>
+
+                    {/* Image */}
+                    <div className="w-full aspect-16/10 rounded-xl bg-white dark:bg-[#1f222b] border border-[#e2dfd8]/80 dark:border-white/[0.06] flex items-center justify-center p-4">
+                      <img
+                        src={m.image}
+                        alt={m.name}
+                        className="max-h-32 w-auto object-contain drop-shadow-md"
+                      />
+                    </div>
+
+                    {/* Model Name */}
+                    <h3 className="text-xl font-black uppercase text-zinc-950 dark:text-white font-['Montserrat',sans-serif]">
+                      {m.name}
+                    </h3>
+
+                    {/* Spec Key-Value List */}
+                    <div className="space-y-2.5 pt-2 border-t border-[#e2dfd8]/80 dark:border-white/[0.06] text-xs font-mono">
+                      <div>
+                        <div className="text-[10px] text-zinc-400 uppercase">Stroke Configuration</div>
+                        <div className="font-bold text-zinc-800 dark:text-zinc-200 mt-0.5">{m.stroke}</div>
+                      </div>
+
+                      <div>
+                        <div className="text-[10px] text-zinc-400 uppercase">Motor Architecture</div>
+                        <div className="font-bold text-zinc-800 dark:text-zinc-200 mt-0.5">{m.motor}</div>
+                      </div>
+
+                      <div>
+                        <div className="text-[10px] text-zinc-400 uppercase">Voltage Range</div>
+                        <div className="font-bold text-zinc-800 dark:text-zinc-200 mt-0.5">{m.voltage}</div>
+                      </div>
+
+                      <div>
+                        <div className="text-[10px] text-zinc-400 uppercase">Chassis Metallurgy</div>
+                        <div className="font-bold text-zinc-800 dark:text-zinc-200 mt-0.5">{m.materials}</div>
+                      </div>
+
+                      <div>
+                        <div className="text-[10px] text-zinc-400 uppercase">Operating Weight</div>
+                        <div className="font-bold text-zinc-800 dark:text-zinc-200 mt-0.5">{m.weight}</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <Link
+                    to="/products/$handle"
+                    params={{ handle: m.handle }}
+                    className="w-full py-3 rounded-xl bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:opacity-90 transition-opacity cursor-pointer shadow-xs"
+                  >
+                    <span>View Machine Specs</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* ============================================================ */}
+        {/* 4. MASTER HARDWARE CATALOG GRID */}
+        {/* ============================================================ */}
+        <section className="space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-[#e2dfd8] dark:border-white/[0.08]">
+            <div>
+              <div className="text-[11px] font-mono font-bold tracking-widest text-[#0d5d50] dark:text-[#38e8c6] uppercase">
+                CERTIFIED FACTORY INVENTORY · SHOPIFY BACKED
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-black text-zinc-950 dark:text-white uppercase tracking-tight font-['Montserrat',sans-serif]">
+                {activeCategory === 'all'
+                  ? 'ALL INSTRUMENTS & APPARATUS'
+                  : activeCategory === 'machines'
+                  ? 'CONTINUOUS-DRIVE ROTARY MACHINES'
+                  : activeCategory === 'cartridges'
+                  ? 'MICRON NEEDLE CARTRIDGE SYSTEMS'
+                  : activeCategory === 'grips'
+                  ? 'AEROSPACE CNC CLICK GRIPS'
+                  : activeCategory === 'power'
+                  ? 'WIRELESS POWER & BATTERY SYSTEMS'
+                  : 'STUDIO HARDWARE & CASES'}
+              </h2>
+            </div>
+
+            <div className="text-xs font-mono text-zinc-500">
+              SHOWING {displayedProducts.length} APPARATUS CONFIGURATIONS
+            </div>
+          </div>
+
+          {loading ? (
+            <div className="py-24 flex flex-col items-center justify-center gap-3 text-zinc-400 font-mono text-xs">
+              <Box className="w-8 h-8 text-[#0d5d50] dark:text-[#38e8c6] animate-pulse" />
+              <span>SYNCHRONIZING FACTORY INVENTORY...</span>
+            </div>
+          ) : displayedProducts.length === 0 ? (
+            <div className="py-20 text-center space-y-4 rounded-3xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white/60 dark:bg-white/[0.02] p-8">
+              <Box className="w-12 h-12 text-zinc-400 mx-auto" />
+              <h3 className="text-lg font-black uppercase text-zinc-950 dark:text-white font-mono">
+                NO APPARATUS MATCHED YOUR FILTER
+              </h3>
+              <p className="text-xs font-mono text-zinc-500 max-w-sm mx-auto">
+                No items matched "{searchQuery}". Try clearing search keywords or switching category filters.
+              </p>
+              <button
+                onClick={() => {
+                  setSearchQuery('')
+                  setActiveCategory('all')
+                }}
+                className="px-5 py-2 rounded-full bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 text-xs font-mono font-bold uppercase cursor-pointer"
+              >
+                Reset All Filters
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8">
+              {displayedProducts.map(product => (
+                <ProductCard key={product.id} product={product} />
               ))}
             </div>
           )}
-        </div>
+        </section>
 
-        {/* NODE 03: ADJUSTABLE GRIPS */}
-        <div id="epoch-grips">
-          <TimelineNode
-            epochNumber="EPOCH 03"
-            epochYear="ERGONOMIC INTERFACE"
-            title="AEROSPACE CNC ADJUSTABLE GRIPS"
-            subtitle="KNURLED ANODIZED ALLOY · CLICK-STOP PROJECTION"
-            description="Precision threaded millimeter depth adjustment with tactile click-stop locking. Ergonomic contouring shifts the center of gravity forward, significantly reducing hand fatigue during multi-hour marathon tattoo sessions."
-            specs={[
-              { label: 'Machined Alloy', value: 'CNC 6061' },
-              { label: 'Adjustment', value: 'Click-Stop' },
-              { label: 'Autoclavable', value: '100% Yes' },
-            ]}
-            ctaText="Explore Grip Series"
-            ctaLink="/collections?category=grips"
-            align="left"
-            visualContent={
-              <div className="relative w-full h-[320px] sm:h-[400px] flex items-center justify-center p-4">
-                <img
-                  src="/product-images/img_111_papa_adjustment_grips_1__cutout.webp"
-                  alt="Papa CNC Adjustable Grip"
-                  className="max-h-[85%] w-auto object-contain drop-shadow-[0_24px_45px_rgba(0,0,0,0.85)] scale-125 group-hover/stage:scale-135 transition-transform duration-700 ease-out"
-                />
-                <div className="absolute top-4 left-4 z-20 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/10 text-[10px] font-mono text-[#2ee6ca]">
-                  MILLIMETER CLICK LOCK
+        {/* ============================================================ */}
+        {/* 5. CINEMATIC MASTER SECTORS SHOWCASE */}
+        {/* ============================================================ */}
+        <section className="pt-12 space-y-20 border-t border-[#e2dfd8] dark:border-white/[0.08]">
+          {/* Sector 1: Cartridge Metallurgy */}
+          <div className="rounded-3xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f5f4f0]/60 dark:bg-[#16181e] p-8 sm:p-14 overflow-hidden relative shadow-sm">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+              <div className="lg:col-span-6 space-y-5">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-amber-500/20 bg-amber-500/10 text-[10px] font-mono font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>SECTOR 01 // MICRON NEEDLE METALLURGY</span>
+                </div>
+
+                <h3 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-zinc-950 dark:text-white font-['Montserrat',sans-serif]">
+                  SURGICAL 316L NEEDLE CARTRIDGES
+                </h3>
+
+                <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed font-sans">
+                  Medical-grade polycarbonate cartridge bodies with flexible internal safety membranes. Precision ground Japanese surgical pins eliminate ink spit and needle wobble across all 62 standard and premium configurations.
+                </p>
+
+                <div className="grid grid-cols-3 gap-4 py-3 border-y border-[#e2dfd8]/80 dark:border-white/[0.06] text-center font-mono text-xs">
+                  <div>
+                    <div className="text-base font-black text-zinc-950 dark:text-white">62 SIZES</div>
+                    <div className="text-[10px] text-zinc-400 uppercase">RL · RS · M1 · M1C</div>
+                  </div>
+                  <div>
+                    <div className="text-base font-black text-zinc-950 dark:text-white">EO GAS</div>
+                    <div className="text-[10px] text-zinc-400 uppercase">Batch Sterile</div>
+                  </div>
+                  <div>
+                    <div className="text-base font-black text-zinc-950 dark:text-white">20 PCS</div>
+                    <div className="text-[10px] text-zinc-400 uppercase">Per Box</div>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3 pt-2">
+                  <Link
+                    to="/products/$handle"
+                    params={{ handle: 'papa-premium-tattoo-cartridges' }}
+                    className="px-6 py-3 rounded-full bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-mono font-bold text-xs uppercase tracking-wider flex items-center gap-2 hover:opacity-90 transition-all shadow-xs"
+                  >
+                    <span>PAPA PREMIUM SERIES</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+
+                  <Link
+                    to="/products/$handle"
+                    params={{ handle: 'papa-standard-tattoo-cartridges' }}
+                    className="px-6 py-3 rounded-full border border-zinc-300 dark:border-white/15 text-zinc-800 dark:text-zinc-200 text-xs font-mono font-bold uppercase tracking-wider hover:bg-zinc-200/50 dark:hover:bg-white/[0.05] transition-colors"
+                  >
+                    <span>STANDARD SERIES</span>
+                  </Link>
                 </div>
               </div>
-            }
-            products={grips}
-          />
-        </div>
 
-        {/* NODE 04: STUDIO GEAR */}
-        <div id="epoch-gear">
-          <TimelineNode
-            epochNumber="EPOCH 04"
-            epochYear="HEAVY APPARATUS"
-            title="STUDIO HARDWARE &amp; LOGISTICS"
-            subtitle="360° OMNIDIRECTIONAL PEDALS · BALLISTIC TRAVEL SYSTEMS"
-            description="Heavy-duty weighted cast metal foot switches with non-skid silicone base, paired with custom foam-cut ballistic EVA travel cases built for resident artists and international convention travel."
-            specs={[
-              { label: 'Foot Actuation', value: '360°' },
-              { label: 'Case Material', value: 'EVA Shell' },
-              { label: 'Worldwide Export', value: '40+ Countries' },
-            ]}
-            ctaText="View Studio Supplies"
-            ctaLink="/collections?category=all"
-            align="right"
-            visualContent={
-              <div className="relative w-full h-[320px] sm:h-[400px] flex items-center justify-center p-4">
-                <img
-                  src="/product-images/img_201_papa_travel_case_cutout.webp"
-                  alt="Papa Heavy-Duty Travel Case"
-                  className="max-h-[85%] w-auto object-contain drop-shadow-[0_24px_45px_rgba(0,0,0,0.85)] scale-125 group-hover/stage:scale-135 transition-transform duration-700 ease-out"
+              <div className="lg:col-span-6 flex items-center justify-center">
+                <ParallaxApparatusStage
+                  imageSrc="/product-images/papa-premium-tattoo-cartridges-round-cutout.webp"
+                  alt="Papa Premium Cartridge"
+                  accentColor="amber"
+                  baseRotation={-6}
+                  priorityTag="JAPANESE 316L SURGICAL ALLOY"
                 />
-                <div className="absolute top-4 left-4 z-20 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/10 text-[10px] font-mono text-[#2ee6ca]">
-                  STUDIO HEAVY GEAR
+              </div>
+            </div>
+          </div>
+
+          {/* Sector 2: CNC 6061 Click Grips */}
+          <div className="rounded-3xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f5f4f0]/60 dark:bg-[#16181e] p-8 sm:p-14 overflow-hidden relative shadow-sm">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+              <div className="lg:col-span-6 order-2 lg:order-1 flex items-center justify-center">
+                <ParallaxApparatusStage
+                  imageSrc="/product-images/img_111_papa_adjustment_grips_1__cutout.webp"
+                  alt="Papa Click Grip"
+                  accentColor="emerald"
+                  baseRotation={5}
+                  priorityTag="CLICK-STOP NEEDLE PROJECTION"
+                />
+              </div>
+
+              <div className="lg:col-span-6 order-1 lg:order-2 space-y-5">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#0d5d50]/20 dark:border-[#38e8c6]/20 bg-[#38e8c6]/10 text-[10px] font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6] uppercase tracking-widest">
+                  <Box className="w-3.5 h-3.5" />
+                  <span>SECTOR 02 // CNC 6061-T6 ERGONOMIC INTERFACE</span>
+                </div>
+
+                <h3 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-zinc-950 dark:text-white font-['Montserrat',sans-serif]">
+                  PRECISION CLICK ADJUSTABLE GRIPS
+                </h3>
+
+                <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed font-sans">
+                  Solid aerospace billet aluminum with non-slip knurled geometry. Features positive click-stop needle depth dial, 100% autoclavable internal stainless steel drive shaft, and forward-biased ergonomics.
+                </p>
+
+                <div className="grid grid-cols-3 gap-4 py-3 border-y border-[#e2dfd8]/80 dark:border-white/[0.06] text-center font-mono text-xs">
+                  <div>
+                    <div className="text-base font-black text-zinc-950 dark:text-white">6061-T6</div>
+                    <div className="text-[10px] text-zinc-400 uppercase">Anodized Alloy</div>
+                  </div>
+                  <div>
+                    <div className="text-base font-black text-zinc-950 dark:text-white">CLICK-STOP</div>
+                    <div className="text-[10px] text-zinc-400 uppercase">Needle Dial</div>
+                  </div>
+                  <div>
+                    <div className="text-base font-black text-zinc-950 dark:text-white">AUTOCLAVE</div>
+                    <div className="text-[10px] text-zinc-400 uppercase">100% Safe</div>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3 pt-2">
+                  <Link
+                    to="/collections"
+                    search={{ category: 'grips' }}
+                    className="px-6 py-3 rounded-full bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-mono font-bold text-xs uppercase tracking-wider flex items-center gap-2 hover:opacity-90 transition-all shadow-xs"
+                  >
+                    <span>EXPLORE ALL GRIP SIZES</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
                 </div>
               </div>
-            }
-            products={studioGear}
-          />
+            </div>
+          </div>
+        </section>
+
+        {/* ============================================================ */}
+        {/* 6. STUDIO & B2B DIRECT FACTORY PROCUREMENT STRIP */}
+        {/* ============================================================ */}
+        <div className="rounded-3xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white/80 dark:bg-[#1e2028] p-8 sm:p-12 shadow-md flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="space-y-2 max-w-xl text-center md:text-left">
+            <div className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6] uppercase">
+              <Building2 className="w-4 h-4" />
+              <span>DIRECT STUDIO PROCUREMENT PROGRAM</span>
+            </div>
+            <h3 className="text-2xl font-black uppercase text-zinc-950 dark:text-white font-['Montserrat',sans-serif]">
+              ORDERING FOR PARLORS &amp; ACADEMIES?
+            </h3>
+            <p className="text-xs font-mono text-zinc-500 leading-relaxed">
+              Unlock tiered volume discounts up to 35%, factory-direct custom needle blister printing, and dedicated account management.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3 shrink-0">
+            <Link
+              to="/wholesale"
+              className="px-6 py-3.5 rounded-full bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 font-mono font-bold text-xs uppercase tracking-wider shadow-md hover:opacity-90 transition-opacity"
+            >
+              Launch Bulk Calculator
+            </Link>
+            <Link
+              to="/distributors"
+              className="px-6 py-3.5 rounded-full border border-zinc-300 dark:border-white/15 text-zinc-800 dark:text-zinc-200 font-mono font-bold text-xs uppercase tracking-wider hover:bg-zinc-100 dark:hover:bg-white/[0.05] transition-colors"
+            >
+              Authorized Distributors
+            </Link>
+          </div>
         </div>
       </div>
     </div>
