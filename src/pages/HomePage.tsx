@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from '@tanstack/react-router'
 import { ModelViewer3D } from '../components/common/ModelViewer3D'
+import { ParallaxApparatusStage } from '../components/common/ParallaxApparatusStage'
 import { useCart } from '../context/CartContext'
 import { ShopifyProduct } from '../types/shopify'
 import { getProductByHandle } from '../lib/shopify'
@@ -182,17 +183,15 @@ export const HomePage: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Visual Column (Spacious, Uncrowded Floating Needle) */}
-          <div className="lg:col-span-6 relative flex items-center justify-center p-6 sm:p-12">
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_65%_at_50%_45%,rgba(230,179,102,0.22)_0%,transparent_65%)] pointer-events-none" />
-            <img
-              src="/product-images/papa-premium-tattoo-cartridges-round-cutout.webp"
+          {/* Right Visual Column (Apple Scroll Parallax Apparatus Stage) */}
+          <div className="lg:col-span-6 flex items-center justify-center">
+            <ParallaxApparatusStage
+              imageSrc="/product-images/papa-premium-tattoo-cartridges-round-cutout.webp"
               alt="Papa Premium Needle Cartridge"
-              className="relative max-h-[380px] sm:max-h-[460px] w-auto object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.85)] scale-110 hover:scale-120 transition-transform duration-700 ease-out"
+              accentColor="amber"
+              baseRotation={-8}
+              priorityTag="316L SURGICAL PIN MATRIX"
             />
-            {/* Ground Contact Shadow */}
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-3/4 max-w-sm h-6 bg-black/60 dark:bg-black/90 blur-2xl rounded-[100%] pointer-events-none" />
-            <div className="absolute bottom-7 left-1/2 -translate-x-1/2 w-1/2 max-w-xs h-2.5 bg-[#e6b366]/20 blur-md rounded-[100%] pointer-events-none" />
           </div>
         </div>
       </section>
@@ -202,17 +201,15 @@ export const HomePage: React.FC = () => {
       {/* ============================================================ */}
       <section className="min-h-[85vh] flex items-center py-24 sm:py-36 px-4 sm:px-6 lg:px-8 max-w-7xl 2xl:max-w-[1536px] mx-auto relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center w-full">
-          {/* Left Visual Column */}
-          <div className="lg:col-span-6 order-2 lg:order-1 relative flex items-center justify-center p-6 sm:p-12">
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_65%_at_50%_45%,rgba(56,232,198,0.22)_0%,transparent_65%)] pointer-events-none" />
-            <img
-              src="/product-images/img_041_papa_volt_large_cutout.webp"
+          {/* Left Visual Column (Apple Scroll Parallax Apparatus Stage) */}
+          <div className="lg:col-span-6 order-2 lg:order-1 flex items-center justify-center">
+            <ParallaxApparatusStage
+              imageSrc="/product-images/img_041_papa_volt_large_cutout.webp"
               alt="Papa Volt Wireless Battery Dock"
-              className="relative max-h-[360px] sm:max-h-[440px] w-auto object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.85)] scale-110 hover:scale-120 transition-transform duration-700 ease-out"
+              accentColor="cyan"
+              baseRotation={6}
+              priorityTag="CORD-FREE 5-12V CLEAN POWER"
             />
-            {/* Ground Contact Shadow */}
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-3/4 max-w-sm h-6 bg-black/60 dark:bg-black/90 blur-2xl rounded-[100%] pointer-events-none" />
-            <div className="absolute bottom-7 left-1/2 -translate-x-1/2 w-1/2 max-w-xs h-2.5 bg-[#38e8c6]/20 blur-md rounded-[100%] pointer-events-none" />
           </div>
 
           {/* Right Text Column */}
@@ -316,17 +313,15 @@ export const HomePage: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Visual Column */}
-          <div className="lg:col-span-6 relative flex items-center justify-center p-6 sm:p-12">
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_65%_at_50%_45%,rgba(56,232,198,0.20)_0%,transparent_65%)] pointer-events-none" />
-            <img
-              src="/product-images/img_111_papa_adjustment_grips_1__cutout.webp"
+          {/* Right Visual Column (Apple Scroll Parallax Apparatus Stage) */}
+          <div className="lg:col-span-6 flex items-center justify-center">
+            <ParallaxApparatusStage
+              imageSrc="/product-images/img_111_papa_adjustment_grips_1__cutout.webp"
               alt="Papa CNC Adjustable Grip"
-              className="relative max-h-[360px] sm:max-h-[440px] w-auto object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.85)] scale-110 hover:scale-120 transition-transform duration-700 ease-out"
+              accentColor="emerald"
+              baseRotation={-6}
+              priorityTag="6061-T6 AIRCRAFT ALLOY"
             />
-            {/* Ground Contact Shadow */}
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-3/4 max-w-sm h-6 bg-black/60 dark:bg-black/90 blur-2xl rounded-[100%] pointer-events-none" />
-            <div className="absolute bottom-7 left-1/2 -translate-x-1/2 w-1/2 max-w-xs h-2.5 bg-[#38e8c6]/20 blur-md rounded-[100%] pointer-events-none" />
           </div>
         </div>
       </section>
@@ -368,11 +363,13 @@ export const HomePage: React.FC = () => {
               </div>
             </div>
 
-            <div className="lg:col-span-6 flex items-center justify-center relative min-h-[260px] sm:min-h-[320px]">
-              <img
-                src="/product-images/img_201_papa_travel_case_cutout.webp"
+            <div className="lg:col-span-6 flex items-center justify-center">
+              <ParallaxApparatusStage
+                imageSrc="/product-images/img_201_papa_travel_case_cutout.webp"
                 alt="Papa Travel Case"
-                className="max-h-[280px] w-auto object-contain drop-shadow-2xl"
+                accentColor="cyan"
+                baseRotation={4}
+                priorityTag="BALLISTIC EVA CASE & HARDWARE"
               />
             </div>
           </div>
