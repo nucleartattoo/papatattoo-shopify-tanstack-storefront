@@ -50,37 +50,70 @@ export const HomePage: React.FC = () => {
   return (
     <div className="w-full bg-transparent text-zinc-900 dark:text-zinc-100 font-sans select-none overflow-x-hidden">
       {/* ============================================================ */}
-      {/* ACT 1: HERO - PAPA PEN V2 3D AUTO-ROTATING APPARATUS */}
+      {/* ACT 1: HERO - PAPA PEN V2 3D GRAND CENTERED STAGE */}
       {/* ============================================================ */}
-      <section className="relative min-h-[95vh] flex flex-col justify-between items-center pt-20 pb-12 sm:pt-28 sm:pb-16 px-4 sm:px-6 lg:px-8 text-center overflow-hidden">
-        {/* Ambient Radial Spotlight */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] sm:w-[1000px] h-[400px] sm:h-[600px] bg-[radial-gradient(circle,rgba(56,232,198,0.18)_0%,transparent_65%)] pointer-events-none" />
+      <section className="relative min-h-[calc(100vh-80px)] flex flex-col items-center justify-center pt-16 pb-16 sm:pt-20 sm:pb-20 px-4 sm:px-6 lg:px-8 text-center overflow-hidden">
+        {/* Background Architectural Typographic Monument (Apple Keynote Style) */}
+        <div
+          aria-hidden="true"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[18vw] font-black uppercase tracking-tighter text-zinc-950/[0.035] dark:text-white/[0.03] pointer-events-none select-none whitespace-nowrap font-['Montserrat',sans-serif] z-0"
+        >
+          PAPA PEN
+        </div>
 
-        {/* Hero Typography */}
-        <div className="max-w-3xl space-y-4 relative z-10 mx-auto">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-zinc-200/80 dark:border-white/10 bg-white/60 dark:bg-white/[0.04] text-[10px] font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6] uppercase tracking-widest backdrop-blur-md">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#0d5d50] dark:bg-[#38e8c6]" />
+        {/* Ambient Radial Spotlight */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] sm:w-[1000px] h-[400px] sm:h-[600px] bg-[radial-gradient(circle,rgba(56,232,198,0.18)_0%,transparent_65%)] pointer-events-none z-0" />
+
+        {/* Hero Header & Narrative */}
+        <div className="max-w-3xl space-y-3 relative z-10 mx-auto">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-zinc-200/80 dark:border-white/10 bg-white/70 dark:bg-white/[0.04] text-[10px] font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6] uppercase tracking-widest backdrop-blur-md shadow-xs">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#0d5d50] dark:bg-[#38e8c6] animate-pulse" />
             <span>PAPA TATTOO APPARATUS · THE BENCHMARK</span>
           </div>
 
-          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tight text-zinc-950 dark:text-white font-['Montserrat',sans-serif]">
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-zinc-950 dark:text-white font-['Montserrat',sans-serif] leading-none">
             PAPA PEN V2
           </h1>
 
-          <p className="text-lg sm:text-2xl font-medium text-zinc-600 dark:text-zinc-300 font-sans max-w-xl mx-auto tracking-tight">
+          <p className="text-base sm:text-xl font-medium text-zinc-600 dark:text-zinc-300 font-sans max-w-lg mx-auto tracking-tight">
             Engineered for mastery. Driven by precision.
           </p>
 
           <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 font-sans max-w-md mx-auto leading-relaxed">
             Continuous-drive rotary machine with custom German coreless motor. Fixed 3.5mm stroke for zero-vibration line work and dense color packing.
           </p>
+        </div>
 
-          {/* Action Buttons */}
-          <div className="pt-4 flex flex-wrap items-center justify-center gap-3">
+        {/* 3D Auto-Rotating Hero Apparatus Stage (Grand Centered Centerpiece) */}
+        <div className="relative w-full max-w-3xl h-[360px] sm:h-[460px] lg:h-[500px] flex items-center justify-center z-10 my-3">
+          {/* 3D Drag To Rotate Badge */}
+          <div className="absolute top-2 sm:top-4 left-4 z-20 flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 dark:bg-black/80 backdrop-blur-md border border-white/15 text-[10px] font-mono font-medium text-white pointer-events-none shadow-sm">
+            <Box className="w-3 h-3 text-[#38e8c6]" />
+            <span>3D INTERACTIVE · DRAG TO ROTATE</span>
+          </div>
+
+          <ModelViewer3D
+            src="/models/papapenv2.glb"
+            poster="/product-images/img_113_papa_pen_jet_black_1__cutout.webp"
+            alt="Papa Pen V2 Precision Rotary Machine"
+            className="w-full h-full"
+            autoRotate={true}
+            cameraOrbit="35deg 82deg 2.0m"
+            fieldOfView="28deg"
+          />
+
+          {/* Grounded Pedestal Contact Shadow with Specular Reflection Halo */}
+          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-3/4 max-w-sm h-6 bg-black/60 dark:bg-black/90 blur-2xl rounded-[100%] pointer-events-none" />
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 w-1/2 max-w-xs h-2.5 bg-[#38e8c6]/20 blur-md rounded-[100%] pointer-events-none" />
+        </div>
+
+        {/* Action Buttons & Bottom Spec Anchors */}
+        <div className="relative z-10 space-y-4">
+          <div className="flex flex-wrap items-center justify-center gap-3">
             <button
               type="button"
               onClick={handleBuyPen}
-              className="px-8 py-4 rounded-full bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-mono font-black text-xs uppercase tracking-wider flex items-center gap-2 hover:opacity-90 active:scale-95 transition-all shadow-xl cursor-pointer"
+              className="px-8 py-3.5 rounded-full bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-mono font-black text-xs uppercase tracking-wider flex items-center gap-2 hover:opacity-90 active:scale-95 transition-all shadow-xl cursor-pointer"
             >
               <ShoppingBag className="w-4 h-4" />
               <span>BUY NOW — $199.00 USD</span>
@@ -89,39 +122,29 @@ export const HomePage: React.FC = () => {
             <button
               type="button"
               onClick={() => scrollToSection('showcase-cartridges')}
-              className="px-7 py-4 rounded-full border border-zinc-300/80 dark:border-white/15 hover:border-zinc-500 dark:hover:border-white/30 text-xs font-mono font-bold uppercase tracking-wider text-zinc-800 dark:text-zinc-200 transition-colors flex items-center gap-2 cursor-pointer"
+              className="px-7 py-3.5 rounded-full border border-zinc-300/80 dark:border-white/15 hover:border-zinc-500 dark:hover:border-white/30 text-xs font-mono font-bold uppercase tracking-wider text-zinc-800 dark:text-zinc-200 bg-white/40 dark:bg-white/[0.02] backdrop-blur-xs transition-colors flex items-center gap-2 cursor-pointer"
             >
               <span>Explore Arsenal ↓</span>
             </button>
           </div>
-        </div>
 
-        {/* 3D Auto-Rotating Hero Apparatus Stage */}
-        <div className="relative w-full max-w-2xl h-[380px] sm:h-[480px] flex items-center justify-center z-10 mt-6">
-          <ModelViewer3D
-            src="/models/papapenv2.glb"
-            poster="/product-images/img_113_papa_pen_jet_black_1__cutout.webp"
-            alt="Papa Pen V2 Precision Rotary Machine"
-            className="w-full h-full"
-            autoRotate={true}
-            cameraOrbit="35deg 75deg 2.2m"
-          />
-
-          {/* 3D Drag To Rotate Badge */}
-          <div className="absolute top-4 left-4 z-20 flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 dark:bg-black/80 backdrop-blur-md border border-white/15 text-[10px] font-mono font-medium text-white pointer-events-none shadow-sm">
-            <Box className="w-3 h-3 text-[#38e8c6]" />
-            <span>3D INTERACTIVE · DRAG TO ROTATE</span>
+          {/* Quick Engineering Highlights */}
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 pt-1 text-[11px] font-mono text-zinc-500 dark:text-zinc-400">
+            <span className="flex items-center gap-1.5">
+              <span className="w-1 h-1 rounded-full bg-[#0d5d50] dark:bg-[#38e8c6]" />
+              <span>3.5mm Direct Stroke</span>
+            </span>
+            <span className="text-zinc-300 dark:text-zinc-700">·</span>
+            <span className="flex items-center gap-1.5">
+              <span className="w-1 h-1 rounded-full bg-[#0d5d50] dark:bg-[#38e8c6]" />
+              <span>German Coreless Motor</span>
+            </span>
+            <span className="text-zinc-300 dark:text-zinc-700">·</span>
+            <span className="flex items-center gap-1.5">
+              <span className="w-1 h-1 rounded-full bg-[#0d5d50] dark:bg-[#38e8c6]" />
+              <span>150g Balanced Ergonomics</span>
+            </span>
           </div>
-
-          {/* Grounded Pedestal Contact Shadow with Specular Reflection Halo */}
-          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 w-3/4 max-w-sm h-6 bg-black/60 dark:bg-black/90 blur-2xl rounded-[100%] pointer-events-none" />
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-1/2 max-w-xs h-2.5 bg-[#38e8c6]/20 blur-md rounded-[100%] pointer-events-none" />
-        </div>
-
-        {/* Bottom Scroll Cue */}
-        <div className="relative z-10 pt-4 flex flex-col items-center gap-1 text-[10px] font-mono text-zinc-400">
-          <span>SCROLL TO DISCOVER ARSENAL</span>
-          <ChevronDown className="w-3.5 h-3.5 animate-bounce text-[#38e8c6]" />
         </div>
       </section>
 
