@@ -84,7 +84,7 @@ export const ParallaxApparatusStage: React.FC<ParallaxApparatusStageProps> = ({
   const shadowOpacity = 0.7 - Math.abs(centerOffset) * 0.25
 
   // Accent glow styling
-  const glowStyles = {
+  const glowStyles = ({
     cyan: {
       spotlight: 'rgba(56, 232, 198, 0.25)',
       halo: 'rgba(56, 232, 198, 0.18)',
@@ -97,7 +97,10 @@ export const ParallaxApparatusStage: React.FC<ParallaxApparatusStageProps> = ({
       spotlight: 'rgba(13, 93, 80, 0.32)',
       halo: 'rgba(56, 232, 198, 0.15)',
     },
-  }[accentColor]
+  }[accentColor]) || {
+    spotlight: 'rgba(56, 232, 198, 0.25)',
+    halo: 'rgba(56, 232, 198, 0.18)',
+  }
 
   return (
     <div
