@@ -125,13 +125,13 @@ export const CartridgeMatrixSelector: React.FC<CartridgeMatrixSelectorProps> = (
   }
 
   return (
-    <div className="space-y-6 pt-2 pb-4 border-y border-zinc-200 dark:border-[#222731]">
+    <div className="space-y-6 pt-2 pb-4 border-y border-zinc-200/80 dark:border-white/[0.08]">
       {/* 1. TYPE SELECTOR */}
       <div>
         <div className="flex items-center justify-between mb-2.5">
-          <label className="text-xs font-mono font-black uppercase tracking-wider text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+          <label className="text-xs font-mono font-black uppercase tracking-wider text-zinc-950 dark:text-white flex items-center gap-2">
             <span>Type:</span>
-            <span className="text-[#0d9488] dark:text-[#2ee6ca] font-mono text-[11px] font-bold">
+            <span className="text-[#0d5d50] dark:text-[#38e8c6] font-mono text-[11px] font-bold">
               {currentType}
             </span>
           </label>
@@ -144,10 +144,10 @@ export const CartridgeMatrixSelector: React.FC<CartridgeMatrixSelectorProps> = (
                 key={type}
                 type="button"
                 onClick={() => handleSelect(type, currentGauge, currentSize)}
-                className={`px-3 py-2 text-xs font-mono font-bold tracking-tight rounded-md border transition-all cursor-pointer select-none active:scale-[0.98] ${
+                className={`px-3.5 py-2 text-xs font-mono font-bold tracking-tight rounded-xl border transition-all cursor-pointer select-none active:scale-95 ${
                   isSelected
-                    ? 'border-zinc-950 bg-zinc-950 text-white dark:border-[#2ee6ca] dark:bg-[#2ee6ca] dark:text-zinc-950 shadow-sm ring-1 ring-zinc-950/20 dark:ring-[#2ee6ca]/30'
-                    : 'border-zinc-300 dark:border-[#2a303c] bg-white dark:bg-[#12151B] text-zinc-800 dark:text-zinc-300 hover:border-zinc-950 dark:hover:border-[#2ee6ca] hover:text-zinc-950 dark:hover:text-white'
+                    ? 'border-zinc-950 bg-zinc-950 text-white dark:border-white dark:bg-white dark:text-zinc-950 shadow-md ring-1 ring-zinc-950/20 dark:ring-white/30'
+                    : 'border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#262933] text-zinc-800 dark:text-zinc-200 hover:border-zinc-400 dark:hover:border-white/30 hover:text-zinc-950 dark:hover:text-white'
                 }`}
               >
                 {type}
@@ -157,14 +157,14 @@ export const CartridgeMatrixSelector: React.FC<CartridgeMatrixSelectorProps> = (
         </div>
       </div>
 
-      <hr className="border-zinc-100 dark:border-[#1E232E]" />
+      <hr className="border-zinc-200/70 dark:border-white/[0.08]" />
 
       {/* 2. GAUGE SELECTOR */}
       <div>
         <div className="flex items-center justify-between mb-2.5">
-          <label className="text-xs font-mono font-black uppercase tracking-wider text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+          <label className="text-xs font-mono font-black uppercase tracking-wider text-zinc-950 dark:text-white flex items-center gap-2">
             <span>Gauge:</span>
-            <span className="text-[#0d9488] dark:text-[#2ee6ca] font-mono text-[11px] font-bold">
+            <span className="text-[#0d5d50] dark:text-[#38e8c6] font-mono text-[11px] font-bold">
               {currentGauge}
             </span>
           </label>
@@ -180,12 +180,12 @@ export const CartridgeMatrixSelector: React.FC<CartridgeMatrixSelectorProps> = (
                 key={gauge}
                 type="button"
                 onClick={() => handleSelect(currentType, gauge, currentSize)}
-                className={`px-3 py-2 text-xs font-mono font-bold tracking-tight rounded-md border transition-all select-none active:scale-[0.98] ${
+                className={`px-3.5 py-2 text-xs font-mono font-bold tracking-tight rounded-xl border transition-all select-none active:scale-95 ${
                   isSelected
-                    ? 'border-zinc-950 bg-zinc-950 text-white dark:border-[#2ee6ca] dark:bg-[#2ee6ca] dark:text-zinc-950 shadow-sm ring-1 ring-zinc-950/20 dark:ring-[#2ee6ca]/30 cursor-pointer'
+                    ? 'border-zinc-950 bg-zinc-950 text-white dark:border-white dark:bg-white dark:text-zinc-950 shadow-md ring-1 ring-zinc-950/20 dark:ring-white/30 cursor-pointer'
                     : hasCombinations
-                    ? 'border-zinc-300 dark:border-[#2a303c] bg-white dark:bg-[#12151B] text-zinc-800 dark:text-zinc-300 hover:border-zinc-950 dark:hover:border-[#2ee6ca] hover:text-zinc-950 dark:hover:text-white cursor-pointer'
-                    : 'border-zinc-200 dark:border-[#1c2027] bg-zinc-100/50 dark:bg-[#0c0e12] text-zinc-400 dark:text-zinc-600 opacity-60 cursor-pointer'
+                    ? 'border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#262933] text-zinc-800 dark:text-zinc-200 hover:border-zinc-400 dark:hover:border-white/30 hover:text-zinc-950 dark:hover:text-white cursor-pointer'
+                    : 'border-zinc-200 dark:border-white/[0.04] bg-zinc-100/40 dark:bg-white/[0.02] text-zinc-400 dark:text-zinc-600 opacity-40 cursor-not-allowed'
                 }`}
               >
                 {gauge}
@@ -200,13 +200,13 @@ export const CartridgeMatrixSelector: React.FC<CartridgeMatrixSelectorProps> = (
       {/* 3. SIZE SELECTOR */}
       <div>
         <div className="flex items-center justify-between mb-2.5">
-          <label className="text-xs font-mono font-black uppercase tracking-wider text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+          <label className="text-xs font-mono font-black uppercase tracking-wider text-zinc-950 dark:text-white flex items-center gap-2">
             <span>Size:</span>
-            <span className="text-[#0d9488] dark:text-[#2ee6ca] font-mono text-[11px] font-bold">
+            <span className="text-[#0d5d50] dark:text-[#38e8c6] font-mono text-[11px] font-bold">
               {currentSize}
             </span>
           </label>
-          <span className="text-[10px] font-mono text-zinc-400">
+          <span className="text-[10px] font-mono text-zinc-500 dark:text-zinc-400">
             {variants.length} VARIANT MATRIX
           </span>
         </div>
@@ -228,16 +228,16 @@ export const CartridgeMatrixSelector: React.FC<CartridgeMatrixSelectorProps> = (
                 type="button"
                 onClick={() => isAvailable && handleSelect(currentType, currentGauge, size)}
                 disabled={!isAvailable}
-                className={`relative min-w-[42px] h-10 px-2 flex items-center justify-center text-xs font-mono font-bold rounded-md border transition-all select-none active:scale-[0.98] ${
+                className={`relative min-w-[44px] h-10 px-2.5 flex items-center justify-center text-xs font-mono font-bold rounded-xl border transition-all select-none active:scale-95 text-center ${
                   isSelected
                     ? inStock
-                      ? 'border-zinc-950 bg-zinc-950 text-white dark:border-[#2ee6ca] dark:bg-[#2ee6ca] dark:text-zinc-950 shadow-sm ring-1 ring-zinc-950/20 dark:ring-[#2ee6ca]/30 cursor-pointer'
+                      ? 'border-zinc-950 bg-zinc-950 text-white dark:border-white dark:bg-white dark:text-zinc-950 shadow-md ring-1 ring-zinc-950/20 dark:ring-white/30 cursor-pointer'
                       : 'border-red-500 bg-red-950/30 text-red-400 dark:border-red-400 dark:bg-red-950/50 dark:text-red-300 shadow-sm cursor-pointer'
                     : isAvailable
                     ? inStock
-                      ? 'border-zinc-300 dark:border-[#2a303c] bg-white dark:bg-[#12151B] text-zinc-800 dark:text-zinc-300 hover:border-zinc-950 dark:hover:border-[#2ee6ca] hover:bg-zinc-50 dark:hover:bg-[#171a22] cursor-pointer'
+                      ? 'border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#262933] text-zinc-800 dark:text-zinc-200 hover:border-zinc-400 dark:hover:border-white/30 hover:text-zinc-950 dark:hover:text-white cursor-pointer'
                       : 'border-red-300/60 dark:border-red-900/50 bg-red-50/30 dark:bg-red-950/20 text-zinc-400 dark:text-zinc-500 hover:border-red-400 cursor-pointer'
-                    : 'border-zinc-200 dark:border-[#191d24] bg-zinc-100/50 dark:bg-[#0a0c10] text-zinc-300 dark:text-zinc-700 cursor-not-allowed line-through opacity-40'
+                    : 'border-zinc-200/50 dark:border-white/[0.04] bg-zinc-100/40 dark:bg-white/[0.02] text-zinc-300 dark:text-zinc-700 opacity-40 cursor-not-allowed line-through'
                 }`}
                 title={
                   !isAvailable

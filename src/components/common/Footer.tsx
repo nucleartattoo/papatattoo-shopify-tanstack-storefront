@@ -2,15 +2,15 @@ import React from 'react'
 import { Link } from '@tanstack/react-router'
 import { Logo } from './Logo'
 import { useLocale } from '../../context/LocaleContext'
-import { Mail, Globe, ShieldCheck, Cpu, ArrowUpRight } from 'lucide-react'
+import { Mail, Globe, ShieldCheck, Cpu, ArrowUpRight, BadgeCheck } from 'lucide-react'
 
 export const Footer: React.FC = () => {
   const { t } = useLocale()
 
   return (
-    <footer className="border-t border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#07080A] text-zinc-600 dark:text-zinc-400 font-sans transition-colors duration-200">
-      {/* Top Banner */}
-      <div className="border-b border-zinc-100 dark:border-zinc-800/60 py-8">
+    <footer className="border-t border-[#e2dfd8] dark:border-white/[0.08] bg-[#f5f4f0] dark:bg-[#16181e] text-[#6b6860] dark:text-zinc-400 font-sans transition-colors duration-200">
+      {/* Top Banner - Buyer Trust & Engineering Standards */}
+      <div className="border-b border-[#e2dfd8]/70 dark:border-white/[0.06] py-8">
         <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-6 text-xs font-mono">
           <div className="flex items-center gap-3">
             <Cpu className="w-5 h-5 text-[#0d9488] dark:text-[#2EE6CA] shrink-0" />
@@ -31,16 +31,16 @@ export const Footer: React.FC = () => {
           <div className="flex items-center gap-3">
             <Globe className="w-5 h-5 text-[#0d9488] dark:text-[#2EE6CA] shrink-0" />
             <div>
-              <div className="font-bold text-zinc-950 dark:text-white uppercase">WORLDWIDE DISTRIBUTION</div>
-              <div className="text-zinc-500">Priority logistics to parlors across 60+ countries</div>
+              <div className="font-bold text-zinc-950 dark:text-white uppercase">40+ NATIONS LOGISTICS</div>
+              <div className="text-zinc-500">Priority air freight & parlor dispatch worldwide</div>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+            <BadgeCheck className="w-5 h-5 text-[#0d9488] dark:text-[#2EE6CA] shrink-0" />
             <div>
-              <div className="font-bold text-zinc-950 dark:text-white uppercase">SHOPIFY POWERED</div>
-              <div className="text-zinc-500">Direct Storefront Headless Edge Speed</div>
+              <div className="font-bold text-zinc-950 dark:text-white uppercase">100% EO GAS CERTIFIED</div>
+              <div className="text-zinc-500">Individual blister batch sterility guarantee</div>
             </div>
           </div>
         </div>
@@ -111,24 +111,49 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <a href="#catalog-section" className="hover:text-zinc-950 dark:hover:text-[#2EE6CA] transition-colors">
-                  Adjustable Grips
-                </a>
+                <Link
+                  to="/collections"
+                  search={{ category: 'grips' }}
+                  className="hover:text-zinc-950 dark:hover:text-[#2EE6CA] transition-colors"
+                >
+                  Cartridge Grips
+                </Link>
               </li>
               <li>
-                <a href="#catalog-section" className="hover:text-zinc-950 dark:hover:text-[#2EE6CA] transition-colors">
+                <Link
+                  to="/collections"
+                  search={{ category: 'machines' }}
+                  className="hover:text-zinc-950 dark:hover:text-[#2EE6CA] transition-colors"
+                >
                   Rotary Machines
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#catalog-section" className="hover:text-zinc-950 dark:hover:text-[#2EE6CA] transition-colors">
-                  Cartridge Needles
-                </a>
+                <Link
+                  to="/collections"
+                  search={{ category: 'cartridges' }}
+                  className="hover:text-zinc-950 dark:hover:text-[#2EE6CA] transition-colors"
+                >
+                  Needle Cartridges
+                </Link>
               </li>
               <li>
-                <a href="#catalog-section" className="hover:text-zinc-950 dark:hover:text-[#2EE6CA] transition-colors">
-                  Wireless Battery Packs
-                </a>
+                <Link
+                  to="/collections"
+                  search={{ category: 'power' }}
+                  className="hover:text-zinc-950 dark:hover:text-[#2EE6CA] transition-colors"
+                >
+                  Wireless Power Supplies
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/products"
+                  className="hover:text-zinc-950 dark:hover:text-[#2EE6CA] transition-colors flex items-center gap-1 text-[#0d9488] dark:text-[#2EE6CA] font-medium pt-1"
+                >
+                  <span>All Apparatus Index</span>
+                  <ArrowUpRight className="w-3 h-3" />
+                </Link>
               </li>
             </ul>
           </div>
@@ -191,11 +216,11 @@ export const Footer: React.FC = () => {
                 <input
                   type="email"
                   placeholder="artist@studio.com"
-                  className="flex-1 px-3 py-2 text-xs font-mono rounded-lg border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#11141B] text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#2EE6CA]"
+                  className="flex-1 px-3 py-2 text-xs font-mono rounded-lg border border-[#e2dfd8] dark:border-white/[0.1] bg-white dark:bg-[#1a1d24] text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#2EE6CA]"
                 />
                 <button
                   type="submit"
-                  className="px-3 py-2 rounded-lg bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 text-xs font-mono font-bold uppercase"
+                  className="px-3 py-2 rounded-lg bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 text-xs font-mono font-bold uppercase hover:bg-zinc-800 dark:hover:bg-[#28d4b9] transition-colors cursor-pointer"
                 >
                   <ArrowUpRight className="w-4 h-4" />
                 </button>
@@ -206,7 +231,7 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-zinc-100 dark:border-zinc-800/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono text-zinc-500">
+        <div className="mt-12 pt-8 border-t border-[#e2dfd8]/70 dark:border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono text-zinc-500">
           <div>© {new Date().getFullYear()} {t('footer_rights')}</div>
           <div className="flex flex-wrap items-center gap-6">
             <Link to="/about" className="hover:text-zinc-950 dark:hover:text-[#2EE6CA] transition-colors">
@@ -214,6 +239,9 @@ export const Footer: React.FC = () => {
             </Link>
             <Link to="/distributors" className="hover:text-zinc-950 dark:hover:text-[#2EE6CA] transition-colors">
               DISTRIBUTORS
+            </Link>
+            <Link to="/sponsorship-artists" className="hover:text-zinc-950 dark:hover:text-[#2EE6CA] transition-colors">
+              ARTISTS
             </Link>
             <Link to="/privacy-policy" hash="privacy" className="hover:text-zinc-950 dark:hover:text-[#2EE6CA] transition-colors">
               PRIVACY DISCLOSURE

@@ -11,6 +11,7 @@ import { Header } from '../components/common/Header'
 import { Footer } from '../components/common/Footer'
 import { CartDrawer } from '../components/cart/CartDrawer'
 import { FluidInkBackground } from '../components/common/FluidInkBackground'
+import { NotFound } from '../components/common/NotFound'
 import { ThemeProvider } from '../context/ThemeContext'
 import { LocaleProvider } from '../context/LocaleContext'
 import { CartProvider } from '../context/CartContext'
@@ -86,6 +87,7 @@ export const Route = createRootRoute({
     ],
   }),
   component: RootComponent,
+  notFoundComponent: NotFound,
 })
 
 function RootComponent() {

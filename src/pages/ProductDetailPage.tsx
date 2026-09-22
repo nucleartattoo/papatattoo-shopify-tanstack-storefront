@@ -61,6 +61,15 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
   const [mediaViewMode, setMediaViewMode] = useState<'photo' | '3d'>(
     has3DModel ? '3d' : 'photo',
   )
+  const [showStickyBuy, setShowStickyBuy] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowStickyBuy(window.scrollY > 480)
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   useEffect(() => {
     let isMounted = true
@@ -174,32 +183,52 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
   }
 
   return (
-    <div className="py-8 bg-zinc-50 dark:bg-[#090A0C] min-h-screen text-zinc-900 dark:text-zinc-100">
+    <div className="py-8 bg-zinc-50 dark:bg-[#20222a] min-h-screen text-zinc-900 dark:text-zinc-100 font-sans pb-28 transition-colors duration-300 art-aurora-bg">
       <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* 1. Breadcrumbs */}
-        <nav className="flex items-center gap-2 text-xs font-mono text-zinc-500 mb-8 overflow-x-auto pb-2 scrollbar-none">
-          <Link to="/" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
+        {/* 1. Breadcrumbs - Clean Gallery Path */}
+        <nav className="flex items-center gap-2 text-xs font-mono text-zinc-500 dark:text-zinc-400 mb-8 overflow-x-auto pb-2 scrollbar-none">
+          <Link to="/" className="hover:text-zinc-950 dark:hover:text-white transition-colors">
             HOME
           </Link>
-          <ChevronRight className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
+          <ChevronRight className="w-3.5 h-3.5 text-zinc-400 dark:text-zinc-600 shrink-0" />
           <Link
             to="/collections"
             search={{ category: isCartridge ? 'needles' : 'all' }}
-            className="hover:text-zinc-900 dark:hover:text-white transition-colors shrink-0"
+            className="hover:text-zinc-950 dark:hover:text-white transition-colors shrink-0 uppercase"
           >
             {isCartridge ? 'NEEDLE CARTRIDGES' : 'CATALOG'}
           </Link>
-          <ChevronRight className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
-          <span className="text-zinc-900 dark:text-[#2EE6CA] font-bold truncate">
+          <ChevronRight className="w-3.5 h-3.5 text-zinc-400 dark:text-zinc-600 shrink-0" />
+          <span className="text-zinc-950 dark:text-white font-bold truncate">
             {product.title}
           </span>
         </nav>
 
         {/* 2. Primary 2-Column Product Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-16 mb-16">
-          {/* Left Column: Media Gallery */}
+          {/* Left Column: Media Gallery (Apple Pro Sculpture Pedestal) */}
           <div className="space-y-4">
-            <div className="relative aspect-square rounded-2xl overflow-hidden border border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#11141A] flex items-center justify-center p-8 group">
+            <div className="relative aspect-square w-full rounded-3xl bg-zinc-100/60 dark:bg-white/[0.03] backdrop-blur-xs flex items-center justify-center p-6 sm:p-10 group overflow-hidden shadow-2xl transition-colors duration-300">
+              {/* Volumetric Studio Lighting Halo */}
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background: `radial-gradient(ellipse 70% 60% at 50% 50%, ${
+                    isPremium ? 'rgba(230,179,102,0.22)' : 'rgba(56,232,198,0.22)'
+                  } 0%, transparent 68%)`,
+                }}
+              />
+
+              {/* Swiss Datum Markers */}
+              <div className="absolute top-3.5 left-3.5 z-20 flex items-center gap-1 font-mono text-[9px] text-zinc-400 dark:text-zinc-500 pointer-events-none uppercase tracking-widest">
+                <span className="text-[#38e8c6]">+</span>
+                <span>DATUM // SPECIMEN QA</span>
+              </div>
+
+              <div className="absolute top-3.5 right-3.5 z-20 font-mono text-[9px] text-zinc-400 dark:text-zinc-500 pointer-events-none uppercase tracking-widest">
+                TOLERANCE ±0.005mm
+              </div>
+
               {mediaViewMode === '3d' ? (
                 <ModelViewer3D
                   src="/models/papapenv2.glb"
@@ -211,7 +240,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 <img
                   src={formatProductImageUrl(images[activeImageIndex]?.url)}
                   alt={images[activeImageIndex]?.altText || product.title}
-                  className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+                  className="relative z-10 max-h-[92%] w-auto object-contain drop-shadow-[0_24px_50px_rgba(0,0,0,0.85)] scale-110 group-hover:scale-115 transition-transform duration-700 ease-out"
                   onError={(e) => {
                     const fallback = formatProductImageUrl(images[0]?.url)
                     if (fallback && (e.currentTarget as HTMLImageElement).src !== fallback) {
@@ -223,48 +252,55 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 <div className="text-zinc-400 font-mono text-xs">NO ASSET IMAGE</div>
               )}
 
+              {/* Grounded Pedestal Contact Shadow with Specular Reflection Halo */}
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 w-3/4 max-w-sm h-6 bg-black/60 dark:bg-black/90 blur-2xl rounded-[100%] pointer-events-none" />
+              <div
+                className="absolute bottom-4 left-1/2 -translate-x-1/2 w-1/2 max-w-xs h-2.5 blur-md rounded-[100%] pointer-events-none"
+                style={{ backgroundColor: isPremium ? 'rgba(230,179,102,0.25)' : 'rgba(56,232,198,0.25)' }}
+              />
+
               {/* Badges Over Image */}
-              <div className="absolute top-4 left-4 flex flex-col gap-2 pointer-events-none">
+              <div className="absolute top-10 left-3.5 flex flex-col gap-2 pointer-events-none z-20">
                 {isPremium && (
-                  <span className="px-2.5 py-1 rounded-md bg-amber-500 text-zinc-950 font-mono text-[11px] font-black uppercase flex items-center gap-1 shadow-lg">
+                  <span className="px-3 py-1 rounded-full bg-amber-500 text-zinc-950 font-mono text-[10px] font-bold uppercase flex items-center gap-1 shadow-lg">
                     <Sparkles className="w-3 h-3" />
                     <span>PAPA PREMIUM SERIES</span>
                   </span>
                 )}
                 {isCartridge && (
-                  <span className="px-2.5 py-1 rounded-md bg-zinc-900/80 text-white dark:bg-black/80 dark:text-[#2EE6CA] border border-zinc-700/50 font-mono text-[10px] font-bold uppercase backdrop-blur-md">
-                    SAFETY MEMBRANE
+                  <span className="px-3 py-1 rounded-full bg-black/60 text-[#38e8c6] border border-white/10 font-mono text-[10px] font-bold uppercase backdrop-blur-md">
+                    MEMBRANE SEALED
                   </span>
                 )}
               </div>
 
               {/* 3D / 2D Quick Switcher */}
               {has3DModel && (
-                <div className="absolute top-4 right-4 z-20 flex items-center gap-1 p-1 rounded-xl bg-white/85 dark:bg-black/80 backdrop-blur-md border border-zinc-200 dark:border-white/15 shadow-xl font-mono text-xs">
+                <div className="absolute bottom-4 left-4 z-20 flex items-center gap-1 p-1 rounded-full bg-white/90 dark:bg-black/80 backdrop-blur-md border border-zinc-200/80 dark:border-white/15 shadow-xl font-mono text-xs">
                   <button
                     type="button"
                     onClick={() => setMediaViewMode('3d')}
-                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg font-bold text-[11px] transition-all cursor-pointer ${
+                    className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-[11px] transition-all cursor-pointer ${
                       mediaViewMode === '3d'
-                        ? 'bg-[#0d9488] text-white dark:bg-[#2EE6CA] dark:text-zinc-950 shadow-xs'
+                        ? 'bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 shadow-xs'
                         : 'text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white'
                     }`}
                   >
-                    <Box className="w-3.5 h-3.5" />
-                    <span>3D / AR</span>
+                    <Box className="w-3.5 h-3.5 text-[#38e8c6]" />
+                    <span>3D MODEL</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => setMediaViewMode('photo')}
-                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg font-bold text-[11px] transition-all cursor-pointer ${
+                    className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-[11px] transition-all cursor-pointer ${
                       mediaViewMode === 'photo'
-                        ? 'bg-zinc-950 text-white dark:bg-zinc-800 dark:text-white shadow-xs'
+                        ? 'bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 shadow-xs'
                         : 'text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white'
                     }`}
                   >
                     <ImageIcon className="w-3.5 h-3.5" />
-                    <span>2D</span>
+                    <span>2D PHOTO</span>
                   </button>
                 </div>
               )}
@@ -276,13 +312,13 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 <button
                   type="button"
                   onClick={() => setMediaViewMode('3d')}
-                  className={`aspect-square rounded-xl border p-2 flex flex-col items-center justify-center gap-1 bg-zinc-100 dark:bg-zinc-950 transition-all cursor-pointer ${
+                  className={`aspect-square rounded-2xl border p-2 flex flex-col items-center justify-center gap-1 transition-all cursor-pointer ${
                     mediaViewMode === '3d'
-                      ? 'border-[#2EE6CA] shadow-[0_0_10px_rgba(46,230,202,0.3)] ring-1 ring-[#2EE6CA] text-[#0d9488] dark:text-[#2EE6CA]'
-                      : 'border-zinc-200 dark:border-[#222731] text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white'
+                      ? 'border-[#0d5d50] dark:border-[#38e8c6] bg-zinc-100 dark:bg-white/[0.08] shadow-md text-[#0d5d50] dark:text-[#38e8c6]'
+                      : 'border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#262933] text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white'
                   }`}
                 >
-                  <Box className="w-5 h-5 text-[#0d9488] dark:text-[#2EE6CA] animate-pulse" />
+                  <Box className="w-5 h-5 text-[#38e8c6] animate-pulse" />
                   <span className="text-[9px] font-mono font-bold uppercase tracking-wider">3D Model</span>
                 </button>
               )}
@@ -294,10 +330,10 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                     setActiveImageIndex(idx)
                     setMediaViewMode('photo')
                   }}
-                  className={`aspect-square rounded-xl border p-2 bg-white dark:bg-[#12151B] transition-all overflow-hidden cursor-pointer ${
+                  className={`aspect-square rounded-2xl border p-2 transition-all overflow-hidden cursor-pointer ${
                     mediaViewMode === 'photo' && activeImageIndex === idx
-                      ? 'border-[#2EE6CA] shadow-[0_0_10px_rgba(46,230,202,0.3)] ring-1 ring-[#2EE6CA]'
-                      : 'border-zinc-200 dark:border-[#222731] opacity-70 hover:opacity-100'
+                      ? 'border-[#0d5d50] dark:border-[#38e8c6] bg-zinc-100 dark:bg-white/[0.08] shadow-md'
+                      : 'border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#262933] opacity-70 hover:opacity-100'
                   }`}
                 >
                   <img
@@ -313,40 +349,42 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
           {/* Right Column: Specimen Data & Ordering Interface */}
           <div className="space-y-6">
             {/* Header / Title / Specimen Identifier */}
-            <div>
+            <div className="space-y-2">
               {/* Availability Badge */}
-              <div className="flex items-center gap-2 mb-2 text-xs font-mono">
+              <div className="flex items-center gap-2 text-xs font-mono">
                 {selectedVariant?.availableForSale !== false && product.availableForSale !== false ? (
                   <>
-                    <span className="w-2 h-2 rounded-full bg-[#2EE6CA] animate-pulse"></span>
-                    <span className="text-[#0d9488] dark:text-[#2EE6CA] font-bold tracking-wider uppercase">
-                      IN STOCK · DISPATCHES WITHIN 24 HOURS
+                    <span className="w-2 h-2 rounded-full bg-[#0d5d50] dark:bg-[#38e8c6] animate-pulse"></span>
+                    <span className="text-[#0d5d50] dark:text-[#38e8c6] font-bold tracking-wider uppercase text-[11px]">
+                      IN STOCK · CENTRAL WAREHOUSE DISPATCH
                     </span>
                   </>
                 ) : (
                   <>
                     <span className="w-2 h-2 rounded-full bg-red-500"></span>
-                    <span className="text-red-500 dark:text-red-400 font-bold tracking-wider uppercase">
+                    <span className="text-red-500 dark:text-red-400 font-bold tracking-wider uppercase text-[11px]">
                       OUT OF STOCK · CURRENTLY UNAVAILABLE
                     </span>
                   </>
                 )}
               </div>
-              <h1 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-zinc-950 dark:text-white">
+
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-zinc-950 dark:text-white font-['Montserrat',sans-serif]">
                 {product.title}
               </h1>
-              <div className="text-xs font-mono text-zinc-400 mt-1">
-                ITEM REF: {product.handle.toUpperCase()}
+
+              <div className="text-xs font-mono text-zinc-500 dark:text-zinc-400">
+                APPARATUS REF: {product.handle.toUpperCase()}
               </div>
             </div>
 
             {/* Price Display */}
-            <div className="p-4 rounded-xl border border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#11141A] flex items-baseline gap-3">
-              <span className="text-3xl font-black font-mono text-zinc-950 dark:text-[#2EE6CA]">
+            <div className="py-2 flex items-baseline gap-3">
+              <span className="text-3xl sm:text-4xl font-black font-mono text-zinc-950 dark:text-white">
                 ${price.toFixed(2)}
               </span>
-              <span className="text-xs font-mono text-zinc-400 uppercase">
-                {currency} / UNIT
+              <span className="text-xs font-mono text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
+                {currency} {isCartridge ? '/ BOX OF 20' : '/ APPARATUS UNIT'}
               </span>
             </div>
 
@@ -358,9 +396,9 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 onSelectVariant={setSelectedVariant}
               />
             ) : product.variants.edges.length > 1 ? (
-              <div className="space-y-2">
-                <label className="text-xs font-mono font-bold uppercase text-zinc-400 block">
-                  CHOOSE SPECIFICATION / VARIANT:
+              <div className="space-y-2.5 pt-1">
+                <label className="text-xs font-mono font-bold uppercase text-zinc-500 dark:text-zinc-400 block">
+                  CHOOSE SPECIFICATION / COLORWAY:
                 </label>
                 <div className="flex flex-wrap gap-2">
                   {product.variants.edges.map(({ node: v }) => {
@@ -371,21 +409,19 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                         key={v.id}
                         type="button"
                         onClick={() => setSelectedVariant(v)}
-                        className={`relative px-4 py-2 rounded-lg text-xs font-mono font-bold uppercase border transition-all cursor-pointer ${
+                        className={`relative px-4 py-2.5 rounded-xl text-xs font-mono font-bold uppercase border transition-all cursor-pointer ${
                           isSelected
                             ? variantInStock
-                              ? 'border-[#2EE6CA] bg-zinc-900 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 shadow-sm'
-                              : 'border-red-500/80 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-300 shadow-sm ring-1 ring-red-500/40'
+                              ? 'border-zinc-950 bg-zinc-950 text-white dark:border-white dark:bg-white dark:text-zinc-950 shadow-md'
+                              : 'border-red-500/80 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-300 shadow-sm'
                             : variantInStock
-                            ? 'border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#12151B] text-zinc-600 dark:text-zinc-300 hover:border-zinc-400'
-                            : 'border-zinc-200 dark:border-[#1E232E] bg-zinc-100/60 dark:bg-[#0B0D11] text-zinc-400 dark:text-zinc-600 opacity-60'
+                            ? 'border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#262933] text-zinc-800 dark:text-zinc-200 hover:border-zinc-400 dark:hover:border-white/25'
+                            : 'border-zinc-200/50 dark:border-white/[0.04] bg-zinc-100/50 dark:bg-white/[0.02] text-zinc-400 dark:text-zinc-600 opacity-50 cursor-not-allowed'
                         }`}
                       >
                         <span>{v.title}</span>
                         {!variantInStock && (
-                          <span className={`ml-1.5 text-[10px] font-normal lowercase tracking-tight ${
-                            isSelected ? 'text-red-600 dark:text-red-300 font-semibold' : 'text-red-500/80 dark:text-red-400'
-                          }`}>
+                          <span className="ml-1.5 text-[10px] font-normal lowercase tracking-tight text-red-500">
                             (out of stock)
                           </span>
                         )}
@@ -397,22 +433,24 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             ) : null}
 
             {/* Quantity Selector and Order Action Buttons */}
-            <div className="space-y-3 pt-2">
+            <div className="space-y-3.5 pt-2">
               <div className="flex items-center gap-4">
                 {/* Quantity Controls */}
-                <div className="flex items-center border border-zinc-200 dark:border-[#222731] rounded-xl bg-white dark:bg-[#12151B] overflow-hidden">
+                <div className="flex items-center border border-zinc-200/80 dark:border-white/[0.08] rounded-full bg-white dark:bg-[#262933] overflow-hidden px-1">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="px-3.5 py-2.5 text-zinc-500 hover:text-zinc-950 dark:hover:text-white font-mono text-sm transition-colors cursor-pointer"
+                    className="w-9 h-9 flex items-center justify-center text-zinc-500 hover:text-zinc-950 dark:hover:text-white font-mono text-sm transition-colors cursor-pointer active:scale-90"
+                    aria-label="Decrease quantity"
                   >
                     -
                   </button>
-                  <span className="w-12 text-center font-mono text-xs font-bold text-zinc-900 dark:text-zinc-100">
+                  <span className="w-10 text-center font-mono text-xs font-bold text-zinc-900 dark:text-zinc-100">
                     {quantity}
                   </span>
                   <button
                     onClick={() => setQuantity(quantity + 1)}
-                    className="px-3.5 py-2.5 text-zinc-500 hover:text-zinc-950 dark:hover:text-white font-mono text-sm transition-colors cursor-pointer"
+                    className="w-9 h-9 flex items-center justify-center text-zinc-500 hover:text-zinc-950 dark:hover:text-white font-mono text-sm transition-colors cursor-pointer active:scale-90"
+                    aria-label="Increase quantity"
                   >
                     +
                   </button>
@@ -423,7 +461,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   <button
                     type="button"
                     onClick={handleAddToCart}
-                    className="flex-1 py-3 px-6 rounded-xl bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:opacity-95 shadow-lg shadow-teal-500/10 transition-all active:scale-[0.99] cursor-pointer"
+                    className="flex-1 py-4 px-8 rounded-full bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-mono font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 transition-all shadow-xl cursor-pointer"
                   >
                     <ShoppingBag className="w-4 h-4" />
                     <span>{addedAnimation ? 'ADDED TO ORDER ✓' : 'ADD TO APPARATUS CART'}</span>
@@ -432,7 +470,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   <button
                     type="button"
                     disabled
-                    className="flex-1 py-3 px-6 rounded-xl bg-zinc-200 text-zinc-400 dark:bg-zinc-800 dark:text-zinc-500 font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-not-allowed border border-zinc-300 dark:border-zinc-700/60 shadow-none"
+                    className="flex-1 py-4 px-8 rounded-full bg-zinc-200 text-zinc-400 dark:bg-zinc-800 dark:text-zinc-500 font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-not-allowed shadow-none"
                   >
                     <ShoppingBag className="w-4 h-4 opacity-50" />
                     <span>OUT OF STOCK</span>
@@ -447,7 +485,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                     handleAddToCart()
                     openCart()
                   }}
-                  className="w-full py-2.5 rounded-xl border border-zinc-200 dark:border-[#222731] hover:border-[#2EE6CA] bg-zinc-100 dark:bg-[#14171E] font-mono text-xs font-bold uppercase text-zinc-800 dark:text-zinc-200 hover:text-[#2EE6CA] transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full py-3 px-6 rounded-full border border-zinc-200/80 dark:border-white/[0.1] hover:border-zinc-400 dark:hover:border-white/30 bg-zinc-50/50 dark:bg-white/[0.03] font-mono text-xs font-bold uppercase text-zinc-800 dark:text-zinc-200 hover:text-zinc-950 dark:hover:text-white transition-colors flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99]"
                 >
                   <Zap className="w-3.5 h-3.5 text-amber-500" />
                   <span>DIRECT SHOPIFY CHECKOUT</span>
@@ -456,21 +494,21 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             </div>
 
             {/* Quality & Assurance Grid */}
-            <div className="grid grid-cols-2 gap-3 pt-4 border-t border-zinc-200 dark:border-[#1E232E] text-xs font-mono text-zinc-500">
+            <div className="grid grid-cols-2 gap-3 pt-4 border-t border-zinc-200/80 dark:border-white/[0.08] text-xs font-mono text-zinc-500 dark:text-zinc-400">
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#0d9488] dark:text-[#2EE6CA]" />
+                <CheckCircle2 className="w-4 h-4 text-[#0d5d50] dark:text-[#38e8c6]" />
                 <span>{isCartridge ? '100% EO Gas Sterilized' : 'Factory Inspected'}</span>
               </div>
               <div className="flex items-center gap-2">
-                <Truck className="w-4 h-4 text-[#0d9488] dark:text-[#2EE6CA]" />
+                <Truck className="w-4 h-4 text-[#0d5d50] dark:text-[#38e8c6]" />
                 <span>Global Express Dispatch</span>
               </div>
               <div className="flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-[#0d9488] dark:text-[#2EE6CA]" />
+                <ShieldCheck className="w-4 h-4 text-[#0d5d50] dark:text-[#38e8c6]" />
                 <span>{isCartridge ? 'Medical 316L Grade' : 'Studio Grade Apparatus'}</span>
               </div>
               <div className="flex items-center gap-2">
-                <RotateCcw className="w-4 h-4 text-[#0d9488] dark:text-[#2EE6CA]" />
+                <RotateCcw className="w-4 h-4 text-[#0d5d50] dark:text-[#38e8c6]" />
                 <span>Official Quality Guarantee</span>
               </div>
             </div>
@@ -478,15 +516,15 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
         </div>
 
         {/* 3. Detailed Information, Specifications & RMA Tabs */}
-        <section className="mb-16 rounded-2xl border border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#101319] overflow-hidden shadow-xs">
+        <section className="mb-16 rounded-3xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#262933] overflow-hidden shadow-sm">
           {/* Tabs Navigation Bar */}
-          <div className="flex border-b border-zinc-200 dark:border-[#1E232E] bg-zinc-50/70 dark:bg-[#0D0F14] overflow-x-auto scrollbar-none">
+          <div className="flex border-b border-zinc-200/80 dark:border-white/[0.08] bg-zinc-50/70 dark:bg-black/20 overflow-x-auto scrollbar-none">
             <button
               type="button"
               onClick={() => setActiveTab('description')}
-              className={`flex items-center gap-2 px-5 py-4 text-xs font-mono font-bold uppercase tracking-wider border-b-2 transition-all shrink-0 cursor-pointer ${
+              className={`flex items-center gap-2 px-6 py-4 text-xs font-mono font-bold uppercase tracking-wider border-b-2 transition-all shrink-0 cursor-pointer ${
                 activeTab === 'description'
-                  ? 'border-[#0d9488] dark:border-[#2EE6CA] text-[#0d9488] dark:text-[#2EE6CA] bg-white dark:bg-[#101319]'
+                  ? 'border-[#0d5d50] dark:border-[#38e8c6] text-[#0d5d50] dark:text-[#38e8c6] bg-white dark:bg-[#262933]'
                   : 'border-transparent text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-200'
               }`}
             >
@@ -497,9 +535,9 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             <button
               type="button"
               onClick={() => setActiveTab('specs')}
-              className={`flex items-center gap-2 px-5 py-4 text-xs font-mono font-bold uppercase tracking-wider border-b-2 transition-all shrink-0 cursor-pointer ${
+              className={`flex items-center gap-2 px-6 py-4 text-xs font-mono font-bold uppercase tracking-wider border-b-2 transition-all shrink-0 cursor-pointer ${
                 activeTab === 'specs'
-                  ? 'border-[#0d9488] dark:border-[#2EE6CA] text-[#0d9488] dark:text-[#2EE6CA] bg-white dark:bg-[#101319]'
+                  ? 'border-[#0d5d50] dark:border-[#38e8c6] text-[#0d5d50] dark:text-[#38e8c6] bg-white dark:bg-[#262933]'
                   : 'border-transparent text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-200'
               }`}
             >
@@ -510,9 +548,9 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             <button
               type="button"
               onClick={() => setActiveTab('rma')}
-              className={`flex items-center gap-2 px-5 py-4 text-xs font-mono font-bold uppercase tracking-wider border-b-2 transition-all shrink-0 cursor-pointer ${
+              className={`flex items-center gap-2 px-6 py-4 text-xs font-mono font-bold uppercase tracking-wider border-b-2 transition-all shrink-0 cursor-pointer ${
                 activeTab === 'rma'
-                  ? 'border-[#0d9488] dark:border-[#2EE6CA] text-[#0d9488] dark:text-[#2EE6CA] bg-white dark:bg-[#101319]'
+                  ? 'border-[#0d5d50] dark:border-[#38e8c6] text-[#0d5d50] dark:text-[#38e8c6] bg-white dark:bg-[#262933]'
                   : 'border-transparent text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-200'
               }`}
             >
@@ -723,20 +761,20 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
 
         {/* 4. Related Apparatus Complements */}
         {relatedProducts.length > 0 && (
-          <section className="border-t border-zinc-200/70 dark:border-zinc-800/70 pt-12">
+          <section className="border-t border-zinc-200/80 dark:border-white/[0.08] pt-14">
             <div className="flex items-center justify-between mb-8">
               <div>
-                <div className="text-[11px] font-mono font-bold tracking-widest text-[#0d9488] dark:text-[#2EE6CA] uppercase">
+                <div className="text-[10px] font-mono font-bold tracking-widest text-[#0d5d50] dark:text-[#38e8c6] uppercase">
                   STUDIO COMPATIBILITY
                 </div>
-                <h3 className="text-xl font-black uppercase text-zinc-950 dark:text-white">
+                <h3 className="text-xl sm:text-2xl font-bold uppercase tracking-tight text-zinc-950 dark:text-white font-['Montserrat',sans-serif]">
                   SUGGESTED APPARATUS COMPLEMENTS
                 </h3>
               </div>
               <Link
                 to="/collections"
                 search={{ category: 'all' }}
-                className="text-xs font-mono font-bold uppercase text-[#0d9488] dark:text-[#2EE6CA] hover:underline"
+                className="text-xs font-mono font-bold uppercase text-[#0d5d50] dark:text-[#38e8c6] hover:underline"
               >
                 View Full Catalog →
               </Link>
@@ -748,6 +786,29 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
               ))}
             </div>
           </section>
+        )}
+
+        {/* 5. Mobile Sticky Quick-Buy Bar */}
+        {showStickyBuy && selectedVariant?.availableForSale !== false && product.availableForSale !== false && (
+          <div className="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 dark:bg-[#1c1e24]/95 backdrop-blur-xl border-t border-zinc-200/80 dark:border-white/10 p-3.5 px-5 flex items-center justify-between gap-4 shadow-2xl animate-in slide-in-from-bottom duration-300">
+            <div className="min-w-0">
+              <div className="text-xs font-bold text-zinc-950 dark:text-white truncate font-sans">
+                {selectedVariant?.title && selectedVariant.title !== 'Default Title' ? selectedVariant.title : product.title}
+              </div>
+              <div className="text-sm font-black font-mono text-[#0d5d50] dark:text-[#38e8c6]">
+                ${price.toFixed(2)} {currency}
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={handleAddToCart}
+              className="px-6 py-3 rounded-full bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-mono font-black text-xs uppercase tracking-wider flex items-center gap-2 hover:opacity-90 active:scale-95 transition-all shadow-md shrink-0 cursor-pointer"
+            >
+              <ShoppingBag className="w-3.5 h-3.5" />
+              <span>{addedAnimation ? 'ADDED ✓' : 'ADD TO CART'}</span>
+            </button>
+          </div>
         )}
       </div>
     </div>

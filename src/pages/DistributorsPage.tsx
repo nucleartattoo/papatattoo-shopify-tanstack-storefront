@@ -97,9 +97,9 @@ export const DistributorsPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-[#0A0C0F] text-zinc-900 dark:text-zinc-100 font-sans pb-24 transition-colors">
+    <div className="min-h-screen bg-transparent text-zinc-900 dark:text-zinc-100 font-sans pb-24 transition-colors">
       {/* 1. HERO SECTION */}
-      <section className="relative overflow-hidden border-b border-zinc-200 dark:border-[#1E232E] bg-white dark:bg-[#0E1015] py-16 sm:py-24">
+      <section className="relative overflow-hidden border-b border-[#e2dfd8] dark:border-white/[0.08] bg-white/60 dark:bg-[#16181e]/80 backdrop-blur-xs py-16 sm:py-24">
         <div className="absolute inset-0 bg-[radial-gradient(#2ee6ca_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
         <div className="absolute -top-32 right-1/4 w-96 h-96 bg-[#2EE6CA]/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -133,7 +133,7 @@ export const DistributorsPage: React.FC = () => {
 
               <a
                 href="#apply-section"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-zinc-300 dark:border-[#2A303C] hover:border-zinc-500 dark:hover:border-[#2ee6ca]/50 text-zinc-800 dark:text-zinc-200 text-xs font-mono font-bold uppercase tracking-wider transition-colors cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-[#e2dfd8] dark:border-white/10 hover:border-zinc-500 dark:hover:border-[#2ee6ca]/50 text-zinc-800 dark:text-zinc-200 text-xs font-mono font-bold uppercase tracking-wider transition-colors cursor-pointer"
               >
                 <Building2 className="w-3.5 h-3.5 text-[#0d9488] dark:text-[#2ee6ca]" />
                 <span>Apply for Territory Distribution</span>
@@ -143,19 +143,19 @@ export const DistributorsPage: React.FC = () => {
 
           {/* Stat Pillars */}
           <div className="grid grid-cols-2 gap-4 w-full md:w-auto shrink-0">
-            <div className="p-4 rounded-xl border border-zinc-200 dark:border-[#1E232E] bg-zinc-50/50 dark:bg-[#12151B] backdrop-blur-xs text-center">
+            <div className="p-4 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white/70 dark:bg-[#1e2028] backdrop-blur-xs text-center shadow-xs">
               <div className="text-3xl font-black font-mono text-[#0d9488] dark:text-[#2EE6CA]">60+</div>
               <div className="text-[11px] font-mono text-zinc-500 uppercase mt-1">Countries Shipped</div>
             </div>
-            <div className="p-4 rounded-xl border border-zinc-200 dark:border-[#1E232E] bg-zinc-50/50 dark:bg-[#12151B] backdrop-blur-xs text-center">
+            <div className="p-4 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white/70 dark:bg-[#1e2028] backdrop-blur-xs text-center shadow-xs">
               <div className="text-3xl font-black font-mono text-[#0d9488] dark:text-[#2EE6CA]">100%</div>
               <div className="text-[11px] font-mono text-zinc-500 uppercase mt-1">EO Gas Certified</div>
             </div>
-            <div className="p-4 rounded-xl border border-zinc-200 dark:border-[#1E232E] bg-zinc-50/50 dark:bg-[#12151B] backdrop-blur-xs text-center">
+            <div className="p-4 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white/70 dark:bg-[#1e2028] backdrop-blur-xs text-center shadow-xs">
               <div className="text-3xl font-black font-mono text-amber-500">QC</div>
               <div className="text-[11px] font-mono text-zinc-500 uppercase mt-1">Factory Tested</div>
             </div>
-            <div className="p-4 rounded-xl border border-zinc-200 dark:border-[#1E232E] bg-zinc-50/50 dark:bg-[#12151B] backdrop-blur-xs text-center">
+            <div className="p-4 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white/70 dark:bg-[#1e2028] backdrop-blur-xs text-center shadow-xs">
               <div className="text-3xl font-black font-mono text-[#0d9488] dark:text-[#2EE6CA]">24H</div>
               <div className="text-[11px] font-mono text-zinc-500 uppercase mt-1">Priority Dispatch</div>
             </div>
@@ -165,7 +165,7 @@ export const DistributorsPage: React.FC = () => {
 
       {/* 2. PARTNER DIRECTORY SECTION */}
       <section id="distributor-list" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 scroll-mt-28">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 pb-4 border-b border-zinc-200 dark:border-[#1E232E] gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 pb-4 border-b border-[#e2dfd8] dark:border-white/[0.08] gap-4">
           <div>
             <div className="text-[11px] font-mono font-bold tracking-widest text-[#0d9488] dark:text-[#2EE6CA] uppercase flex items-center gap-1.5">
               <BadgeCheck className="w-3.5 h-3.5" />
@@ -184,7 +184,7 @@ export const DistributorsPage: React.FC = () => {
           {OFFICIAL_DISTRIBUTORS.map(distributor => (
             <div
               key={distributor.id}
-              className="group rounded-2xl border border-zinc-200 dark:border-[#1E232E] bg-white dark:bg-[#11141B] p-6 flex flex-col justify-between hover:border-zinc-400 dark:hover:border-[#2EE6CA]/60 hover:shadow-2xl transition-all duration-300 relative overflow-hidden"
+              className="group rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#1e2028] p-6 flex flex-col justify-between hover:border-zinc-400 dark:hover:border-[#2EE6CA]/50 hover:shadow-xl dark:hover:shadow-[0_12px_32px_rgba(0,0,0,0.4)] transition-all duration-300 relative overflow-hidden"
             >
               {/* Corner Badge */}
               <div className="absolute top-4 right-4">
@@ -196,7 +196,7 @@ export const DistributorsPage: React.FC = () => {
 
               <div>
                 {/* Logo Box */}
-                <div className="w-full aspect-16/10 rounded-xl bg-zinc-50 dark:bg-[#181C25] border border-zinc-100 dark:border-[#222731] flex items-center justify-center p-6 mb-6 group-hover:scale-[1.02] transition-transform">
+                <div className="w-full aspect-16/10 rounded-xl bg-[#eceae4]/50 dark:bg-[#15171d] border border-[#e2dfd8]/80 dark:border-white/[0.06] flex items-center justify-center p-6 mb-6 group-hover:scale-[1.02] transition-transform">
                   <img
                     src={distributor.logo}
                     alt={distributor.name}
@@ -223,7 +223,7 @@ export const DistributorsPage: React.FC = () => {
                 </p>
 
                 {/* Specialty Pills */}
-                <div className="mt-4 pt-3 border-t border-zinc-100 dark:border-[#1E232E] space-y-1">
+                <div className="mt-4 pt-3 border-t border-[#e2dfd8]/60 dark:border-white/[0.06] space-y-1">
                   <div className="text-[10px] font-mono uppercase text-zinc-400 font-bold">
                     PRIMARY STOCKED HARDWARE:
                   </div>
@@ -234,12 +234,12 @@ export const DistributorsPage: React.FC = () => {
               </div>
 
               {/* Action Link */}
-              <div className="mt-6 pt-4 border-t border-zinc-100 dark:border-[#1E232E]">
+              <div className="mt-6 pt-4 border-t border-[#e2dfd8]/60 dark:border-white/[0.06]">
                 <a
                   href={distributor.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-lg border border-zinc-300 dark:border-[#272E3B] hover:border-zinc-950 dark:hover:border-[#2EE6CA] bg-zinc-50 dark:bg-[#141821] hover:bg-zinc-950 hover:text-white dark:hover:bg-[#2EE6CA] dark:hover:text-zinc-950 text-xs font-mono font-bold uppercase tracking-wider transition-all"
+                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-lg border border-[#e2dfd8] dark:border-white/10 hover:border-zinc-950 dark:hover:border-[#2EE6CA] bg-zinc-50 dark:bg-white/[0.04] hover:bg-zinc-950 hover:text-white dark:hover:bg-[#2EE6CA] dark:hover:text-zinc-950 text-xs font-mono font-bold uppercase tracking-wider transition-all cursor-pointer"
                 >
                   <span>Visit Store / Order</span>
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -251,7 +251,7 @@ export const DistributorsPage: React.FC = () => {
       </section>
 
       {/* 3. WHOLESALE & DISTRIBUTION PERKS */}
-      <section className="bg-zinc-100/70 dark:bg-[#0E1116] border-y border-zinc-200 dark:border-[#1E232E] py-16">
+      <section className="bg-[#eceae4]/40 dark:bg-[#171920]/70 border-y border-[#e2dfd8] dark:border-white/[0.08] py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12 space-y-2">
             <div className="text-[11px] font-mono font-bold tracking-widest text-[#0d9488] dark:text-[#2EE6CA] uppercase">
@@ -266,7 +266,7 @@ export const DistributorsPage: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="p-5 rounded-xl border border-zinc-200 dark:border-[#1E232E] bg-white dark:bg-[#12151C] space-y-3">
+            <div className="p-5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#1e2028] space-y-3 shadow-xs">
               <div className="w-10 h-10 rounded-lg bg-[#2EE6CA]/15 text-[#0d9488] dark:text-[#2EE6CA] flex items-center justify-center">
                 <Truck className="w-5 h-5" />
               </div>
@@ -278,7 +278,7 @@ export const DistributorsPage: React.FC = () => {
               </p>
             </div>
 
-            <div className="p-5 rounded-xl border border-zinc-200 dark:border-[#1E232E] bg-white dark:bg-[#12151C] space-y-3">
+            <div className="p-5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#1e2028] space-y-3 shadow-xs">
               <div className="w-10 h-10 rounded-lg bg-amber-500/15 text-amber-500 flex items-center justify-center">
                 <ShieldCheck className="w-5 h-5" />
               </div>
@@ -290,7 +290,7 @@ export const DistributorsPage: React.FC = () => {
               </p>
             </div>
 
-            <div className="p-5 rounded-xl border border-zinc-200 dark:border-[#1E232E] bg-white dark:bg-[#12151C] space-y-3">
+            <div className="p-5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#1e2028] space-y-3 shadow-xs">
               <div className="w-10 h-10 rounded-lg bg-[#2EE6CA]/15 text-[#0d9488] dark:text-[#2EE6CA] flex items-center justify-center">
                 <Layers className="w-5 h-5" />
               </div>
@@ -302,7 +302,7 @@ export const DistributorsPage: React.FC = () => {
               </p>
             </div>
 
-            <div className="p-5 rounded-xl border border-zinc-200 dark:border-[#1E232E] bg-white dark:bg-[#12151C] space-y-3">
+            <div className="p-5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#1e2028] space-y-3 shadow-xs">
               <div className="w-10 h-10 rounded-lg bg-purple-500/15 text-purple-400 flex items-center justify-center">
                 <Award className="w-5 h-5" />
               </div>
@@ -319,7 +319,7 @@ export const DistributorsPage: React.FC = () => {
 
       {/* 4. BECOME A DISTRIBUTOR APPLICATION FORM */}
       <section id="apply-section" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 scroll-mt-28">
-        <div className="rounded-2xl border border-zinc-200 dark:border-[#1E232E] bg-white dark:bg-[#11141B] p-8 sm:p-12 shadow-2xl">
+        <div className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#1e2028] p-8 sm:p-12 shadow-xl dark:shadow-[0_16px_48px_rgba(0,0,0,0.4)]">
           <div className="text-center max-w-xl mx-auto mb-8 space-y-2">
             <div className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-[#0d9488] dark:text-[#2EE6CA] uppercase">
               <Sparkles className="w-3.5 h-3.5" />
@@ -362,7 +362,7 @@ export const DistributorsPage: React.FC = () => {
                     value={formData.companyName}
                     onChange={e => setFormData({ ...formData, companyName: e.target.value })}
                     placeholder="e.g. Acme Tattoo Supply Co."
-                    className="w-full px-3.5 py-2.5 rounded-lg border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#181C25] text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#2EE6CA]"
+                    className="w-full px-3.5 py-2.5 rounded-lg border border-[#e2dfd8] dark:border-white/10 bg-zinc-50/80 dark:bg-white/[0.04] text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#2EE6CA]"
                   />
                 </div>
 
@@ -376,7 +376,7 @@ export const DistributorsPage: React.FC = () => {
                     value={formData.contactName}
                     onChange={e => setFormData({ ...formData, contactName: e.target.value })}
                     placeholder="Full Name"
-                    className="w-full px-3.5 py-2.5 rounded-lg border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#181C25] text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#2EE6CA]"
+                    className="w-full px-3.5 py-2.5 rounded-lg border border-[#e2dfd8] dark:border-white/10 bg-zinc-50/80 dark:bg-white/[0.04] text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#2EE6CA]"
                   />
                 </div>
               </div>
@@ -392,7 +392,7 @@ export const DistributorsPage: React.FC = () => {
                     value={formData.email}
                     onChange={e => setFormData({ ...formData, email: e.target.value })}
                     placeholder="wholesale@yourstore.com"
-                    className="w-full px-3.5 py-2.5 rounded-lg border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#181C25] text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#2EE6CA]"
+                    className="w-full px-3.5 py-2.5 rounded-lg border border-[#e2dfd8] dark:border-white/10 bg-zinc-50/80 dark:bg-white/[0.04] text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#2EE6CA]"
                   />
                 </div>
 
@@ -406,7 +406,7 @@ export const DistributorsPage: React.FC = () => {
                     value={formData.phone}
                     onChange={e => setFormData({ ...formData, phone: e.target.value })}
                     placeholder="+1 (555) 000-0000"
-                    className="w-full px-3.5 py-2.5 rounded-lg border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#181C25] text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#2EE6CA]"
+                    className="w-full px-3.5 py-2.5 rounded-lg border border-[#e2dfd8] dark:border-white/10 bg-zinc-50/80 dark:bg-white/[0.04] text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#2EE6CA]"
                   />
                 </div>
               </div>
@@ -422,7 +422,7 @@ export const DistributorsPage: React.FC = () => {
                     value={formData.country}
                     onChange={e => setFormData({ ...formData, country: e.target.value })}
                     placeholder="e.g. United Kingdom, Germany, Australia..."
-                    className="w-full px-3.5 py-2.5 rounded-lg border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#181C25] text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#2EE6CA]"
+                    className="w-full px-3.5 py-2.5 rounded-lg border border-[#e2dfd8] dark:border-white/10 bg-zinc-50/80 dark:bg-white/[0.04] text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#2EE6CA]"
                   />
                 </div>
 
@@ -435,7 +435,7 @@ export const DistributorsPage: React.FC = () => {
                     value={formData.website}
                     onChange={e => setFormData({ ...formData, website: e.target.value })}
                     placeholder="https://yourstore.com"
-                    className="w-full px-3.5 py-2.5 rounded-lg border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#181C25] text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#2EE6CA]"
+                    className="w-full px-3.5 py-2.5 rounded-lg border border-[#e2dfd8] dark:border-white/10 bg-zinc-50/80 dark:bg-white/[0.04] text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#2EE6CA]"
                   />
                 </div>
               </div>
@@ -448,7 +448,7 @@ export const DistributorsPage: React.FC = () => {
                   <select
                     value={formData.businessType}
                     onChange={e => setFormData({ ...formData, businessType: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-lg border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#181C25] text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#2EE6CA]"
+                    className="w-full px-3.5 py-2.5 rounded-lg border border-[#e2dfd8] dark:border-white/10 bg-zinc-50/80 dark:bg-[#16181e] text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#2EE6CA]"
                   >
                     <option>Retail & Online Store</option>
                     <option>Physical Tattoo Supply Depot</option>
@@ -464,7 +464,7 @@ export const DistributorsPage: React.FC = () => {
                   <select
                     value={formData.monthlyVolume}
                     onChange={e => setFormData({ ...formData, monthlyVolume: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-lg border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#181C25] text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#2EE6CA]"
+                    className="w-full px-3.5 py-2.5 rounded-lg border border-[#e2dfd8] dark:border-white/10 bg-zinc-50/80 dark:bg-[#16181e] text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#2EE6CA]"
                   >
                     <option>500 - 1,500 boxes/mo</option>
                     <option>2,000 - 5,000 boxes/mo</option>
@@ -483,7 +483,7 @@ export const DistributorsPage: React.FC = () => {
                   value={formData.message}
                   onChange={e => setFormData({ ...formData, message: e.target.value })}
                   placeholder="Tell us about your distribution channels, current needle brands stocked, or target volume..."
-                  className="w-full px-3.5 py-2.5 rounded-lg border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#181C25] text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#2EE6CA]"
+                  className="w-full px-3.5 py-2.5 rounded-lg border border-[#e2dfd8] dark:border-white/10 bg-zinc-50/80 dark:bg-white/[0.04] text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#2EE6CA]"
                 />
               </div>
 
