@@ -502,8 +502,9 @@ export async function createShopifyCart(lines: { merchandiseId: string; quantity
     }
   }>(mutation, { input: { lines } })
 
-  if (data.cartCreate.userErrors.length > 0) {
-    throw new Error(data.cartCreate.userErrors[0].message)
+  if (!data?.cartCreate?.cart) {
+    const errorMsg = data?.cartCreate?.userErrors?.[0]?.message || 'Failed to initialize Shopify cart'
+    throw new Error(errorMsg)
   }
 
   return data.cartCreate.cart

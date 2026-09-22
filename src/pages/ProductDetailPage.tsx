@@ -16,9 +16,7 @@ import {
   CheckCircle2,
   Truck,
   RotateCcw,
-  Layers,
   Cpu,
-  Package,
   FileText,
   Wrench,
   Download,
@@ -40,7 +38,6 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
     | undefined
   const initialProduct = propInitialProduct || loaderData?.product || null
 
-  const navigate = useNavigate()
   const { addToCart, openCart } = useCart()
   const { locale } = useLocale()
 
@@ -97,7 +94,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
         const prod = await getProductByHandle(handle, locale)
         if (isMounted) {
           setProduct(prod)
-          if (prod && prod.variants.edges.length > 0) {
+          if (prod && prod.variants?.edges && prod.variants.edges.length > 0) {
             setSelectedVariant(prod.variants.edges[0].node)
           }
           setActiveImageIndex(0)
@@ -157,7 +154,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
     )
   }
 
-  const images = product.images.edges.map(e => e.node)
+  const images = product.images?.edges?.map(e => e.node) || []
   const isPremium = product.title.toLowerCase().includes('premium')
   const isCartridge = product.title.toLowerCase().includes('cartridge') || product.title.toLowerCase().includes('liner')
   const price = selectedVariant
@@ -169,7 +166,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
 
   const handleAddToCart = () => {
     if (!product) return
-    const activeVariant: ShopifyVariant = selectedVariant || product.variants.edges[0]?.node || {
+    const activeVariant: ShopifyVariant = selectedVariant || product.variants?.edges?.[0]?.node || {
       id: `${product.id}-default`,
       title: 'Standard',
       price: product.priceRange.minVariantPrice,
@@ -395,7 +392,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 selectedVariant={selectedVariant}
                 onSelectVariant={setSelectedVariant}
               />
-            ) : product.variants.edges.length > 1 ? (
+            ) : product.variants?.edges && product.variants.edges.length > 1 ? (
               <div className="space-y-2.5 pt-1">
                 <label className="text-xs font-mono font-bold uppercase text-zinc-500 dark:text-zinc-400 block">
                   CHOOSE SPECIFICATION / COLORWAY:

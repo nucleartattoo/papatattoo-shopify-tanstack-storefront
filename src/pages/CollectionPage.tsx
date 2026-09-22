@@ -314,7 +314,7 @@ export const CollectionPage: React.FC = () => {
     return () => {
       isMounted = false
     }
-  }, [locale])
+  }, [locale, initialProducts.length])
 
   // Non-granular products list for counting and filtering (excluding Nuclear Tattoo items)
   const nonGranularProducts = useMemo(() => {
