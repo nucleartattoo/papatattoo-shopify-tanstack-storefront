@@ -151,7 +151,7 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
             </button>
 
             {isLangOpen && (
-              <div className="absolute right-0 mt-2 w-40 rounded-xl shadow-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#0b0d12] p-1.5 z-50 animate-in fade-in slide-in-from-top-1">
+              <div className="absolute right-0 mt-2 w-40 rounded-xl shadow-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#16181e] p-1.5 z-50 animate-in fade-in slide-in-from-top-1">
                 {languages.map(lang => (
                   <button
                     key={lang.code}
@@ -207,13 +207,13 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
             >
               <User className="w-5.5 h-5.5 sm:w-6 sm:h-6" />
               {customer && (
-                <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#2ee6ca] ring-2 ring-white dark:ring-[#07080a]" />
+                <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#2ee6ca] ring-2 ring-white dark:ring-[#16181e]" />
               )}
             </button>
 
             {/* Account Menu - Only shown when already logged in */}
             {isAccountOpen && customer && (
-              <div className="absolute right-0 mt-2 w-64 rounded-2xl shadow-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#0b0d12] p-3 z-50 animate-in fade-in slide-in-from-top-1 text-xs font-mono">
+              <div className="absolute right-0 mt-2 w-64 rounded-2xl shadow-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#16181e] p-3 z-50 animate-in fade-in slide-in-from-top-1 text-xs font-mono">
                 <div className="p-3 rounded-xl bg-zinc-50 dark:bg-[#14171E] border border-zinc-100 dark:border-zinc-800/70 mb-2">
                   <div className="text-[10px] text-[#0d9488] dark:text-[#2ee6ca] font-bold uppercase tracking-wider">
                     REGISTERED BUYER

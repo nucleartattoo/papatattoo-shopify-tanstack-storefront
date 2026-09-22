@@ -811,7 +811,7 @@ export const CollectionPage: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* GEO & Dispatch Pillar */}
-            <div className="p-6 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#0b0d12] space-y-3">
+            <div className="p-6 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#16181e] space-y-3">
               <div className="text-xs font-mono font-bold text-zinc-950 dark:text-white uppercase tracking-wider">
                 WORLDWIDE STUDIO LOGISTICS
               </div>
@@ -824,7 +824,7 @@ export const CollectionPage: React.FC = () => {
             </div>
 
             {/* Metallurgy & Sterility Pillar */}
-            <div className="p-6 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#0b0d12] space-y-3">
+            <div className="p-6 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#16181e] space-y-3">
               <div className="text-xs font-mono font-bold text-zinc-950 dark:text-white uppercase tracking-wider">
                 316L SURGICAL METALLURGY
               </div>
@@ -837,7 +837,7 @@ export const CollectionPage: React.FC = () => {
             </div>
 
             {/* Machine & Battery Compatibility */}
-            <div className="p-6 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#0b0d12] space-y-3">
+            <div className="p-6 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#16181e] space-y-3">
               <div className="text-xs font-mono font-bold text-zinc-950 dark:text-white uppercase tracking-wider">
                 UNIVERSAL DOCK COMPATIBILITY
               </div>

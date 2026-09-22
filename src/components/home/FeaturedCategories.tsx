@@ -38,7 +38,7 @@ export const FeaturedCategories: React.FC<FeaturedCategoriesProps> = ({
   ]
 
   return (
-    <section className="py-20 sm:py-24 border-b border-zinc-200/80 dark:border-white/[0.06] bg-white dark:bg-[#07080a] relative">
+    <section className="py-20 sm:py-24 border-b border-zinc-200/80 dark:border-white/[0.06] bg-white dark:bg-[#16181e] relative">
       <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex items-end justify-between mb-10 pb-5 border-b border-zinc-200/80 dark:border-white/[0.08]">
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-zinc-950 dark:text-white uppercase tracking-tight font-sans">
@@ -57,8 +57,8 @@ export const FeaturedCategories: React.FC<FeaturedCategoriesProps> = ({
                 onClick={() => onSelectCategory(cat.id)}
                 className={`relative aspect-square w-full rounded-2xl border transition-all duration-500 group overflow-hidden cursor-pointer flex flex-col justify-between p-6 ${
                   isSelected
-                    ? 'border-[#2ee6ca] bg-zinc-50 dark:bg-[#0f1218] shadow-[0_0_24px_rgba(46,230,202,0.15)]'
-                    : 'border-zinc-200/80 dark:border-white/[0.08] bg-zinc-50/50 dark:bg-[#0b0d12] hover:border-zinc-300 dark:hover:border-white/20 hover:bg-white dark:hover:bg-[#0e1117] hover:shadow-xl dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.6)]'
+                    ? 'border-[#2ee6ca] bg-zinc-50 dark:bg-[#1a1c24] shadow-[0_0_24px_rgba(46,230,202,0.15)]'
+                    : 'border-zinc-200/80 dark:border-white/[0.08] bg-zinc-50/50 dark:bg-[#181a22] hover:border-zinc-300 dark:hover:border-white/20 hover:bg-white dark:hover:bg-[#20222a] hover:shadow-xl dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.6)]'
                 }`}
               >
                 {/* Subtle Organic Radial Glow Accent */}

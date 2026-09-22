@@ -114,10 +114,10 @@ export const SponsorshipArtistsPage: React.FC = () => {
           {filteredArtists.map(artist => (
             <div
               key={artist.id}
-              className="group rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#0b0d12] overflow-hidden flex flex-col justify-between hover:border-zinc-300 dark:hover:border-white/20 transition-all duration-500 shadow-sm hover:shadow-xl dark:hover:shadow-[0_16px_36px_rgba(0,0,0,0.6)]"
+              className="group rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#16181e] overflow-hidden flex flex-col justify-between hover:border-zinc-300 dark:hover:border-white/20 transition-all duration-500 shadow-sm hover:shadow-xl dark:hover:shadow-[0_16px_36px_rgba(0,0,0,0.6)]"
             >
               {/* Photo Area: 3:4 Vertical Exhibition Framing with Grayscale Reveal */}
-              <div className="relative aspect-[3/4] w-full overflow-hidden bg-zinc-100 dark:bg-[#07080a]">
+              <div className="relative aspect-[3/4] w-full overflow-hidden bg-zinc-100 dark:bg-[#12141a]">
                 <img
                   src={artist.image}
                   alt={artist.name}
@@ -143,7 +143,7 @@ export const SponsorshipArtistsPage: React.FC = () => {
               </div>
 
               {/* Card Body: Refined Typography & Clean Instagram Link */}
-              <div className="p-5 border-t border-zinc-100 dark:border-white/[0.06] bg-white dark:bg-[#0b0d12] space-y-4">
+              <div className="p-5 border-t border-zinc-100 dark:border-white/[0.06] bg-white dark:bg-[#16181e] space-y-4">
                 <div>
                   <h3 className="text-sm sm:text-base font-bold uppercase tracking-tight text-zinc-950 dark:text-white truncate font-sans">
                     {artist.name}

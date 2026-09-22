@@ -40,7 +40,7 @@ export const CartDrawer: React.FC = () => {
       />
 
       <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
-        <div className="w-screen max-w-md bg-white dark:bg-[#07080a] border-l border-zinc-200/80 dark:border-white/[0.08] shadow-2xl flex flex-col justify-between animate-in slide-in-from-right duration-300">
+        <div className="w-screen max-w-md bg-white dark:bg-[#16181e] border-l border-zinc-200/80 dark:border-white/[0.08] shadow-2xl flex flex-col justify-between animate-in slide-in-from-right duration-300">
           {/* Header - Gallery Top Bar */}
           <div className="p-6 border-b border-zinc-200/80 dark:border-white/[0.08] flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -89,7 +89,7 @@ export const CartDrawer: React.FC = () => {
                   className="flex gap-4 py-4.5 first:pt-0 last:pb-0"
                 >
                   {/* Thumbnail */}
-                  <div className="w-20 h-20 rounded-xl bg-zinc-50 dark:bg-[#0b0d12] p-2 shrink-0 flex items-center justify-center border border-zinc-100 dark:border-white/[0.05]">
+                  <div className="w-20 h-20 rounded-xl bg-zinc-50 dark:bg-[#1f222b] p-2 shrink-0 flex items-center justify-center border border-zinc-100 dark:border-white/[0.05]">
                     {item.image ? (
                       <img src={item.image} alt={item.title} className="w-full h-full object-contain drop-shadow-sm" />
                     ) : (
@@ -126,7 +126,7 @@ export const CartDrawer: React.FC = () => {
                       </span>
 
                       {/* Tactile Quantity Controls */}
-                      <div className="flex items-center rounded-lg border border-zinc-200/80 dark:border-white/[0.08] bg-zinc-50 dark:bg-[#0e1117]">
+                      <div className="flex items-center rounded-lg border border-zinc-200/80 dark:border-white/[0.08] bg-zinc-50 dark:bg-[#1f222b]">
                         <button
                           onClick={() => updateQuantity(item.merchandiseId, item.quantity - 1)}
                           className="p-1.5 text-zinc-500 hover:text-zinc-950 dark:hover:text-white active:scale-90 transition-transform cursor-pointer"
@@ -154,7 +154,7 @@ export const CartDrawer: React.FC = () => {
 
           {/* Footer & Checkout Action */}
           {items.length > 0 && (
-            <div className="p-6 border-t border-zinc-200/80 dark:border-white/[0.08] bg-zinc-50/50 dark:bg-[#07080a] space-y-4">
+            <div className="p-6 border-t border-zinc-200/80 dark:border-white/[0.08] bg-zinc-50/50 dark:bg-[#14161c] space-y-4">
               <div className="flex justify-between items-center text-xs font-mono">
                 <span className="text-zinc-400 uppercase">{t('cart_subtotal')}</span>
                 <span className="text-base font-bold text-zinc-950 dark:text-white font-mono">
