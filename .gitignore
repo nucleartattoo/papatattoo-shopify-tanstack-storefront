@@ -21,6 +21,7 @@ dist-ssr
 .idea
 .claude
 .DS_Store
+.wrangler
 *.suo
 *.ntvs*
 *.njsproj

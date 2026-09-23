@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "papatattoo-shopify-tanstack-storefront",
+  "compatibility_date": "2025-09-02",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "@tanstack/react-start/server-entry",
+  "vars": {
+    "VITE_SHOPIFY_STORE_DOMAIN": "ftff5p-yr.myshopify.com",
+    "VITE_SHOPIFY_STOREFRONT_PUBLIC_TOKEN": "7cfda415ab91273e91e6e7b69f9789cf",
+    "VITE_SHOPIFY_STOREFRONT_API_VERSION": "2025-01"
+  }
+}
