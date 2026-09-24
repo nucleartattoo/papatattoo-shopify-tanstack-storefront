@@ -160,20 +160,69 @@ const TRANSLATIONS: Record<Locale, Record<string, string>> = {
   },
 }
 
+const SUPPORTED_LOCALES: Record<string, Locale> = {
+  en: 'EN',
+  es: 'ES',
+  de: 'DE',
+  fr: 'FR',
+}
+
+/**
+ * Detect user's preferred language following big-tech (Apple/Google) standards:
+ * 1. Read prioritized navigator.languages list
+ * 2. Normalize language subtag (e.g. 'es-MX' -> 'es')
+ * 3. Match against supported primary locales (EN, ES, DE, FR)
+ * 4. Gracefully fallback to 'EN' for unsupported languages
+ */
+export function detectBrowserLocale(): Locale {
+  if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+    return 'EN'
+  }
+
+  try {
+    const candidates: string[] = []
+    if (Array.isArray(navigator.languages) && navigator.languages.length > 0) {
+      candidates.push(...navigator.languages)
+    }
+    if (navigator.language) {
+      candidates.push(navigator.language)
+    }
+
+    for (const lang of candidates) {
+      if (!lang || typeof lang !== 'string') continue
+      const primary = lang.trim().toLowerCase().split(/[-_]/)[0]
+      if (SUPPORTED_LOCALES[primary]) {
+        return SUPPORTED_LOCALES[primary]
+      }
+    }
+  } catch {
+    // Fallback on restricted browser environments
+  }
+
+  return 'EN'
+}
+
 const LocaleContext = createContext<LocaleContextType | undefined>(undefined)
 
 export const LocaleProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [locale, setLocaleState] = useState<Locale>(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('papa_locale') as Locale | null
-      if (saved && ['EN', 'ES', 'DE', 'FR'].includes(saved)) return saved
+      try {
+        const saved = localStorage.getItem('papa_locale') as Locale | null
+        if (saved && (saved === 'EN' || saved === 'ES' || saved === 'DE' || saved === 'FR')) {
+          return saved
+        }
+      } catch {}
+      return detectBrowserLocale()
     }
     return 'EN'
   })
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      localStorage.setItem('papa_locale', locale)
+      try {
+        localStorage.setItem('papa_locale', locale)
+      } catch {}
     }
   }, [locale])
 
