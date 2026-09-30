@@ -137,7 +137,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
       await recoverCustomerPassword(email.trim())
       setSuccessMessage('Password reset email dispatched! Please check your inbox.')
     } catch (err: any) {
-      setErrorMessage(err.message || 'Failed to request password reset.')
+      setErrorMessage('Failed to request password reset.')
     } finally {
       setLoading(false)
     }

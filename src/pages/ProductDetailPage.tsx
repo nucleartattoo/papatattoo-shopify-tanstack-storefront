@@ -7,6 +7,7 @@ import { useLocale } from '../context/LocaleContext'
 import { ProductCard } from '../components/product/ProductCard'
 import { CartridgeMatrixSelector } from '../components/product/CartridgeMatrixSelector'
 import { formatProductImageUrl } from '../utils/imageUrl'
+import { sanitizeProductHtml } from '../utils/sanitizeHtml'
 import {
   ChevronRight,
   ShieldCheck,
@@ -569,7 +570,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
               {product.descriptionHtml ? (
                 <div
                   className="product-description-content text-xs sm:text-sm text-zinc-700 dark:text-zinc-300 font-sans leading-relaxed"
-                  dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
+                  dangerouslySetInnerHTML={{ __html: sanitizeProductHtml(product.descriptionHtml) }}
                 />
               ) : product.description ? (
                 <div className="text-xs sm:text-sm text-zinc-700 dark:text-zinc-300 font-sans leading-relaxed space-y-4">

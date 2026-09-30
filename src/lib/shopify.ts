@@ -1023,7 +1023,8 @@ export async function recoverCustomerPassword(email: string): Promise<void> {
   const res = await shopifyFetch(mutation, { email })
   const errors = res?.customerRecover?.customerUserErrors
   if (errors && errors.length > 0) {
-    throw new Error(errors[0].message)
+    // Keep Shopify's account-specific text out of the UI.
+    throw new Error('Failed to send recovery email.')
   }
 }
 

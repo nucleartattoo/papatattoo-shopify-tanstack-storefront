@@ -9,7 +9,7 @@ import { MEGA_MENU_DATA } from '../navigation/MegaMenu'
 import { HeaderSearchBar } from './HeaderSearchBar'
 import { Sun, Moon, ShoppingBag, Globe, Menu, X, ShieldCheck, ChevronDown, Sparkles, User, ArrowRight, Award, Mail, Info, Search } from 'lucide-react'
 import { CustomerAuthModal } from '../account/CustomerAuthModal'
-import { CustomerProfile } from '../../lib/shopify'
+import { CustomerProfile, logoutCustomer } from '../../lib/shopify'
 
 interface HeaderProps {
   onSelectCategory?: (category: string, searchKeyword?: string, series?: 'premium' | 'standard', sub?: string) => void
@@ -71,6 +71,10 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false)
 
   const handleSignOut = () => {
+    const token = localStorage.getItem('shopify_customer_token')
+    if (token) {
+      void logoutCustomer(token)
+    }
     localStorage.removeItem('shopify_customer_token')
     localStorage.removeItem('shopify_customer_token_exp')
     localStorage.removeItem('shopify_customer_profile')

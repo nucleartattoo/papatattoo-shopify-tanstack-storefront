@@ -122,24 +122,8 @@ export const AccountPage: React.FC = () => {
           })
           localStorage.setItem('shopify_customer_profile', JSON.stringify(profile))
         } else {
-          // Check cached profile if available before clearing
-          const cached = typeof window !== 'undefined' ? localStorage.getItem('shopify_customer_profile') : null
-          if (cached) {
-            try {
-              const parsed = JSON.parse(cached)
-              if (parsed && parsed.email) {
-                setCustomer(parsed)
-                setProfileForm({
-                  firstName: parsed.firstName || '',
-                  lastName: parsed.lastName || '',
-                  phone: parsed.phone || '',
-                })
-                setLoading(false)
-                return
-              }
-            } catch {}
-          }
-          // Token expired or invalid
+          // A null profile means the token is missing or rejected. Do not
+          // restore cached orders, addresses, phone, or tracking data.
           localStorage.removeItem('shopify_customer_token')
           localStorage.removeItem('shopify_customer_token_exp')
           localStorage.removeItem('shopify_customer_profile')
@@ -219,7 +203,7 @@ export const AccountPage: React.FC = () => {
       await recoverCustomerPassword(email.trim())
       setAuthSuccess('Password reset link sent! Check your inbox.')
     } catch (err: any) {
-      setAuthError(err.message || 'Failed to send recovery email.')
+      setAuthError('Failed to send recovery email.')
     } finally {
       setAuthLoading(false)
     }
@@ -359,12 +343,17 @@ export const AccountPage: React.FC = () => {
         updateData.password = newPassword
       }
 
-      const res = await updateCustomerProfile(token, updateData)
+      const presentedToken = token
+      const res = await updateCustomerProfile(presentedToken, updateData)
+      const nextToken = res.newToken || presentedToken
       if (res.newToken) {
         setToken(res.newToken)
         localStorage.setItem('shopify_customer_token', res.newToken)
+        if (updateData.password) {
+          await logoutCustomer(presentedToken)
+        }
       }
-      const updated = await getCustomerProfile(res.newToken || token)
+      const updated = await getCustomerProfile(nextToken)
       if (updated) setCustomer(updated)
 
       setProfileSuccess('Profile updated successfully.')
