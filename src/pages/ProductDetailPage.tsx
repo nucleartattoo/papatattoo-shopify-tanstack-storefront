@@ -240,9 +240,10 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   alt={images[activeImageIndex]?.altText || product.title}
                   className="relative z-10 max-h-[92%] w-auto object-contain drop-shadow-[0_24px_50px_rgba(0,0,0,0.85)] scale-110 group-hover:scale-115 transition-transform duration-700 ease-out"
                   onError={(e) => {
-                    const fallback = formatProductImageUrl(images[0]?.url)
-                    if (fallback && (e.currentTarget as HTMLImageElement).src !== fallback) {
-                      ;(e.currentTarget as HTMLImageElement).src = fallback
+                    const image = e.currentTarget
+                    const fallback = images[activeImageIndex]?.url
+                    if (fallback && image.src !== fallback) {
+                      image.src = fallback
                     }
                   }}
                 />
@@ -338,6 +339,12 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                     src={formatProductImageUrl(img.url)}
                     alt=""
                     className="w-full h-full object-contain"
+                    onError={(e) => {
+                      const image = e.currentTarget
+                      if (img.url && image.src !== img.url) {
+                        image.src = img.url
+                      }
+                    }}
                   />
                 </button>
               ))}

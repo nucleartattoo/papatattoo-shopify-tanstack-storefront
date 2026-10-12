@@ -125,9 +125,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             className="relative max-h-[82%] max-w-[82%] w-auto h-auto object-contain scale-125 sm:scale-135 group-hover:scale-145 transition-transform duration-700 ease-out drop-shadow-[0_16px_28px_rgba(0,0,0,0.8)]"
             loading="lazy"
             onError={(e) => {
-              const fallback = formatProductImageUrl(images[0])
-              if (fallback && (e.currentTarget as HTMLImageElement).src !== fallback) {
-                (e.currentTarget as HTMLImageElement).src = fallback
+              const image = e.currentTarget
+              if (rawImage && image.src !== rawImage) {
+                image.src = rawImage
               }
             }}
           />
