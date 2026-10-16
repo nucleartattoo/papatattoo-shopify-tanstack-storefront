@@ -6,6 +6,8 @@ interface CartContextType {
   items: CartLineItem[]
   isOpen: boolean
   isCheckingOut: boolean
+  promoCode: string
+  setPromoCode: (code: string) => void
   openCart: () => void
   closeCart: () => void
   addToCart: (product: ShopifyProduct, variant: ShopifyVariant, quantity?: number) => void
@@ -34,6 +36,16 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const [isOpen, setIsOpen] = useState(false)
   const [isCheckingOut, setIsCheckingOut] = useState(false)
+  const [promoCode, setPromoCode] = useState<string>(() => {
+    try {
+      if (typeof window !== 'undefined') {
+        return localStorage.getItem('papa_promo_code') || ''
+      }
+      return ''
+    } catch {
+      return ''
+    }
+  })
 
   useEffect(() => {
     try {
@@ -44,6 +56,20 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       console.error('Failed to save cart to localStorage', e)
     }
   }, [items])
+
+  useEffect(() => {
+    try {
+      if (typeof window !== 'undefined') {
+        if (promoCode) {
+          localStorage.setItem('papa_promo_code', promoCode)
+        } else {
+          localStorage.removeItem('papa_promo_code')
+        }
+      }
+    } catch (e) {
+      console.error('Failed to save promoCode to localStorage', e)
+    }
+  }, [promoCode])
 
   const openCart = () => setIsOpen(true)
   const closeCart = () => setIsOpen(false)
@@ -113,7 +139,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         quantity: item.quantity,
       }))
 
-      const cart = await createShopifyCart(lines)
+      const discountCodes = promoCode.trim() ? [promoCode.trim()] : undefined
+      const cart = await createShopifyCart(lines, discountCodes)
       if (cart && cart.checkoutUrl) {
         // Redirect directly to Shopify Hosted Checkout
         window.location.href = cart.checkoutUrl
@@ -132,6 +159,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         items,
         isOpen,
         isCheckingOut,
+        promoCode,
+        setPromoCode,
         openCart,
         closeCart,
         addToCart,

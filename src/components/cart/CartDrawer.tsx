@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useCart } from '../../context/CartContext'
 import { useLocale } from '../../context/LocaleContext'
-import { X, Trash2, Plus, Minus, ShoppingBag, ShieldCheck, ArrowRight, Loader2 } from 'lucide-react'
+import { X, Trash2, Plus, Minus, ShoppingBag, ShieldCheck, ArrowRight, Loader2, Tag, Check } from 'lucide-react'
 
 export const CartDrawer: React.FC = () => {
   const {
@@ -14,9 +14,19 @@ export const CartDrawer: React.FC = () => {
     totalQuantity,
     checkout,
     isCheckingOut,
+    promoCode,
+    setPromoCode,
   } = useCart()
 
   const { t } = useLocale()
+  const [codeInput, setCodeInput] = useState(promoCode)
+  const [isApplying, setIsApplying] = useState(false)
+  const [showCodeInput, setShowCodeInput] = useState(!!promoCode)
+
+  // Keep codeInput in sync
+  useEffect(() => {
+    setCodeInput(promoCode)
+  }, [promoCode])
 
   // Close on Escape key
   useEffect(() => {
@@ -154,7 +164,62 @@ export const CartDrawer: React.FC = () => {
 
           {/* Footer & Checkout Action */}
           {items.length > 0 && (
-            <div className="p-6 border-t border-zinc-200/80 dark:border-white/[0.08] bg-zinc-50/50 dark:bg-[#14161c] space-y-4">
+            <div className="p-6 border-t border-zinc-200/80 dark:border-white/[0.08] bg-zinc-50/50 dark:bg-[#14161c] space-y-3.5">
+              {/* Promo & VIP Discount Input */}
+              <div className="space-y-2">
+                {!showCodeInput ? (
+                  <button
+                    onClick={() => setShowCodeInput(true)}
+                    className="text-[11px] font-mono text-zinc-500 hover:text-zinc-950 dark:hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer"
+                  >
+                    <Tag className="w-3.5 h-3.5" />
+                    <span>Have a promo or Sponsor code?</span>
+                  </button>
+                ) : (
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={codeInput}
+                      onChange={e => setCodeInput(e.target.value.toUpperCase())}
+                      placeholder="e.g. SACHKOART, SPONSOR50"
+                      className="flex-1 px-3 py-1.5 text-xs font-mono uppercase bg-white dark:bg-white/[0.05] border border-zinc-200 dark:border-white/[0.1] rounded-lg focus:outline-hidden focus:border-zinc-950 dark:focus:border-white text-zinc-900 dark:text-white"
+                    />
+                    <button
+                      onClick={() => {
+                        setPromoCode(codeInput.trim())
+                      }}
+                      className="px-3 py-1.5 bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 text-[11px] font-mono font-bold rounded-lg uppercase cursor-pointer hover:opacity-90 active:scale-95 transition-all"
+                    >
+                      {promoCode && promoCode === codeInput.trim() ? 'Applied' : 'Apply'}
+                    </button>
+                  </div>
+                )}
+                {promoCode && (
+                  <div className="flex items-center justify-between text-[11px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md">
+                    <span className="flex items-center gap-1">
+                      <Check className="w-3 h-3" />
+                      Code <strong>{promoCode}</strong> will be applied at checkout
+                    </span>
+                    <button
+                      onClick={() => {
+                        setPromoCode('')
+                        setCodeInput('')
+                      }}
+                      className="text-zinc-400 hover:text-red-500 transition-colors cursor-pointer"
+                      aria-label="Remove code"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {/* Automatic BOGO Discount hint */}
+              <div className="text-[11px] font-mono text-zinc-500 dark:text-zinc-400 flex items-center justify-between py-1 border-t border-zinc-200/50 dark:border-white/[0.05]">
+                <span>Automatic Discounts:</span>
+                <span className="text-emerald-600 dark:text-emerald-400 font-medium">BOGO Applied at Checkout</span>
+              </div>
+
               <div className="flex justify-between items-center text-xs font-mono">
                 <span className="text-zinc-400 uppercase">{t('cart_subtotal')}</span>
                 <span className="text-base font-bold text-zinc-950 dark:text-white font-mono">

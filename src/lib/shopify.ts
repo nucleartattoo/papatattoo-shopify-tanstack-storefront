@@ -476,7 +476,10 @@ export async function getProducts(options: {
 }
 
 // Create a new cart or add item to cart
-export async function createShopifyCart(lines: { merchandiseId: string; quantity: number }[]): Promise<{
+export async function createShopifyCart(
+  lines: { merchandiseId: string; quantity: number }[],
+  discountCodes?: string[]
+): Promise<{
   id: string
   checkoutUrl: string
 }> {
@@ -495,12 +498,21 @@ export async function createShopifyCart(lines: { merchandiseId: string; quantity
     }
   `
 
+  const input: {
+    lines: { merchandiseId: string; quantity: number }[]
+    discountCodes?: string[]
+  } = { lines }
+
+  if (discountCodes && discountCodes.length > 0) {
+    input.discountCodes = discountCodes
+  }
+
   const data = await shopifyFetch<{
     cartCreate: {
       cart: { id: string; checkoutUrl: string }
       userErrors: { field: string; message: string }[]
     }
-  }>(mutation, { input: { lines } })
+  }>(mutation, { input })
 
   if (!data?.cartCreate?.cart) {
     const errorMsg = data?.cartCreate?.userErrors?.[0]?.message || 'Failed to initialize Shopify cart'
