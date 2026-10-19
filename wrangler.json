@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "papatattoo-shopify-tanstack-storefront",
+  "account_id": "2f53025c1c1d3b874bec5314c2f85f36",
   "compatibility_date": "2025-09-02",
   "compatibility_flags": ["nodejs_compat"],
   "main": "@tanstack/react-start/server-entry",

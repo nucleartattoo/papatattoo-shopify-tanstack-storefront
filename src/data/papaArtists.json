@@ -210,13 +210,6 @@
     "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Papa_Tattoo_Sponsor_Phillip_Spearman.jpg"
   },
   {
-    "id": "artist-31",
-    "name": "Ralph Perez",
-    "handle": "@ralphpereztattoo",
-    "instagram": "https://www.instagram.com/ralphpereztattoo/",
-    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Ralph_Perez.jpg"
-  },
-  {
     "id": "artist-32",
     "name": "Raul Ocampo",
     "handle": "@raultattoo",
@@ -257,13 +250,6 @@
     "handle": "@stevedelosreyes",
     "instagram": "https://www.instagram.com/stevedelosreyes/",
     "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/Steve_De_Los_Reyes.jpg"
-  },
-  {
-    "id": "artist-38",
-    "name": "Sun Mi",
-    "handle": "@sunmi.tattoo",
-    "instagram": "https://www.instagram.com/sunmi.tattoo/",
-    "image": "https://minio.k8s.bdgyoo.com/papa-media/media/.renditions/wysiwyg/artist/SunMiChang.jpg"
   },
   {
     "id": "artist-39",
