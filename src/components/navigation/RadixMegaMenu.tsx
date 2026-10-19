@@ -110,25 +110,7 @@ export const RadixMegaMenu: React.FC<RadixMegaMenuProps> = ({ onSelectCategory }
           <span>ARTISTS</span>
         </Link>
 
-        {/* 3. DISTRIBUTORS Link */}
-        <Link
-          to="/distributors"
-          onClick={() => setIsOpen(false)}
-          className="px-3 py-2 rounded-lg uppercase tracking-tight text-zinc-950 dark:text-white hover:text-zinc-950 dark:hover:text-[#2ee6ca] hover:bg-zinc-100/70 dark:hover:bg-white/[0.06] transition-colors cursor-pointer"
-        >
-          <span>DISTRIBUTORS</span>
-        </Link>
-
-        {/* 4. ABOUT Link */}
-        <Link
-          to="/about"
-          onClick={() => setIsOpen(false)}
-          className="px-3 py-2 rounded-lg uppercase tracking-tight text-zinc-950 dark:text-white hover:text-zinc-950 dark:hover:text-[#2ee6ca] hover:bg-zinc-100/70 dark:hover:bg-white/[0.06] transition-colors cursor-pointer"
-        >
-          <span>ABOUT</span>
-        </Link>
-
-        {/* 5. CONTACT Link */}
+        {/* 3. CONTACT Link */}
         <Link
           to="/contact"
           onClick={() => setIsOpen(false)}

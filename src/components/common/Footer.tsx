@@ -158,15 +158,20 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Studio Program */}
+          {/* Company & Studio Program */}
           <div className="md:col-span-2 space-y-3">
             <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-zinc-950 dark:text-white">
-              STUDIO & PRO
+              COMPANY & PRO
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
                 <Link to="/about" className="hover:text-zinc-950 dark:hover:text-[#2EE6CA] transition-colors">
                   About Papa Tattoo
+                </Link>
+              </li>
+              <li>
+                <Link to="/distributors" className="hover:text-zinc-950 dark:hover:text-[#2EE6CA] transition-colors">
+                  Official Distributors
                 </Link>
               </li>
               <li>
@@ -177,11 +182,6 @@ export const Footer: React.FC = () => {
               <li>
                 <Link to="/sponsorship-artists" className="hover:text-zinc-950 dark:hover:text-[#2EE6CA] transition-colors">
                   Sponsorship Artists
-                </Link>
-              </li>
-              <li>
-                <Link to="/distributors" className="hover:text-zinc-950 dark:hover:text-[#2EE6CA] transition-colors">
-                  Official Distributors
                 </Link>
               </li>
               <li>
