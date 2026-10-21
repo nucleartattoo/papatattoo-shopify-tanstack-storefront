@@ -16,6 +16,7 @@ import { Route as CollectionsRouteImport } from './routes/collections'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DistributorsRouteImport } from './routes/distributors'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as PrivacyPolicyCookieRestrictionModeRouteImport } from './routes/privacy-policy-cookie-restriction-mode'
 import { Route as SponsorshipArtistsRouteImport } from './routes/sponsorship-artists'
 import { Route as WholesaleRouteImport } from './routes/wholesale'
 import { Route as ProductsIndexRouteImport } from './routes/products.index'
@@ -56,6 +57,12 @@ const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
   path: '/privacy-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyPolicyCookieRestrictionModeRoute =
+  PrivacyPolicyCookieRestrictionModeRouteImport.update({
+    id: '/privacy-policy-cookie-restriction-mode',
+    path: '/privacy-policy-cookie-restriction-mode',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const SponsorshipArtistsRoute = SponsorshipArtistsRouteImport.update({
   id: '/sponsorship-artists',
   path: '/sponsorship-artists',
@@ -85,6 +92,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/distributors': typeof DistributorsRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/privacy-policy-cookie-restriction-mode': typeof PrivacyPolicyCookieRestrictionModeRoute
   '/sponsorship-artists': typeof SponsorshipArtistsRoute
   '/wholesale': typeof WholesaleRoute
   '/products/$handle': typeof ProductsHandleRoute
@@ -98,6 +106,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/distributors': typeof DistributorsRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/privacy-policy-cookie-restriction-mode': typeof PrivacyPolicyCookieRestrictionModeRoute
   '/sponsorship-artists': typeof SponsorshipArtistsRoute
   '/wholesale': typeof WholesaleRoute
   '/products/$handle': typeof ProductsHandleRoute
@@ -112,6 +121,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/distributors': typeof DistributorsRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/privacy-policy-cookie-restriction-mode': typeof PrivacyPolicyCookieRestrictionModeRoute
   '/sponsorship-artists': typeof SponsorshipArtistsRoute
   '/wholesale': typeof WholesaleRoute
   '/products/$handle': typeof ProductsHandleRoute
@@ -127,6 +137,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/distributors'
     | '/privacy-policy'
+    | '/privacy-policy-cookie-restriction-mode'
     | '/sponsorship-artists'
     | '/wholesale'
     | '/products/$handle'
@@ -140,6 +151,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/distributors'
     | '/privacy-policy'
+    | '/privacy-policy-cookie-restriction-mode'
     | '/sponsorship-artists'
     | '/wholesale'
     | '/products/$handle'
@@ -153,6 +165,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/distributors'
     | '/privacy-policy'
+    | '/privacy-policy-cookie-restriction-mode'
     | '/sponsorship-artists'
     | '/wholesale'
     | '/products/$handle'
@@ -167,6 +180,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   DistributorsRoute: typeof DistributorsRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  PrivacyPolicyCookieRestrictionModeRoute: typeof PrivacyPolicyCookieRestrictionModeRoute
   SponsorshipArtistsRoute: typeof SponsorshipArtistsRoute
   WholesaleRoute: typeof WholesaleRoute
   ProductsHandleRoute: typeof ProductsHandleRoute
@@ -224,6 +238,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy-policy-cookie-restriction-mode': {
+      id: '/privacy-policy-cookie-restriction-mode'
+      path: '/privacy-policy-cookie-restriction-mode'
+      fullPath: '/privacy-policy-cookie-restriction-mode'
+      preLoaderRoute: typeof PrivacyPolicyCookieRestrictionModeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sponsorship-artists': {
       id: '/sponsorship-artists'
       path: '/sponsorship-artists'
@@ -263,6 +284,8 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   DistributorsRoute: DistributorsRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
+  PrivacyPolicyCookieRestrictionModeRoute:
+    PrivacyPolicyCookieRestrictionModeRoute,
   SponsorshipArtistsRoute: SponsorshipArtistsRoute,
   WholesaleRoute: WholesaleRoute,
   ProductsHandleRoute: ProductsHandleRoute,
