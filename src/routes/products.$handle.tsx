@@ -32,7 +32,7 @@ export const Route = createFileRoute('/products/$handle')({
     const pageDesc = p.seo?.description || p.description?.slice(0, 160) || 'Official Papa Tattoo precision apparatus.'
     const firstImg =
       p.images?.edges?.[0]?.node?.url ||
-      'https://papatattoosupply.com/slides/slide_2_premium_cartridges.png'
+      'https://papatattoo.com/slides/slide_2_premium_cartridges.png'
     const price = p.priceRange?.minVariantPrice?.amount || '25.00'
     const currency = p.priceRange?.minVariantPrice?.currencyCode || 'USD'
 
@@ -50,7 +50,7 @@ export const Route = createFileRoute('/products/$handle')({
         },
         { property: 'og:image', content: firstImg },
         { property: 'og:type', content: 'product' },
-        { property: 'og:url', content: `https://papatattoosupply.com/products/${p.handle}` },
+        { property: 'og:url', content: `https://papatattoo.com/products/${p.handle}` },
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:title', content: pageTitle },
         {
@@ -60,7 +60,7 @@ export const Route = createFileRoute('/products/$handle')({
         { name: 'twitter:image', content: firstImg },
       ],
       links: [
-        { rel: 'canonical', href: `https://papatattoosupply.com/products/${p.handle}` },
+        { rel: 'canonical', href: `https://papatattoo.com/products/${p.handle}` },
       ],
       scripts: [
         {
@@ -78,7 +78,7 @@ export const Route = createFileRoute('/products/$handle')({
             },
             offers: {
               '@type': 'Offer',
-              url: `https://papatattoosupply.com/products/${p.handle}`,
+              url: `https://papatattoo.com/products/${p.handle}`,
               priceCurrency: currency,
               price: price,
               availability: p.availableForSale

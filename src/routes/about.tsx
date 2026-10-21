@@ -18,7 +18,7 @@ export const Route = createFileRoute('/about')({
         content:
           'Aerospace-grade CNC machining, Japanese 316L needle design, and dedication to professional tattoo artists.',
       },
-      { property: 'og:url', content: 'https://papatattoosupply.com/about' },
+      { property: 'og:url', content: 'https://papatattoo.com/about' },
       { property: 'og:type', content: 'website' },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: 'Engineering Heritage · Papa Tattoo Supply' },
@@ -29,7 +29,7 @@ export const Route = createFileRoute('/about')({
       },
     ],
     links: [
-      { rel: 'canonical', href: 'https://papatattoosupply.com/about' },
+      { rel: 'canonical', href: 'https://papatattoo.com/about' },
     ],
   }),
   component: AboutPage,

@@ -46,7 +46,7 @@ export const Route = createRootRoute({
       },
       { property: 'og:site_name', content: 'Papa Tattoo Supply' },
       { property: 'og:type', content: 'website' },
-      { property: 'og:url', content: 'https://papatattoosupply.com/' },
+      { property: 'og:url', content: 'https://papatattoo.com/' },
       { property: 'og:locale', content: 'en_US' },
       {
         property: 'og:title',
@@ -59,7 +59,7 @@ export const Route = createRootRoute({
       },
       {
         property: 'og:image',
-        content: 'https://papatattoosupply.com/slides/slide_2_premium_cartridges.png',
+        content: 'https://papatattoo.com/slides/slide_2_premium_cartridges.png',
       },
       { name: 'twitter:card', content: 'summary_large_image' },
       {
@@ -73,16 +73,16 @@ export const Route = createRootRoute({
       },
       {
         name: 'twitter:image',
-        content: 'https://papatattoosupply.com/slides/slide_2_premium_cartridges.png',
+        content: 'https://papatattoo.com/slides/slide_2_premium_cartridges.png',
       },
     ],
     links: [
-      { rel: 'canonical', href: 'https://papatattoosupply.com/' },
-      { rel: 'alternate', hrefLang: 'en', href: 'https://papatattoosupply.com/' },
-      { rel: 'alternate', hrefLang: 'es', href: 'https://papatattoosupply.com/?lang=ES' },
-      { rel: 'alternate', hrefLang: 'de', href: 'https://papatattoosupply.com/?lang=DE' },
-      { rel: 'alternate', hrefLang: 'fr', href: 'https://papatattoosupply.com/?lang=FR' },
-      { rel: 'alternate', hrefLang: 'x-default', href: 'https://papatattoosupply.com/' },
+      { rel: 'canonical', href: 'https://papatattoo.com/' },
+      { rel: 'alternate', hrefLang: 'en', href: 'https://papatattoo.com/' },
+      { rel: 'alternate', hrefLang: 'es', href: 'https://papatattoo.com/?lang=ES' },
+      { rel: 'alternate', hrefLang: 'de', href: 'https://papatattoo.com/?lang=DE' },
+      { rel: 'alternate', hrefLang: 'fr', href: 'https://papatattoo.com/?lang=FR' },
+      { rel: 'alternate', hrefLang: 'x-default', href: 'https://papatattoo.com/' },
       { rel: 'stylesheet', href: appCss },
       { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
       { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
@@ -101,8 +101,8 @@ export const Route = createRootRoute({
           '@context': 'https://schema.org',
           '@type': 'Organization',
           name: 'Papa Tattoo Supply',
-          url: 'https://papatattoosupply.com',
-          logo: 'https://papatattoosupply.com/favicon.svg',
+          url: 'https://papatattoo.com',
+          logo: 'https://papatattoo.com/favicon.svg',
           description:
             'Professional tattoo engineering company specializing in rotary machines, precision adjustable grips, and sterile cartridge needles.',
           brand: {
@@ -117,10 +117,10 @@ export const Route = createRootRoute({
           '@context': 'https://schema.org',
           '@type': 'WebSite',
           name: 'Papa Tattoo Supply',
-          url: 'https://papatattoosupply.com',
+          url: 'https://papatattoo.com',
           potentialAction: {
             '@type': 'SearchAction',
-            target: 'https://papatattoosupply.com/collections?q={search_term_string}',
+            target: 'https://papatattoo.com/collections?q={search_term_string}',
             'query-input': 'required name=search_term_string',
           },
         }),

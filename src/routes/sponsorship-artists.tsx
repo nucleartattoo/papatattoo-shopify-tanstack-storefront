@@ -18,7 +18,7 @@ export const Route = createFileRoute('/sponsorship-artists')({
         content:
           'Meet the world-class international tattoo artists and studio residents creating mastery with Papa Tattoo apparatus.',
       },
-      { property: 'og:url', content: 'https://papatattoosupply.com/sponsorship-artists' },
+      { property: 'og:url', content: 'https://papatattoo.com/sponsorship-artists' },
       { property: 'og:type', content: 'website' },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: 'Official Pro Team & Sponsored Artists · Papa Tattoo Supply' },
@@ -29,7 +29,7 @@ export const Route = createFileRoute('/sponsorship-artists')({
       },
     ],
     links: [
-      { rel: 'canonical', href: 'https://papatattoosupply.com/sponsorship-artists' },
+      { rel: 'canonical', href: 'https://papatattoo.com/sponsorship-artists' },
     ],
   }),
   component: SponsorshipArtistsPage,

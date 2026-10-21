@@ -1,5 +1,5 @@
 # robots.txt for Papa Tattoo Supply Storefront
-# https://papatattoosupply.com
+# https://papatattoo.com
 
 User-agent: *
 Allow: /
@@ -25,4 +25,4 @@ User-agent: Applebot-Extended
 Allow: /
 
 # Sitemap Index
-Sitemap: https://papatattoosupply.com/sitemap.xml
+Sitemap: https://papatattoo.com/sitemap.xml

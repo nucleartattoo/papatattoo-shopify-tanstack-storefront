@@ -14,7 +14,7 @@ export const Route = createFileRoute('/privacy-policy-cookie-restriction-mode')(
       },
     ],
     links: [
-      { rel: 'canonical', href: 'https://papatattoosupply.com/privacy-policy' },
+      { rel: 'canonical', href: 'https://papatattoo.com/privacy-policy' },
     ],
   }),
   component: PrivacyPolicyPage,

@@ -18,7 +18,7 @@ export const Route = createFileRoute('/distributors')({
         content:
           'Official regional logistics and authorized distributor partners for Papa Tattoo Supply across Europe, Americas, and Asia.',
       },
-      { property: 'og:url', content: 'https://papatattoosupply.com/distributors' },
+      { property: 'og:url', content: 'https://papatattoo.com/distributors' },
       { property: 'og:type', content: 'website' },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: 'Authorized Global Distributors · Papa Tattoo Supply' },
@@ -29,7 +29,7 @@ export const Route = createFileRoute('/distributors')({
       },
     ],
     links: [
-      { rel: 'canonical', href: 'https://papatattoosupply.com/distributors' },
+      { rel: 'canonical', href: 'https://papatattoo.com/distributors' },
     ],
   }),
   component: DistributorsPage,
