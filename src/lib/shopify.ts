@@ -225,6 +225,10 @@ export async function getProductByHandle(handle: string, language = 'EN'): Promi
         descriptionHtml
         availableForSale
         tags
+        seo {
+          title
+          description
+        }
         options {
           name
           values

@@ -27,6 +27,10 @@ export interface ShopifyProduct {
   descriptionHtml?: string
   availableForSale?: boolean
   tags?: string[]
+  seo?: {
+    title?: string | null
+    description?: string | null
+  }
   options?: {
     name: string
     values: string[]

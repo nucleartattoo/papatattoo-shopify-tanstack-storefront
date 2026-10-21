@@ -28,6 +28,8 @@ export const Route = createFileRoute('/products/$handle')({
         ],
       }
     }
+    const pageTitle = p.seo?.title || `${p.title} · Papa Tattoo Supply`
+    const pageDesc = p.seo?.description || p.description?.slice(0, 160) || 'Official Papa Tattoo precision apparatus.'
     const firstImg =
       p.images?.edges?.[0]?.node?.url ||
       'https://papatattoosupply.com/slides/slide_2_premium_cartridges.png'
@@ -36,24 +38,24 @@ export const Route = createFileRoute('/products/$handle')({
 
     return {
       meta: [
-        { title: `${p.title} · Papa Tattoo Supply` },
+        { title: pageTitle },
         {
           name: 'description',
-          content: p.description?.slice(0, 160) || 'Official Papa Tattoo precision apparatus.',
+          content: pageDesc,
         },
-        { property: 'og:title', content: `${p.title} · Papa Tattoo Supply` },
+        { property: 'og:title', content: pageTitle },
         {
           property: 'og:description',
-          content: p.description?.slice(0, 160) || 'Official Papa Tattoo precision apparatus.',
+          content: pageDesc,
         },
         { property: 'og:image', content: firstImg },
         { property: 'og:type', content: 'product' },
         { property: 'og:url', content: `https://papatattoosupply.com/products/${p.handle}` },
         { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:title', content: `${p.title} · Papa Tattoo Supply` },
+        { name: 'twitter:title', content: pageTitle },
         {
           name: 'twitter:description',
-          content: p.description?.slice(0, 160) || 'Official Papa Tattoo precision apparatus.',
+          content: pageDesc,
         },
         { name: 'twitter:image', content: firstImg },
       ],
@@ -68,9 +70,7 @@ export const Route = createFileRoute('/products/$handle')({
             '@type': 'Product',
             name: p.title,
             image: [firstImg],
-            description:
-              p.description ||
-              'Precision tattoo apparatus engineered for professional studio artists.',
+            description: pageDesc,
             sku: p.id,
             brand: {
               '@type': 'Brand',
