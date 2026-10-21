@@ -67,16 +67,6 @@ export const Footer: React.FC = () => {
               </a>
 
               <a
-                href="https://www.papatattoo.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2.5 text-zinc-600 dark:text-zinc-300 hover:text-[#0d9488] dark:hover:text-[#2EE6CA] transition-colors"
-              >
-                <Globe className="w-3.5 h-3.5 text-[#0d9488] dark:text-[#2EE6CA]" />
-                <span>www.papatattoo.com</span>
-              </a>
-
-              <a
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
