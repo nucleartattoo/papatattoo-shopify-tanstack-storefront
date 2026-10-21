@@ -253,6 +253,10 @@ export async function getProductByHandle(handle: string, language = 'EN'): Promi
                 amount
                 currencyCode
               }
+              image {
+                url
+                altText
+              }
               selectedOptions {
                 name
                 value
@@ -305,6 +309,10 @@ const PRODUCT_FRAGMENT = `
           price {
             amount
             currencyCode
+          }
+          image {
+            url
+            altText
           }
           selectedOptions {
             name

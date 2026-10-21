@@ -11,6 +11,7 @@ export interface ShopifyVariant {
     amount: string
     currencyCode: string
   }
+  image?: ShopifyImage | null
   selectedOptions?: {
     name: string
     value: string

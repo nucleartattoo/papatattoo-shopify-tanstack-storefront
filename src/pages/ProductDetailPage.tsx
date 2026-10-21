@@ -165,6 +165,41 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
     ? selectedVariant.price.currencyCode
     : product.priceRange.minVariantPrice.currencyCode
 
+  const handleSelectVariant = (v: ShopifyVariant) => {
+    setSelectedVariant(v)
+
+    // 1. If this variant has an image attached directly in Shopify
+    if (v.image?.url) {
+      const vImgUrlClean = v.image.url.split('?')[0]
+      const imgIndex = images.findIndex((img) => {
+        const urlClean = img.url.split('?')[0]
+        return urlClean === vImgUrlClean || urlClean.endsWith(vImgUrlClean.split('/').pop() || '')
+      })
+      if (imgIndex !== -1) {
+        setActiveImageIndex(imgIndex)
+      }
+      setMediaViewMode('photo')
+      return
+    }
+
+    // 2. Intelligent fallback: match images by variant title (e.g. "Evil Black", "Matte Black")
+    const titleClean = v.title.toLowerCase().replace(/[^a-z0-9]/g, '_')
+    const titleWords = v.title.toLowerCase().split(/\s+/).filter((w) => w.length > 2)
+    const matchedIndex = images.findIndex((img) => {
+      const url = img.url.toLowerCase()
+      const alt = (img.altText || '').toLowerCase()
+      if (url.includes(titleClean) || alt.includes(v.title.toLowerCase())) {
+        return true
+      }
+      return titleWords.length > 0 && titleWords.every((w) => url.includes(w) || alt.includes(w))
+    })
+
+    if (matchedIndex !== -1) {
+      setActiveImageIndex(matchedIndex)
+      setMediaViewMode('photo')
+    }
+  }
+
   const handleAddToCart = () => {
     if (!product) return
     const activeVariant: ShopifyVariant = selectedVariant || product.variants?.edges?.[0]?.node || {
@@ -398,7 +433,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
               <CartridgeMatrixSelector
                 product={product}
                 selectedVariant={selectedVariant}
-                onSelectVariant={setSelectedVariant}
+                onSelectVariant={handleSelectVariant}
               />
             ) : product.variants?.edges && product.variants.edges.length > 1 ? (
               <div className="space-y-2.5 pt-1">
@@ -413,7 +448,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                       <button
                         key={v.id}
                         type="button"
-                        onClick={() => setSelectedVariant(v)}
+                        onClick={() => handleSelectVariant(v)}
                         className={`relative px-4 py-2.5 rounded-xl text-xs font-mono font-bold uppercase border transition-all cursor-pointer ${
                           isSelected
                             ? variantInStock
