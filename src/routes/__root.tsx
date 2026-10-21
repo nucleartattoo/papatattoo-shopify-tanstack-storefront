@@ -5,7 +5,9 @@ import {
   createRootRoute,
   HeadContent,
   Scripts,
+  redirect,
 } from '@tanstack/react-router'
+import redirectsMap from '../data/redirects.json'
 import appCss from '../index.css?url'
 import { Header } from '../components/common/Header'
 import { Footer } from '../components/common/Footer'
@@ -17,6 +19,19 @@ import { LocaleProvider } from '../context/LocaleContext'
 import { CartProvider } from '../context/CartContext'
 
 export const Route = createRootRoute({
+  beforeLoad: ({ location }) => {
+    const rawPath = location.pathname
+    const cleanPath = rawPath.replace(/\/$/, '') || '/'
+    const target =
+      (redirectsMap as Record<string, string>)[rawPath] ||
+      (redirectsMap as Record<string, string>)[cleanPath]
+    if (target) {
+      throw redirect({
+        href: target,
+        statusCode: 301,
+      })
+    }
+  },
   head: () => ({
     meta: [
       { charSet: 'utf-8' },
