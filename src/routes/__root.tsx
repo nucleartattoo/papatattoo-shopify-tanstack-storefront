@@ -14,6 +14,7 @@ import { Footer } from '../components/common/Footer'
 import { CartDrawer } from '../components/cart/CartDrawer'
 import { FluidInkBackground } from '../components/common/FluidInkBackground'
 import { NotFound } from '../components/common/NotFound'
+import { GlobalErrorFallback } from '../components/common/GlobalErrorFallback'
 import { ThemeProvider } from '../context/ThemeContext'
 import { LocaleProvider } from '../context/LocaleContext'
 import { CartProvider } from '../context/CartContext'
@@ -75,8 +76,11 @@ export const Route = createRootRoute({
         name: 'twitter:image',
         content: 'https://papatattoo.com/slides/slide_2_premium_cartridges.png',
       },
+      { name: 'theme-color', content: '#1c1e24', media: '(prefers-color-scheme: dark)' },
+      { name: 'theme-color', content: '#f5f4f0', media: '(prefers-color-scheme: light)' },
     ],
     links: [
+      { rel: 'manifest', href: '/manifest.json' },
       { rel: 'canonical', href: 'https://papatattoo.com/' },
       { rel: 'alternate', hrefLang: 'en', href: 'https://papatattoo.com/' },
       { rel: 'alternate', hrefLang: 'es', href: 'https://papatattoo.com/?lang=ES' },
@@ -129,6 +133,7 @@ export const Route = createRootRoute({
   }),
   component: RootComponent,
   notFoundComponent: NotFound,
+  errorComponent: GlobalErrorFallback,
 })
 
 function RootComponent() {

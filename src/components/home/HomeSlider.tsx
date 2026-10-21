@@ -14,14 +14,14 @@ export const SLIDES_DATA: SlideItem[] = [
   {
     id: 'papa-volt-battery',
     title: 'Papa Volt Battery',
-    image: '/slides/slide_1_volt_battery.png',
+    image: '/slides/slide_1_volt_battery.webp',
     fallbackImage: 'https://minio.k8s.bdgyoo.com/papa-media/media/slideshow/cache/1920x485/wysiwyg/papahomepage/slider/Papa_Volt_battery.png',
     targetUrl: '/collections?category=all&q=Volt',
   },
   {
     id: 'papa-premium-cartridges',
     title: 'Papa Premium Tattoo Cartridges',
-    image: '/slides/slide_2_premium_cartridges.png',
+    image: '/slides/slide_2_premium_cartridges.webp',
     fallbackImage: 'https://minio.k8s.bdgyoo.com/papa-media/media/slideshow/cache/1920x485/wysiwyg/papahomepage/slider/premium_cartridge_3.png',
     targetUrl: '/products/papa-premium-tattoo-cartridges',
   },

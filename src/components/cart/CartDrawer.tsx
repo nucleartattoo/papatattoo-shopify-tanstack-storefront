@@ -182,6 +182,12 @@ export const CartDrawer: React.FC = () => {
                       type="text"
                       value={codeInput}
                       onChange={e => setCodeInput(e.target.value.toUpperCase())}
+                      onKeyDown={e => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault()
+                          setPromoCode(codeInput.trim())
+                        }
+                      }}
                       placeholder="e.g. SACHKOART, SPONSOR50"
                       className="flex-1 px-3 py-1.5 text-xs font-mono uppercase bg-white dark:bg-white/[0.05] border border-zinc-200 dark:border-white/[0.1] rounded-lg focus:outline-hidden focus:border-zinc-950 dark:focus:border-white text-zinc-900 dark:text-white"
                     />

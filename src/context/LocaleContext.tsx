@@ -222,6 +222,7 @@ export const LocaleProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     if (typeof window !== 'undefined') {
       try {
         localStorage.setItem('papa_locale', locale)
+        document.documentElement.lang = locale.toLowerCase()
       } catch {}
     }
   }, [locale])
