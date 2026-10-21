@@ -216,10 +216,12 @@ export const Footer: React.FC = () => {
                 <input
                   type="email"
                   placeholder="artist@studio.com"
+                  aria-label="Email address for dispatch subscription"
                   className="flex-1 px-3 py-2 text-xs font-mono rounded-lg border border-[#e2dfd8] dark:border-white/[0.1] bg-white dark:bg-[#1a1d24] text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#2EE6CA]"
                 />
                 <button
                   type="submit"
+                  aria-label="Subscribe to technical dispatch"
                   className="px-3 py-2 rounded-lg bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 text-xs font-mono font-bold uppercase hover:bg-zinc-800 dark:hover:bg-[#28d4b9] transition-colors cursor-pointer"
                 >
                   <ArrowUpRight className="w-4 h-4" />

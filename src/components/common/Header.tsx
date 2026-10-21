@@ -308,6 +308,7 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
               setMobileMenuOpen(!mobileMenuOpen)
               setIsMobileSearchOpen(false)
             }}
+            aria-label={mobileMenuOpen ? 'Close mobile menu' : 'Open mobile menu'}
             className="lg:hidden w-9 h-9 flex items-center justify-center rounded-lg border border-zinc-200 dark:border-[#222731] text-zinc-700 dark:text-zinc-300"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}

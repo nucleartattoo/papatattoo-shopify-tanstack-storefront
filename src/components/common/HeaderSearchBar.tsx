@@ -215,6 +215,7 @@ export const HeaderSearchBar: React.FC<HeaderSearchBarProps> = ({
                 inputRef.current?.focus()
               }}
               className="p-1 rounded-md text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 transition-colors cursor-pointer"
+              aria-label="Clear search query"
               title="Clear search"
             >
               <X className="w-3.5 h-3.5" />

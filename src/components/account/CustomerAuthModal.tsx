@@ -172,7 +172,8 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
 
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-lg flex items-center justify-center border border-zinc-200 dark:border-[#222731] text-zinc-500 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-[#1A1D24] transition-colors"
+            aria-label="Close authentication modal"
+            className="w-8 h-8 rounded-lg flex items-center justify-center border border-zinc-200 dark:border-[#222731] text-zinc-500 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-[#1A1D24] transition-colors cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>

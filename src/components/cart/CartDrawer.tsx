@@ -117,6 +117,7 @@ export const CartDrawer: React.FC = () => {
                         <button
                           onClick={() => removeFromCart(item.merchandiseId)}
                           className="text-zinc-400 hover:text-rose-500 transition-colors p-0.5 cursor-pointer"
+                          aria-label={`Remove ${item.title} from cart`}
                           title="Remove item"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
