@@ -171,9 +171,10 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
     // 1. If this variant has an image attached directly in Shopify
     if (v.image?.url) {
       const vImgUrlClean = v.image.url.split('?')[0]
+      const vFileName = vImgUrlClean.split('/').pop() || ''
       const imgIndex = images.findIndex((img) => {
         const urlClean = img.url.split('?')[0]
-        return urlClean === vImgUrlClean || urlClean.endsWith(vImgUrlClean.split('/').pop() || '')
+        return urlClean === vImgUrlClean || (vFileName && urlClean.endsWith(vFileName))
       })
       if (imgIndex !== -1) {
         setActiveImageIndex(imgIndex)
@@ -182,7 +183,25 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
       return
     }
 
-    // 2. Intelligent fallback: match images by variant title (e.g. "Evil Black", "Matte Black")
+    // 2. Intelligent fallback: check selectedOptions (e.g. Type: "MAGNUM", Color: "Red")
+    if (v.selectedOptions && v.selectedOptions.length > 0) {
+      for (const opt of v.selectedOptions) {
+        const valLower = opt.value.toLowerCase()
+        const optWords = valLower.split(/\s+/).filter((w) => w.length > 2)
+        const matchedIndex = images.findIndex((img) => {
+          const url = img.url.toLowerCase()
+          const alt = (img.altText || '').toLowerCase()
+          return url.includes(valLower) || alt.includes(valLower) || optWords.some((w) => url.includes(w) || alt.includes(w))
+        })
+        if (matchedIndex !== -1) {
+          setActiveImageIndex(matchedIndex)
+          setMediaViewMode('photo')
+          return
+        }
+      }
+    }
+
+    // 3. Fallback: match images by variant title (e.g. "Evil Black", "Matte Black")
     const titleClean = v.title.toLowerCase().replace(/[^a-z0-9]/g, '_')
     const titleWords = v.title.toLowerCase().split(/\s+/).filter((w) => w.length > 2)
     const matchedIndex = images.findIndex((img) => {
@@ -191,7 +210,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
       if (url.includes(titleClean) || alt.includes(v.title.toLowerCase())) {
         return true
       }
-      return titleWords.length > 0 && titleWords.every((w) => url.includes(w) || alt.includes(w))
+      return titleWords.some((w) => url.includes(w) || alt.includes(w))
     })
 
     if (matchedIndex !== -1) {
