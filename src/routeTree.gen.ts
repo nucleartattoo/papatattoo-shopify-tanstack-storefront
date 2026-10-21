@@ -18,7 +18,6 @@ import { Route as DistributorsRouteImport } from './routes/distributors'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as PrivacyPolicyCookieRestrictionModeRouteImport } from './routes/privacy-policy-cookie-restriction-mode'
 import { Route as SponsorshipArtistsRouteImport } from './routes/sponsorship-artists'
-import { Route as WholesaleRouteImport } from './routes/wholesale'
 import { Route as ProductsIndexRouteImport } from './routes/products.index'
 import { Route as ProductsHandleRouteImport } from './routes/products.$handle'
 
@@ -68,11 +67,6 @@ const SponsorshipArtistsRoute = SponsorshipArtistsRouteImport.update({
   path: '/sponsorship-artists',
   getParentRoute: () => rootRouteImport,
 } as any)
-const WholesaleRoute = WholesaleRouteImport.update({
-  id: '/wholesale',
-  path: '/wholesale',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ProductsIndexRoute = ProductsIndexRouteImport.update({
   id: '/products/',
   path: '/products/',
@@ -94,7 +88,6 @@ export interface FileRoutesByFullPath {
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/privacy-policy-cookie-restriction-mode': typeof PrivacyPolicyCookieRestrictionModeRoute
   '/sponsorship-artists': typeof SponsorshipArtistsRoute
-  '/wholesale': typeof WholesaleRoute
   '/products/$handle': typeof ProductsHandleRoute
   '/products/': typeof ProductsIndexRoute
 }
@@ -108,7 +101,6 @@ export interface FileRoutesByTo {
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/privacy-policy-cookie-restriction-mode': typeof PrivacyPolicyCookieRestrictionModeRoute
   '/sponsorship-artists': typeof SponsorshipArtistsRoute
-  '/wholesale': typeof WholesaleRoute
   '/products/$handle': typeof ProductsHandleRoute
   '/products': typeof ProductsIndexRoute
 }
@@ -123,7 +115,6 @@ export interface FileRoutesById {
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/privacy-policy-cookie-restriction-mode': typeof PrivacyPolicyCookieRestrictionModeRoute
   '/sponsorship-artists': typeof SponsorshipArtistsRoute
-  '/wholesale': typeof WholesaleRoute
   '/products/$handle': typeof ProductsHandleRoute
   '/products/': typeof ProductsIndexRoute
 }
@@ -139,7 +130,6 @@ export interface FileRouteTypes {
     | '/privacy-policy'
     | '/privacy-policy-cookie-restriction-mode'
     | '/sponsorship-artists'
-    | '/wholesale'
     | '/products/$handle'
     | '/products/'
   fileRoutesByTo: FileRoutesByTo
@@ -153,7 +143,6 @@ export interface FileRouteTypes {
     | '/privacy-policy'
     | '/privacy-policy-cookie-restriction-mode'
     | '/sponsorship-artists'
-    | '/wholesale'
     | '/products/$handle'
     | '/products'
   id:
@@ -167,7 +156,6 @@ export interface FileRouteTypes {
     | '/privacy-policy'
     | '/privacy-policy-cookie-restriction-mode'
     | '/sponsorship-artists'
-    | '/wholesale'
     | '/products/$handle'
     | '/products/'
   fileRoutesById: FileRoutesById
@@ -182,7 +170,6 @@ export interface RootRouteChildren {
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   PrivacyPolicyCookieRestrictionModeRoute: typeof PrivacyPolicyCookieRestrictionModeRoute
   SponsorshipArtistsRoute: typeof SponsorshipArtistsRoute
-  WholesaleRoute: typeof WholesaleRoute
   ProductsHandleRoute: typeof ProductsHandleRoute
   ProductsIndexRoute: typeof ProductsIndexRoute
 }
@@ -252,13 +239,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SponsorshipArtistsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/wholesale': {
-      id: '/wholesale'
-      path: '/wholesale'
-      fullPath: '/wholesale'
-      preLoaderRoute: typeof WholesaleRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/products/': {
       id: '/products/'
       path: '/products'
@@ -287,7 +267,6 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyPolicyCookieRestrictionModeRoute:
     PrivacyPolicyCookieRestrictionModeRoute,
   SponsorshipArtistsRoute: SponsorshipArtistsRoute,
-  WholesaleRoute: WholesaleRoute,
   ProductsHandleRoute: ProductsHandleRoute,
   ProductsIndexRoute: ProductsIndexRoute,
 }

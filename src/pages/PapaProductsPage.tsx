@@ -676,10 +676,10 @@ export const PapaProductsPage: React.FC = () => {
 
           <div className="flex flex-wrap items-center gap-3 shrink-0">
             <Link
-              to="/wholesale"
+              to="/contact"
               className="px-6 py-3.5 rounded-full bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 font-mono font-bold text-xs uppercase tracking-wider shadow-md hover:opacity-90 transition-opacity"
             >
-              Launch Bulk Calculator
+              Contact Factory Sales
             </Link>
             <Link
               to="/distributors"

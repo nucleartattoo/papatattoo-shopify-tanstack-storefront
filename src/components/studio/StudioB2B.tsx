@@ -95,10 +95,10 @@ export const StudioB2B: React.FC = () => {
 
           <div className="flex flex-wrap items-center gap-6 text-xs font-mono">
             <Link
-              to="/wholesale"
+              to="/contact"
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-medium uppercase tracking-wider hover:opacity-90 transition-all active:scale-95 shadow-xs"
             >
-              <span>Wholesale Portal</span>
+              <span>Contact Factory</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
 

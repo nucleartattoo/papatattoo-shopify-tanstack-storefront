@@ -794,10 +794,10 @@ export const AccountPage: React.FC = () => {
                 Direct batch orders, regional distributor accounts, and custom invoice terms.
               </p>
               <Link
-                to="/wholesale"
+                to="/distributors"
                 className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-[#0d9488] dark:text-[#00f0ff] hover:underline pt-1"
               >
-                <span>Wholesale Portal</span>
+                <span>Authorized Distributors</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>

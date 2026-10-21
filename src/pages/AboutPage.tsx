@@ -55,11 +55,11 @@ export const AboutPage: React.FC = () => {
               </Link>
 
               <Link
-                to="/wholesale"
+                to="/distributors"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-zinc-300 dark:border-[#2A303C] hover:border-zinc-500 dark:hover:border-[#2ee6ca]/50 text-zinc-800 dark:text-zinc-200 text-xs font-mono font-bold uppercase tracking-wider transition-colors"
               >
                 <Building2 className="w-3.5 h-3.5 text-[#0d9488] dark:text-[#2ee6ca]" />
-                <span>Studio Wholesale Program</span>
+                <span>Authorized Distributors</span>
               </Link>
             </div>
           </div>

@@ -78,10 +78,10 @@ export const NotFound: React.FC = () => {
               Click Grips
             </Link>
             <Link
-              to="/wholesale"
+              to="/distributors"
               className="px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-white/[0.06] bg-white/60 dark:bg-white/[0.02] hover:border-[#2ee6ca] dark:hover:border-[#2ee6ca] hover:text-[#0d9488] dark:hover:text-[#2ee6ca] transition-colors"
             >
-              Studio Wholesale
+              Distributors
             </Link>
             <Link
               to="/contact"

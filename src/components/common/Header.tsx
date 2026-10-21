@@ -264,16 +264,6 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
                     <ArrowRight className="w-3 h-3 text-zinc-400" />
                   </button>
 
-                  <button
-                    onClick={() => {
-                      navigate({ to: '/wholesale' })
-                      setIsAccountOpen(false)
-                    }}
-                    className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-[#0d9488] dark:text-[#2ee6ca] font-bold hover:bg-zinc-100 dark:hover:bg-[#1A1E27] transition-colors text-left cursor-pointer"
-                  >
-                    <span>Studio Wholesale Portal</span>
-                  </button>
-
                   <hr className="border-zinc-100 dark:border-white/[0.08] my-1" />
 
                   <button
@@ -432,16 +422,6 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
               <ArrowRight className="w-3.5 h-3.5 text-zinc-400" />
             </button>
           </div>
-
-          <button
-            onClick={() => {
-              navigate({ to: '/wholesale' })
-              setMobileMenuOpen(false)
-            }}
-            className="w-full py-2.5 rounded-lg bg-zinc-900 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 font-mono font-bold text-xs uppercase text-center mt-2"
-          >
-            Studio Wholesale Inquiries
-          </button>
         </div>
       )}
 

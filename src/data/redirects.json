@@ -1676,5 +1676,7 @@
   "/sponsor-artists.html/": "/sponsorship-artists",
   "/sponsor-artists/": "/sponsorship-artists",
   "/sponsor-artists11.html": "/sponsorship-artists",
-  "/sponsor-artists11.html/": "/sponsorship-artists"
+  "/sponsor-artists11.html/": "/sponsorship-artists",
+  "/wholesale": "/contact",
+  "/wholesale/": "/contact"
 }
