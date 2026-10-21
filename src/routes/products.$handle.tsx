@@ -48,6 +48,17 @@ export const Route = createFileRoute('/products/$handle')({
         },
         { property: 'og:image', content: firstImg },
         { property: 'og:type', content: 'product' },
+        { property: 'og:url', content: `https://papatattoosupply.com/products/${p.handle}` },
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:title', content: `${p.title} · Papa Tattoo Supply` },
+        {
+          name: 'twitter:description',
+          content: p.description?.slice(0, 160) || 'Official Papa Tattoo precision apparatus.',
+        },
+        { name: 'twitter:image', content: firstImg },
+      ],
+      links: [
+        { rel: 'canonical', href: `https://papatattoosupply.com/products/${p.handle}` },
       ],
       scripts: [
         {

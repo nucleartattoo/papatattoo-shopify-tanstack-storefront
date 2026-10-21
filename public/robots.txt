@@ -1,0 +1,28 @@
+# robots.txt for Papa Tattoo Supply Storefront
+# https://papatattoosupply.com
+
+User-agent: *
+Allow: /
+Disallow: /account
+Disallow: /cart
+Disallow: /checkout
+Disallow: /admin
+
+# Allow AI Search & Retrieval Bots for Generative Engine Optimization (GEO)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Sitemap Index
+Sitemap: https://papatattoosupply.com/sitemap.xml

@@ -31,6 +31,8 @@ export const Route = createRootRoute({
       },
       { property: 'og:site_name', content: 'Papa Tattoo Supply' },
       { property: 'og:type', content: 'website' },
+      { property: 'og:url', content: 'https://papatattoosupply.com/' },
+      { property: 'og:locale', content: 'en_US' },
       {
         property: 'og:title',
         content: 'Papa Tattoo Supply · Precision Tattoo Engineering & Pro Studio Apparatus',
@@ -40,8 +42,32 @@ export const Route = createRootRoute({
         content:
           'High-grade aluminum click grips, rotary machines, and official cartridge systems engineered for professional tattoo artists and studios worldwide.',
       },
+      {
+        property: 'og:image',
+        content: 'https://papatattoosupply.com/slides/slide_2_premium_cartridges.png',
+      },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      {
+        name: 'twitter:title',
+        content: 'Papa Tattoo Supply · Precision Tattoo Engineering',
+      },
+      {
+        name: 'twitter:description',
+        content:
+          'High-grade aluminum click grips, rotary machines, and official cartridge systems engineered for professional tattoo artists.',
+      },
+      {
+        name: 'twitter:image',
+        content: 'https://papatattoosupply.com/slides/slide_2_premium_cartridges.png',
+      },
     ],
     links: [
+      { rel: 'canonical', href: 'https://papatattoosupply.com/' },
+      { rel: 'alternate', hrefLang: 'en', href: 'https://papatattoosupply.com/' },
+      { rel: 'alternate', hrefLang: 'es', href: 'https://papatattoosupply.com/?lang=ES' },
+      { rel: 'alternate', hrefLang: 'de', href: 'https://papatattoosupply.com/?lang=DE' },
+      { rel: 'alternate', hrefLang: 'fr', href: 'https://papatattoosupply.com/?lang=FR' },
+      { rel: 'alternate', hrefLang: 'x-default', href: 'https://papatattoosupply.com/' },
       { rel: 'stylesheet', href: appCss },
       { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
       { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
@@ -50,7 +76,7 @@ export const Route = createRootRoute({
       { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossOrigin: 'anonymous' },
       {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap',
+        href: 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Montserrat:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap',
       },
     ],
     scripts: [
