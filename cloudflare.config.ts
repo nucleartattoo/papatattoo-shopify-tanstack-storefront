@@ -9,6 +9,7 @@ export default defineConfig({
       enabled: true
     },
     entrypoint: "@tanstack/react-start/server-entry",
+    workersDev: true,
     triggers: [
       { type: "fetch", pattern: "test.genetattoo.com/*", zone: "genetattoo.com" }
     ],
