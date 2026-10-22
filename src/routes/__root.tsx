@@ -181,7 +181,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           }}
         />
       </head>
-      <body className="bg-zinc-50 dark:bg-[#090A0C] transition-colors duration-200 antialiased selection:bg-[#2EE6CA] selection:text-black">
+      <body suppressHydrationWarning className="bg-zinc-50 dark:bg-[#090A0C] transition-colors duration-200 antialiased selection:bg-[#2EE6CA] selection:text-black">
         {children}
         <Scripts />
       </body>
