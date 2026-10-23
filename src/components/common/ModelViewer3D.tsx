@@ -150,7 +150,7 @@ export const ModelViewer3D: React.FC<ModelViewer3DProps> = ({
             type="button"
             onClick={loadScript}
             aria-label="Activate interactive 3D model"
-            className="absolute bottom-4 left-1/2 -translate-x-1/2 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/75 dark:bg-black/85 backdrop-blur-md border border-white/20 text-white text-[11px] font-mono tracking-wider uppercase hover:bg-black transition-all cursor-pointer shadow-lg"
+            className="absolute bottom-14 sm:bottom-4 left-1/2 -translate-x-1/2 z-10 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/75 dark:bg-black/85 backdrop-blur-md border border-white/20 text-white text-[11px] font-mono tracking-wider uppercase whitespace-nowrap hover:bg-black transition-all cursor-pointer shadow-lg"
           >
             {isActivating ? (
               <>
