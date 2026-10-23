@@ -23,10 +23,62 @@ function isSafeUrl(value: string): boolean {
   }
 }
 
-export function sanitizeProductHtml(html: string): string {
-  if (!html || typeof DOMParser === 'undefined') return ''
+function normalizeRawHtml(raw: string): string {
+  if (!raw) return ''
+  let text = raw
 
-  const document = new DOMParser().parseFromString(html, 'text/html')
+  // Extract inner HTML if wrapped by Magento PageBuilder container
+  const pbMatch = text.match(/<div\s+data-content-type=["']html["'][^>]*>([\s\S]*?)<\/div>/i)
+  if (pbMatch) {
+    text = pbMatch[1].trim()
+  }
+
+  // Unescape HTML entities if it contains escaped HTML tags like &lt;p&gt; or &lt;br
+  if (/&lt;[a-z/]/i.test(text)) {
+    text = text
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/&amp;/g, '&')
+
+    // Double unescape for nested encoding (e.g. &amp;amp;)
+    if (/&lt;[a-z/]/i.test(text)) {
+      text = text
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .replace(/&amp;/g, '&')
+    }
+  }
+
+  return text.trim()
+}
+
+function basicSsrSanitize(html: string): string {
+  return html
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+    .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '')
+    .replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '')
+    .replace(/<object\b[^<]*(?:(?!<\/object>)<[^<]*)*<\/object>/gi, '')
+    .replace(/<embed\b[^<]*(?:(?!<\/embed>)<[^<]*)*<\/embed>/gi, '')
+    .replace(/<form\b[^<]*(?:(?!<\/form>)<[^<]*)*<\/form>/gi, '')
+    .replace(/\son\w+="[^"]*"/gi, '')
+    .replace(/\son\w+='[^']*'/gi, '')
+    .replace(/\son\w+=\w+/gi, '')
+}
+
+export function sanitizeProductHtml(html: string): string {
+  if (!html) return ''
+  const normalized = normalizeRawHtml(html)
+  if (!normalized) return ''
+
+  if (typeof DOMParser === 'undefined') {
+    return basicSsrSanitize(normalized)
+  }
+
+  const document = new DOMParser().parseFromString(normalized, 'text/html')
 
   const clean = (node: Node) => {
     for (const child of Array.from(node.childNodes)) {
