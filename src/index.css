@@ -114,6 +114,15 @@ button:disabled,
   background: rgba(46, 230, 202, 0.5);
 }
 
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Sacred geometry glowing grid background */
 .sacred-grid-bg {
   background-size: 32px 32px;

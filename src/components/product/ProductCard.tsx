@@ -5,6 +5,7 @@ import { useCart } from '../../context/CartContext'
 import { useLocale } from '../../context/LocaleContext'
 import { ShoppingBag, Check, Sparkles, ArrowRight } from 'lucide-react'
 import { formatProductImageUrl } from '../../utils/imageUrl'
+import { classifyApparatusCategory } from '../../lib/hardwareLineup'
 
 interface ProductCardProps {
   product: ShopifyProduct
@@ -15,17 +16,22 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { t } = useLocale()
 
   const variants = product.variants?.edges?.map(e => e.node) || []
-  const [selectedVariant, setSelectedVariant] = useState<ShopifyVariant>(() => variants[0] || {
-    id: `${product.id}-default`,
-    title: 'Standard',
-    price: { amount: product.priceRange?.minVariantPrice?.amount || '25.0', currencyCode: 'USD' },
-  })
+  const [selectedVariant] = useState<ShopifyVariant>(
+    () =>
+      variants[0] || {
+        id: `${product.id}-default`,
+        title: 'Standard',
+        price: {
+          amount: product.priceRange?.minVariantPrice?.amount || '25.0',
+          currencyCode: 'USD',
+        },
+      }
+  )
 
   const [addedAnimation, setAddedAnimation] = useState(false)
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
   const images = product.images?.edges?.map(e => e.node.url) || []
-  const rawImage = images[currentImageIndex] || images[0] || ''
+  const rawImage = images[0] || ''
   const currentImage = formatProductImageUrl(rawImage)
 
   const handleAddToCart = () => {
@@ -34,37 +40,41 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     setTimeout(() => setAddedAnimation(false), 1200)
   }
 
-  // Identify category and series
   const titleLower = product.title.toLowerCase()
-  const isPremiumCartridge = titleLower.includes('premium')
-  const isStandardCartridge = titleLower.includes('cartridge') && !isPremiumCartridge
-  const isGrip = titleLower.includes('grip')
-  const isPen = titleLower.includes('pen') || titleLower.includes('machine')
+  const category = classifyApparatusCategory(product)
+  const isNeedle = category === 'cartridges'
+  const isPremiumCartridge = isNeedle && titleLower.includes('premium')
 
-  // Check inventory stock status
-  const isAnyVariantAvailable = variants.length > 0
-    ? variants.some(v => v.availableForSale !== false)
-    : product.availableForSale !== false
+  const isAnyVariantAvailable =
+    variants.length > 0
+      ? variants.some(v => v.availableForSale !== false)
+      : product.availableForSale !== false
 
   const isSelectedAvailable = selectedVariant
     ? selectedVariant.availableForSale !== false
     : isAnyVariantAvailable
 
-  // Extract needle configuration (e.g. 3 Round Liner, 11 Magnum)
-  const isNeedle = isPremiumCartridge || isStandardCartridge || titleLower.includes('liner') || titleLower.includes('shader') || titleLower.includes('magnum')
+  const amountFormatted = `$${parseFloat(selectedVariant.price.amount).toFixed(2)}`
+  const currencyCode = selectedVariant.price.currencyCode || 'USD'
 
-  const priceFormatted = `$${parseFloat(selectedVariant.price.amount).toFixed(2)} ${selectedVariant.price.currencyCode || 'USD'}`
+  const categoryLabel =
+    category === 'cartridges'
+      ? 'CARTRIDGES'
+      : category === 'machines'
+      ? 'MACHINES'
+      : category === 'grips'
+      ? 'GRIPS'
+      : category === 'power'
+      ? 'POWER & DRIVE'
+      : 'STUDIO GEAR'
 
-  // Derive color accent from title or series
   const getAccentColor = () => {
-    if (isPremiumCartridge) return '#f59e0b' // Amber Gold for Premium
+    if (isPremiumCartridge) return '#f59e0b'
     if (titleLower.includes('blue')) return '#38bdf8'
-    if (titleLower.includes('black')) return '#475569'
-    if (titleLower.includes('silver')) return '#cbd5e1'
+    if (titleLower.includes('black')) return '#64748b'
+    if (titleLower.includes('silver') || titleLower.includes('stainless')) return '#94a3b8'
     if (titleLower.includes('green')) return '#34d399'
     if (titleLower.includes('pink')) return '#f472b6'
-    if (titleLower.includes('purple')) return '#c084fc'
-    if (titleLower.includes('bronze')) return '#d97706'
     if (titleLower.includes('red')) return '#f87171'
     return '#2ee6ca'
   }
@@ -73,58 +83,54 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   return (
     <div
-      className={`group relative rounded-2xl border p-5 flex flex-col justify-between transition-all duration-500 ${
+      className={`group relative rounded-2xl border p-5 flex flex-col justify-between transition-[border-color,box-shadow,transform] duration-200 ease-[var(--ease-out-strong)] ${
         isPremiumCartridge
-          ? 'border-amber-500/20 dark:border-amber-500/30 bg-white dark:bg-[#262933] hover:border-amber-500/40 dark:hover:border-amber-400/50 hover:shadow-xl dark:hover:shadow-[0_12px_32px_rgba(245,158,11,0.08)]'
-          : 'border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#262933] hover:border-zinc-300 dark:hover:border-white/20 hover:shadow-xl dark:hover:shadow-[0_12px_32px_rgba(0,0,0,0.5)]'
+          ? 'border-amber-500/25 dark:border-amber-500/30 bg-white dark:bg-[#262933] hover:border-amber-500/45 dark:hover:border-amber-400/50 hover:shadow-[0_14px_30px_-12px_rgba(180,115,20,0.16)] dark:hover:shadow-[0_14px_32px_rgba(245,158,11,0.1)]'
+          : 'border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#262933] hover:border-zinc-300 dark:hover:border-white/20 hover:shadow-[0_14px_30px_-12px_rgba(18,18,16,0.1)] dark:hover:shadow-[0_14px_32px_rgba(0,0,0,0.45)]'
       }`}
     >
-      {/* Top Header Tags */}
       <div>
         <div className="flex items-center justify-between gap-2 mb-3.5">
-          {/* Contextual Category / Series Badge */}
           {isPremiumCartridge ? (
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-[10px] font-mono font-medium tracking-wider uppercase bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[10px] font-mono font-semibold tracking-wider uppercase bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20">
               <Sparkles className="w-3 h-3 text-amber-500" />
               <span>PREMIUM</span>
             </span>
           ) : (
-            <span className="text-[10px] font-mono font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-widest">
-              {isNeedle ? "CARTRIDGES" : isGrip ? "GRIPS" : isPen ? "MACHINES" : "EQUIPMENT"}
+            <span className="text-[10px] font-mono font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
+              {categoryLabel}
             </span>
           )}
 
           {isAnyVariantAvailable ? (
-            <span className="inline-flex items-center gap-1.5 text-[10px] font-mono text-emerald-600 dark:text-emerald-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/80" />
+            <span className="inline-flex items-center gap-1.5 text-[10px] font-mono text-[#0d5d50] dark:text-[#38e8c6]">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
               <span>{t('card_in_stock')}</span>
             </span>
           ) : (
-            <span className="inline-flex items-center gap-1.5 text-[10px] font-mono text-zinc-500 dark:text-zinc-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-zinc-400 dark:bg-zinc-600" />
-              <span>OUT OF STOCK</span>
+            <span className="inline-flex items-center gap-1.5 text-[10px] font-mono text-zinc-400 dark:text-zinc-500">
+              <span className="w-1.5 h-1.5 rounded-full bg-zinc-300 dark:bg-zinc-600" />
+              <span>Sold out</span>
             </span>
           )}
         </div>
 
-        {/* Product Image Stage */}
         <Link
           to="/products/$handle"
           params={{ handle: product.handle }}
-          className="relative aspect-square w-full rounded-xl bg-zinc-50 dark:bg-[#1c1e24] flex items-center justify-center overflow-hidden border border-zinc-100 dark:border-white/[0.05]"
+          className="relative aspect-square w-full rounded-xl bg-[#f8f7f4] dark:bg-[#1c1e24] flex items-center justify-center p-4 overflow-hidden border border-[#eceae4] dark:border-white/[0.05]"
         >
-          {/* Visual Color Glow Accent behind product */}
           <div
-            className="absolute inset-0 opacity-10 blur-3xl transition-opacity duration-700 group-hover:opacity-25 pointer-events-none"
+            className="absolute inset-6 rounded-full opacity-[0.08] dark:opacity-[0.14] blur-2xl transition-opacity duration-200 ease-[var(--ease-out-strong)] group-hover:opacity-[0.16] dark:group-hover:opacity-[0.24] pointer-events-none"
             style={{ backgroundColor: accentColor }}
           />
 
           <img
             src={currentImage}
             alt={product.title}
-            className="relative max-h-[82%] max-w-[82%] w-auto h-auto object-contain scale-125 sm:scale-135 group-hover:scale-145 transition-transform duration-700 ease-out drop-shadow-[0_16px_28px_rgba(0,0,0,0.8)]"
+            className="relative max-h-[86%] max-w-[86%] w-auto h-auto object-contain transition-transform duration-200 ease-[var(--ease-out-strong)] group-hover:scale-[1.04] drop-shadow-[0_10px_18px_rgba(18,18,16,0.1)] dark:drop-shadow-[0_14px_24px_rgba(0,0,0,0.5)]"
             loading="lazy"
-            onError={(e) => {
+            onError={e => {
               const image = e.currentTarget
               if (rawImage && image.src !== rawImage) {
                 image.src = rawImage
@@ -133,7 +139,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           />
         </Link>
 
-        {/* Title & Info */}
         <div className="mt-4">
           <Link
             to="/products/$handle"
@@ -141,10 +146,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             className="block"
           >
             <h3
-              className={`font-bold text-sm sm:text-base leading-snug tracking-tight transition-colors line-clamp-2 ${
+              className={`font-bold text-sm sm:text-[15px] leading-snug tracking-tight transition-colors duration-150 line-clamp-2 ${
                 isPremiumCartridge
-                  ? 'text-zinc-950 dark:text-white/95 group-hover:text-amber-500 dark:group-hover:text-amber-400'
-                  : 'text-zinc-950 dark:text-white/95 group-hover:text-[#0d9488] dark:group-hover:text-[#2ee6ca]'
+                  ? 'text-zinc-950 dark:text-white/95 group-hover:text-amber-600 dark:group-hover:text-amber-400'
+                  : 'text-zinc-950 dark:text-white/95 group-hover:text-[#0d5d50] dark:group-hover:text-[#38e8c6]'
               }`}
             >
               {product.title}
@@ -153,75 +158,78 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
       </div>
 
-      {/* Bottom Section: Pricing & Dynamic Action Button */}
-      <div className="mt-5 pt-4 border-t border-zinc-100 dark:border-white/[0.08] flex items-center justify-between gap-3">
-        {/* Price display */}
+      <div className="mt-5 pt-3.5 border-t border-[#eceae4] dark:border-white/[0.08] flex items-center justify-between gap-2.5">
         <div className="min-w-0">
           <span className="text-[10px] font-mono text-zinc-400 dark:text-zinc-500 uppercase tracking-wider block">
-            {isNeedle ? 'BOX OF 20' : variants.length > 1 ? 'FROM' : 'PRICE'}
+            {isNeedle || titleLower.includes('disposable') ? 'Box of 20' : variants.length > 1 ? 'From' : 'Unit'}
           </span>
-          <span
-            className={`text-base sm:text-lg font-bold font-mono tracking-tight ${
-              isPremiumCartridge
-                ? 'text-amber-600 dark:text-amber-400'
-                : 'text-zinc-950 dark:text-white'
-            }`}
-          >
-            {priceFormatted}
-          </span>
+          <div className="flex items-baseline gap-1 whitespace-nowrap tabular-nums">
+            <span
+              className={`text-base sm:text-[17px] font-bold font-mono tracking-tight ${
+                isPremiumCartridge
+                  ? 'text-amber-700 dark:text-amber-400'
+                  : 'text-zinc-950 dark:text-white'
+              }`}
+            >
+              {amountFormatted}
+            </span>
+            <span className="text-[10px] font-mono text-zinc-400 dark:text-zinc-500">
+              {currencyCode}
+            </span>
+          </div>
         </div>
 
-        {/* Dynamic Action Button: Multiple variants -> "Options →"; Single/No variant -> "+ ShoppingBag" */}
         {!isAnyVariantAvailable ? (
           <Link
             to="/products/$handle"
             params={{ handle: product.handle }}
-            className="inline-flex items-center justify-center px-3 py-1.5 rounded-lg font-mono text-[10px] font-medium uppercase tracking-wider bg-zinc-100 dark:bg-zinc-800 text-zinc-400 dark:text-zinc-500 border border-zinc-200 dark:border-white/[0.06] shrink-0"
+            className="inline-flex items-center justify-center px-3 py-1.5 rounded-lg font-mono text-[10px] font-semibold uppercase tracking-wider bg-zinc-100 dark:bg-zinc-800 text-zinc-400 dark:text-zinc-500 border border-zinc-200 dark:border-white/[0.06] shrink-0 whitespace-nowrap"
           >
-            <span>OUT OF STOCK</span>
+            <span>Sold out</span>
           </Link>
         ) : variants.length > 1 ? (
           <Link
             to="/products/$handle"
             params={{ handle: product.handle }}
-            className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-medium uppercase tracking-wider transition-all duration-200 transform active:scale-95 shrink-0 cursor-pointer ${
+            className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-semibold uppercase tracking-wider transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] shrink-0 whitespace-nowrap ${
               isPremiumCartridge
                 ? 'bg-amber-500 text-zinc-950 hover:bg-amber-400 shadow-xs'
                 : 'bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-zinc-200 shadow-xs'
             }`}
           >
-            <span>Options</span>
+            <span>Select</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         ) : isSelectedAvailable ? (
           <button
             type="button"
             onClick={handleAddToCart}
-            className={`inline-flex items-center justify-center p-2.5 rounded-xl font-mono text-xs font-medium uppercase tracking-wider transition-all duration-200 transform active:scale-95 shrink-0 cursor-pointer ${
+            className={`inline-flex items-center justify-center px-3 py-2 rounded-xl font-mono text-xs font-semibold transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] shrink-0 whitespace-nowrap ${
               addedAnimation
-                ? 'bg-emerald-500 text-white'
+                ? 'bg-emerald-600 text-white'
                 : isPremiumCartridge
                 ? 'bg-amber-500 text-zinc-950 hover:bg-amber-400 shadow-xs'
                 : 'bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-zinc-200 shadow-xs'
             }`}
+            aria-label={`Add ${product.title} to cart`}
             title="Quick add to cart"
           >
             {addedAnimation ? (
               <Check className="w-4 h-4" />
             ) : (
-              <div className="flex items-center gap-1">
+              <span className="inline-flex items-center gap-1">
                 <span className="text-sm font-bold leading-none">+</span>
-                <ShoppingBag className="w-4 h-4" />
-              </div>
+                <ShoppingBag className="w-3.5 h-3.5" />
+              </span>
             )}
           </button>
         ) : (
           <button
             type="button"
             disabled
-            className="inline-flex items-center justify-center px-3 py-1.5 rounded-lg font-mono text-[10px] font-medium uppercase tracking-wider bg-zinc-100 dark:bg-zinc-800 text-zinc-400 dark:text-zinc-500 border border-zinc-200 dark:border-white/[0.06] cursor-not-allowed shrink-0"
+            className="inline-flex items-center justify-center px-3 py-1.5 rounded-lg font-mono text-[10px] font-semibold uppercase tracking-wider bg-zinc-100 dark:bg-zinc-800 text-zinc-400 dark:text-zinc-500 border border-zinc-200 dark:border-white/[0.06] shrink-0 whitespace-nowrap"
           >
-            OUT OF STOCK
+            Sold out
           </button>
         )}
       </div>
