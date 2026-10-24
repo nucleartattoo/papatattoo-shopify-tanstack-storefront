@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { HomePage } from '../pages/HomePage'
-import { productByHandleQueryOptions } from '../lib/catalog.queries'
+import { catalogQueryOptions } from '../lib/catalog.queries'
 import type { Locale } from '../context/LocaleContext'
 
 export interface HomeSearchParams {
@@ -29,9 +29,13 @@ export const Route = createFileRoute('/')({
     return lang ? { lang } : {}
   },
   loaderDeps: ({ search }) => ({ lang: search.lang }),
-  loader: ({ context, deps }) => {
-    void context.queryClient.prefetchQuery(productByHandleQueryOptions('papa-pen-v2-1'))
-    return { lang: deps.lang }
+  loader: async ({ context, deps }) => {
+    try {
+      const products = await context.queryClient.ensureQueryData(catalogQueryOptions)
+      return { lang: deps.lang, products }
+    } catch {
+      return { lang: deps.lang, products: [] }
+    }
   },
   head: ({ loaderData }) => {
     const activeLang = loaderData?.lang

@@ -1,24 +1,35 @@
-import React, { useState, useEffect, useMemo } from 'react'
-import { Link, useSearch, useNavigate, useLoaderData } from '@tanstack/react-router'
-import { ShopifyProduct } from '../types/shopify'
-import { getProducts, isGranularCartridge, isNuclearTattooProduct } from '../lib/shopify'
+import React, { useEffect, useMemo, useState } from 'react'
+import { Link, useLoaderData, useNavigate, useSearch } from '@tanstack/react-router'
+import { useQuery } from '@tanstack/react-query'
+import { ShopifyProduct, ShopifyVariant } from '../types/shopify'
+import { catalogQueryOptions } from '../lib/catalog.queries'
+import { isGranularCartridge, isNuclearTattooProduct } from '../lib/shopify'
 import { ProductCard } from '../components/product/ProductCard'
+import { HardwareModelCard } from '../components/product/HardwareLineupModules'
+import { CartridgeMatrixSelector } from '../components/product/CartridgeMatrixSelector'
 import { ModelViewer3D } from '../components/common/ModelViewer3D'
-import { useLocale } from '../context/LocaleContext'
+import { useCart } from '../context/CartContext'
 import {
-  Filter,
-  Search,
-  Sparkles,
-  Layers,
-  SlidersHorizontal,
-  ChevronRight,
+  getRepresentativeImage,
+  groupProductsIntoModels,
+  HardwareModelGroup,
+} from '../lib/hardwareLineup'
+import {
   ArrowUpDown,
-  RotateCcw,
-  Check,
-  X,
-  Plus,
-  Minus,
   Box,
+  ChevronRight,
+  Filter,
+  Grid2X2,
+  Image as ImageIcon,
+  Layers,
+  Minus,
+  Plus,
+  RotateCcw,
+  Search,
+  ShoppingBag,
+  SlidersHorizontal,
+  Sparkles,
+  X,
 } from 'lucide-react'
 
 export interface CollectionSearchProps {
@@ -33,6 +44,7 @@ export interface CollectionSearchProps {
 export interface SubcategoryDef {
   id: string
   label: string
+  badge?: string
   match: (product: ShopifyProduct) => boolean
 }
 
@@ -61,12 +73,10 @@ export const STORE_CATEGORIES: CategoryDef[] = [
     },
     subcategories: [
       {
-        id: 'papa-pen',
-        label: 'Papa Pen',
-        match: p => {
-          const t = p.title.toLowerCase()
-          return t.includes('papa pen') && !t.includes('v2') && !t.includes('v3')
-        },
+        id: 'papa-pen-v3',
+        label: 'Papa Pen V3',
+        badge: 'FLAGSHIP',
+        match: p => p.title.toLowerCase().includes('v3'),
       },
       {
         id: 'papa-pen-v2',
@@ -74,9 +84,12 @@ export const STORE_CATEGORIES: CategoryDef[] = [
         match: p => p.title.toLowerCase().includes('v2'),
       },
       {
-        id: 'papa-pen-v3',
-        label: 'Papa Pen V3',
-        match: p => p.title.toLowerCase().includes('v3'),
+        id: 'papa-pen',
+        label: 'Papa Pen Classic',
+        match: p => {
+          const t = p.title.toLowerCase()
+          return t.includes('papa pen') && !t.includes('v2') && !t.includes('v3')
+        },
       },
       {
         id: 'papa-apollo',
@@ -100,15 +113,19 @@ export const STORE_CATEGORIES: CategoryDef[] = [
     subcategories: [
       {
         id: 'premium',
-        label: '⭐ Papa Premium Cartridges',
-        match: p => p.handle === 'papa-premium-tattoo-cartridges' || p.title.toLowerCase().includes('premium'),
+        label: 'Papa Premium Cartridges',
+        badge: '316L',
+        match: p =>
+          p.handle === 'papa-premium-tattoo-cartridges' ||
+          p.title.toLowerCase().includes('premium'),
       },
       {
         id: 'standard',
         label: 'Papa Standard Cartridges',
         match: p =>
           p.handle === 'papa-standard-tattoo-cartridges' ||
-          (p.title.toLowerCase().includes('standard') && p.title.toLowerCase().includes('cartridge')),
+          (p.title.toLowerCase().includes('standard') &&
+            p.title.toLowerCase().includes('cartridge')),
       },
     ],
   },
@@ -150,7 +167,7 @@ export const STORE_CATEGORIES: CategoryDef[] = [
       },
       {
         id: 'foam-cover-grips',
-        label: 'Foam Grips & Accessories',
+        label: 'Foam Grips & Finger Ledge',
         match: p => {
           const t = p.title.toLowerCase()
           if (t.includes('cheyenne')) return false
@@ -176,6 +193,15 @@ export const STORE_CATEGORIES: CategoryDef[] = [
     },
     subcategories: [
       {
+        id: 'power-units',
+        label: 'Volt Battery & Power Units',
+        match: p => {
+          const t = p.title.toLowerCase()
+          if (t.includes('critical') || t.includes('atom')) return false
+          return t.includes('power') || t.includes('bullet') || t.includes('volt') || t.includes('battery')
+        },
+      },
+      {
         id: 'cords',
         label: 'RCA & Clip Cords',
         match: p => p.title.toLowerCase().includes('cord'),
@@ -185,53 +211,27 @@ export const STORE_CATEGORIES: CategoryDef[] = [
         label: 'Papa Foot Pedal',
         match: p => p.title.toLowerCase().includes('pedal'),
       },
-      {
-        id: 'power-units',
-        label: 'Power Supplies & Bullet',
-        match: p => {
-          const t = p.title.toLowerCase()
-          if (t.includes('critical') || t.includes('atom')) return false
-          return t.includes('power') || t.includes('bullet') || t.includes('volt')
-        },
-      },
-    ],
-  },
-  {
-    id: 'apparel',
-    label: 'Papa Apparel',
-    match: p => {
-      const t = p.title.toLowerCase()
-      return t.includes('hat') || t.includes('shirt') || t.includes('apron')
-    },
-    subcategories: [
-      {
-        id: 'hat',
-        label: 'PAPA Tattoo Hat',
-        match: p => p.title.toLowerCase().includes('hat'),
-      },
-      {
-        id: 'shirt',
-        label: 'Papa Tattoo Shirt',
-        match: p => p.title.toLowerCase().includes('shirt'),
-      },
     ],
   },
   {
     id: 'accessories',
-    label: 'Papa Accessories',
+    label: 'Studio Accessories',
     match: p => {
       const t = p.title.toLowerCase()
-      return (t.includes('tray') || t.includes('case') || t.includes('holder')) && !t.includes('stencil')
+      return (
+        (t.includes('tray') || t.includes('case') || t.includes('holder')) &&
+        !t.includes('stencil')
+      )
     },
     subcategories: [
       {
         id: 'trays',
-        label: 'Papa Station Trays',
+        label: 'Workstation Trays',
         match: p => p.title.toLowerCase().includes('tray'),
       },
       {
         id: 'travel-case',
-        label: 'PAPA Travel Case',
+        label: 'Papa Travel Case',
         match: p => p.title.toLowerCase().includes('case'),
       },
     ],
@@ -241,37 +241,164 @@ export const STORE_CATEGORIES: CategoryDef[] = [
     label: 'Papa Stencil',
     match: p => p.title.toLowerCase().includes('stencil'),
   },
+  {
+    id: 'apparel',
+    label: 'Studio Apparel',
+    match: p => {
+      const t = p.title.toLowerCase()
+      return t.includes('hat') || t.includes('shirt') || t.includes('apron')
+    },
+    subcategories: [
+      {
+        id: 'apron',
+        label: 'Artist Work Apron',
+        match: p => p.title.toLowerCase().includes('apron'),
+      },
+      {
+        id: 'hat',
+        label: 'Papa Tattoo Hat',
+        match: p => p.title.toLowerCase().includes('hat'),
+      },
+      {
+        id: 'shirt',
+        label: 'Papa Tattoo Shirt',
+        match: p => p.title.toLowerCase().includes('shirt'),
+      },
+    ],
+  },
 ]
 
+function normalizeCategoryParam(raw?: string): string {
+  if (!raw) return 'all'
+  const lower = raw.toLowerCase()
+  if (lower === 'needles') return 'cartridges'
+  if (lower === 'studio') return 'accessories'
+  return lower
+}
+
+interface StagePresentation {
+  badge: string
+  description: string
+  pills: string[]
+  imageHandles: string[]
+  fallbackImage: string
+  supports3D?: boolean
+}
+
+const STAGE_BY_CATEGORY: Record<string, StagePresentation> = {
+  all: {
+    badge: 'FULL HARDWARE ARCHIVE',
+    description:
+      'Complete Papa Tattoo Supply apparatus index: CNC 6061-T6 rotary machines, ratcheted click grips, 62-size 316L surgical cartridges, and regulated studio power.',
+    pills: ['26 CONSOLIDATED FAMILIES', '44 HARDWARE SKUS', 'FACTORY CALIBRATED'],
+    imageHandles: ['papa-pen-v3-black-full-set', 'papa-pen-v2-1'],
+    fallbackImage: '/product-images/img_113_papa_pen_jet_black_1__cutout.webp',
+    supports3D: true,
+  },
+  machines: {
+    badge: 'ROTARY DRIVE SYSTEMS',
+    description:
+      'Direct-drive and coreless rotary pen machines machined from solid 6061-T6 aerospace billet aluminum for zero-vibration lining, whip shading, and color packing.',
+    pills: ['GERMAN CORELESS MOTOR', '3.5 – 4.5 MM STROKE', '6061-T6 BILLET'],
+    imageHandles: ['papa-pen-v3-black-full-set', 'papa-pen-v2-1'],
+    fallbackImage: '/product-images/img_113_papa_pen_jet_black_1__cutout.webp',
+    supports3D: true,
+  },
+  cartridges: {
+    badge: 'MEMBRANE SEALED 316L',
+    description:
+      'Japanese 316L surgical stainless steel needle cartridges with full-seal anti-backflow membranes across 62 RL, RLT, RLH, RS, M1, and M1C configurations.',
+    pills: ['62 NEEDLE CONFIGS', 'SAFETY MEMBRANE', '100% EO GAS STERILE'],
+    imageHandles: ['papa-premium-tattoo-cartridges', 'papa-standard-tattoo-cartridges'],
+    fallbackImage: '/product-images/papa-premium-tattoo-cartridges-round-cutout.webp',
+  },
+  grips: {
+    badge: 'RATCHETED CLICK CONTROL',
+    description:
+      'Autoclavable 6061-T6 aluminum and 316L surgical stainless steel click grips plus sterile single-use disposable grips engineered for positive depth locking.',
+    pills: ['BALL-DETENT CLICK DIAL', '134°C AUTOCLAVABLE', 'UNIVERSAL FIT'],
+    imageHandles: [
+      'papa-adjustable-click-grip-v2-stainless-steel',
+      'papa-adjustable-click-grip-v2-black',
+    ],
+    fallbackImage: '/product-images/img_111_papa_adjustment_grips_1__cutout.webp',
+  },
+  power: {
+    badge: 'ZERO-RIPPLE DC POWER',
+    description:
+      'Cordless OLED lithium battery docks, regulated desktop power consoles, 24K gold-plated silicone RCA cords, and 360° cast-metal studio foot switches.',
+    pills: ['5.0 – 12.0 V DC', '24K GOLD RCA', 'OVERLOAD GUARD'],
+    imageHandles: ['papa-volt-battery', 'papa-power-supply', 'papa-power-bullet'],
+    fallbackImage: '/product-images/img_113_papa_pen_jet_black_1__cutout.webp',
+  },
+  accessories: {
+    badge: 'PARLOR WORKSTATION',
+    description:
+      'Chemical-resistant magnetic workstation trays, crushproof EVA convention travel cases, and articulated studio mounts built for daily parlor hygiene.',
+    pills: ['CAVICIDE RESISTANT', 'RAISED PERIMETER DECK', 'BALLISTIC EVA'],
+    imageHandles: ['papa-travel-case', 'papa-tray-large'],
+    fallbackImage: '/product-images/img_201_papa_travel_case_cutout.webp',
+  },
+  stencil: {
+    badge: 'THERMAL TRANSFER LOCK',
+    description:
+      'High-contrast skin-safe thermal stencil transfer solution formulated to lock fine-line and realism stencils through multi-hour tattoo sessions.',
+    pills: ['LONG-HOLD FORMULA', 'VEGAN & SKIN SAFE', 'AIRLESS PUMP'],
+    imageHandles: ['stencilock'],
+    fallbackImage: '/product-images/img_201_papa_travel_case_cutout.webp',
+  },
+  apparel: {
+    badge: 'RESIDENT ARTIST GEAR',
+    description:
+      'Heavyweight cross-back studio work aprons, embroidered headwear, and breathable parlor apparel tailored for working tattooists.',
+    pills: ['HEAVYWEIGHT CANVAS', 'STUDIO DURABILITY', 'OFFICIAL EMBLEM'],
+    imageHandles: ['papa-apron', 'papa-tattoo-hat', 'papa-tattoo-shirt'],
+    fallbackImage: '/product-images/img_201_papa_travel_case_cutout.webp',
+  },
+}
+
 export const CollectionPage: React.FC = () => {
-  const { t, locale } = useLocale()
   const searchParams: CollectionSearchProps = useSearch({ strict: false })
   const navigate = useNavigate()
+  const { addToCart, openCart } = useCart()
 
   const loaderData = useLoaderData({ strict: false }) as
     | { products?: ShopifyProduct[] }
     | undefined
   const initialProducts = loaderData?.products || []
 
-  const [products, setProducts] = useState<ShopifyProduct[]>(initialProducts)
-  const [loading, setLoading] = useState(initialProducts.length === 0)
+  const { data: products = [], isLoading: loading } = useQuery({
+    ...catalogQueryOptions,
+    initialData: initialProducts.length > 0 ? initialProducts : undefined,
+  })
 
   // Filter States initialized from URL query params
-  const [activeCategory, setActiveCategory] = useState<string>(searchParams.category || 'all')
-  const [activeSubcategory, setActiveSubcategory] = useState<string | null>(searchParams.sub || null)
+  const [activeCategory, setActiveCategory] = useState<string>(() =>
+    normalizeCategoryParam(searchParams.category)
+  )
+  const [activeSubcategory, setActiveSubcategory] = useState<string | null>(
+    searchParams.sub || null
+  )
   const [searchQuery, setSearchQuery] = useState<string>(searchParams.q || '')
   const [activeSeries, setActiveSeries] = useState<'all' | 'premium' | 'standard'>(
     searchParams.series || 'all'
   )
-  const [needleProfile, setNeedleProfile] = useState<string>(searchParams.needle || 'all')
   const [sortOption, setSortOption] = useState<string>(searchParams.sort || 'featured')
   const [inStockOnly, setInStockOnly] = useState<boolean>(false)
+  const [displayMode, setDisplayMode] = useState<'grouped' | 'skus'>('grouped')
+  const [stage3DActive, setStage3DActive] = useState<boolean>(false)
+
+  // Inline Cartridge Matrix Quick-Order state (active when viewing cartridges)
+  const [matrixTier, setMatrixTier] = useState<'premium' | 'standard'>('premium')
+  const [selectedCartridgeVariant, setSelectedCartridgeVariant] =
+    useState<ShopifyVariant | null>(null)
+  const [cartridgeQty, setCartridgeQty] = useState<number>(1)
 
   // Expandable category state for accordion
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(() => {
-    const initial = new Set<string>()
-    if (searchParams.category && searchParams.category !== 'all') {
-      const norm = searchParams.category === 'needles' ? 'cartridges' : searchParams.category
+    const initial = new Set<string>(['machines', 'cartridges', 'grips'])
+    const norm = normalizeCategoryParam(searchParams.category)
+    if (norm !== 'all') {
       initial.add(norm)
     }
     return initial
@@ -279,51 +406,39 @@ export const CollectionPage: React.FC = () => {
 
   // Synchronize state when URL query params change
   useEffect(() => {
-    if (searchParams.category) {
-      setActiveCategory(searchParams.category)
-      const norm = searchParams.category === 'needles' ? 'cartridges' : searchParams.category
-      if (norm !== 'all') {
-        setExpandedCategories(prev => new Set(prev).add(norm))
-      }
+    const norm = normalizeCategoryParam(searchParams.category)
+    setActiveCategory(norm)
+    if (norm !== 'all') {
+      setExpandedCategories(prev => new Set(prev).add(norm))
     }
-    if (searchParams.sub !== undefined) setActiveSubcategory(searchParams.sub || null)
-    if (searchParams.q !== undefined) setSearchQuery(searchParams.q)
-    if (searchParams.series) setActiveSeries(searchParams.series)
-    if (searchParams.needle) setNeedleProfile(searchParams.needle)
+    setStage3DActive(false)
+    setActiveSubcategory(searchParams.sub || null)
+    setSearchQuery(searchParams.q || '')
+    if (searchParams.series) {
+      setActiveSeries(searchParams.series)
+      if (searchParams.series === 'premium' || searchParams.series === 'standard') {
+        setMatrixTier(searchParams.series)
+      }
+    } else {
+      setActiveSeries('all')
+    }
     if (searchParams.sort) setSortOption(searchParams.sort)
-  }, [searchParams.category, searchParams.sub, searchParams.q, searchParams.series, searchParams.needle, searchParams.sort])
+  }, [
+    searchParams.category,
+    searchParams.sub,
+    searchParams.q,
+    searchParams.series,
+    searchParams.sort,
+  ])
 
-  // Fetch full unified catalog
-  useEffect(() => {
-    let isMounted = true
-    async function loadCatalog() {
-      if (initialProducts.length > 0 && locale === 'EN') return
-      setLoading(true)
-      try {
-        const items = await getProducts({ first: 100, language: locale })
-        if (isMounted) {
-          setProducts(items)
-        }
-      } catch (err) {
-        console.error(err)
-      } finally {
-        if (isMounted) setLoading(false)
-      }
-    }
-    loadCatalog()
-    return () => {
-      isMounted = false
-    }
-  }, [locale, initialProducts.length])
-
-  // Non-granular products list for counting and filtering (excluding Nuclear Tattoo items)
   const nonGranularProducts = useMemo(() => {
     return products.filter(p => !isGranularCartridge(p) && !isNuclearTattooProduct(p))
   }, [products])
 
-  // Precompute category & subcategory counts
   const categoryCounts = useMemo(() => {
-    const counts: Record<string, number> = {}
+    const counts: Record<string, number> = {
+      all: nonGranularProducts.length,
+    }
     for (const cat of STORE_CATEGORIES) {
       counts[cat.id] = nonGranularProducts.filter(p => cat.match(p)).length
     }
@@ -335,35 +450,29 @@ export const CollectionPage: React.FC = () => {
     for (const cat of STORE_CATEGORIES) {
       if (cat.subcategories) {
         for (const sub of cat.subcategories) {
-          counts[sub.id] = nonGranularProducts.filter(p => cat.match(p) && sub.match(p)).length
+          counts[sub.id] = nonGranularProducts.filter(
+            p => cat.match(p) && sub.match(p)
+          ).length
         }
       }
     }
     return counts
   }, [nonGranularProducts])
 
-  // Multi-tier filtering
   const filteredProducts = useMemo(() => {
-    return products.filter(prod => {
+    return nonGranularProducts.filter(prod => {
       const titleLower = prod.title.toLowerCase()
 
-      // 0. Exclude raw un-consolidated single-needle cartridge SKUs and Nuclear Tattoo products unconditionally
-      if (isGranularCartridge(prod) || isNuclearTattooProduct(prod)) {
-        return false
-      }
-
-      // 1. Text Search
       if (searchQuery) {
         const queryLower = searchQuery.toLowerCase()
         const matchesTitle = titleLower.includes(queryLower)
-        const matchesTags = prod.tags && prod.tags.some(tag => tag.toLowerCase().includes(queryLower))
+        const matchesTags =
+          prod.tags && prod.tags.some(tag => tag.toLowerCase().includes(queryLower))
         if (!matchesTitle && !matchesTags) return false
       }
 
-      // 2. Category & Subcategory Discipline
       if (activeCategory !== 'all') {
-        const normCatId = activeCategory === 'needles' ? 'cartridges' : activeCategory === 'studio' ? 'accessories' : activeCategory
-        const targetCat = STORE_CATEGORIES.find(c => c.id === normCatId)
+        const targetCat = STORE_CATEGORIES.find(c => c.id === activeCategory)
         if (targetCat) {
           if (!targetCat.match(prod)) return false
 
@@ -374,34 +483,91 @@ export const CollectionPage: React.FC = () => {
         }
       }
 
-      // 3. Cartridge Sub-Series (Standard vs Premium)
       if (activeSeries === 'premium') {
         if (prod.handle !== 'papa-premium-tattoo-cartridges') return false
       } else if (activeSeries === 'standard') {
         if (prod.handle !== 'papa-standard-tattoo-cartridges') return false
       }
 
-      // 4. In-stock filter
       if (inStockOnly && prod.availableForSale === false) return false
 
       return true
     })
-  }, [products, searchQuery, activeCategory, activeSubcategory, activeSeries, inStockOnly])
+  }, [
+    nonGranularProducts,
+    searchQuery,
+    activeCategory,
+    activeSubcategory,
+    activeSeries,
+    inStockOnly,
+  ])
 
-  // Sorting
   const sortedProducts = useMemo(() => {
     const list = [...filteredProducts]
     if (sortOption === 'price-asc') {
-      list.sort((a, b) => parseFloat(a.priceRange.minVariantPrice.amount) - parseFloat(b.priceRange.minVariantPrice.amount))
+      list.sort(
+        (a, b) =>
+          parseFloat(a.priceRange.minVariantPrice.amount) -
+          parseFloat(b.priceRange.minVariantPrice.amount)
+      )
     } else if (sortOption === 'price-desc') {
-      list.sort((a, b) => parseFloat(b.priceRange.minVariantPrice.amount) - parseFloat(a.priceRange.minVariantPrice.amount))
+      list.sort(
+        (a, b) =>
+          parseFloat(b.priceRange.minVariantPrice.amount) -
+          parseFloat(a.priceRange.minVariantPrice.amount)
+      )
     } else if (sortOption === 'title-asc') {
       list.sort((a, b) => a.title.localeCompare(b.title))
     }
     return list
   }, [filteredProducts, sortOption])
 
-  // Accordion toggle expand handler
+  const sortedModelGroups = useMemo<HardwareModelGroup[]>(() => {
+    const groups = groupProductsIntoModels(filteredProducts)
+    const getMinPrice = (g: HardwareModelGroup) =>
+      Math.min(
+        ...g.options.map(o =>
+          parseFloat(o.product.priceRange?.minVariantPrice?.amount || '0')
+        )
+      )
+
+    if (sortOption === 'price-asc') {
+      return [...groups].sort((a, b) => getMinPrice(a) - getMinPrice(b))
+    }
+    if (sortOption === 'price-desc') {
+      return [...groups].sort((a, b) => getMinPrice(b) - getMinPrice(a))
+    }
+    if (sortOption === 'title-asc') {
+      return [...groups].sort((a, b) => a.masterTitle.localeCompare(b.masterTitle))
+    }
+    return groups
+  }, [filteredProducts, sortOption])
+
+  const premiumCartridgeProduct = useMemo(
+    () =>
+      nonGranularProducts.find(p => p.handle === 'papa-premium-tattoo-cartridges') ||
+      null,
+    [nonGranularProducts]
+  )
+  const standardCartridgeProduct = useMemo(
+    () =>
+      nonGranularProducts.find(p => p.handle === 'papa-standard-tattoo-cartridges') ||
+      null,
+    [nonGranularProducts]
+  )
+  const activeCartridgeProduct =
+    matrixTier === 'premium' ? premiumCartridgeProduct : standardCartridgeProduct
+
+  useEffect(() => {
+    if (activeCartridgeProduct?.variants?.edges?.length) {
+      const firstAvailable =
+        activeCartridgeProduct.variants.edges.find(
+          e => e.node.availableForSale !== false
+        )?.node || activeCartridgeProduct.variants.edges[0].node
+      setSelectedCartridgeVariant(firstAvailable)
+    }
+  }, [activeCartridgeProduct?.id])
+
   const handleToggleExpand = (catId: string, e?: React.MouseEvent) => {
     if (e) e.stopPropagation()
     setExpandedCategories(prev => {
@@ -415,42 +581,47 @@ export const CollectionPage: React.FC = () => {
     })
   }
 
-  // Select Category
   const handleSelectCategory = (catId: string) => {
-    setActiveCategory(catId)
+    const norm = normalizeCategoryParam(catId)
+    setActiveCategory(norm)
     setActiveSubcategory(null)
     setActiveSeries('all')
-    if (catId !== 'all') {
-      const norm = catId === 'needles' ? 'cartridges' : catId
+    if (norm !== 'all') {
       setExpandedCategories(prev => new Set(prev).add(norm))
     }
     navigate({
       to: '/collections',
       search: {
-        category: catId,
+        category: norm,
         q: searchQuery || undefined,
         series: 'all',
-        sort: sortOption as any,
+        sort: sortOption as CollectionSearchProps['sort'],
       },
     })
   }
 
-  // Select Subcategory
   const handleSelectSubcategory = (catId: string, subId: string) => {
-    setActiveCategory(catId)
+    const norm = normalizeCategoryParam(catId)
+    setActiveCategory(norm)
     setActiveSubcategory(subId)
-    if (catId === 'cartridges' || catId === 'needles') {
-      if (subId === 'premium') setActiveSeries('premium')
-      else if (subId === 'standard') setActiveSeries('standard')
-      else setActiveSeries('all')
+    if (norm === 'cartridges') {
+      if (subId === 'premium') {
+        setActiveSeries('premium')
+        setMatrixTier('premium')
+      } else if (subId === 'standard') {
+        setActiveSeries('standard')
+        setMatrixTier('standard')
+      } else {
+        setActiveSeries('all')
+      }
     }
     navigate({
       to: '/collections',
       search: {
-        category: catId,
+        category: norm,
         sub: subId,
         q: searchQuery || undefined,
-        sort: sortOption as any,
+        sort: sortOption as CollectionSearchProps['sort'],
       },
     })
   }
@@ -460,7 +631,6 @@ export const CollectionPage: React.FC = () => {
     setActiveSubcategory(null)
     setSearchQuery('')
     setActiveSeries('all')
-    setNeedleProfile('all')
     setSortOption('featured')
     setInStockOnly(false)
     navigate({ to: '/collections', search: { category: 'all' } })
@@ -468,139 +638,159 @@ export const CollectionPage: React.FC = () => {
 
   const getCategoryTitle = () => {
     if (activeCategory === 'all') return 'ALL APPARATUS & SUPPLIES'
-    const norm = activeCategory === 'needles' ? 'cartridges' : activeCategory === 'studio' ? 'accessories' : activeCategory
-    const cat = STORE_CATEGORIES.find(c => c.id === norm)
+    const cat = STORE_CATEGORIES.find(c => c.id === activeCategory)
     if (!cat) return 'ALL APPARATUS & SUPPLIES'
     if (activeSubcategory && cat.subcategories) {
       const sub = cat.subcategories.find(s => s.id === activeSubcategory)
       if (sub) {
-        return `${cat.label.toUpperCase()} · ${sub.label.replace('⭐ ', '').toUpperCase()}`
+        return `${cat.label.toUpperCase()} · ${sub.label.toUpperCase()}`
       }
     }
     return cat.label.toUpperCase()
   }
 
-  return (
-    <div className="bg-zinc-50 dark:bg-[#20222a] min-h-[100dvh] text-zinc-900 dark:text-zinc-100 art-aurora-bg">
-      {/* 1. Top Ultra-Wide Full-Screen Panoramic Stage (Compact Golden Height) */}
-      <section className="w-full border-b border-zinc-200/80 dark:border-white/[0.08] bg-[#eceae4] dark:bg-[#15171d] relative overflow-hidden">
-        {/* Ambient Movie-Grade Studio Glow */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(46,230,202,0.1)_0%,transparent_65%)] pointer-events-none" />
+  const currentStage = STAGE_BY_CATEGORY[activeCategory] || STAGE_BY_CATEGORY.all
+  const stageImageUrl = useMemo(
+    () =>
+      getRepresentativeImage(
+        nonGranularProducts,
+        currentStage.imageHandles,
+        currentStage.fallbackImage
+      ),
+    [nonGranularProducts, currentStage]
+  )
 
-        <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 h-full min-h-[200px] sm:min-h-[220px] lg:min-h-[240px] flex flex-col lg:flex-row lg:items-center justify-between py-6 sm:py-7 gap-6 relative z-10">
-          {/* Left: Breadcrumbs & Punchy Typography */}
-          <div className="max-w-2xl space-y-2">
-            {/* Compact Breadcrumb */}
-            <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-[11px] font-mono text-zinc-600 dark:text-zinc-400">
+  return (
+    <div className="bg-zinc-50 dark:bg-[#14161b] min-h-[100dvh] text-zinc-900 dark:text-zinc-100">
+      {/* 1. Category Stage Banner — Synchronized to Active Category */}
+      <section className="w-full border-b border-zinc-200/80 dark:border-white/[0.08] bg-[#f4f3ef] dark:bg-[#181a20] relative overflow-hidden">
+        <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 min-h-[200px] sm:min-h-[220px] flex flex-col lg:flex-row lg:items-center justify-between py-6 sm:py-7 gap-6 relative z-10">
+          {/* Left: Breadcrumbs & Category Overview */}
+          <div className="max-w-2xl space-y-2.5">
+            <nav
+              aria-label="Breadcrumb"
+              className="flex items-center gap-1.5 text-[11px] font-mono text-zinc-600 dark:text-zinc-400"
+            >
               <Link to="/" className="hover:text-zinc-950 dark:hover:text-white transition-colors">
                 HOME
               </Link>
               <ChevronRight className="w-3 h-3 text-zinc-400 dark:text-zinc-600" />
-              <Link to="/collections" search={{ category: 'all' }} className="hover:text-zinc-950 dark:hover:text-white transition-colors">
-                CATALOG
+              <Link
+                to="/collections"
+                search={{ category: 'all' }}
+                className="hover:text-zinc-950 dark:hover:text-white transition-colors"
+              >
+                COLLECTIONS
               </Link>
               <ChevronRight className="w-3 h-3 text-zinc-400 dark:text-zinc-600" />
-              <span className="text-[#0d5d50] dark:text-[#2ee6ca] font-bold uppercase">{getCategoryTitle()}</span>
+              <span className="text-[#0d5d50] dark:text-[#38e8c6] font-bold uppercase">
+                {getCategoryTitle()}
+              </span>
             </nav>
 
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-zinc-950 dark:text-white font-['Montserrat',sans-serif]">
               {getCategoryTitle()}
             </h1>
 
-            <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed line-clamp-2 max-w-xl">
-              Industrial grade tattoo engineering apparatus, medical 316L needle pins, and aerospace anodized alloy systems calibrated for professional artists.
+            <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed max-w-xl">
+              {currentStage.description}
             </p>
 
-            {/* Architectural Technical Specs Pills */}
             <div className="flex flex-wrap items-center gap-2 pt-1">
-              <span className="px-2 py-0.5 rounded-md bg-zinc-900/[0.06] dark:bg-white/[0.06] border border-zinc-900/10 dark:border-white/[0.08] text-[10px] font-mono text-zinc-700 dark:text-zinc-300">
-                AEROSPACE ALLOY
-              </span>
-              <span className="px-2 py-0.5 rounded-md bg-zinc-900/[0.06] dark:bg-white/[0.06] border border-zinc-900/10 dark:border-white/[0.08] text-[10px] font-mono text-zinc-700 dark:text-zinc-300">
-                316L SURGICAL STEEL
-              </span>
-              <span className="px-2 py-0.5 rounded-md bg-[#0d5d50]/[0.08] dark:bg-white/[0.06] border border-[#0d5d50]/20 dark:border-white/[0.08] text-[10px] font-mono font-semibold text-[#0d5d50] dark:text-[#2ee6ca]">
-                CALIBRATED TOLERANCE
-              </span>
+              {currentStage.pills.map((pill, idx) => (
+                <span
+                  key={pill}
+                  className={`px-2.5 py-1 rounded-md border text-[10px] font-mono font-bold ${
+                    idx === currentStage.pills.length - 1
+                      ? 'bg-[#0d5d50]/10 dark:bg-[#38e8c6]/10 border-[#0d5d50]/25 dark:border-[#38e8c6]/25 text-[#0d5d50] dark:text-[#38e8c6]'
+                      : 'bg-white/80 dark:bg-white/[0.04] border-zinc-200/80 dark:border-white/10 text-zinc-700 dark:text-zinc-300'
+                  }`}
+                >
+                  {pill}
+                </span>
+              ))}
             </div>
           </div>
 
-          {/* Right: Compact 3D Interactive Stage / High-Res Apparatus Visual */}
-          <div className="relative w-full lg:w-96 h-40 sm:h-48 lg:h-52 shrink-0 rounded-xl bg-[#1b1d24] dark:bg-zinc-900/40 border border-zinc-300/80 dark:border-white/[0.08] overflow-hidden flex items-center justify-center">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(46,230,202,0.15)_0%,transparent_70%)] pointer-events-none" />
+          {/* Right: Category-Matched Specimen Stage */}
+          <div className="relative w-full lg:w-96 h-44 sm:h-48 shrink-0 rounded-2xl bg-white dark:bg-[#1c1e24] border border-zinc-200/80 dark:border-white/[0.08] overflow-hidden flex items-center justify-center p-4">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(56,232,198,0.10)_0%,transparent_70%)] pointer-events-none" />
 
-            {activeCategory === 'machines' ? (
-              <>
-                <ModelViewer3D
-                  src="/models/papapenv2.glb"
-                  poster="/product-images/img_113_papa_pen_jet_black_1__cutout.webp"
-                  alt="Papa Pen V2 Precision Machine"
-                  className="w-full h-full"
-                  autoRotate={true}
-                  cameraOrbit="45deg 70deg 2.2m"
-                />
-                {/* Top-Left 3D Indicator Badge */}
-                <div className="absolute top-3 left-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/15 text-white text-[10px] font-mono font-medium pointer-events-none shadow-md">
-                  <Box className="w-3 h-3 text-[#2ee6ca]" />
-                  <span>3D ROTATE</span>
-                </div>
-              </>
-            ) : activeCategory === 'cartridges' ? (
-              <div className="relative w-full h-full flex items-center justify-center p-4">
-                <img
-                  src="/product-images/papa-premium-tattoo-cartridges-round-cutout.webp"
-                  alt="Papa Cartridges Precision Needle"
-                  className="max-h-[90%] w-auto object-contain drop-shadow-[0_16px_28px_rgba(0,0,0,0.8)] scale-110"
-                />
-                <div className="absolute top-3 left-3 z-20 px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/15 text-white text-[10px] font-mono font-medium pointer-events-none shadow-md">
-                  MEMBRANE SEALED
-                </div>
+            <div className="absolute top-3 left-3 z-20 px-2.5 py-1 rounded-md bg-zinc-100/90 dark:bg-black/65 backdrop-blur-md border border-zinc-200/80 dark:border-white/10 text-zinc-800 dark:text-zinc-200 text-[10px] font-mono font-bold uppercase tracking-wider pointer-events-none">
+              {currentStage.badge}
+            </div>
+
+            {currentStage.supports3D && (
+              <div className="absolute bottom-3 right-3 z-20 flex items-center gap-1 p-0.5 rounded-lg bg-zinc-100/90 dark:bg-black/70 border border-zinc-200/80 dark:border-white/10 font-mono text-[10px]">
+                <button
+                  type="button"
+                  onClick={() => setStage3DActive(false)}
+                  className={`flex items-center gap-1 px-2 py-1 rounded-md font-bold transition-all cursor-pointer ${
+                    !stage3DActive
+                      ? 'bg-zinc-950 text-white dark:bg-white dark:text-zinc-950'
+                      : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white'
+                  }`}
+                >
+                  <ImageIcon className="w-3 h-3" />
+                  <span>Photo</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setStage3DActive(true)}
+                  className={`flex items-center gap-1 px-2 py-1 rounded-md font-bold transition-all cursor-pointer ${
+                    stage3DActive
+                      ? 'bg-zinc-950 text-white dark:bg-white dark:text-zinc-950'
+                      : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white'
+                  }`}
+                >
+                  <Box className="w-3 h-3 text-[#0d5d50] dark:text-[#38e8c6]" />
+                  <span>3D</span>
+                </button>
               </div>
-            ) : activeCategory === 'grips' ? (
-              <div className="relative w-full h-full flex items-center justify-center p-4">
-                <img
-                  src="/product-images/img_111_papa_adjustment_grips_1__cutout.webp"
-                  alt="Papa Adjustable Grip"
-                  className="max-h-[90%] w-auto object-contain drop-shadow-[0_16px_28px_rgba(0,0,0,0.8)] scale-110"
-                />
-                <div className="absolute top-3 left-3 z-20 px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/15 text-white text-[10px] font-mono font-medium pointer-events-none shadow-md">
-                  CNC ADJUSTABLE
-                </div>
-              </div>
+            )}
+
+            {currentStage.supports3D && stage3DActive ? (
+              <ModelViewer3D
+                src="/models/papapenv2.glb"
+                poster={stageImageUrl}
+                alt={getCategoryTitle()}
+                className="w-full h-full"
+                autoRotate={true}
+                cameraOrbit="45deg 70deg 2.2m"
+              />
             ) : (
-              <div className="relative w-full h-full flex items-center justify-center p-4">
-                <img
-                  src="/product-images/img_201_papa_travel_case_cutout.webp"
-                  alt="Papa Travel Case"
-                  className="max-h-[90%] w-auto object-contain drop-shadow-[0_16px_28px_rgba(0,0,0,0.8)] scale-110"
-                />
-                <div className="absolute top-3 left-3 z-20 px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/15 text-white text-[10px] font-mono font-medium pointer-events-none shadow-md">
-                  STUDIO GEAR
-                </div>
-              </div>
+              <img
+                key={`${activeCategory}-${stageImageUrl}`}
+                src={stageImageUrl}
+                alt={getCategoryTitle()}
+                className="relative z-10 max-h-[85%] max-w-[85%] w-auto object-contain transition-transform duration-300"
+              />
             )}
           </div>
         </div>
       </section>
 
-      <div className="py-8 max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
-
-        {/* 3. Main Layout: Sidebar Filters + Products Grid */}
+      <div className="py-8 max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+        {/* 2. Main Layout: Sidebar Filters + Products Grid */}
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Left Sidebar Filter Column - Open Minimalist Architecture */}
-          <aside className="w-full lg:w-64 lg:shrink-0 lg:pr-6 lg:border-r lg:border-zinc-200/70 dark:lg:border-zinc-800/70 space-y-6">
-            {/* 1. Header Toolbar with Filter Title & Reset */}
-            <div className="flex items-center justify-between pb-3 border-b border-zinc-200/80 dark:border-zinc-800/80">
+          {/* Left Sidebar Filter Column */}
+          <aside className="w-full lg:w-68 lg:shrink-0 lg:pr-6 lg:border-r lg:border-zinc-200/80 dark:lg:border-white/[0.08] space-y-6">
+            <div className="flex items-center justify-between pb-3 border-b border-zinc-200/80 dark:border-white/[0.08]">
               <div className="flex items-center gap-2">
-                <SlidersHorizontal className="w-3.5 h-3.5 text-[#0d9488] dark:text-[#2EE6CA]" />
+                <SlidersHorizontal className="w-3.5 h-3.5 text-[#0d5d50] dark:text-[#38e8c6]" />
                 <span className="text-xs font-mono font-black uppercase tracking-wider text-zinc-900 dark:text-zinc-100">
-                  CATEGORIES
+                  APPARATUS INDEX
                 </span>
               </div>
-              {(activeCategory !== 'all' || activeSubcategory || activeSeries !== 'all' || searchQuery || inStockOnly) && (
+              {(activeCategory !== 'all' ||
+                activeSubcategory ||
+                activeSeries !== 'all' ||
+                searchQuery ||
+                inStockOnly) && (
                 <button
+                  type="button"
                   onClick={handleResetFilters}
-                  className="text-[11px] font-mono text-zinc-400 hover:text-[#0d9488] dark:hover:text-[#2EE6CA] flex items-center gap-1 transition-colors cursor-pointer"
+                  className="text-[11px] font-mono text-zinc-500 hover:text-[#0d5d50] dark:hover:text-[#38e8c6] flex items-center gap-1 transition-colors cursor-pointer"
                 >
                   <RotateCcw className="w-3 h-3" />
                   <span>Reset</span>
@@ -608,99 +798,139 @@ export const CollectionPage: React.FC = () => {
               )}
             </div>
 
-            {/* Active Search Badge (when search is triggered from global Header search bar) */}
-            {searchQuery && (
-              <div className="flex items-center justify-between px-3 py-2 rounded-lg bg-zinc-100 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700 text-xs font-mono">
-                <div className="flex items-center gap-1.5 truncate">
-                  <Search className="w-3.5 h-3.5 text-[#0d9488] dark:text-[#2EE6CA] shrink-0" />
-                  <span className="text-zinc-500">Query:</span>
-                  <span className="font-bold text-zinc-900 dark:text-zinc-100 truncate">"{searchQuery}"</span>
-                </div>
+            {/* Active Search Input / Filter */}
+            <div className="relative">
+              <Search className="w-3.5 h-3.5 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <input
+                type="search"
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                placeholder="Filter by model or spec..."
+                aria-label="Filter collection by model or specification"
+                className="w-full pl-8 pr-8 py-2 rounded-xl border border-zinc-200/80 dark:border-white/10 bg-white dark:bg-[#1c1e24] text-xs font-mono text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6]"
+              />
+              {searchQuery && (
                 <button
-                  onClick={() => {
-                    setSearchQuery('')
-                    navigate({ to: '/collections', search: { category: activeCategory } })
-                  }}
-                  className="p-1 text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 cursor-pointer"
-                  title="Clear search query"
+                  type="button"
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 cursor-pointer"
+                  aria-label="Clear search filter"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
-              </div>
-            )}
+              )}
+            </div>
 
-            {/* 2. 7 Original Categories Accordion Tree */}
+            {/* Category Tree with Live Counts */}
             <div className="space-y-1">
-              {/* 7 Categories with (+) Expandable Accordion for Subcategories */}
+              {/* All Apparatus Root Option */}
+              <button
+                type="button"
+                onClick={() => handleSelectCategory('all')}
+                className={`w-full flex items-center justify-between py-2 px-3 rounded-xl text-xs font-mono transition-all cursor-pointer ${
+                  activeCategory === 'all'
+                    ? 'bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-bold'
+                    : 'text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-white/[0.05]'
+                }`}
+              >
+                <span>All Apparatus</span>
+                <span
+                  className={`text-[10px] px-1.5 py-0.5 rounded-md ${
+                    activeCategory === 'all'
+                      ? 'bg-white/20 text-white dark:bg-black/15 dark:text-zinc-950'
+                      : 'bg-zinc-200/70 dark:bg-white/[0.06] text-zinc-500 dark:text-zinc-400'
+                  }`}
+                >
+                  {categoryCounts.all || 0}
+                </span>
+              </button>
+
               {STORE_CATEGORIES.map(cat => {
-                const normActive = activeCategory === 'needles' ? 'cartridges' : activeCategory
-                const isCatActive = normActive === cat.id
-                const hasSub = !!cat.subcategories && cat.subcategories.length > 0
+                const isCatActive = activeCategory === cat.id
+                const hasSub = Boolean(cat.subcategories && cat.subcategories.length > 0)
                 const isExpanded = expandedCategories.has(cat.id)
+                const count = categoryCounts[cat.id] ?? 0
 
                 return (
                   <div key={cat.id} className="space-y-0.5">
                     <div
-                      className={`flex items-center justify-between py-1.5 px-2.5 rounded-lg text-[13px] font-mono transition-all text-left ${
+                      className={`flex items-center justify-between py-1.5 px-3 rounded-xl text-xs font-mono transition-all ${
                         isCatActive && !activeSubcategory
-                          ? 'text-[#0d9488] dark:text-[#2EE6CA] font-bold bg-[#0d9488]/8 dark:bg-[#2EE6CA]/10 pl-3 border-l-2 border-[#0d9488] dark:border-[#2EE6CA]'
+                          ? 'bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-bold'
                           : isCatActive
-                          ? 'text-[#0d9488] dark:text-[#2EE6CA] font-semibold bg-zinc-100/50 dark:bg-zinc-800/20'
-                          : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-100 hover:bg-zinc-100/70 dark:hover:bg-zinc-800/40'
+                          ? 'text-[#0d5d50] dark:text-[#38e8c6] font-bold bg-[#0d5d50]/10 dark:bg-[#38e8c6]/10'
+                          : 'text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-white/[0.05]'
                       }`}
                     >
-                      {/* Category Clickable Title */}
                       <button
+                        type="button"
                         onClick={() => handleSelectCategory(cat.id)}
-                        className="flex-1 text-left whitespace-nowrap cursor-pointer py-0.5"
+                        className="flex-1 text-left flex items-center justify-between pr-2 py-0.5 cursor-pointer"
                       >
-                        <span>{cat.label}</span>
+                        <span className="truncate">{cat.label}</span>
+                        <span
+                          className={`text-[10px] px-1.5 py-0.5 rounded-md ${
+                            isCatActive && !activeSubcategory
+                              ? 'bg-white/20 text-white dark:bg-black/15 dark:text-zinc-950'
+                              : 'bg-zinc-200/70 dark:bg-white/[0.06] text-zinc-500 dark:text-zinc-400'
+                          }`}
+                        >
+                          {count}
+                        </span>
                       </button>
 
-                      {/* Toggle Expand (+) / (-) */}
                       {hasSub && (
-                        <div className="flex items-center shrink-0 ml-2">
-                          <button
-                            type="button"
-                            onClick={e => handleToggleExpand(cat.id, e)}
-                            className="w-5 h-5 flex items-center justify-center rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-700/80 text-zinc-500 hover:text-zinc-950 dark:hover:text-white transition-colors cursor-pointer"
-                            title={isExpanded ? 'Collapse subcategories' : 'Expand subcategories'}
-                          >
-                            {isExpanded ? (
-                              <Minus className="w-3.5 h-3.5 text-[#0d9488] dark:text-[#2EE6CA]" />
-                            ) : (
-                              <Plus className="w-3.5 h-3.5" />
-                            )}
-                          </button>
-                        </div>
+                        <button
+                          type="button"
+                          onClick={e => handleToggleExpand(cat.id, e)}
+                          className="w-5 h-5 flex items-center justify-center rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition-colors cursor-pointer shrink-0"
+                          aria-label={
+                            isExpanded ? `Collapse ${cat.label}` : `Expand ${cat.label}`
+                          }
+                        >
+                          {isExpanded ? (
+                            <Minus className="w-3.5 h-3.5" />
+                          ) : (
+                            <Plus className="w-3.5 h-3.5" />
+                          )}
+                        </button>
                       )}
                     </div>
 
-                    {/* Subcategories Accordion Indented List */}
                     {hasSub && isExpanded && (
-                      <div className="pl-3.5 ml-2.5 border-l-2 border-zinc-200/70 dark:border-zinc-800/80 space-y-0.5 py-1 animate-in fade-in slide-in-from-top-1 duration-150">
+                      <div className="pl-3.5 ml-3 border-l border-zinc-200 dark:border-white/10 space-y-0.5 py-1">
                         {cat.subcategories!.map(sub => {
                           const isSubActive = isCatActive && activeSubcategory === sub.id
+                          const subCount = subcategoryCounts[sub.id] ?? 0
 
                           return (
                             <button
                               key={sub.id}
+                              type="button"
                               onClick={() => handleSelectSubcategory(cat.id, sub.id)}
-                              className={`w-full flex items-center justify-between py-1.5 px-2 rounded-md text-xs font-mono transition-all text-left cursor-pointer ${
+                              className={`w-full flex items-center justify-between py-1.5 px-2.5 rounded-lg text-[11px] font-mono transition-all text-left cursor-pointer ${
                                 isSubActive
-                                  ? 'text-[#0d9488] dark:text-[#2EE6CA] font-bold bg-[#0d9488]/10 dark:bg-[#2EE6CA]/10'
-                                  : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200 hover:bg-zinc-100/60 dark:hover:bg-zinc-800/30'
+                                  ? 'text-[#0d5d50] dark:text-[#38e8c6] font-bold bg-[#0d5d50]/10 dark:bg-[#38e8c6]/10'
+                                  : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200 hover:bg-zinc-100/60 dark:hover:bg-white/[0.04]'
                               }`}
                             >
                               <span className="truncate pr-1 flex items-center gap-1.5">
                                 <span
-                                  className={`w-1 h-1 rounded-full ${
+                                  className={`w-1.5 h-1.5 rounded-full shrink-0 ${
                                     isSubActive
-                                      ? 'bg-[#0d9488] dark:bg-[#2EE6CA]'
-                                      : 'bg-zinc-400 dark:bg-zinc-600'
+                                      ? 'bg-[#0d5d50] dark:bg-[#38e8c6]'
+                                      : 'bg-zinc-300 dark:bg-zinc-600'
                                   }`}
-                                ></span>
-                                <span>{sub.label}</span>
+                                />
+                                <span className="truncate">{sub.label}</span>
+                                {sub.badge && (
+                                  <span className="px-1.5 py-0.2 rounded bg-amber-500/15 text-amber-700 dark:text-amber-300 text-[9px] font-bold">
+                                    {sub.badge}
+                                  </span>
+                                )}
+                              </span>
+                              <span className="text-[10px] text-zinc-400 dark:text-zinc-500 shrink-0">
+                                {subCount}
                               </span>
                             </button>
                           )
@@ -712,43 +942,89 @@ export const CollectionPage: React.FC = () => {
               })}
             </div>
 
-            {/* 3. Needle Matrix Info Note */}
-            {(activeCategory === 'cartridges' || activeCategory === 'needles') && (
-              <div className="pt-5 border-t border-zinc-200/60 dark:border-zinc-800/60 text-[11px] font-mono text-zinc-400 leading-relaxed">
-                <div className="font-bold text-zinc-500 uppercase mb-1">CARTRIDGE CONFIGURATIONS</div>
-                <p>
-                  Both master cartridge lines include 60+ unified configurations: Round Liner (RL), Round Shader (RS), Magnum (M1), and Curved Magnum (M1C) across #08, #10, #12, #14. Click a product to configure.
-                </p>
-              </div>
-            )}
+            {/* In-Stock Toggle */}
+            <div className="pt-4 border-t border-zinc-200/80 dark:border-white/[0.08]">
+              <label className="flex items-center justify-between cursor-pointer text-xs font-mono text-zinc-700 dark:text-zinc-300">
+                <span>In-Stock Ready Only</span>
+                <input
+                  type="checkbox"
+                  checked={inStockOnly}
+                  onChange={e => setInStockOnly(e.target.checked)}
+                  className="w-4 h-4 accent-[#0d5d50] dark:accent-[#38e8c6] rounded cursor-pointer"
+                />
+              </label>
+            </div>
           </aside>
 
           {/* Right Product Grid Area */}
           <div className="flex-1 min-w-0 space-y-6">
-            {/* Top Toolbar: Count & Sort Dropdown */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 sm:p-5 rounded-2xl border border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#11141A] gap-4">
-              <div className="text-xs font-mono text-zinc-500">
-                DISPLAYING {loading ? '...' : <strong className="text-zinc-950 dark:text-[#2EE6CA]">{sortedProducts.length}</strong>} APPARATUS
-                {activeSeries !== 'all' && (
-                  <span className="ml-2 px-2.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 font-bold uppercase">
-                    {activeSeries}
-                  </span>
-                )}
+            {/* Top Toolbar: Count, View Mode Toggle (Consolidated Models vs All SKUs), & Sort */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] gap-4">
+              <div className="flex flex-wrap items-center gap-3">
+                <div className="text-xs font-mono text-zinc-500 dark:text-zinc-400">
+                  SHOWING{' '}
+                  <strong className="text-zinc-950 dark:text-[#38e8c6]">
+                    {displayMode === 'grouped'
+                      ? `${sortedModelGroups.length} FAMILIES`
+                      : `${sortedProducts.length} SKUS`}
+                  </strong>
+                  {displayMode === 'grouped' &&
+                    sortedProducts.length > sortedModelGroups.length && (
+                      <span className="ml-1.5 text-[11px] text-zinc-400">
+                        ({sortedProducts.length} total finishes)
+                      </span>
+                    )}
+                </div>
+
+                {/* Consolidated Families vs Individual SKUs Switcher */}
+                <div
+                  role="group"
+                  aria-label="Catalog grouping mode"
+                  className="inline-flex items-center p-0.5 rounded-xl bg-zinc-100 dark:bg-[#14161b] border border-zinc-200/80 dark:border-white/10 font-mono text-[11px]"
+                >
+                  <button
+                    type="button"
+                    onClick={() => setDisplayMode('grouped')}
+                    className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
+                      displayMode === 'grouped'
+                        ? 'bg-white dark:bg-[#252830] text-zinc-950 dark:text-white shadow-2xs'
+                        : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white'
+                    }`}
+                  >
+                    <Layers className="w-3.5 h-3.5 text-[#0d5d50] dark:text-[#38e8c6]" />
+                    <span>By Model ({sortedModelGroups.length})</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setDisplayMode('skus')}
+                    className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
+                      displayMode === 'skus'
+                        ? 'bg-white dark:bg-[#252830] text-zinc-950 dark:text-white shadow-2xs'
+                        : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white'
+                    }`}
+                  >
+                    <Grid2X2 className="w-3.5 h-3.5" />
+                    <span>All Finishes ({sortedProducts.length})</span>
+                  </button>
+                </div>
               </div>
 
               {/* Sort Order Selector */}
               <div className="flex items-center gap-2 text-xs font-mono">
                 <ArrowUpDown className="w-3.5 h-3.5 text-zinc-400" />
-                <label htmlFor="collection-sort-select" className="text-zinc-500 dark:text-zinc-400">
-                  SORT BY:
+                <label
+                  htmlFor="collection-sort-select"
+                  className="text-zinc-500 dark:text-zinc-400"
+                >
+                  SORT:
                 </label>
                 <select
                   id="collection-sort-select"
                   value={sortOption}
                   onChange={e => setSortOption(e.target.value)}
-                  className="px-3 py-1.5 rounded-lg border border-zinc-200/80 dark:border-zinc-800 bg-zinc-50 dark:bg-[#161922] text-xs font-mono text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#2EE6CA]"
+                  className="px-3 py-1.5 rounded-xl border border-zinc-200/80 dark:border-white/10 bg-zinc-50 dark:bg-[#14161b] text-xs font-mono text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6]"
                 >
-                  <option value="featured">Featured Apparatus</option>
+                  <option value="featured">Featured Engineering</option>
                   <option value="price-asc">Price: Low to High</option>
                   <option value="price-desc">Price: High to Low</option>
                   <option value="title-asc">Apparatus Title: A-Z</option>
@@ -756,40 +1032,165 @@ export const CollectionPage: React.FC = () => {
               </div>
             </div>
 
+            {/* Inline 62-Size Cartridge Matrix Workbench when viewing Cartridges */}
+            {activeCategory === 'cartridges' && activeCartridgeProduct && (
+              <div className="p-6 sm:p-7 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] space-y-5">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-zinc-200/80 dark:border-white/[0.08]">
+                  <div>
+                    <div className="flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-widest text-[#0d5d50] dark:text-[#38e8c6]">
+                      <Sparkles className="w-3.5 h-3.5" />
+                      <span>DIRECT STUDIO CARTRIDGE CONFIGURATOR · 62 SIZES</span>
+                    </div>
+                    <h2 className="text-lg sm:text-xl font-black uppercase text-zinc-950 dark:text-white font-['Montserrat',sans-serif] mt-0.5">
+                      CONFIGURE {matrixTier === 'premium' ? 'PAPA PREMIUM 316L' : 'PAPA STANDARD'} BOXES
+                    </h2>
+                  </div>
+
+                  <div className="inline-flex p-1 rounded-xl bg-zinc-100 dark:bg-[#14161b] border border-zinc-200/80 dark:border-white/10 font-mono text-xs self-start">
+                    <button
+                      type="button"
+                      onClick={() => setMatrixTier('premium')}
+                      className={`px-3 py-1.5 rounded-lg font-bold uppercase whitespace-nowrap transition-all cursor-pointer ${
+                        matrixTier === 'premium'
+                          ? 'bg-zinc-950 text-white dark:bg-amber-500 dark:text-zinc-950'
+                          : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white'
+                      }`}
+                    >
+                      Premium 316L · $
+                      {parseFloat(
+                        premiumCartridgeProduct?.priceRange.minVariantPrice.amount || '25.00'
+                      ).toFixed(2)}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setMatrixTier('standard')}
+                      className={`px-3 py-1.5 rounded-lg font-bold uppercase whitespace-nowrap transition-all cursor-pointer ${
+                        matrixTier === 'standard'
+                          ? 'bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950'
+                          : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white'
+                      }`}
+                    >
+                      Standard · $
+                      {parseFloat(
+                        standardCartridgeProduct?.priceRange.minVariantPrice.amount || '22.00'
+                      ).toFixed(2)}
+                    </button>
+                  </div>
+                </div>
+
+                <CartridgeMatrixSelector
+                  product={activeCartridgeProduct}
+                  selectedVariant={selectedCartridgeVariant}
+                  onSelectVariant={setSelectedCartridgeVariant}
+                />
+
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-3 border-t border-zinc-200/80 dark:border-white/[0.08]">
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs font-mono text-zinc-500">SELECTED:</span>
+                    <span className="text-sm font-mono font-bold text-zinc-950 dark:text-white">
+                      {selectedCartridgeVariant?.title || 'Select configuration'}
+                    </span>
+                    <span className="text-sm font-mono font-black text-[#0d5d50] dark:text-[#38e8c6]">
+                      $
+                      {parseFloat(
+                        selectedCartridgeVariant?.price.amount ||
+                          activeCartridgeProduct.priceRange.minVariantPrice.amount
+                      ).toFixed(2)}{' '}
+                      / Box of 20
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center border border-zinc-200/80 dark:border-white/10 rounded-xl bg-zinc-50 dark:bg-[#14161b] h-10 px-1">
+                      <button
+                        type="button"
+                        onClick={() => setCartridgeQty(Math.max(1, cartridgeQty - 1))}
+                        className="w-8 h-full font-mono text-sm text-zinc-500 hover:text-zinc-950 dark:hover:text-white cursor-pointer"
+                        aria-label="Decrease box quantity"
+                      >
+                        -
+                      </button>
+                      <span className="w-8 text-center font-mono text-xs font-bold">
+                        {cartridgeQty}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setCartridgeQty(cartridgeQty + 1)}
+                        className="w-8 h-full font-mono text-sm text-zinc-500 hover:text-zinc-950 dark:hover:text-white cursor-pointer"
+                        aria-label="Increase box quantity"
+                      >
+                        +
+                      </button>
+                    </div>
+
+                    <button
+                      type="button"
+                      disabled={selectedCartridgeVariant?.availableForSale === false}
+                      onClick={() => {
+                        if (!selectedCartridgeVariant) return
+                        addToCart(
+                          activeCartridgeProduct,
+                          selectedCartridgeVariant,
+                          cartridgeQty
+                        )
+                        openCart()
+                      }}
+                      className="px-5 h-10 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-mono font-black text-xs uppercase tracking-wider flex items-center gap-2 hover:opacity-90 active:scale-[0.98] transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                    >
+                      <ShoppingBag className="w-3.5 h-3.5" />
+                      <span>
+                        {selectedCartridgeVariant?.availableForSale === false
+                          ? 'Config Sold Out'
+                          : 'Add Boxes to Cart'}
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Product Cards Grid */}
-            {loading ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 xl:gap-8">
-                {[1, 2, 3, 4, 5, 6, 7, 8].map(n => (
+            {loading && products.length === 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                {[1, 2, 3, 4, 5, 6].map(n => (
                   <div
                     key={n}
-                    className="rounded-2xl border border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#12151B] p-5 animate-pulse space-y-4"
+                    className="rounded-2xl border border-zinc-200/70 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] p-5 animate-pulse space-y-4"
                   >
-                    <div className="w-full aspect-square bg-zinc-200 dark:bg-[#1A1E27] rounded-xl"></div>
-                    <div className="h-4 bg-zinc-200 dark:bg-[#1A1E27] rounded-sm w-3/4"></div>
-                    <div className="h-3 bg-zinc-200 dark:bg-[#1A1E27] rounded-sm w-1/2"></div>
+                    <div className="w-full aspect-square bg-zinc-200 dark:bg-white/[0.05] rounded-xl" />
+                    <div className="h-4 bg-zinc-200 dark:bg-white/[0.05] rounded-sm w-3/4" />
+                    <div className="h-3 bg-zinc-200 dark:bg-white/[0.05] rounded-sm w-1/2" />
                   </div>
                 ))}
               </div>
-            ) : sortedProducts.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 xl:gap-8">
+            ) : displayMode === 'grouped' && sortedModelGroups.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                {sortedModelGroups.map(group => (
+                  <HardwareModelCard key={group.id} group={group} />
+                ))}
+              </div>
+            ) : displayMode === 'skus' && sortedProducts.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
                 {sortedProducts.map(product => (
                   <ProductCard key={product.id} product={product} />
                 ))}
               </div>
             ) : (
-              <div className="text-center py-20 border border-dashed border-zinc-300 dark:border-[#222731] rounded-2xl p-8 bg-white dark:bg-[#0C0E12]">
-                <div className="inline-flex p-4 rounded-full bg-zinc-100 dark:bg-[#1A1D25] text-zinc-400 mb-4">
+              <div className="text-center py-20 border border-dashed border-zinc-300 dark:border-white/10 rounded-2xl p-8 bg-white dark:bg-[#1c1e24]">
+                <div className="inline-flex p-4 rounded-full bg-zinc-100 dark:bg-white/[0.05] text-zinc-400 mb-4">
                   <Filter className="w-6 h-6" />
                 </div>
                 <h3 className="text-base font-bold uppercase text-zinc-800 dark:text-zinc-200">
                   No apparatus matched your criteria
                 </h3>
                 <p className="text-xs text-zinc-500 mt-1 max-w-sm mx-auto">
-                  Try clearing your search query or switching needle configuration profiles.
+                  Clear your active search filter or switch hardware categories to view all
+                  available studio equipment.
                 </p>
                 <button
+                  type="button"
                   onClick={handleResetFilters}
-                  className="mt-5 px-5 py-2.5 rounded-lg bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 font-mono font-bold text-xs uppercase transition-opacity hover:opacity-90"
+                  className="mt-5 px-5 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-mono font-bold text-xs uppercase transition-opacity hover:opacity-90 cursor-pointer"
                 >
                   Reset All Filters
                 </button>
@@ -798,56 +1199,61 @@ export const CollectionPage: React.FC = () => {
           </div>
         </div>
 
-        {/* 4. Bottom SEO & Global Studio GEO Distribution Monograph */}
+        {/* 3. Global Studio Distribution & Regulatory Standards */}
         <section className="mt-20 pt-12 border-t border-zinc-200/80 dark:border-white/[0.08]">
           <div className="max-w-4xl mb-8 space-y-2">
-            <div className="text-[10px] font-mono font-medium text-[#0d9488] dark:text-[#2ee6ca] uppercase tracking-widest">
+            <div className="text-[10px] font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6] uppercase tracking-widest">
               GLOBAL STUDIO SPECIFICATION · REGULATORY &amp; DISPATCH STANDARDS
             </div>
             <h2 className="text-xl sm:text-2xl font-bold uppercase tracking-tight text-zinc-950 dark:text-white font-['Montserrat',sans-serif]">
               PROFESSIONAL TATTOO APPARATUS &amp; WORLDWIDE DISTRIBUTION
             </h2>
             <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 font-sans leading-relaxed">
-              Engineered exclusively for licensed tattoo studios and resident artists. All Papa apparatus, cartridges, and rotary systems adhere to strict international metallurgical and sterile batch manufacturing standards.
+              Engineered exclusively for licensed tattoo studios and resident artists. All Papa
+              apparatus, cartridges, and rotary systems adhere to strict international
+              metallurgical and sterile batch manufacturing standards.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* GEO & Dispatch Pillar */}
-            <div className="p-6 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#16181e] space-y-3">
+            <div className="p-6 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] space-y-3">
               <div className="text-xs font-mono font-bold text-zinc-950 dark:text-white uppercase tracking-wider">
                 WORLDWIDE STUDIO LOGISTICS
               </div>
               <p className="text-xs text-zinc-500 dark:text-zinc-400 font-sans leading-relaxed">
-                Direct express air dispatch to tattoo studios and supply partners across 40+ countries including the United States, Canada, United Kingdom, Germany, France, Italy, Spain, and Australia with dedicated customs clearance.
+                Direct express air dispatch to tattoo studios and supply partners across 40+
+                countries including the United States, Canada, United Kingdom, Germany, France,
+                Italy, Spain, and Australia with dedicated customs clearance.
               </p>
-              <div className="pt-2 text-[10px] font-mono text-[#0d9488] dark:text-[#2ee6ca]">
+              <div className="pt-2 text-[10px] font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6]">
                 40+ Countries · Priority Tracking
               </div>
             </div>
 
-            {/* Metallurgy & Sterility Pillar */}
-            <div className="p-6 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#16181e] space-y-3">
+            <div className="p-6 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] space-y-3">
               <div className="text-xs font-mono font-bold text-zinc-950 dark:text-white uppercase tracking-wider">
                 316L SURGICAL METALLURGY
               </div>
               <p className="text-xs text-zinc-500 dark:text-zinc-400 font-sans leading-relaxed">
-                Precision ground 316L surgical stainless steel needle pins assembled in Class 100,000 cleanrooms. 100% individual EO Gas blister packed with verifiable batch sterilization indicators.
+                Precision ground 316L surgical stainless steel needle pins assembled in Class
+                100,000 cleanrooms. 100% individual EO Gas blister packed with verifiable batch
+                sterilization indicators.
               </p>
-              <div className="pt-2 text-[10px] font-mono text-amber-500">
+              <div className="pt-2 text-[10px] font-mono font-bold text-amber-600 dark:text-amber-400">
                 Individual EO Blister · Medical Grade PC
               </div>
             </div>
 
-            {/* Machine & Battery Compatibility */}
-            <div className="p-6 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#16181e] space-y-3">
+            <div className="p-6 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] space-y-3">
               <div className="text-xs font-mono font-bold text-zinc-950 dark:text-white uppercase tracking-wider">
                 UNIVERSAL DOCK COMPATIBILITY
               </div>
               <p className="text-xs text-zinc-500 dark:text-zinc-400 font-sans leading-relaxed">
-                Standardized collar geometry engineered for flawless fitment across major rotary pens, wireless battery chassis, and cartridge grips (Cheyenne, Bishop, FK Irons, Critical).
+                Standardized collar geometry engineered for flawless fitment across major rotary
+                pens, wireless battery chassis, and cartridge grips (Cheyenne, Bishop, FK Irons,
+                Critical).
               </p>
-              <div className="pt-2 text-[10px] font-mono text-zinc-400">
+              <div className="pt-2 text-[10px] font-mono font-bold text-zinc-500 dark:text-zinc-400">
                 Universal Cartridge Keyway · Zero Rattle
               </div>
             </div>

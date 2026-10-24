@@ -519,3 +519,366 @@ export function getRepresentativeImage(
   }
   return fallbackPath
 }
+
+export function findModelGroupForProduct(
+  products: ShopifyProduct[],
+  handle: string
+): HardwareModelGroup | null {
+  if (!handle || products.length === 0) return null
+  const groups = groupProductsIntoModels(products)
+  const target = handle.toLowerCase()
+  return (
+    groups.find(group =>
+      group.options.some(opt => opt.product.handle.toLowerCase() === target)
+    ) || null
+  )
+}
+
+export function hasMeaningfulHtmlText(html?: string | null): boolean {
+  if (!html) return false
+  const stripped = html
+    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+  return stripped.length >= 24
+}
+
+export interface HardwareTechnicalProfile {
+  eyebrow: string
+  headline: string
+  summaryParagraphs: string[]
+  highlights: string[]
+  specs: Array<{ label: string; value: string }>
+}
+
+export function getHardwareTechnicalProfile(product: ShopifyProduct): HardwareTechnicalProfile {
+  const category = classifyApparatusCategory(product)
+  const titleLower = product.title.toLowerCase()
+  const handleLower = product.handle.toLowerCase()
+
+  if (category === 'machines') {
+    const isV3 = handleLower.includes('v3') || titleLower.includes('v3')
+    const isV2 = handleLower.includes('v2') || titleLower.includes('v2')
+    const isApollo = handleLower.includes('apollo') || titleLower.includes('apollo')
+
+    return {
+      eyebrow: 'ROTARY DRIVE ARCHITECTURE · FACTORY CALIBRATED',
+      headline: isV3
+        ? 'Modular Multi-Stroke Continuous Rotary System'
+        : isApollo
+        ? 'Compact Direct-Drive Rotary Architecture'
+        : 'Precision Coreless Direct-Drive Rotary Pen',
+      summaryParagraphs: [
+        isV3
+          ? 'The Papa Pen V3 is our flagship modular rotary platform, machined from solid 6061-T6 aerospace aluminum billet and driven by a high-torque German direct-drive motor. Engineered for seamless transition between crisp single-pass lining, whip shading, and dense color saturation.'
+          : isApollo
+          ? 'The Papa Apollo Rotary packs a 4.0 mm direct-drive punch into an ultra-compact 142 g anodized alloy chassis. Designed for artists who demand immediate torque response and zero bogging when driving large magnum groupings.'
+          : 'Machined from solid 6061-T6 aircraft aluminum and powered by a custom German coreless motor, the Papa Pen delivers a balanced 3.5 mm stroke with near-zero lateral vibration across multi-hour studio sessions.',
+        'Every machine chassis undergoes individual concentricity inspection, motor run-in testing, and acoustic dampening verification prior to factory dispatch.',
+      ],
+      highlights: [
+        isV3 ? '3.5 – 4.5 mm Modular Stroke' : isApollo ? '4.0 mm Direct Stroke' : '3.5 mm Precision Stroke',
+        'German Coreless Motor',
+        'Gold-Plated RCA Interface',
+      ],
+      specs: [
+        {
+          label: 'CHASSIS METALLURGY',
+          value: 'CNC 6061-T6 Aerospace Aluminum · Type-III Hard Anodized',
+        },
+        {
+          label: 'MOTOR & DRIVE SYSTEM',
+          value: isV3
+            ? 'High-Torque German Brushless Direct-Drive'
+            : isApollo
+            ? 'Compact High-Punch Direct-Drive Rotary'
+            : 'Custom German Coreless Continuous Drive',
+        },
+        {
+          label: 'STROKE CONFIGURATION',
+          value: isV3
+            ? '3.5 mm / 4.0 mm / 4.2 mm / 4.5 mm Modular'
+            : isApollo
+            ? '4.0 mm Direct Cam'
+            : '3.5 mm All-Rounder Fixed Cam',
+        },
+        {
+          label: 'OPERATING VOLTAGE',
+          value: isV3
+            ? '4.5 V – 13.0 V DC (6.5 – 9.5 V Optimal)'
+            : isV2
+            ? '5.0 V – 12.6 V DC'
+            : '5.0 V – 12.0 V DC',
+        },
+        {
+          label: 'NET MASS & BALANCE',
+          value: isV3
+            ? '168 g · Forward-Weighted Ergonomic Center'
+            : isApollo
+            ? '142 g · Compact Low-Center Profile'
+            : '150 g · Zero-Fatigue Pen Geometry',
+        },
+        {
+          label: 'TERMINAL & COMPATIBILITY',
+          value: 'Recessed Gold-Plated RCA · Universal Cartridge Keyway',
+        },
+      ],
+    }
+  }
+
+  if (category === 'cartridges') {
+    const isPremium = titleLower.includes('premium') || handleLower.includes('premium')
+    return {
+      eyebrow: 'MICRON NEEDLE METALLURGY · CLASS 100,000 CLEANROOM',
+      headline: isPremium
+        ? 'Japanese 316L Surgical Needle Matrix with Safety Membrane'
+        : 'Medical-Grade Sterile Membrane Cartridge System',
+      summaryParagraphs: [
+        isPremium
+          ? 'Papa Premium Tattoo Cartridges pair Japanese 316L surgical stainless steel pins with an internal micro-stabilizer guide that eliminates lateral needle whip during high-precision linework and smooth realism gradients.'
+          : 'Papa Standard Tattoo Cartridges are engineered for reliable daily studio performance across 62 configurations, featuring optical-grade polycarbonate tips for unobstructed ink flow visibility.',
+        'Each cartridge incorporates a medical-grade silicone rebound membrane that prevents ink and blood backflow into your machine motor or grip stem, and is individually EO Gas blister-sterilized in boxes of 20.',
+      ],
+      highlights: [
+        isPremium ? 'Japanese 316L Surgical Steel' : '316L Surgical Stainless Pins',
+        'Anti-Backflow Safety Membrane',
+        'Box of 20 · EO Gas Sterile',
+      ],
+      specs: [
+        {
+          label: 'PIN METALLURGY',
+          value: isPremium
+            ? 'Japanese 316L Surgical Stainless Steel · Electrolytic Polish'
+            : 'Medical-Grade 316L Surgical Stainless Steel',
+        },
+        {
+          label: 'MEMBRANE ARCHITECTURE',
+          value: 'Full-Seal Silicone Elastomer Anti-Backflow Diaphragm',
+        },
+        {
+          label: 'HOUSING MATERIAL',
+          value: 'Optical-Grade Medical Polycarbonate · Zero-Friction Tip',
+        },
+        {
+          label: 'AVAILABLE CONFIGURATIONS',
+          value: '62 Sizes · RL, RLT, RLH, RS, M1, M1C (#08 / #10 / #12 / #14)',
+        },
+        {
+          label: 'STERILIZATION PROTOCOL',
+          value: '100% Ethylene Oxide (EO) Gas · Individual Blister Indicator',
+        },
+        {
+          label: 'UNIVERSAL COLLAR FITMENT',
+          value: 'Fits Papa, Cheyenne, Bishop, FK Irons & All Twist-Lock Grips',
+        },
+      ],
+    }
+  }
+
+  if (category === 'grips') {
+    const isStainless = titleLower.includes('stainless')
+    const isDisposable = titleLower.includes('disposable') || titleLower.includes('foam')
+    const isLedge = titleLower.includes('ledge')
+
+    return {
+      eyebrow: isDisposable
+        ? 'STERILE SINGLE-USE ERGONOMICS · STUDIO HYGIENE'
+        : 'CNC PROJECTION CONTROL · AUTOCLAVABLE BILLET',
+      headline: isDisposable
+        ? 'High-Traction Sterile Disposable Cartridge Grip Assembly'
+        : isStainless
+        ? 'Heavyweight 316L Surgical Stainless Steel Click Grip'
+        : 'CNC 6061-T6 Anodized Ratcheted Click-Stop Cartridge Grip',
+      summaryParagraphs: [
+        isDisposable
+          ? 'Engineered for zero cross-contamination and maximum finger cushioning, Papa disposable and foam grip systems dampen high-frequency machine vibration while maintaining positive needle depth control.'
+          : isStainless
+          ? 'Machined from solid 316L surgical stainless steel for artists who prefer substantial front-weighted counterbalance. Features our precision ball-detent click system for tactile millimeter needle depth adjustment.'
+          : 'CNC-turned from solid 6061-T6 aerospace aluminum billet, the Papa Adjustable Click Grip locks your needle hang in crisp, audible click-stop increments so projection never drifts mid-session.',
+        isDisposable
+          ? 'Individually EO Gas sterilized in blister packs with included drive bars for immediate out-of-box setup.'
+          : 'Fully disassemble-free steam autoclave compatible up to 134 °C (273 °F) and resistant to clinical surface disinfectants.',
+      ],
+      highlights: [
+        isDisposable
+          ? 'EO Gas Sterile · Box of 20'
+          : isStainless
+          ? 'Solid 316L Surgical Stainless'
+          : 'CNC 6061-T6 Aircraft Billet',
+        isLedge ? 'Ergonomic Finger Index Ledge' : 'Positive Click-Stop Depth Collar',
+        isDisposable ? 'Anti-Slip Santoprene Cushion' : '100% Steam Autoclavable',
+      ],
+      specs: [
+        {
+          label: 'BARREL MATERIAL',
+          value: isDisposable
+            ? 'Medical-Grade Santoprene Overmold & ABS Core'
+            : isStainless
+            ? 'Solid 316L Surgical Stainless Steel · Mirror/Satin Finish'
+            : 'CNC 6061-T6 Aerospace Aluminum · Anodized Finish',
+        },
+        {
+          label: 'DEPTH ADJUSTMENT',
+          value: isDisposable
+            ? 'Fixed Calibrated Needle Projection'
+            : '0 – 4.5 mm Ratcheted Ball-Detent Click Collar',
+        },
+        {
+          label: 'STERILIZATION RATING',
+          value: isDisposable
+            ? '100% EO Gas Sterilized · Single-Use Box of 20'
+            : 'Steam Autoclave Safe (134 °C / 273 °F) & Cold Ultrasonic',
+        },
+        {
+          label: 'BARREL DIAMETER',
+          value: isLedge ? '32 mm Tapered Finger-Ledge Profile' : '30 – 32 mm Knurled Ergonomic Contour',
+        },
+        {
+          label: 'DRIVE BAR & MOUNT',
+          value: 'Includes Stainless Plunger Drive Bar · Universal Backstem Collet',
+        },
+        {
+          label: 'CARTRIDGE INTERFACE',
+          value: 'Universal Twist-Lock Keyway · Zero Tip Play',
+        },
+      ],
+    }
+  }
+
+  if (category === 'power') {
+    const isBattery = handleLower.includes('volt') || titleLower.includes('battery')
+    const isCord = handleLower.includes('cord') || titleLower.includes('cord')
+    const isPedal = handleLower.includes('pedal') || titleLower.includes('pedal')
+
+    return {
+      eyebrow: 'REGULATED DC TELEMETRY · ZERO-RIPPLE OUTPUT',
+      headline: isBattery
+        ? 'Cord-Free Regulated Lithium-Polymer RCA Battery Dock'
+        : isCord
+        ? 'Low-Resistance Gold-Plated Silicone RCA Apparatus Cord'
+        : isPedal
+        ? '360° Omnidirectional Cast-Metal Studio Foot Switch'
+        : 'Microprocessor-Regulated Digital Tattoo Power Console',
+      summaryParagraphs: [
+        isBattery
+          ? 'The Papa Volt Wireless Battery Dock eliminates clip-cord drag with a balanced 2,000 mAh high-discharge lithium cell that plugs directly into any RCA rotary machine, delivering up to 8 hours of rock-steady voltage.'
+          : isCord
+          ? 'Constructed with oxygen-free copper conductors and 24K gold-plated RCA terminals inside a hyper-flexible silicone jacket that resists tangling and alcohol wipe degradation.'
+          : isPedal
+          ? 'Weighted cast-metal 360° foot switch engineered for instant, zero-deadzone contact from any approach angle on the studio floor.'
+          : 'Precision DC power supply engineered to maintain flat, ripple-free voltage output under heavy magnum load without motor sag.',
+        'Every power component is load-tested across 4.5 V – 13.0 V DC to guarantee clean current delivery and overload protection.',
+      ],
+      highlights: [
+        isBattery ? '2,000 mAh · 8h Runtime' : isCord ? '24K Gold-Plated RCA' : 'Zero-Ripple DC Output',
+        isBattery ? '5.0 – 12.0 V Digital OLED' : isPedal ? '360° Weighted Actuation' : 'Overload & Short Protection',
+        'Universal Studio Fitment',
+      ],
+      specs: [
+        {
+          label: 'PRIMARY ARCHITECTURE',
+          value: isBattery
+            ? '2,000 mAh High-Rate Lithium-Polymer Pack'
+            : isCord
+            ? 'High-Strand Oxygen-Free Copper (OFC) Core'
+            : isPedal
+            ? '360° Omnidirectional Copper Contact Ring'
+            : 'Microprocessor-Controlled Buck/Boost DC Regulator',
+        },
+        {
+          label: 'VOLTAGE / RATING',
+          value: isBattery
+            ? '5.0 V – 12.0 V DC (0.1 V Precision Step)'
+            : isCord
+            ? 'Low-Impedance < 0.05 Ω Signal Path'
+            : '4.5 V – 16.0 V DC Continuous Load Rated',
+        },
+        {
+          label: 'CONNECTOR TERMINAL',
+          value: isPedal
+            ? 'Standard 1/4" (6.35 mm) Mono Phono Plug'
+            : 'Gold-Plated Precision RCA Terminal',
+        },
+        {
+          label: 'HOUSING & JACKET',
+          value: isCord
+            ? 'Medical-Grade Soft Silicone · Strain-Relief Collar'
+            : 'CNC Anodized Alloy & Impact-Resistant Polycarbonate',
+        },
+        {
+          label: 'CHARGING / INPUT',
+          value: isBattery ? 'USB-C Fast Charge (1.5h Full Cycle)' : '100–240 V AC Universal Studio Input',
+        },
+        {
+          label: 'SAFETY PROTECTION',
+          value: 'Short-Circuit, Over-Current & Thermal Cutoff Guard',
+        },
+      ],
+    }
+  }
+
+  // Studio Gear / Trays / Cases / Stencil / Apparel
+  const isTray = handleLower.includes('tray') || titleLower.includes('tray')
+  const isCase = handleLower.includes('case') || titleLower.includes('case')
+  const isStencil = handleLower.includes('stencil') || titleLower.includes('stencil')
+
+  return {
+    eyebrow: 'PRO PARLOR WORKSTATION · STUDIO INFRASTRUCTURE',
+    headline: isTray
+      ? 'Chemical-Resistant Studio Workstation Instrument Tray'
+      : isCase
+      ? 'Ballistic EVA Multi-Machine Travel & Convention Case'
+      : isStencil
+      ? 'High-Definition Long-Hold Thermal Stencil Transfer Gel'
+      : 'Professional Studio Apparatus & Parlor Equipment',
+    summaryParagraphs: [
+      isTray
+        ? 'Designed to organize rotary machines, ink caps, needle cartridges, and wash bottles on a raised-lip deck that prevents accidental instrument roll-off during active tattooing.'
+        : isCase
+        ? 'Built for traveling convention artists and resident setups, featuring a crush-resistant EVA ballistic shell and custom high-density foam compartments for machines, batteries, grips, and cords.'
+        : isStencil
+        ? 'Formulated for crisp, high-contrast purple/carbon stencil transfers that lock onto prepped skin within minutes and resist wiping through multi-hour lining and shading passes.'
+        : 'Authentic Papa Tattoo Supply studio gear built for daily parlor durability, barrier-film compatibility, and clean workstation organization.',
+      'Tested in working tattoo studios for resistance to Cavicide, isopropyl alcohol, and green soap sanitization routines.',
+    ],
+    highlights: [
+      isTray ? 'Raised Anti-Roll Perimeter' : isCase ? 'Crush-Resistant EVA Shell' : 'Studio-Tested Durability',
+      'Cavicide & Alcohol Safe',
+      'Direct Parlor Dispatch',
+    ],
+    specs: [
+      {
+        label: 'CONSTRUCTION MATERIAL',
+        value: isTray
+          ? 'High-Impact Chemical-Resistant Polymer Deck'
+          : isCase
+          ? '1680D Ballistic Nylon & Rigid Molded EVA Core'
+          : isStencil
+          ? 'Vegan, Non-Toxic Skin-Safe Transfer Emulsion'
+          : 'Heavyweight Studio-Grade Textile / Composite',
+      },
+      {
+        label: 'SANITATION COMPATIBILITY',
+        value: isStencil
+          ? 'Hygienic Airless Pump Dispenser · Zero Cross-Contamination'
+          : 'Resistant to Isopropyl Alcohol, Cavicide & Barrier Film',
+      },
+      {
+        label: 'PRIMARY APPLICATION',
+        value: isTray
+          ? 'Magnetic / Arm-Mount & Countertop Workstation Organization'
+          : isCase
+          ? '2–4 Machines, Power Units, Cords & Cartridge Storage'
+          : 'Professional Tattoo Parlor Daily Operations',
+      },
+      {
+        label: 'QUALITY STANDARD',
+        value: 'Papa Tattoo Factory QC Verified',
+      },
+    ],
+  }
+}
+

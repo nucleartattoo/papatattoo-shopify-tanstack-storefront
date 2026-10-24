@@ -1,5 +1,5 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
-import { productByHandleQueryOptions } from '../lib/catalog.queries'
+import { catalogQueryOptions, productByHandleQueryOptions } from '../lib/catalog.queries'
 import { ProductDetailPage } from '../pages/ProductDetailPage'
 
 export const Route = createFileRoute('/products/$handle')({
@@ -13,13 +13,13 @@ export const Route = createFileRoute('/products/$handle')({
     }
   },
   loader: async ({ context, params }) => {
-    try {
-      const product = await context.queryClient.ensureQueryData(
-        productByHandleQueryOptions(params.handle)
-      )
-      return { product }
-    } catch {
-      return { product: null }
+    const [productResult, catalogResult] = await Promise.allSettled([
+      context.queryClient.ensureQueryData(productByHandleQueryOptions(params.handle)),
+      context.queryClient.ensureQueryData(catalogQueryOptions),
+    ])
+    return {
+      product: productResult.status === 'fulfilled' ? productResult.value : null,
+      catalogProducts: catalogResult.status === 'fulfilled' ? catalogResult.value : [],
     }
   },
   head: ({ loaderData }) => {
@@ -103,5 +103,10 @@ export const Route = createFileRoute('/products/$handle')({
 
 function ProductDetailRoute() {
   const data = Route.useLoaderData()
-  return <ProductDetailPage initialProduct={data?.product} />
+  return (
+    <ProductDetailPage
+      initialProduct={data?.product}
+      initialCatalogProducts={data?.catalogProducts}
+    />
+  )
 }
