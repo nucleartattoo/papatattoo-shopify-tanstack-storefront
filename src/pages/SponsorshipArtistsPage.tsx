@@ -1,13 +1,17 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { Link } from '@tanstack/react-router'
 import {
   Users,
   Search,
   ArrowUpRight,
-  Sparkles,
   Mail,
   ShieldCheck,
   FileText,
+  LayoutGrid,
+  List,
+  X,
+  ArrowRight,
+  Sliders,
 } from 'lucide-react'
 import PAPA_ARTISTS from '../data/papaArtists.json'
 
@@ -19,202 +23,431 @@ interface Artist {
   image: string
 }
 
+type AlphaBand = 'ALL' | 'A-F' | 'G-M' | 'N-S' | 'T-Z'
+type RosterViewMode = 'grid' | 'directory'
+
+const ALPHA_BANDS: { id: AlphaBand; label: string }[] = [
+  { id: 'ALL', label: 'All Roster' },
+  { id: 'A-F', label: 'A – F' },
+  { id: 'G-M', label: 'G – M' },
+  { id: 'N-S', label: 'N – S' },
+  { id: 'T-Z', label: 'T – Z' },
+]
+
+function matchesAlphaBand(name: string, band: AlphaBand): boolean {
+  if (band === 'ALL') return true
+  const firstChar = name.trim().charAt(0).toUpperCase()
+  if (band === 'A-F') return firstChar >= 'A' && firstChar <= 'F'
+  if (band === 'G-M') return firstChar >= 'G' && firstChar <= 'M'
+  if (band === 'N-S') return firstChar >= 'N' && firstChar <= 'S'
+  if (band === 'T-Z') return firstChar >= 'T' && firstChar <= 'Z'
+  return true
+}
+
+function formatRosterCode(index: number): string {
+  return `PRO-${String(index + 1).padStart(2, '0')}`
+}
+
 export const SponsorshipArtistsPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>('')
+  const [activeBand, setActiveBand] = useState<AlphaBand>('ALL')
+  const [viewMode, setViewMode] = useState<RosterViewMode>('grid')
+  const [selectedArtist, setSelectedArtist] = useState<{
+    artist: Artist
+    rosterCode: string
+  } | null>(null)
 
-  // Filter purely by authentic artist name or Instagram handle
+  const allArtists = PAPA_ARTISTS as Artist[]
+
+  // Close modal on Escape key
+  useEffect(() => {
+    if (!selectedArtist) return
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSelectedArtist(null)
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [selectedArtist])
+
+  // Filter by authentic artist name, Instagram handle, and alphabetical index
   const filteredArtists = useMemo(() => {
     const q = searchQuery.trim().toLowerCase()
-    if (!q) return PAPA_ARTISTS as Artist[]
-
-    return (PAPA_ARTISTS as Artist[]).filter(artist => {
-      const nameMatch = artist.name.toLowerCase().includes(q)
-      const handleMatch = artist.handle.toLowerCase().includes(q)
-      return nameMatch || handleMatch
-    })
-  }, [searchQuery])
+    return allArtists
+      .map((artist, idx) => ({
+        artist,
+        rosterCode: formatRosterCode(idx),
+      }))
+      .filter(({ artist }) => {
+        if (!matchesAlphaBand(artist.name, activeBand)) return false
+        if (!q) return true
+        const nameMatch = artist.name.toLowerCase().includes(q)
+        const handleMatch = artist.handle.toLowerCase().includes(q)
+        return nameMatch || handleMatch
+      })
+  }, [allArtists, searchQuery, activeBand])
 
   return (
-    <div className="min-h-[100dvh] bg-zinc-50 dark:bg-[#090A0C] text-zinc-900 dark:text-zinc-100 font-sans pb-20 transition-colors duration-200">
-      {/* 1. HERO SECTION */}
-      <section className="relative overflow-hidden border-b border-zinc-200 dark:border-[#1E232E] bg-white dark:bg-[#0E1015] py-16 sm:py-20">
-        <div className="absolute inset-0 bg-[radial-gradient(#2ee6ca_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
-        <div className="absolute -top-32 right-1/4 w-96 h-96 bg-[#2EE6CA]/10 rounded-full blur-3xl pointer-events-none" />
+    <div className="min-h-[100dvh] bg-zinc-50 dark:bg-[#14161b] text-zinc-900 dark:text-zinc-100 font-sans pb-20 transition-colors duration-200">
+      {/* 1. HERO SECTION — SWISS INDUSTRIAL PRO ROSTER */}
+      <section className="border-b border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] py-14 sm:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
+            <div className="lg:col-span-8 space-y-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-200/80 dark:border-white/10 bg-[#f8f7f4] dark:bg-[#14161b] text-[#0d5d50] dark:text-[#38e8c6] text-[11px] font-mono font-bold tracking-wider uppercase">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#0d5d50] dark:bg-[#38e8c6]" />
+                <span>OFFICIAL PRO TEAM · SPONSORSHIP DIRECTORY</span>
+              </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#2EE6CA]/30 bg-[#2EE6CA]/10 text-[#0d9488] dark:text-[#2EE6CA] text-xs font-mono font-bold tracking-wider uppercase">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>OFFICIAL PRO TEAM · SPONSORSHIP DIRECTORY</span>
+              <h1 className="text-3xl sm:text-5xl font-['Montserrat',sans-serif] font-black uppercase tracking-tight text-zinc-950 dark:text-white leading-[1.06]">
+                PAPA SPONSORSHIP ARTISTS
+              </h1>
+
+              <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed max-w-2xl">
+                Official roster of {allArtists.length} professional tattoo artists worldwide sponsored by Papa Tattoo Supply rotary machines, click grips, and 316L sterile cartridge systems.
+              </p>
+
+              {/* Official Sponsorship Application Actions */}
+              <div className="pt-2 flex flex-wrap items-center gap-3">
+                <a
+                  href="https://docs.google.com/forms/d/e/1FAIpQLSfgQxxTK1SsF62fydK8bJuJyZ-KIilUX8N-fvpclkZvngMeOA/viewform"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-5 py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-mono font-bold uppercase text-xs tracking-wider flex items-center gap-2 hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.98] transition-all shadow-xs cursor-pointer"
+                >
+                  <span>Join Our Pro Team (Apply Online)</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </a>
+
+                <a
+                  href="https://drive.google.com/file/d/1zMU7VE6YcrKKkjqP3wMo2H69Fz9SnOr1/view?usp=sharing"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-3 rounded-xl border border-zinc-200/80 dark:border-white/10 bg-[#f8f7f4] dark:bg-[#14161b] text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-white/25 font-mono font-bold uppercase text-xs tracking-wider flex items-center gap-2 active:scale-[0.98] transition-all cursor-pointer"
+                >
+                  <FileText className="w-3.5 h-3.5 text-[#0d5d50] dark:text-[#38e8c6]" />
+                  <span>Download Application (PDF)</span>
+                </a>
+              </div>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-zinc-950 dark:text-white leading-tight">
-              PAPA SPONSORSHIP{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0d9488] to-[#2EE6CA]">
-                ARTISTS
-              </span>
-            </h1>
+            {/* Right: Pro Roster Telemetry */}
+            <div className="lg:col-span-4 grid grid-cols-2 gap-3.5">
+              <div className="p-4 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#14161b]">
+                <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500">
+                  VERIFIED ROSTER
+                </div>
+                <div className="text-3xl font-black font-mono text-zinc-950 dark:text-white mt-1">
+                  {allArtists.length}
+                </div>
+                <div className="text-[11px] font-mono text-[#0d5d50] dark:text-[#38e8c6] mt-0.5">
+                  Sponsored Artists
+                </div>
+              </div>
 
-            <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed">
-              Official roster of professional tattoo artists worldwide sponsored by Papa Tattoo Supply apparatus &amp; precision cartridge needles.
-            </p>
-
-            {/* Official Sponsorship Application Actions */}
-            <div className="pt-2 flex flex-wrap items-center gap-3">
-              <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLSfgQxxTK1SsF62fydK8bJuJyZ-KIilUX8N-fvpclkZvngMeOA/viewform"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-5 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 font-mono font-bold uppercase text-xs tracking-wider flex items-center gap-2 hover:bg-zinc-800 dark:hover:bg-[#26cbb1] active:scale-[0.99] transition-all shadow-sm cursor-pointer"
-              >
-                <span>JOIN OUR TEAM (APPLY ONLINE)</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </a>
-
-              <a
-                href="https://drive.google.com/file/d/1zMU7VE6YcrKKkjqP3wMo2H69Fz9SnOr1/view?usp=sharing"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#14171E] text-zinc-700 dark:text-zinc-300 hover:text-[#0d9488] dark:hover:text-[#2EE6CA] hover:border-[#0d9488] dark:hover:border-[#2EE6CA] font-mono font-bold uppercase text-xs tracking-wider flex items-center gap-2 transition-colors cursor-pointer"
-              >
-                <FileText className="w-3.5 h-3.5 text-zinc-400 dark:text-zinc-500" />
-                <span>DOWNLOAD APPLICATION (PDF)</span>
-              </a>
+              <div className="p-4 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#14161b]">
+                <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500">
+                  PRO HARDWARE
+                </div>
+                <div className="text-3xl font-black font-mono text-zinc-950 dark:text-white mt-1">
+                  316L
+                </div>
+                <div className="text-[11px] font-mono text-[#0d5d50] dark:text-[#38e8c6] mt-0.5">
+                  EO Sterile Supply
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 2. ARTIST ROSTER & SEARCH */}
+      {/* 2. ARTIST ROSTER CONTROLS & EXHIBITION GRID */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
-        {/* Search & Header Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 mb-8 border-b border-zinc-200 dark:border-[#1E232E]">
-          <div className="flex items-center gap-2 text-xs font-mono font-bold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider">
-            <Users className="w-4 h-4 text-[#0d9488] dark:text-[#2EE6CA]" />
-            <span>
-              OFFICIAL ROSTER ({filteredArtists.length} / {PAPA_ARTISTS.length} PRO ARTISTS)
-            </span>
+        {/* Control Bar: Count + Alphabetical Index + Search + View Switcher */}
+        <div className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] p-4 sm:p-5 mb-8 space-y-4">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider">
+              <Users className="w-4 h-4 text-[#0d5d50] dark:text-[#38e8c6]" />
+              <span>
+                SHOWING {filteredArtists.length} OF {allArtists.length} SPONSORED ARTISTS
+              </span>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+              {/* Search Input */}
+              <div className="relative flex-1 sm:w-72">
+                <Search className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <input
+                  type="search"
+                  aria-label="Search sponsored artist by name or Instagram handle"
+                  value={searchQuery}
+                  onChange={e => setSearchQuery(e.target.value)}
+                  placeholder="Search artist name or @handle..."
+                  className="w-full pl-9 pr-8 py-2 rounded-xl border border-zinc-200/80 dark:border-white/10 bg-[#f8f7f4] dark:bg-[#14161b] text-xs font-mono text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors"
+                />
+                {searchQuery && (
+                  <button
+                    type="button"
+                    onClick={() => setSearchQuery('')}
+                    aria-label="Clear search"
+                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700 dark:hover:text-white cursor-pointer"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                )}
+              </div>
+
+              {/* View Mode Switcher */}
+              <div
+                role="group"
+                aria-label="Roster layout mode"
+                className="inline-flex items-center p-1 rounded-xl border border-zinc-200/80 dark:border-white/10 bg-[#f8f7f4] dark:bg-[#14161b] self-start sm:self-auto"
+              >
+                <button
+                  type="button"
+                  onClick={() => setViewMode('grid')}
+                  aria-pressed={viewMode === 'grid'}
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold uppercase transition-colors cursor-pointer ${
+                    viewMode === 'grid'
+                      ? 'bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950'
+                      : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white'
+                  }`}
+                >
+                  <LayoutGrid className="w-3.5 h-3.5" />
+                  <span>Portraits</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setViewMode('directory')}
+                  aria-pressed={viewMode === 'directory'}
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold uppercase transition-colors cursor-pointer ${
+                    viewMode === 'directory'
+                      ? 'bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950'
+                      : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white'
+                  }`}
+                >
+                  <List className="w-3.5 h-3.5" />
+                  <span>Index</span>
+                </button>
+              </div>
+            </div>
           </div>
 
-          {/* Search Input */}
-          <div className="relative w-full sm:w-72 md:w-80">
-            <Search className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-              placeholder="Search artist or @handle..."
-              className="w-full pl-9 pr-3 py-2 rounded-xl border border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#12151B] text-xs font-mono text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-hidden focus:border-[#0d9488] dark:focus:border-[#2EE6CA] focus:ring-2 focus:ring-[#2EE6CA]/15 transition-all shadow-xs"
-            />
+          {/* Alphabetical Filter Pills */}
+          <div className="flex flex-wrap items-center gap-2 pt-3 border-t border-zinc-100 dark:border-white/[0.06]">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 mr-1">
+              INDEX FILTER:
+            </span>
+            {ALPHA_BANDS.map(band => {
+              const active = activeBand === band.id
+              return (
+                <button
+                  key={band.id}
+                  type="button"
+                  onClick={() => setActiveBand(band.id)}
+                  aria-pressed={active}
+                  className={`px-3 py-1 rounded-lg text-[11px] font-mono font-bold uppercase transition-all cursor-pointer active:scale-[0.98] ${
+                    active
+                      ? 'bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950'
+                      : 'bg-[#f8f7f4] dark:bg-[#14161b] text-zinc-600 dark:text-zinc-400 border border-zinc-200/70 dark:border-white/10 hover:border-zinc-400'
+                  }`}
+                >
+                  {band.label}
+                </button>
+              )
+            })}
           </div>
         </div>
 
-        {/* Artist Grid - Contemporary Exhibition Lookbook */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 xl:gap-8">
-          {filteredArtists.map(artist => (
-            <div
-              key={artist.id}
-              className="group rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#16181e] overflow-hidden flex flex-col justify-between hover:border-zinc-300 dark:hover:border-white/20 transition-all duration-500 shadow-sm hover:shadow-xl dark:hover:shadow-[0_16px_36px_rgba(0,0,0,0.6)]"
-            >
-              {/* Photo Area: 3:4 Vertical Exhibition Framing with Grayscale Reveal */}
-              <div className="relative aspect-[3/4] w-full overflow-hidden bg-zinc-100 dark:bg-[#12141a]">
-                <img
-                  src={artist.image}
-                  alt={artist.name}
-                  decoding="async"
-                  className="w-full h-full object-cover object-center grayscale group-hover:grayscale-0 scale-100 group-hover:scale-105 transition-all duration-700 ease-out"
-                  onError={e => {
-                    const target = e.currentTarget
-                    target.onerror = null
-                    target.src =
-                      'https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?auto=format&fit=crop&w=600&q=80'
-                  }}
-                />
+        {/* Artist Roster Display */}
+        {viewMode === 'grid' ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {filteredArtists.map(({ artist, rosterCode }, idx) => (
+              <article
+                key={artist.id}
+                className="group rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] overflow-hidden flex flex-col justify-between hover:border-zinc-400 dark:hover:border-white/25 transition-colors duration-200 shadow-2xs"
+              >
+                {/* Photo Area: 3:4 Vertical Exhibition Framing */}
+                <button
+                  type="button"
+                  onClick={() => setSelectedArtist({ artist, rosterCode })}
+                  className="relative aspect-[3/4] w-full overflow-hidden bg-[#f8f7f4] dark:bg-[#14161b] text-left cursor-pointer focus:outline-hidden"
+                  aria-label={`Inspect pro dossier for ${artist.name}`}
+                >
+                  <img
+                    src={artist.image}
+                    alt={artist.name}
+                    loading={idx < 4 ? 'eager' : 'lazy'}
+                    decoding="async"
+                    className="w-full h-full object-cover object-center grayscale group-hover:grayscale-0 scale-100 group-hover:scale-[1.03] transition-all duration-500 ease-out"
+                    onError={e => {
+                      const target = e.currentTarget
+                      target.onerror = null
+                      target.src = '/slides/slide_2_premium_cartridges.png'
+                    }}
+                  />
 
-                {/* Subtle Ambient Vignette */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-40 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent opacity-50 group-hover:opacity-25 transition-opacity duration-300 pointer-events-none" />
 
-                {/* Refined Top Badge */}
-                <div className="absolute top-3.5 right-3.5 pointer-events-none">
-                  <span className="px-2.5 py-0.5 rounded-full bg-black/60 border border-white/15 text-white text-[10px] font-mono font-medium uppercase tracking-wider backdrop-blur-md shadow-xs">
-                    PRO TEAM
-                  </span>
+                  {/* Roster Serial Pill */}
+                  <div className="absolute top-3 left-3 pointer-events-none">
+                    <span className="px-2 py-0.5 rounded-md bg-black/70 border border-white/15 text-white text-[10px] font-mono font-bold uppercase tracking-wider backdrop-blur-xs">
+                      {rosterCode}
+                    </span>
+                  </div>
+
+                  <div className="absolute top-3 right-3 pointer-events-none">
+                    <span className="px-2.5 py-0.5 rounded-full bg-black/65 border border-white/15 text-[#38e8c6] text-[10px] font-mono font-bold uppercase tracking-wider backdrop-blur-xs">
+                      PRO TEAM
+                    </span>
+                  </div>
+
+                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[10px] font-mono text-white/90 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    <span className="px-2 py-1 rounded-md bg-black/75 border border-white/15 uppercase tracking-wider">
+                      Inspect Dossier
+                    </span>
+                  </div>
+                </button>
+
+                {/* Card Body */}
+                <div className="p-4.5 border-t border-zinc-100 dark:border-white/[0.06] bg-white dark:bg-[#1c1e24] space-y-3.5">
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="min-w-0">
+                      <h3 className="text-sm sm:text-base font-bold uppercase tracking-tight text-zinc-950 dark:text-white truncate">
+                        {artist.name}
+                      </h3>
+                      <div className="text-xs font-mono text-zinc-500 dark:text-zinc-400 truncate mt-0.5">
+                        {artist.handle}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedArtist({ artist, rosterCode })}
+                      className="py-2 px-3 rounded-xl border border-zinc-200/80 dark:border-white/10 bg-[#f8f7f4] dark:bg-[#14161b] hover:border-zinc-400 dark:hover:border-white/25 text-zinc-800 dark:text-zinc-200 text-[11px] font-mono font-bold uppercase transition-colors cursor-pointer active:scale-[0.98]"
+                    >
+                      Dossier
+                    </button>
+
+                    <a
+                      href={artist.instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="py-2 px-3 rounded-xl border border-zinc-200/80 dark:border-white/10 bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] text-[11px] font-mono font-bold uppercase transition-colors flex items-center justify-center gap-1 cursor-pointer active:scale-[0.98]"
+                      title={`Open ${artist.name}'s Instagram`}
+                    >
+                      <span>Instagram</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
                 </div>
-              </div>
-
-              {/* Card Body: Refined Typography & Clean Instagram Link */}
-              <div className="p-5 border-t border-zinc-100 dark:border-white/[0.06] bg-white dark:bg-[#16181e] space-y-4">
-                <div>
-                  <h3 className="text-sm sm:text-base font-bold uppercase tracking-tight text-zinc-950 dark:text-white truncate font-sans">
-                    {artist.name}
-                  </h3>
-                  <div className="text-xs font-mono text-zinc-400 dark:text-zinc-500 truncate mt-0.5">
-                    {artist.handle}
+              </article>
+            ))}
+          </div>
+        ) : (
+          /* Compact Directory Index Mode */
+          <div className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] overflow-hidden divide-y divide-zinc-200/70 dark:divide-white/[0.06]">
+            {filteredArtists.map(({ artist, rosterCode }) => (
+              <div
+                key={artist.id}
+                className="p-4 sm:px-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-[#f8f7f4] dark:hover:bg-[#181a20] transition-colors"
+              >
+                <div className="flex items-center gap-4 min-w-0">
+                  <span className="text-xs font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6] w-14 shrink-0">
+                    {rosterCode}
+                  </span>
+                  <img
+                    src={artist.image}
+                    alt={artist.name}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-11 h-11 rounded-xl object-cover bg-zinc-100 dark:bg-zinc-800 shrink-0"
+                    onError={e => {
+                      const target = e.currentTarget
+                      target.onerror = null
+                      target.src = '/slides/slide_2_premium_cartridges.png'
+                    }}
+                  />
+                  <div className="min-w-0">
+                    <div className="text-sm font-bold uppercase text-zinc-950 dark:text-white truncate">
+                      {artist.name}
+                    </div>
+                    <div className="text-xs font-mono text-zinc-500 dark:text-zinc-400 truncate">
+                      {artist.handle}
+                    </div>
                   </div>
                 </div>
 
-                <a
-                  href={artist.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-2 px-3 rounded-xl border border-zinc-200/80 dark:border-white/[0.08] bg-zinc-50/60 dark:bg-[#0e1117] hover:bg-zinc-100 dark:hover:bg-white/[0.06] text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-[#2ee6ca] hover:border-zinc-300 dark:hover:border-white/20 text-xs font-mono font-medium transition-all duration-200 flex items-center justify-between cursor-pointer"
-                  title={`Open ${artist.name}'s Instagram`}
-                >
-                  <span className="flex items-center gap-1.5">
-                    <svg
-                      className="w-3.5 h-3.5 text-zinc-400 group-hover:text-[#2ee6ca] transition-colors"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-                    </svg>
+                <div className="flex items-center gap-2.5 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedArtist({ artist, rosterCode })}
+                    className="px-3.5 py-2 rounded-xl border border-zinc-200/80 dark:border-white/10 bg-[#f8f7f4] dark:bg-[#14161b] text-xs font-mono font-bold uppercase text-zinc-800 dark:text-zinc-200 hover:border-zinc-400 cursor-pointer active:scale-[0.98] transition-all"
+                  >
+                    Inspect Dossier
+                  </button>
+                  <a
+                    href={artist.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3.5 py-2 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-mono font-bold uppercase inline-flex items-center gap-1.5 hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] cursor-pointer active:scale-[0.98] transition-all"
+                  >
                     <span>Instagram</span>
-                  </span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400 group-hover:text-[#2ee6ca] transition-colors" />
-                </a>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                  </a>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         {/* Empty state if search returns nothing */}
         {filteredArtists.length === 0 && (
-          <div className="text-center py-16 border border-dashed border-zinc-300 dark:border-zinc-800 rounded-2xl p-8 font-mono text-xs text-zinc-500">
-            No artists found matching &quot;{searchQuery}&quot;. Try searching another artist name or handle.
+          <div className="text-center py-16 border border-dashed border-zinc-300 dark:border-white/15 rounded-2xl p-8 bg-white dark:bg-[#1c1e24] space-y-3">
+            <div className="font-mono text-xs text-zinc-500">
+              No sponsored artists matched &quot;{searchQuery}&quot; in index [{activeBand}].
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                setSearchQuery('')
+                setActiveBand('ALL')
+              }}
+              className="px-4 py-2 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-mono font-bold uppercase cursor-pointer"
+            >
+              Reset Roster Filters
+            </button>
           </div>
         )}
       </section>
 
       {/* 3. AUTHENTIC SPONSORSHIP CONNECT BANNER */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
-        <div className="rounded-3xl border border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#0E1015] shadow-xl p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="space-y-2 text-center md:text-left max-w-xl">
-            <div className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-[#0d9488] dark:text-[#2EE6CA] uppercase tracking-wider">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-2">
+        <div className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] p-7 sm:p-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+          <div className="space-y-2 max-w-xl">
+            <div className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6] uppercase tracking-wider">
               <ShieldCheck className="w-4 h-4" />
-              <span>PAPA ARTIST RELATIONS</span>
+              <span>PAPA ARTIST RELATIONS DESK</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-black uppercase text-zinc-950 dark:text-white">
-              CONNECT WITH PAPA TATTOO
+            <h2 className="text-2xl sm:text-3xl font-['Montserrat',sans-serif] font-black uppercase text-zinc-950 dark:text-white">
+              APPLY FOR PRO TEAM SPONSORSHIP
             </h2>
             <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed">
-              Interested in joining the Papa Pro Team? Submit your artist application online, enclose your portfolio, or connect with our artist relations desk on Instagram.
+              Working full-time in a licensed studio and running Papa Tattoo apparatus? Submit your portfolio online or download our official Sponsorship Application PDF.
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row flex-wrap items-center gap-3 w-full md:w-auto shrink-0">
+          <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto shrink-0">
             <a
               href="https://docs.google.com/forms/d/e/1FAIpQLSfgQxxTK1SsF62fydK8bJuJyZ-KIilUX8N-fvpclkZvngMeOA/viewform"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto px-5 py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 font-mono font-bold uppercase text-xs tracking-wider flex items-center justify-center gap-2 hover:bg-zinc-800 dark:hover:bg-[#26cbb1] active:scale-[0.99] transition-all shadow-sm cursor-pointer"
+              className="px-5 py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-mono font-bold uppercase text-xs tracking-wider flex items-center justify-center gap-2 hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.98] transition-all cursor-pointer"
             >
-              <span>JOIN OUR TEAM</span>
+              <span>Apply Online</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
 
@@ -222,44 +455,146 @@ export const SponsorshipArtistsPage: React.FC = () => {
               href="https://drive.google.com/file/d/1zMU7VE6YcrKKkjqP3wMo2H69Fz9SnOr1/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto px-4 py-3 rounded-xl border border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#14171E] text-zinc-800 dark:text-zinc-200 hover:text-[#0d9488] dark:hover:text-[#2EE6CA] hover:border-[#2EE6CA] font-mono font-bold uppercase text-xs tracking-wider flex items-center justify-center gap-2 transition-colors cursor-pointer"
+              className="px-4 py-3 rounded-xl border border-zinc-200/80 dark:border-white/10 bg-[#f8f7f4] dark:bg-[#14161b] text-zinc-800 dark:text-zinc-200 hover:border-zinc-400 font-mono font-bold uppercase text-xs tracking-wider flex items-center justify-center gap-2 active:scale-[0.98] transition-all cursor-pointer"
             >
-              <FileText className="w-3.5 h-3.5 text-zinc-400 dark:text-zinc-500" />
-              <span>APPLICATION (PDF)</span>
-            </a>
-
-            <a
-              href="https://instagram.com/papatattoosupply"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto px-4 py-3 rounded-xl border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#14171E] text-zinc-700 dark:text-zinc-300 hover:text-[#0d9488] dark:hover:text-[#2EE6CA] hover:border-[#2EE6CA] font-mono font-bold uppercase text-xs tracking-wider flex items-center justify-center gap-2 transition-colors cursor-pointer"
-            >
-              <svg
-                className="w-3.5 h-3.5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-              </svg>
-              <span>@papatattoosupply</span>
+              <FileText className="w-3.5 h-3.5 text-[#0d5d50] dark:text-[#38e8c6]" />
+              <span>Application (PDF)</span>
             </a>
 
             <Link
               to="/contact"
-              className="w-full sm:w-auto px-4 py-3 rounded-xl border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#14171E] text-zinc-700 dark:text-zinc-300 hover:text-[#0d9488] dark:hover:text-[#2EE6CA] hover:border-[#2EE6CA] font-mono font-bold uppercase text-xs tracking-wider flex items-center justify-center gap-2 transition-colors cursor-pointer"
+              className="px-4 py-3 rounded-xl border border-zinc-200/80 dark:border-white/10 bg-[#f8f7f4] dark:bg-[#14161b] text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 font-mono font-bold uppercase text-xs tracking-wider flex items-center justify-center gap-2 active:scale-[0.98] transition-all cursor-pointer"
             >
-              <Mail className="w-3.5 h-3.5 text-[#0d9488] dark:text-[#2EE6CA]" />
-              <span>Contact</span>
+              <Mail className="w-3.5 h-3.5 text-[#0d5d50] dark:text-[#38e8c6]" />
+              <span>Contact Desk</span>
             </Link>
           </div>
         </div>
       </section>
+
+      {/* 4. ACCESSIBLE ARTIST DOSSIER MODAL */}
+      {selectedArtist && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="artist-dossier-title"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-xs"
+          onClick={() => setSelectedArtist(null)}
+        >
+          <div
+            className="relative w-full max-w-2xl rounded-2xl border border-zinc-200 dark:border-white/15 bg-white dark:bg-[#1c1e24] overflow-hidden shadow-2xl"
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="grid grid-cols-1 sm:grid-cols-12">
+              <div className="sm:col-span-5 aspect-[4/4] sm:aspect-auto bg-[#f8f7f4] dark:bg-[#14161b] relative">
+                <img
+                  src={selectedArtist.artist.image}
+                  alt={selectedArtist.artist.name}
+                  className="w-full h-full object-cover"
+                  onError={e => {
+                    const target = e.currentTarget
+                    target.onerror = null
+                    target.src = '/slides/slide_2_premium_cartridges.png'
+                  }}
+                />
+                <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-black/75 border border-white/15 text-white text-[10px] font-mono font-bold uppercase">
+                  {selectedArtist.rosterCode}
+                </span>
+              </div>
+
+              <div className="sm:col-span-7 p-6 sm:p-7 flex flex-col justify-between space-y-5">
+                <div className="space-y-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#0d5d50] dark:text-[#38e8c6]">
+                        OFFICIAL SPONSORED ARTIST
+                      </div>
+                      <h2
+                        id="artist-dossier-title"
+                        className="text-xl sm:text-2xl font-['Montserrat',sans-serif] font-black uppercase text-zinc-950 dark:text-white mt-0.5"
+                      >
+                        {selectedArtist.artist.name}
+                      </h2>
+                      <div className="text-xs font-mono text-zinc-500 dark:text-zinc-400 mt-0.5">
+                        {selectedArtist.artist.handle}
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => setSelectedArtist(null)}
+                      aria-label="Close artist dossier"
+                      className="p-2 rounded-xl border border-zinc-200 dark:border-white/10 text-zinc-500 hover:text-zinc-950 dark:hover:text-white cursor-pointer"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  <p className="text-xs text-zinc-600 dark:text-zinc-300 leading-relaxed">
+                    Verified member of the Papa Tattoo Supply Pro Team roster, equipped with factory-sterilized 316L membrane cartridges and precision direct-drive rotary hardware.
+                  </p>
+
+                  {/* Pro Team Hardware Links */}
+                  <div className="p-3.5 rounded-xl border border-zinc-200/80 dark:border-white/10 bg-[#f8f7f4] dark:bg-[#14161b] space-y-2">
+                    <div className="flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase text-zinc-500">
+                      <Sliders className="w-3.5 h-3.5 text-[#0d5d50] dark:text-[#38e8c6]" />
+                      <span>PRO TEAM STANDARD ISSUE</span>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      <Link
+                        to="/collections"
+                        search={{ category: 'cartridges' }}
+                        onClick={() => setSelectedArtist(null)}
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white dark:bg-[#1c1e24] border border-zinc-200/80 dark:border-white/10 text-[11px] font-mono font-semibold text-zinc-800 dark:text-zinc-200 hover:border-[#0d5d50] dark:hover:border-[#38e8c6]"
+                      >
+                        <span>316L Cartridges</span>
+                        <ArrowRight className="w-3 h-3" />
+                      </Link>
+                      <Link
+                        to="/collections"
+                        search={{ category: 'machines' }}
+                        onClick={() => setSelectedArtist(null)}
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white dark:bg-[#1c1e24] border border-zinc-200/80 dark:border-white/10 text-[11px] font-mono font-semibold text-zinc-800 dark:text-zinc-200 hover:border-[#0d5d50] dark:hover:border-[#38e8c6]"
+                      >
+                        <span>Rotary Pens</span>
+                        <ArrowRight className="w-3 h-3" />
+                      </Link>
+                      <Link
+                        to="/collections"
+                        search={{ category: 'grips' }}
+                        onClick={() => setSelectedArtist(null)}
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white dark:bg-[#1c1e24] border border-zinc-200/80 dark:border-white/10 text-[11px] font-mono font-semibold text-zinc-800 dark:text-zinc-200 hover:border-[#0d5d50] dark:hover:border-[#38e8c6]"
+                      >
+                        <span>Click Grips</span>
+                        <ArrowRight className="w-3 h-3" />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2.5 pt-2 border-t border-zinc-100 dark:border-white/[0.06]">
+                  <a
+                    href={selectedArtist.artist.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 py-2.5 px-4 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-mono font-bold uppercase inline-flex items-center justify-center gap-1.5 hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] transition-colors"
+                  >
+                    <span>Open Instagram Portfolio</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedArtist(null)}
+                    className="py-2.5 px-4 rounded-xl border border-zinc-200 dark:border-white/10 text-xs font-mono font-bold uppercase text-zinc-700 dark:text-zinc-300 cursor-pointer"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

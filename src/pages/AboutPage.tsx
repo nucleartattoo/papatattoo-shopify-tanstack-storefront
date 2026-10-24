@@ -8,238 +8,425 @@ import {
   RotateCcw,
   Cpu,
   Layers,
-  Sparkles,
   ArrowRight,
   ExternalLink,
   Wrench,
-  CheckCircle2,
   FileText,
-  Clock,
   Building2,
+  Sliders,
+  Zap,
 } from 'lucide-react'
+
+interface PipelineStage {
+  step: string
+  code: string
+  title: string
+  tolerance: string
+  summary: string
+}
+
+const MANUFACTURING_PIPELINE: PipelineStage[] = [
+  {
+    step: '01',
+    code: 'CNC-6061',
+    title: 'CNC Milling & Brushless Motor Pairing',
+    tolerance: '≤ 0.01mm Concentricity',
+    summary:
+      'Aircraft-grade 6061-T6 aluminum housings are 5-axis CNC machined and paired with custom coreless motors tested under continuous 8V–10V load.',
+  },
+  {
+    step: '02',
+    code: '316L-OPTIC',
+    title: 'Japanese 316L Steel & 30x Optical Inspection',
+    tolerance: '0.25mm – 0.35mm Gauge',
+    summary:
+      'Surgical 316L stainless needles are lead-free soldered and inspected under 30x magnification to eliminate micro-burrs or hook defects.',
+  },
+  {
+    step: '03',
+    code: 'MEMBRANE-QC',
+    title: 'Silicone Rebound Membrane & Tip Stabilization',
+    tolerance: '100% Backflow Seal',
+    summary:
+      'Medical-grade PC housings are fitted with high-elasticity silicone membranes that prevent pigment backflow into machine drive mechanisms.',
+  },
+  {
+    step: '04',
+    code: 'EO-STERILE',
+    title: 'Ethylene Oxide (EO) Gas Sterilization & Lot Seal',
+    tolerance: '5-Year Sterile Shelf Life',
+    summary:
+      'Every individual blister is sealed with dialysis-grade paper, EO gas sterilized, and stamped with verifiable batch and expiration telemetry.',
+  },
+]
 
 export const AboutPage: React.FC = () => {
   return (
-    <div className="min-h-[100dvh] bg-zinc-50 dark:bg-[#0A0C0F] text-zinc-900 dark:text-zinc-100 font-sans pb-24 transition-colors">
-      {/* 1. HERO SECTION */}
-      <section className="relative overflow-hidden border-b border-zinc-200 dark:border-[#1E232E] bg-white dark:bg-[#0E1015] py-16 sm:py-24">
-        <div className="absolute inset-0 bg-[radial-gradient(#2ee6ca_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
-        <div className="absolute -top-32 left-1/4 w-96 h-96 bg-[#2EE6CA]/10 rounded-full blur-3xl pointer-events-none" />
+    <div className="min-h-[100dvh] bg-zinc-50 dark:bg-[#14161b] text-zinc-900 dark:text-zinc-100 font-sans pb-24 transition-colors">
+      {/* 1. HERO SECTION — SWISS INDUSTRIAL DOSSIER */}
+      <section className="border-b border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] py-14 sm:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+            <div className="lg:col-span-7 space-y-5">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-200/80 dark:border-white/10 bg-[#f8f7f4] dark:bg-[#14161b] text-[#0d5d50] dark:text-[#38e8c6] text-[11px] font-mono font-bold tracking-wider uppercase">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#0d5d50] dark:bg-[#38e8c6]" />
+                <span>FACTORY DOSSIER · DIRECT MANUFACTURER SINCE 2015</span>
+              </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left flex flex-col md:flex-row items-center justify-between gap-10">
-          <div className="max-w-2xl space-y-5">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#2EE6CA]/30 bg-[#2EE6CA]/10 text-[#0d9488] dark:text-[#2EE6CA] text-xs font-mono font-bold tracking-wider uppercase">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>ORIGIN & FACTORY PHILOSOPHY</span>
+              <h1 className="text-3xl sm:text-5xl font-['Montserrat',sans-serif] font-black uppercase tracking-tight text-zinc-950 dark:text-white leading-[1.06]">
+                DIRECT-DRIVE APPARATUS &amp; STERILE STUDIO SUPPLY
+              </h1>
+
+              <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed max-w-2xl">
+                Papa Tattoo Supply engineers and manufactures rotary tattoo machines, 62-configuration sterile needle cartridges, autoclavable click grips, and wireless power architecture directly for licensed studios worldwide.
+              </p>
+
+              <div className="pt-2 flex flex-wrap items-center gap-3">
+                <Link
+                  to="/products"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-mono font-bold uppercase tracking-wider hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.98] transition-all shadow-xs"
+                >
+                  <span>Explore 26 Hardware Models</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+
+                <Link
+                  to="/distributors"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-zinc-200/80 dark:border-white/10 bg-[#f8f7f4] dark:bg-[#14161b] hover:border-zinc-400 dark:hover:border-white/25 text-zinc-800 dark:text-zinc-200 text-xs font-mono font-bold uppercase tracking-wider active:scale-[0.98] transition-all"
+                >
+                  <Building2 className="w-3.5 h-3.5 text-[#0d5d50] dark:text-[#38e8c6]" />
+                  <span>Authorized Distributors</span>
+                </Link>
+              </div>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-zinc-950 dark:text-white leading-none">
-              ABOUT PAPA TATTOO <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0d9488] via-[#2EE6CA] to-teal-400">
-                SUPPLY & ENGINEERING
-              </span>
-            </h1>
+            {/* Right: 4-Tile Factory Telemetry Matrix */}
+            <div className="lg:col-span-5 grid grid-cols-2 gap-3.5">
+              <div className="p-5 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#14161b] flex flex-col justify-between">
+                <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500">
+                  FOUNDING YEAR
+                </div>
+                <div className="text-3xl font-black font-mono text-zinc-950 dark:text-white mt-2">
+                  2015
+                </div>
+                <div className="text-[11px] font-mono text-[#0d5d50] dark:text-[#38e8c6] mt-1">
+                  6061-T6 CNC Machining
+                </div>
+              </div>
 
-            <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 font-mono leading-relaxed">
-              Papa Tattoo Supply is committed to delivering world-class tattoo equipment, precision rotary apparatus, medical-grade sterilized cartridges, and pro station hardware directly to licensed tattoo studios worldwide.
-            </p>
+              <div className="p-5 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#14161b] flex flex-col justify-between">
+                <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500">
+                  NEEDLE MATRIX
+                </div>
+                <div className="text-3xl font-black font-mono text-zinc-950 dark:text-white mt-2">
+                  62
+                </div>
+                <div className="text-[11px] font-mono text-[#0d5d50] dark:text-[#38e8c6] mt-1">
+                  316L Surgical Configurations
+                </div>
+              </div>
 
-            <div className="pt-2 flex flex-wrap items-center gap-4 justify-center sm:justify-start">
+              <div className="p-5 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#14161b] flex flex-col justify-between">
+                <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500">
+                  STERILIZATION
+                </div>
+                <div className="text-3xl font-black font-mono text-zinc-950 dark:text-white mt-2">
+                  100%
+                </div>
+                <div className="text-[11px] font-mono text-[#0d5d50] dark:text-[#38e8c6] mt-1">
+                  EO Gas Lot Validated
+                </div>
+              </div>
+
+              <div className="p-5 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#14161b] flex flex-col justify-between">
+                <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500">
+                  GLOBAL DISPATCH
+                </div>
+                <div className="text-3xl font-black font-mono text-zinc-950 dark:text-white mt-2">
+                  60+
+                </div>
+                <div className="text-[11px] font-mono text-[#0d5d50] dark:text-[#38e8c6] mt-1">
+                  DHL / UPS / FedEx Express
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. 4-STAGE MANUFACTURING & STERILIZATION PIPELINE */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 mb-8 border-b border-zinc-200/80 dark:border-white/[0.08]">
+          <div>
+            <div className="text-[11px] font-mono font-bold tracking-widest text-[#0d5d50] dark:text-[#38e8c6] uppercase">
+              QUALITY CONTROL ARCHITECTURE
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-['Montserrat',sans-serif] font-black uppercase tracking-tight text-zinc-950 dark:text-white mt-1">
+              4-STAGE PRODUCTION &amp; STERILIZATION PROTOCOL
+            </h2>
+          </div>
+          <span className="text-xs font-mono text-zinc-500 uppercase">
+            FACTORY DIRECT · ZERO INTERMEDIARY MARKUP
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          {MANUFACTURING_PIPELINE.map(item => (
+            <div
+              key={item.step}
+              className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] p-6 flex flex-col justify-between shadow-2xs"
+            >
+              <div className="space-y-4">
+                <div className="flex items-center justify-between gap-2 pb-3 border-b border-zinc-100 dark:border-white/[0.06]">
+                  <span className="text-xs font-mono font-black text-[#0d5d50] dark:text-[#38e8c6]">
+                    STAGE {item.step}
+                  </span>
+                  <span className="px-2 py-0.5 rounded-md bg-[#f8f7f4] dark:bg-[#14161b] border border-zinc-200/70 dark:border-white/10 text-[10px] font-mono font-semibold text-zinc-600 dark:text-zinc-400">
+                    {item.code}
+                  </span>
+                </div>
+
+                <h3 className="text-base font-bold text-zinc-950 dark:text-white leading-snug">
+                  {item.title}
+                </h3>
+
+                <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                  {item.summary}
+                </p>
+              </div>
+
+              <div className="mt-5 pt-3 border-t border-zinc-100 dark:border-white/[0.06] flex items-center justify-between text-[11px] font-mono">
+                <span className="text-zinc-400 uppercase">SPEC TOLERANCE</span>
+                <span className="font-bold text-zinc-900 dark:text-zinc-200">{item.tolerance}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 3. DIRECT MANUFACTURER MANIFESTO & APPARATUS DIVISIONS */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+          <div className="lg:col-span-6 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] p-7 sm:p-9 flex flex-col justify-between space-y-6">
+            <div className="space-y-4">
+              <div className="inline-flex items-center gap-1.5 text-[11px] font-mono font-bold tracking-widest text-[#0d5d50] dark:text-[#38e8c6] uppercase">
+                <Award className="w-3.5 h-3.5" />
+                <span>MANUFACTURER MANIFESTO</span>
+              </div>
+
+              <h2 className="text-2xl sm:text-3xl font-['Montserrat',sans-serif] font-black uppercase tracking-tight text-zinc-950 dark:text-white leading-tight">
+                BUILT FOR WORKING PARLORS, NOT RESELLER TIERS
+              </h2>
+
+              <div className="space-y-3.5 text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                <p>
+                  Papa Tattoo Supply operates as an integrated hardware manufacturer. Every rotary pen chassis, click-adjustment grip collar, and membrane cartridge mold is engineered in-house for daily studio reliability.
+                </p>
+                <p>
+                  By shipping directly from our production floor and authorized regional depots to licensed studios, we eliminate distributor middleman inflation while maintaining strict batch-level quality control.
+                </p>
+                <p>
+                  Whether equipping a single workstation with a wireless Papa Pen V3 Pro or supplying a multi-chair parlor with bulk EO-sterilized cartridge boxes, every order carries verified factory traceability.
+                </p>
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-zinc-100 dark:border-white/[0.06] flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
+              <span className="text-zinc-500">ISO-COMPLIANT STERILE PACKAGING</span>
               <Link
-                to="/collections"
-                search={{ category: 'all' }}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 text-xs font-mono font-bold uppercase tracking-wider shadow-lg hover:shadow-[0_0_20px_rgba(46,230,202,0.3)] transition-all"
+                to="/sponsorship-artists"
+                className="inline-flex items-center gap-1.5 font-bold text-[#0d5d50] dark:text-[#38e8c6] hover:underline"
               >
-                <span>Explore Catalog</span>
+                <span>Meet Our 40 Sponsored Pro Artists</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
-
-              <Link
-                to="/distributors"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-zinc-300 dark:border-[#2A303C] hover:border-zinc-500 dark:hover:border-[#2ee6ca]/50 text-zinc-800 dark:text-zinc-200 text-xs font-mono font-bold uppercase tracking-wider transition-colors"
-              >
-                <Building2 className="w-3.5 h-3.5 text-[#0d9488] dark:text-[#2ee6ca]" />
-                <span>Authorized Distributors</span>
-              </Link>
             </div>
           </div>
 
-          {/* Quick Metrics */}
-          <div className="grid grid-cols-2 gap-4 w-full md:w-auto shrink-0">
-            <div className="p-4 rounded-xl border border-zinc-200 dark:border-[#1E232E] bg-zinc-50/50 dark:bg-[#12151B] text-center">
-              <div className="text-3xl font-black font-mono text-[#0d9488] dark:text-[#2EE6CA]">2015</div>
-              <div className="text-[11px] font-mono text-zinc-500 uppercase mt-1">Founding Heritage</div>
-            </div>
-            <div className="p-4 rounded-xl border border-zinc-200 dark:border-[#1E232E] bg-zinc-50/50 dark:bg-[#12151B] text-center">
-              <div className="text-3xl font-black font-mono text-[#0d9488] dark:text-[#2EE6CA]">60+</div>
-              <div className="text-[11px] font-mono text-zinc-500 uppercase mt-1">Global Destinations</div>
-            </div>
-            <div className="p-4 rounded-xl border border-zinc-200 dark:border-[#1E232E] bg-zinc-50/50 dark:bg-[#12151B] text-center">
-              <div className="text-3xl font-black font-mono text-amber-500">QC</div>
-              <div className="text-[11px] font-mono text-zinc-500 uppercase mt-1">Factory Tested</div>
-            </div>
-            <div className="p-4 rounded-xl border border-zinc-200 dark:border-[#1E232E] bg-zinc-50/50 dark:bg-[#12151B] text-center">
-              <div className="text-3xl font-black font-mono text-[#0d9488] dark:text-[#2EE6CA]">100%</div>
-              <div className="text-[11px] font-mono text-zinc-500 uppercase mt-1">Satisfaction Rate</div>
-            </div>
+          {/* Right: 4 Core Hardware Divisions */}
+          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Link
+              to="/collections"
+              search={{ category: 'machines' }}
+              className="group p-6 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] hover:border-zinc-400 dark:hover:border-white/25 transition-all flex flex-col justify-between"
+            >
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-[#f8f7f4] dark:bg-[#14161b] border border-zinc-200/70 dark:border-white/10 text-[#0d5d50] dark:text-[#38e8c6] flex items-center justify-center">
+                  <Cpu className="w-5 h-5" />
+                </div>
+                <h3 className="font-mono font-bold text-sm text-zinc-950 dark:text-white uppercase group-hover:text-[#0d5d50] dark:group-hover:text-[#38e8c6] transition-colors">
+                  Rotary &amp; Wireless Pens
+                </h3>
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
+                  6061-T6 aircraft aluminum frames with coreless brushless drive systems and RCA/wireless dual modules.
+                </p>
+              </div>
+              <div className="mt-4 pt-3 border-t border-zinc-100 dark:border-white/[0.06] flex items-center justify-between text-[11px] font-mono font-bold text-zinc-700 dark:text-zinc-300">
+                <span>6 MACHINE FAMILIES</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+              </div>
+            </Link>
+
+            <Link
+              to="/collections"
+              search={{ category: 'cartridges' }}
+              className="group p-6 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] hover:border-zinc-400 dark:hover:border-white/25 transition-all flex flex-col justify-between"
+            >
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-[#f8f7f4] dark:bg-[#14161b] border border-zinc-200/70 dark:border-white/10 text-[#0d5d50] dark:text-[#38e8c6] flex items-center justify-center">
+                  <Layers className="w-5 h-5" />
+                </div>
+                <h3 className="font-mono font-bold text-sm text-zinc-950 dark:text-white uppercase group-hover:text-[#0d5d50] dark:group-hover:text-[#38e8c6] transition-colors">
+                  316L Sterile Cartridges
+                </h3>
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
+                  RL, RS, M1, and CM configurations with safety rebound membranes and medical PC tips.
+                </p>
+              </div>
+              <div className="mt-4 pt-3 border-t border-zinc-100 dark:border-white/[0.06] flex items-center justify-between text-[11px] font-mono font-bold text-zinc-700 dark:text-zinc-300">
+                <span>62 NEEDLE SIZES</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+              </div>
+            </Link>
+
+            <Link
+              to="/collections"
+              search={{ category: 'grips' }}
+              className="group p-6 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] hover:border-zinc-400 dark:hover:border-white/25 transition-all flex flex-col justify-between"
+            >
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-[#f8f7f4] dark:bg-[#14161b] border border-zinc-200/70 dark:border-white/10 text-[#0d5d50] dark:text-[#38e8c6] flex items-center justify-center">
+                  <Sliders className="w-5 h-5" />
+                </div>
+                <h3 className="font-mono font-bold text-sm text-zinc-950 dark:text-white uppercase group-hover:text-[#0d5d50] dark:group-hover:text-[#38e8c6] transition-colors">
+                  Click &amp; Disposable Grips
+                </h3>
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
+                  Autoclavable ratcheting aluminum click grips and ergonomic TPR disposable cartridge tubes.
+                </p>
+              </div>
+              <div className="mt-4 pt-3 border-t border-zinc-100 dark:border-white/[0.06] flex items-center justify-between text-[11px] font-mono font-bold text-zinc-700 dark:text-zinc-300">
+                <span>7 GRIP SYSTEMS</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+              </div>
+            </Link>
+
+            <Link
+              to="/collections"
+              search={{ category: 'power' }}
+              className="group p-6 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] hover:border-zinc-400 dark:hover:border-white/25 transition-all flex flex-col justify-between"
+            >
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-[#f8f7f4] dark:bg-[#14161b] border border-zinc-200/70 dark:border-white/10 text-[#0d5d50] dark:text-[#38e8c6] flex items-center justify-center">
+                  <Zap className="w-5 h-5" />
+                </div>
+                <h3 className="font-mono font-bold text-sm text-zinc-950 dark:text-white uppercase group-hover:text-[#0d5d50] dark:group-hover:text-[#38e8c6] transition-colors">
+                  Power &amp; Studio Cordage
+                </h3>
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
+                  OLED wireless battery packs, regulated benchtop power supplies, and pure-copper RCA/clip cords.
+                </p>
+              </div>
+              <div className="mt-4 pt-3 border-t border-zinc-100 dark:border-white/[0.06] flex items-center justify-between text-[11px] font-mono font-bold text-zinc-700 dark:text-zinc-300">
+                <span>9 POWER UNITS</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+              </div>
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* 2. WHO WE ARE (ORIGINAL MANIFESTO) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-6 space-y-6">
-            <div className="text-[11px] font-mono font-bold tracking-widest text-[#0d9488] dark:text-[#2EE6CA] uppercase flex items-center gap-1.5">
-              <Award className="w-3.5 h-3.5" />
-              <span>DIRECT MANUFACTURER HERITAGE</span>
+      {/* 4. STUDIO GUARANTEES & LOGISTICS STANDARDS */}
+      <section className="bg-[#f8f7f4] dark:bg-[#181a20] border-y border-zinc-200/80 dark:border-white/[0.08] py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div>
+              <div className="text-[11px] font-mono font-bold tracking-widest text-[#0d5d50] dark:text-[#38e8c6] uppercase">
+                COMMERCIAL STUDIO STANDARDS
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-['Montserrat',sans-serif] font-black text-zinc-950 dark:text-white uppercase tracking-tight mt-1">
+                LOGISTICS, WARRANTY &amp; CHECKOUT SECURITY
+              </h2>
             </div>
-
-            <h2 className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-zinc-950 dark:text-white leading-tight">
-              WHO WE ARE & WHAT DRIVES US
-            </h2>
-
-            <div className="space-y-4 text-sm text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed">
-              <p>
-                Papa Tattoo Supply is committed to providing high-quality products. We offer a full line of tattoo equipment, rotary machines, sterile cartridges, and accessories with door-to-door delivery catering specifically to the rigorous demands of professional, licensed tattoo parlors.
-              </p>
-              <p>
-                We strive to expand globally and deliver superior, world-class instruments as a proud direct manufacturer of precision tattoo needle configurations, ergonomic grips, and high-performance wireless power units. By eliminating secondary reseller markups, we provide true wholesale pricing without ever compromising on quality assurance.
-              </p>
-              <p>
-                We value long-term relationships with studio owners and working artists. Whether you need custom studio batch orders or dependable daily consumables, our team ensures rapid response, verified sterile batch certifications, and attentive customer service.
-              </p>
-            </div>
+            <Globe className="w-5 h-5 text-zinc-400 hidden sm:block" />
           </div>
 
-          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="p-6 rounded-2xl border border-zinc-200 dark:border-[#1E232E] bg-white dark:bg-[#11141B] space-y-3">
-              <div className="w-10 h-10 rounded-lg bg-[#2EE6CA]/10 text-[#0d9488] dark:text-[#2EE6CA] flex items-center justify-center">
-                <Cpu className="w-5 h-5" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-7 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] space-y-3.5">
+              <div className="w-11 h-11 rounded-xl bg-[#f8f7f4] dark:bg-[#14161b] border border-zinc-200/70 dark:border-white/10 text-[#0d5d50] dark:text-[#38e8c6] flex items-center justify-center">
+                <Truck className="w-5 h-5" />
               </div>
-              <h3 className="font-mono font-bold text-sm text-zinc-950 dark:text-white uppercase">Direct Machine Machining</h3>
-              <p className="text-xs text-zinc-500 font-mono leading-relaxed">
-                6061-T6 aviation alloy CNC carved chassis with custom brushless coreless motors for sub-0.01mm concentricity.
+              <h3 className="font-mono font-black text-sm text-zinc-950 dark:text-white uppercase">
+                24H PRIORITY STUDIO DISPATCH
+              </h3>
+              <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                Orders ship via UPS Ground, 3 Day Select, 2nd Day Air, Next Day Air, and DHL Express. Live airway bill tracking is issued immediately upon warehouse scan.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl border border-zinc-200 dark:border-[#1E232E] bg-white dark:bg-[#11141B] space-y-3">
-              <div className="w-10 h-10 rounded-lg bg-amber-500/10 text-amber-500 flex items-center justify-center">
-                <Layers className="w-5 h-5" />
+            <div className="p-7 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] space-y-3.5">
+              <div className="w-11 h-11 rounded-xl bg-[#f8f7f4] dark:bg-[#14161b] border border-zinc-200/70 dark:border-white/10 text-[#0d5d50] dark:text-[#38e8c6] flex items-center justify-center">
+                <RotateCcw className="w-5 h-5" />
               </div>
-              <h3 className="font-mono font-bold text-sm text-zinc-950 dark:text-white uppercase">Japanese 316L Needles</h3>
-              <p className="text-xs text-zinc-500 font-mono leading-relaxed">
-                Medical-grade stainless steel with micro-stabilizer guides and elastic silicone rebound safety membranes.
+              <h3 className="font-mono font-black text-sm text-zinc-950 dark:text-white uppercase">
+                14-DAY FACTORY QA GUARANTEE
+              </h3>
+              <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                Hardware or unopened consumables with any manufacturing discrepancy qualify for immediate replacement or full refund within 14 days of delivery, with return freight covered.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl border border-zinc-200 dark:border-[#1E232E] bg-white dark:bg-[#11141B] space-y-3">
-              <div className="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center">
+            <div className="p-7 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] space-y-3.5">
+              <div className="w-11 h-11 rounded-xl bg-[#f8f7f4] dark:bg-[#14161b] border border-zinc-200/70 dark:border-white/10 text-[#0d5d50] dark:text-[#38e8c6] flex items-center justify-center">
                 <ShieldCheck className="w-5 h-5" />
               </div>
-              <h3 className="font-mono font-bold text-sm text-zinc-950 dark:text-white uppercase">100% EO Sterilized</h3>
-              <p className="text-xs text-zinc-500 font-mono leading-relaxed">
-                Every cartridge blister is individually gas sterilized with verifiable lot number and expiration stamping.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-2xl border border-zinc-200 dark:border-[#1E232E] bg-white dark:bg-[#11141B] space-y-3">
-              <div className="w-10 h-10 rounded-lg bg-cyan-500/10 text-cyan-500 flex items-center justify-center">
-                <Globe className="w-5 h-5" />
-              </div>
-              <h3 className="font-mono font-bold text-sm text-zinc-950 dark:text-white uppercase">Door-to-Door Logistics</h3>
-              <p className="text-xs text-zinc-500 font-mono leading-relaxed">
-                Global express courier accounts with UPS, DHL, and FedEx for expedited studio delivery worldwide.
+              <h3 className="font-mono font-black text-sm text-zinc-950 dark:text-white uppercase">
+                PCI-DSS LEVEL 1 ENCRYPTED CHECKOUT
+              </h3>
+              <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                All studio transactions run over 256-bit TLS encrypted Shopify Storefront infrastructure, protecting studio billing credentials and international commercial invoices.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 3. POLICIES & GUARANTEES */}
-      <section className="bg-zinc-100/70 dark:bg-[#0E1116] border-y border-zinc-200 dark:border-[#1E232E] py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          <div className="text-center max-w-2xl mx-auto space-y-2">
-            <div className="text-[11px] font-mono font-bold tracking-widest text-[#0d9488] dark:text-[#2EE6CA] uppercase">
-              STUDIO PROMISES & QUALITY ASSURANCE
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-zinc-950 dark:text-white uppercase tracking-tight">
-              OUR COMMITMENT TO YOUR PARLOR
-            </h2>
-            <p className="text-xs font-mono text-zinc-500">
-              Clear warranty standards, immediate dispatch guarantees, and complete transaction security.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Guarantee 1: Shipping */}
-            <div className="p-8 rounded-2xl border border-zinc-200 dark:border-[#1E232E] bg-white dark:bg-[#12151C] space-y-4">
-              <div className="w-12 h-12 rounded-xl bg-[#2EE6CA]/15 text-[#0d9488] dark:text-[#2EE6CA] flex items-center justify-center">
-                <Truck className="w-6 h-6" />
-              </div>
-              <h3 className="font-mono font-black text-base text-zinc-950 dark:text-white uppercase">
-                FAST SHIPMENT GUARANTEE
-              </h3>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed">
-                We make it easier for you! Studio orders are processed with priority dispatch via UPS Ground, 3 Day Select, 2nd Day Air, Next Day Air, and DHL Express. Verified tracking numbers are transmitted immediately upon shipping.
-              </p>
-            </div>
-
-            {/* Guarantee 2: 14-Day Return & Replacement */}
-            <div className="p-8 rounded-2xl border border-zinc-200 dark:border-[#1E232E] bg-white dark:bg-[#12151C] space-y-4">
-              <div className="w-12 h-12 rounded-xl bg-amber-500/15 text-amber-500 flex items-center justify-center">
-                <RotateCcw className="w-6 h-6" />
-              </div>
-              <h3 className="font-mono font-black text-base text-zinc-950 dark:text-white uppercase">
-                14-DAY QUALITY ASSURANCE
-              </h3>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed">
-                Items can be returned for exchange or full refund in the rare event of a manufacturing fault within 14 days from the date of receipt. If an incorrect specification is shipped, we immediately expedite a replacement and reimburse return shipping costs.
-              </p>
-            </div>
-
-            {/* Guarantee 3: Security & Encryption */}
-            <div className="p-8 rounded-2xl border border-zinc-200 dark:border-[#1E232E] bg-white dark:bg-[#12151C] space-y-4">
-              <div className="w-12 h-12 rounded-xl bg-emerald-500/15 text-emerald-500 flex items-center justify-center">
-                <ShieldCheck className="w-6 h-6" />
-              </div>
-              <h3 className="font-mono font-black text-base text-zinc-950 dark:text-white uppercase">
-                ENCRYPTED DIRECT CHECKOUT
-              </h3>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed">
-                Security is our top priority. All transactions are protected via PCI-DSS Level 1 256-bit encrypted checkout powered by Shopify Storefront infrastructure. Your financial and commercial studio data remains fully guarded at all times.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. REPAIR & TECHNICAL RMA FORM SECTION */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
-        <div className="rounded-2xl border border-zinc-200 dark:border-[#1E232E] bg-white dark:bg-[#11141B] p-8 sm:p-10 shadow-xl flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="space-y-3">
-            <div className="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#0d9488] dark:text-[#2EE6CA] uppercase">
+      {/* 5. OFFICIAL MACHINE REPAIR & RMA SERVICE BENCH */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
+        <div className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] p-7 sm:p-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+          <div className="space-y-2.5 max-w-2xl">
+            <div className="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6] uppercase">
               <Wrench className="w-4 h-4" />
-              <span>OFFICIAL PAPA RMA & MAINTENANCE</span>
+              <span>OFFICIAL PAPA RMA &amp; MOTOR CALIBRATION BENCH</span>
             </div>
-            <h3 className="text-2xl font-black uppercase tracking-tight text-zinc-950 dark:text-white">
-              PAPA MACHINE REPAIR & WARRANTY SERVICE
+            <h3 className="text-xl sm:text-2xl font-['Montserrat',sans-serif] font-black uppercase tracking-tight text-zinc-950 dark:text-white">
+              PAPA MACHINE REPAIR &amp; WARRANTY SERVICE
             </h3>
-            <p className="text-xs text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed max-w-xl">
-              Need technical calibration, cam stroke maintenance, or factory motor diagnosis for your Papa Pen or Rotary apparatus? Download the official Papa Machine Repair RMA Form, fill in your serial code, and include it with your securely packaged parcel.
+            <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              Need cam stroke maintenance, O-ring service, or coreless motor diagnostics for your Papa Pen or rotary machine? Download the official RMA Repair Form to enclose with your parcel, or open a service ticket with our engineering desk.
             </p>
           </div>
 
-          <a
-            href="https://drive.google.com/file/d/1nMPw2A9x_AwQnlFp0yew_2XNbMBKoiEf/view"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="shrink-0 inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 text-xs font-mono font-bold uppercase tracking-wider shadow-lg hover:shadow-[0_0_20px_rgba(46,230,202,0.3)] transition-all cursor-pointer"
-          >
-            <FileText className="w-4 h-4" />
-            <span>Download Repair Form (PDF)</span>
-            <ExternalLink className="w-3.5 h-3.5" />
-          </a>
+          <div className="flex flex-wrap items-center gap-3 shrink-0 w-full lg:w-auto">
+            <a
+              href="https://drive.google.com/file/d/1nMPw2A9x_AwQnlFp0yew_2XNbMBKoiEf/view"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-mono font-bold uppercase tracking-wider hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.98] transition-all cursor-pointer"
+            >
+              <FileText className="w-4 h-4" />
+              <span>Download RMA Form (PDF)</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+
+            <Link
+              to="/contact"
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-zinc-200/80 dark:border-white/10 bg-[#f8f7f4] dark:bg-[#14161b] hover:border-zinc-400 dark:hover:border-white/25 text-zinc-800 dark:text-zinc-200 text-xs font-mono font-bold uppercase tracking-wider active:scale-[0.98] transition-all"
+            >
+              <span>Open Service Ticket</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
         </div>
       </section>
     </div>
