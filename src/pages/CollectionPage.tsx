@@ -559,14 +559,13 @@ export const CollectionPage: React.FC = () => {
     matrixTier === 'premium' ? premiumCartridgeProduct : standardCartridgeProduct
 
   useEffect(() => {
-    if (activeCartridgeProduct?.variants?.edges?.length) {
+    const edges = activeCartridgeProduct?.variants?.edges
+    if (edges && edges.length > 0) {
       const firstAvailable =
-        activeCartridgeProduct.variants.edges.find(
-          e => e.node.availableForSale !== false
-        )?.node || activeCartridgeProduct.variants.edges[0].node
+        edges.find(e => e.node.availableForSale !== false)?.node || edges[0].node
       setSelectedCartridgeVariant(firstAvailable)
     }
-  }, [activeCartridgeProduct?.id])
+  }, [activeCartridgeProduct])
 
   const handleToggleExpand = (catId: string, e?: React.MouseEvent) => {
     if (e) e.stopPropagation()

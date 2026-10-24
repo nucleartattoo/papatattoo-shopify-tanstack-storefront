@@ -30,9 +30,10 @@ const EMPTY_PRODUCTS: ShopifyProduct[] = []
 
 const HERO_FALLBACK_IMAGES: Record<string, string> = {
   'papa-pen-v3-black-full-set': '/product-images/img_214_img_5795_cutout.webp',
-  'papa-pen-v2-1': '/product-images/img_113_papa_pen_jet_black_1__cutout.webp',
+  'papa-pen-v2-1': '/product-images/img_026_black_cutout.webp',
   'papa-pen-jet-black': '/product-images/img_113_papa_pen_jet_black_1__cutout.webp',
-  'papa-apollo-rotary-black': '/product-images/img_113_papa_pen_jet_black_1__cutout.webp',
+  'papa-apollo-rotary-black':
+    '/product-images/img_115_apollo-rotary-tattoo-machine-rca-dl-m30-black_cutout.webp',
 }
 
 export const HomePage: React.FC = () => {
@@ -121,9 +122,15 @@ export const HomePage: React.FC = () => {
     openCart()
   }
 
+  // Consolidated model groups for the catalog
+  const allModelGroups = useMemo(
+    () => groupProductsIntoModels(products),
+    [products]
+  )
+
   // Featured consolidated models for the interactive showroom strip
   const featuredModels = useMemo(() => {
-    const allGroups = groupProductsIntoModels(products)
+    const allGroups = allModelGroups
     const targetIds = [
       'family-papa-pen-v3',
       'family-click-grip-v2',
@@ -148,7 +155,7 @@ export const HomePage: React.FC = () => {
       }
     }
     return picked.slice(0, 4)
-  }, [products])
+  }, [allModelGroups])
 
   return (
     <div className="w-full bg-transparent text-zinc-900 dark:text-zinc-100 font-sans overflow-x-hidden">
@@ -406,7 +413,7 @@ export const HomePage: React.FC = () => {
                     to="/products"
                     className="text-[#0d5d50] dark:text-[#38e8c6] font-semibold hover:underline shrink-0 inline-flex items-center gap-1"
                   >
-                    <span>All 26 Models</span>
+                    <span>All {allModelGroups.length || 28} Models</span>
                     <ArrowRight className="w-3 h-3" />
                   </Link>
                 </div>
@@ -445,7 +452,7 @@ export const HomePage: React.FC = () => {
                 search={{ view: 'sheet' }}
                 className="px-4 py-2 rounded-xl border border-[#d6d3cb] dark:border-white/15 bg-white dark:bg-[#262933] text-xs font-mono font-semibold text-zinc-700 dark:text-zinc-200 hover:border-zinc-950 dark:hover:border-white transition-colors"
               >
-                <span>Quick-Order Spec Sheet (44 SKUs)</span>
+                <span>Quick-Order Spec Sheet ({products.length || 46} SKUs)</span>
               </Link>
             </div>
           </div>

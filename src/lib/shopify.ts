@@ -477,7 +477,7 @@ export async function getProducts(options: {
     const unifiedQuery = `
       ${PRODUCT_FRAGMENT}
       query getUnifiedCatalog($language: LanguageCode) @inContext(language: $language) {
-        grips: products(first: 40, query: "title:grip") {
+        grips: products(first: 40, query: "title:grip OR title:grips OR title:ledge") {
           edges { node { ...ProductFields } }
         }
         machines: products(first: 40, query: "title:pen OR title:apollo OR title:machine") {

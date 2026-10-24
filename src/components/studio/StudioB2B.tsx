@@ -1,11 +1,8 @@
 import React from 'react'
 import { Link } from '@tanstack/react-router'
-import { useLocale } from '../../context/LocaleContext'
 import { Box, Truck, FileCheck2, Mail, ExternalLink, ArrowRight, ShieldCheck, Zap } from 'lucide-react'
 
 export const StudioB2B: React.FC = () => {
-  const { t } = useLocale()
-
   return (
     <section className="py-24 sm:py-32 lg:py-36 bg-transparent relative overflow-hidden z-10">
       <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

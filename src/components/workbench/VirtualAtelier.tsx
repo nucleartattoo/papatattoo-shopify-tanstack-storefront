@@ -2,21 +2,14 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Link } from '@tanstack/react-router'
 import { ModelViewer3D } from '../common/ModelViewer3D'
 import { useCart } from '../../context/CartContext'
-import { ShopifyProduct, ShopifyVariant } from '../../types/shopify'
+import { ShopifyProduct } from '../../types/shopify'
 import { getProductByHandle } from '../../lib/shopify'
 import {
-  Sliders,
-  RotateCw,
-  Box,
   Sparkles,
-  Zap,
   ShoppingBag,
   Volume2,
   VolumeX,
-  Layers,
   ArrowRight,
-  ShieldCheck,
-  CheckCircle2,
   Cpu,
   Activity,
 } from 'lucide-react'
@@ -79,7 +72,7 @@ export const VirtualAtelier: React.FC = () => {
 
   // Real Shopify Product References for one-click add to cart
   const [penProduct, setPenProduct] = useState<ShopifyProduct | null>(null)
-  const [cartridgeProduct, setCartridgeProduct] = useState<ShopifyProduct | null>(null)
+  const [_cartridgeProduct, setCartridgeProduct] = useState<ShopifyProduct | null>(null)
 
   // Web Audio Synthesizer for Motor Vibration Sound
   const audioCtxRef = useRef<AudioContext | null>(null)

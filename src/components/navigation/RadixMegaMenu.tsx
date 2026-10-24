@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { useNavigate, Link } from '@tanstack/react-router'
-import { ChevronDown, ArrowRight, LayoutGrid, Award, Mail, X } from 'lucide-react'
+import { ChevronDown, ArrowRight, X } from 'lucide-react'
 import { MEGA_MENU_DATA } from './MegaMenu'
 import { formatProductImageUrl } from '../../utils/imageUrl'
 
@@ -32,15 +32,6 @@ export const RadixMegaMenu: React.FC<RadixMegaMenuProps> = ({ onSelectCategory }
     closeTimeoutRef.current = setTimeout(() => {
       setIsOpen(false)
     }, 200)
-  }
-
-  const handleProductsClick = () => {
-    if (closeTimeoutRef.current) {
-      clearTimeout(closeTimeoutRef.current)
-      closeTimeoutRef.current = null
-    }
-    setIsOpen(false)
-    navigate({ to: '/products' })
   }
 
   const handleSelect = (

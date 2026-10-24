@@ -1,6 +1,6 @@
 import React from 'react'
 import { useLocale } from '../../context/LocaleContext'
-import { Shield, Sparkles, ChevronRight, Zap } from 'lucide-react'
+import { ChevronRight, Zap } from 'lucide-react'
 
 interface HeroProps {
   onCtaClick?: () => void

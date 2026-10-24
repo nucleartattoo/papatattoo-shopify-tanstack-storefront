@@ -95,11 +95,13 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
   const [mediaViewMode, setMediaViewMode] = useState<'photo' | '3d'>('photo')
   const [showStickyBuy, setShowStickyBuy] = useState(false)
 
+  const firstVariant = product?.variants?.edges?.[0]?.node || null
+
   useEffect(() => {
     setActiveImageIndex(0)
-    setSelectedVariant(product?.variants?.edges?.[0]?.node || null)
+    setSelectedVariant(firstVariant)
     setMediaViewMode('photo')
-  }, [handle, product?.id])
+  }, [handle, product?.id, firstVariant])
 
   useEffect(() => {
     const handleScroll = () => {

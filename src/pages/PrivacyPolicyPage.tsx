@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Link } from '@tanstack/react-router'
 import {
   ShieldCheck,
@@ -134,6 +134,32 @@ export const PrivacyPolicyPage: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>('overview')
   const [selectedCategory, setSelectedCategory] = useState<'All' | CookieCategory>('All')
   const [cookieQuery, setCookieQuery] = useState('')
+
+  useEffect(() => {
+    const syncHashSection = () => {
+      const rawHash = window.location.hash.replace(/^#/, '').trim()
+      if (!rawHash) return
+      const mappedSection =
+        rawHash === 'privacy'
+          ? 'overview'
+          : rawHash === 'quality'
+          ? 'terms'
+          : rawHash
+      if (DOCUMENT_SECTIONS.some(s => s.id === mappedSection)) {
+        setActiveSection(mappedSection)
+      }
+      const targetEl =
+        document.getElementById(rawHash) ||
+        document.getElementById(mappedSection)
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }
+
+    syncHashSection()
+    window.addEventListener('hashchange', syncHashSection)
+    return () => window.removeEventListener('hashchange', syncHashSection)
+  }, [])
 
   const filteredCookies = useMemo(() => {
     const q = cookieQuery.trim().toLowerCase()
@@ -309,7 +335,7 @@ export const PrivacyPolicyPage: React.FC = () => {
           </aside>
 
           {/* Right Clause Cards */}
-          <div className="lg:col-span-8 xl:col-span-9 space-y-8">
+          <div id="privacy" className="lg:col-span-8 xl:col-span-9 space-y-8 scroll-mt-28">
             {/* Section 1: Overview */}
             <section
               id="overview"
@@ -691,7 +717,10 @@ export const PrivacyPolicyPage: React.FC = () => {
                 </div>
 
                 {/* Quality Standards & Sterilization */}
-                <div className="p-5 rounded-xl border border-zinc-200/80 dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#14161b] space-y-2">
+                <div
+                  id="quality"
+                  className="p-5 rounded-xl border border-zinc-200/80 dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#14161b] space-y-2 scroll-mt-28"
+                >
                   <h3 className="font-mono font-bold text-xs uppercase text-zinc-900 dark:text-white flex items-center gap-2">
                     <ShieldCheck className="w-4 h-4 text-[#0d5d50] dark:text-[#38e8c6]" />
                     <span>316L Stainless Steel &amp; EO Gas</span>

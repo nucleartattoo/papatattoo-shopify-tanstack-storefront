@@ -1,5 +1,5 @@
 import React from 'react'
-import { ArrowRight, Sparkles, ChevronRight, ShieldCheck } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 
 export interface MegaMenuSubcategory {
   label: string

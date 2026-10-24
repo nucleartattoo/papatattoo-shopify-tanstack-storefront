@@ -186,6 +186,9 @@ function resolveSingleSpecLine(product: ShopifyProduct, category: LineupCategory
   if (h.includes('disposable-cartridge-grip-click')) {
     return '33 mm Click-Stop Depth · EO Sterile · Box of 20'
   }
+  if (h.includes('disposable-cartridge-grips')) {
+    return '1" & 1.25" Ergonomic Rubber · EO Sterile · Box of 20'
+  }
   if (h.includes('disposable-foam-cartridge-grip')) {
     return 'High-Density Shock Foam · EO Sterile · Box of 20'
   }

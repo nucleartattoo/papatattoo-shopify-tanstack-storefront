@@ -7,7 +7,7 @@ import { useCart } from '../../context/CartContext'
 import { RadixMegaMenu } from '../navigation/RadixMegaMenu'
 import { MEGA_MENU_DATA } from '../navigation/MegaMenu'
 import { HeaderSearchBar } from './HeaderSearchBar'
-import { Sun, Moon, ShoppingBag, Globe, Menu, X, ShieldCheck, ChevronDown, Sparkles, User, ArrowRight, Award, Mail, Search } from 'lucide-react'
+import { Sun, Moon, ShoppingBag, Globe, Menu, X, ChevronDown, Sparkles, User, ArrowRight, Award, Mail, Search } from 'lucide-react'
 import { CustomerAuthModal } from '../account/CustomerAuthModal'
 import { CustomerProfile, logoutCustomer } from '../../lib/shopify'
 
@@ -18,7 +18,7 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
   const navigate = useNavigate()
   const { theme, toggleTheme } = useTheme()
-  const { locale, setLocale, t } = useLocale()
+  const { locale, setLocale } = useLocale()
   const { totalQuantity, openCart } = useCart()
 
   const [isLangOpen, setIsLangOpen] = useState(false)

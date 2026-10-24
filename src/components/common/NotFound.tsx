@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from '@tanstack/react-router'
-import { ArrowRight, Compass, Home, ShieldAlert, Sparkles, Layers } from 'lucide-react'
+import { ArrowRight, Compass, Home, ShieldAlert, Layers } from 'lucide-react'
 
 export const NotFound: React.FC = () => {
   return (
