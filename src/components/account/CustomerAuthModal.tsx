@@ -128,7 +128,6 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
       await registerCustomer(firstName.trim(), lastName.trim(), email.trim(), password)
       setSuccessMessage('Account created successfully! Signing in...')
 
-      // Automatically sign in
       const tokenObj = await loginCustomer(email.trim(), password)
       localStorage.setItem('shopify_customer_token', tokenObj.accessToken)
 
@@ -179,22 +178,22 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
         aria-modal="true"
         aria-labelledby="customer-auth-modal-title"
         tabIndex={-1}
-        className="relative w-full max-w-md rounded-2xl border border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#0E1015] shadow-2xl p-6 sm:p-7 overflow-hidden outline-hidden"
+        className="relative w-full max-w-md rounded-2xl border border-zinc-200/80 dark:border-white/[0.1] bg-white dark:bg-[#1c1e24] shadow-2xl p-6 sm:p-7 overflow-hidden outline-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Header */}
-        <div className="flex items-center justify-between pb-4 mb-4 border-b border-zinc-100 dark:border-zinc-800/70">
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-[#2EE6CA]/15 flex items-center justify-center text-[#0d9488] dark:text-[#2EE6CA]">
+        <div className="flex items-center justify-between pb-4 mb-4 border-b border-zinc-200/80 dark:border-white/[0.08]">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-[#0d5d50]/10 dark:bg-[#38e8c6]/12 border border-[#0d5d50]/20 dark:border-[#38e8c6]/25 flex items-center justify-center text-[#0d5d50] dark:text-[#38e8c6]">
               <User className="w-4 h-4" />
             </div>
             <div>
-              <div className="text-[10px] font-mono font-bold text-[#0d9488] dark:text-[#2EE6CA] uppercase tracking-wider">
-                CUSTOMER PORTAL
+              <div className="text-[10px] font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6] uppercase tracking-wider">
+                STUDIO BUYER PORTAL
               </div>
               <h3
                 id="customer-auth-modal-title"
-                className="text-base font-black uppercase text-zinc-950 dark:text-white tracking-tight"
+                className="font-['Montserrat',sans-serif] text-base font-black uppercase text-zinc-950 dark:text-white tracking-tight"
               >
                 {mode === 'signin' && 'Customer Sign In'}
                 {mode === 'register' && 'Create Buyer Account'}
@@ -207,7 +206,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
             type="button"
             onClick={onClose}
             aria-label="Close authentication modal"
-            className="w-8 h-8 rounded-lg flex items-center justify-center border border-zinc-200 dark:border-[#222731] text-zinc-500 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-[#1A1D24] active:scale-95 transition-all cursor-pointer"
+            className="w-8 h-8 rounded-lg flex items-center justify-center border border-zinc-200 dark:border-white/[0.1] text-zinc-500 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-[#14161b] active:scale-95 transition-all cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -215,7 +214,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
 
         {/* Tab Selector */}
         {mode !== 'forgot' && (
-          <div className="flex rounded-xl bg-zinc-100 dark:bg-[#151821] p-1 mb-5 font-mono text-xs">
+          <div className="flex rounded-xl bg-zinc-100 dark:bg-[#14161b] border border-zinc-200/70 dark:border-white/[0.06] p-1 mb-5 font-mono text-xs">
             <button
               type="button"
               onClick={() => {
@@ -224,7 +223,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
               }}
               className={`flex-1 py-2 rounded-lg font-bold transition-colors cursor-pointer ${
                 mode === 'signin'
-                  ? 'bg-white dark:bg-[#222735] text-zinc-950 dark:text-[#2EE6CA] shadow-sm'
+                  ? 'bg-white dark:bg-[#1c1e24] text-zinc-950 dark:text-[#38e8c6] shadow-xs'
                   : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-300'
               }`}
             >
@@ -238,7 +237,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
               }}
               className={`flex-1 py-2 rounded-lg font-bold transition-colors cursor-pointer ${
                 mode === 'register'
-                  ? 'bg-white dark:bg-[#222735] text-zinc-950 dark:text-[#2EE6CA] shadow-sm'
+                  ? 'bg-white dark:bg-[#1c1e24] text-zinc-950 dark:text-[#38e8c6] shadow-xs'
                   : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-300'
               }`}
             >
@@ -261,7 +260,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
         {successMessage && (
           <div
             role="status"
-            className="mb-4 p-3 rounded-lg border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs flex items-start gap-2"
+            className="mb-4 p-3 rounded-lg border border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 text-xs flex items-start gap-2"
           >
             <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
             <span>{successMessage}</span>
@@ -289,7 +288,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="artist@tattoo.com"
-                  className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#14171E] text-xs font-mono text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-hidden focus:border-[#2EE6CA]"
+                  className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-xs font-mono text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6]"
                 />
               </div>
             </div>
@@ -308,7 +307,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                     setMode('forgot')
                     handleResetState()
                   }}
-                  className="text-[11px] font-mono text-[#0d9488] dark:text-[#2EE6CA] hover:underline cursor-pointer"
+                  className="text-[11px] font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6] hover:underline cursor-pointer"
                 >
                   Forgot password?
                 </button>
@@ -323,7 +322,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#14171E] text-xs font-mono text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-hidden focus:border-[#2EE6CA]"
+                  className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-xs font-mono text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6]"
                 />
               </div>
             </div>
@@ -331,7 +330,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 font-mono font-black uppercase text-xs tracking-wider flex items-center justify-center gap-2 hover:opacity-95 active:scale-[0.98] transition-all disabled:opacity-50 cursor-pointer mt-2"
+              className="w-full py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-mono font-black uppercase text-xs tracking-wider flex items-center justify-center gap-2 hover:opacity-95 active:scale-[0.98] transition-all disabled:opacity-50 cursor-pointer mt-2"
             >
               {loading ? (
                 <>
@@ -368,7 +367,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   placeholder="Alex"
-                  className="w-full px-3 py-2.5 rounded-lg border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#14171E] text-xs font-mono text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-hidden focus:border-[#2EE6CA]"
+                  className="w-full px-3 py-2.5 rounded-lg border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-xs font-mono text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6]"
                 />
               </div>
               <div>
@@ -386,7 +385,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   placeholder="Ink"
-                  className="w-full px-3 py-2.5 rounded-lg border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#14171E] text-xs font-mono text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-hidden focus:border-[#2EE6CA]"
+                  className="w-full px-3 py-2.5 rounded-lg border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-xs font-mono text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6]"
                 />
               </div>
             </div>
@@ -408,7 +407,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="artist@tattoo.com"
-                  className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#14171E] text-xs font-mono text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-hidden focus:border-[#2EE6CA]"
+                  className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-xs font-mono text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6]"
                 />
               </div>
             </div>
@@ -431,7 +430,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#14171E] text-xs font-mono text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-hidden focus:border-[#2EE6CA]"
+                  className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-xs font-mono text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6]"
                 />
               </div>
             </div>
@@ -439,7 +438,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 font-mono font-black uppercase text-xs tracking-wider flex items-center justify-center gap-2 hover:opacity-95 active:scale-[0.98] transition-all disabled:opacity-50 cursor-pointer mt-2"
+              className="w-full py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-mono font-black uppercase text-xs tracking-wider flex items-center justify-center gap-2 hover:opacity-95 active:scale-[0.98] transition-all disabled:opacity-50 cursor-pointer mt-2"
             >
               {loading ? (
                 <>
@@ -459,7 +458,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
         {/* 3. FORGOT PASSWORD FORM */}
         {mode === 'forgot' && (
           <form onSubmit={handleForgot} className="space-y-4">
-            <p className="text-xs text-zinc-500 leading-relaxed">
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
               Enter your registered email address below. We&apos;ll send an official Shopify link to
               reset your customer password.
             </p>
@@ -482,7 +481,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="artist@tattoo.com"
-                  className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#14171E] text-xs font-mono text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-hidden focus:border-[#2EE6CA]"
+                  className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-xs font-mono text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6]"
                 />
               </div>
             </div>
@@ -490,7 +489,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 font-mono font-black uppercase text-xs tracking-wider flex items-center justify-center gap-2 hover:opacity-95 active:scale-[0.98] transition-all disabled:opacity-50 cursor-pointer"
+              className="w-full py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-mono font-black uppercase text-xs tracking-wider flex items-center justify-center gap-2 hover:opacity-95 active:scale-[0.98] transition-all disabled:opacity-50 cursor-pointer"
             >
               {loading ? (
                 <>
