@@ -1,11 +1,42 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from '@tanstack/react-router'
 import { Logo } from './Logo'
 import { useLocale } from '../../context/LocaleContext'
-import { Mail, Globe, ShieldCheck, Cpu, ArrowUpRight, BadgeCheck } from 'lucide-react'
+import { Mail, Globe, ShieldCheck, Cpu, ArrowUpRight, BadgeCheck, Loader2, CheckCircle2 } from 'lucide-react'
+import {
+  submitStorefrontInquiry,
+  type StorefrontInquiryResult,
+} from '../../lib/inquiries.functions'
 
 export const Footer: React.FC = () => {
   const { t } = useLocale()
+  const [dispatchEmail, setDispatchEmail] = useState('')
+  const [dispatchLoading, setDispatchLoading] = useState(false)
+  const [dispatchError, setDispatchError] = useState<string | null>(null)
+  const [dispatchResult, setDispatchResult] = useState<StorefrontInquiryResult | null>(null)
+
+  const handleDispatchSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setDispatchError(null)
+    setDispatchLoading(true)
+
+    try {
+      const result = await submitStorefrontInquiry({
+        data: {
+          kind: 'newsletter',
+          email: dispatchEmail,
+        },
+      })
+      setDispatchResult(result)
+      if (result.delivered) {
+        setDispatchEmail('')
+      }
+    } catch (err) {
+      setDispatchError(err instanceof Error ? err.message : 'Please enter a valid email address.')
+    } finally {
+      setDispatchLoading(false)
+    }
+  }
 
   return (
     <footer className="border-t border-[#e2dfd8] dark:border-white/[0.08] bg-[#f5f4f0] dark:bg-[#16181e] text-[#6b6860] dark:text-zinc-400 font-sans transition-colors duration-200">
@@ -184,23 +215,57 @@ export const Footer: React.FC = () => {
             <p className="text-xs text-zinc-500 leading-relaxed">
               Subscribe for new batch drops, limited anodized runs, and studio volume announcements.
             </p>
-            <form onSubmit={e => e.preventDefault()} className="space-y-2">
+            <form onSubmit={handleDispatchSubmit} className="space-y-2">
               <div className="flex gap-1.5">
                 <input
                   type="email"
+                  name="email"
+                  autoComplete="email"
+                  required
+                  value={dispatchEmail}
+                  onChange={e => {
+                    setDispatchEmail(e.target.value)
+                    if (dispatchResult) setDispatchResult(null)
+                  }}
                   placeholder="artist@studio.com"
                   aria-label="Email address for dispatch subscription"
                   className="flex-1 px-3 py-2 text-xs font-mono rounded-lg border border-[#e2dfd8] dark:border-white/[0.1] bg-white dark:bg-[#1a1d24] text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#2EE6CA]"
                 />
                 <button
                   type="submit"
+                  disabled={dispatchLoading}
                   aria-label="Subscribe to technical dispatch"
-                  className="px-3 py-2 rounded-lg bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 text-xs font-mono font-bold uppercase hover:bg-zinc-800 dark:hover:bg-[#28d4b9] transition-colors cursor-pointer"
+                  className="px-3 py-2 rounded-lg bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 text-xs font-mono font-bold uppercase hover:bg-zinc-800 dark:hover:bg-[#28d4b9] disabled:opacity-50 transition-colors cursor-pointer"
                 >
-                  <ArrowUpRight className="w-4 h-4" />
+                  {dispatchLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <ArrowUpRight className="w-4 h-4" />}
                 </button>
               </div>
-              <span className="text-[10px] text-zinc-400 font-mono block">Zero spam. Professional releases only.</span>
+              {dispatchError ? (
+                <span role="alert" className="text-[11px] text-red-600 dark:text-red-400 font-mono block">
+                  {dispatchError}
+                </span>
+              ) : dispatchResult ? (
+                <div className="text-[11px] font-mono text-emerald-700 dark:text-emerald-400 flex items-start gap-1.5 leading-snug">
+                  <CheckCircle2 className="w-3.5 h-3.5 shrink-0 mt-0.5" />
+                  <span>
+                    {dispatchResult.delivered ? (
+                      'Subscribed to Technical Dispatch.'
+                    ) : (
+                      <>
+                        Ready —{' '}
+                        <a href={dispatchResult.mailtoUrl} className="underline font-bold">
+                          send confirmation email to {dispatchResult.recipient}
+                        </a>
+                        .
+                      </>
+                    )}
+                  </span>
+                </div>
+              ) : (
+                <span className="text-[10px] text-zinc-500 dark:text-zinc-400 font-mono block">
+                  Zero spam. Professional releases only.
+                </span>
+              )}
             </form>
           </div>
         </div>

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useCart } from '../../context/CartContext'
 import { useLocale } from '../../context/LocaleContext'
-import { X, Trash2, Plus, Minus, ShoppingBag, ShieldCheck, ArrowRight, Loader2, Tag, Check } from 'lucide-react'
+import { useDialogAccessibility } from '../../hooks/useDialogAccessibility'
+import { X, Trash2, Plus, Minus, ShoppingBag, ArrowRight, Loader2, Tag, Check } from 'lucide-react'
 
 export const CartDrawer: React.FC = () => {
   const {
@@ -19,8 +20,9 @@ export const CartDrawer: React.FC = () => {
   } = useCart()
 
   const { t } = useLocale()
+  const dialogRef = useRef<HTMLDivElement>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
   const [codeInput, setCodeInput] = useState(promoCode)
-  const [isApplying, setIsApplying] = useState(false)
   const [showCodeInput, setShowCodeInput] = useState(!!promoCode)
 
   // Keep codeInput in sync
@@ -28,16 +30,12 @@ export const CartDrawer: React.FC = () => {
     setCodeInput(promoCode)
   }, [promoCode])
 
-  // Close on Escape key
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
-        closeCart()
-      }
-    }
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [isOpen, closeCart])
+  useDialogAccessibility({
+    isOpen,
+    onClose: closeCart,
+    dialogRef,
+    initialFocusRef: closeButtonRef,
+  })
 
   if (!isOpen) return null
 
@@ -45,17 +43,28 @@ export const CartDrawer: React.FC = () => {
     <div className="fixed inset-0 z-50 overflow-hidden">
       {/* Backdrop overlay */}
       <div
+        aria-hidden="true"
         onClick={closeCart}
-        className="absolute inset-0 bg-black/60 dark:bg-black/80 backdrop-blur-xs transition-opacity duration-300 animate-in fade-in"
+        className="absolute inset-0 bg-black/60 dark:bg-black/80 backdrop-blur-xs transition-opacity duration-300 animate-in fade-in motion-reduce:animate-none"
       />
 
       <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
-        <div className="w-screen max-w-md bg-white dark:bg-[#16181e] border-l border-zinc-200/80 dark:border-white/[0.08] shadow-2xl flex flex-col justify-between animate-in slide-in-from-right duration-300">
+        <div
+          ref={dialogRef}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="cart-drawer-title"
+          tabIndex={-1}
+          className="w-screen max-w-md h-[100dvh] bg-white dark:bg-[#16181e] border-l border-zinc-200/80 dark:border-white/[0.08] shadow-2xl flex flex-col justify-between animate-in slide-in-from-right duration-300 motion-reduce:animate-none outline-hidden"
+        >
           {/* Header - Gallery Top Bar */}
           <div className="p-6 border-b border-zinc-200/80 dark:border-white/[0.08] flex items-center justify-between">
             <div className="flex items-center gap-3">
               <ShoppingBag className="w-5 h-5 text-zinc-950 dark:text-white" />
-              <h2 className="text-base font-bold text-zinc-950 dark:text-white uppercase font-sans tracking-tight">
+              <h2
+                id="cart-drawer-title"
+                className="text-base font-bold text-zinc-950 dark:text-white uppercase font-sans tracking-tight"
+              >
                 {t('cart_title')}
               </h2>
               {totalQuantity > 0 && (
@@ -66,8 +75,10 @@ export const CartDrawer: React.FC = () => {
             </div>
 
             <button
+              ref={closeButtonRef}
+              type="button"
               onClick={closeCart}
-              className="p-1.5 rounded-lg text-zinc-400 hover:text-zinc-950 dark:hover:text-white transition-colors cursor-pointer"
+              className="p-1.5 rounded-lg text-zinc-400 hover:text-zinc-950 dark:hover:text-white active:scale-95 transition-all cursor-pointer"
               aria-label="Close cart"
             >
               <X className="w-4 h-4" />
@@ -86,6 +97,7 @@ export const CartDrawer: React.FC = () => {
                   Your cart is currently empty.
                 </p>
                 <button
+                  type="button"
                   onClick={closeCart}
                   className="mt-6 px-6 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 text-xs font-mono font-medium uppercase tracking-wider cursor-pointer hover:opacity-90 active:scale-95 transition-all shadow-xs"
                 >
@@ -93,7 +105,7 @@ export const CartDrawer: React.FC = () => {
                 </button>
               </div>
             ) : (
-              items.map(item => (
+              items.map((item) => (
                 <div
                   key={item.merchandiseId}
                   className="flex gap-4 py-4.5 first:pt-0 last:pb-0"
@@ -101,7 +113,11 @@ export const CartDrawer: React.FC = () => {
                   {/* Thumbnail */}
                   <div className="w-20 h-20 rounded-xl bg-zinc-50 dark:bg-[#1f222b] p-2 shrink-0 flex items-center justify-center border border-zinc-100 dark:border-white/[0.05]">
                     {item.image ? (
-                      <img src={item.image} alt={item.title} className="w-full h-full object-contain drop-shadow-sm" />
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="w-full h-full object-contain drop-shadow-sm"
+                      />
                     ) : (
                       <div className="text-[10px] font-mono text-zinc-500">GEAR</div>
                     )}
@@ -115,6 +131,7 @@ export const CartDrawer: React.FC = () => {
                           {item.title}
                         </h4>
                         <button
+                          type="button"
                           onClick={() => removeFromCart(item.merchandiseId)}
                           className="text-zinc-400 hover:text-rose-500 transition-colors p-0.5 cursor-pointer"
                           aria-label={`Remove ${item.title} from cart`}
@@ -139,6 +156,7 @@ export const CartDrawer: React.FC = () => {
                       {/* Tactile Quantity Controls */}
                       <div className="flex items-center rounded-lg border border-zinc-200/80 dark:border-white/[0.08] bg-zinc-50 dark:bg-[#1f222b]">
                         <button
+                          type="button"
                           onClick={() => updateQuantity(item.merchandiseId, item.quantity - 1)}
                           className="p-1.5 text-zinc-500 hover:text-zinc-950 dark:hover:text-white active:scale-90 transition-transform cursor-pointer"
                           aria-label="Decrease quantity"
@@ -149,6 +167,7 @@ export const CartDrawer: React.FC = () => {
                           {item.quantity}
                         </span>
                         <button
+                          type="button"
                           onClick={() => updateQuantity(item.merchandiseId, item.quantity + 1)}
                           className="p-1.5 text-zinc-500 hover:text-zinc-950 dark:hover:text-white active:scale-90 transition-transform cursor-pointer"
                           aria-label="Increase quantity"
@@ -170,6 +189,7 @@ export const CartDrawer: React.FC = () => {
               <div className="space-y-2">
                 {!showCodeInput ? (
                   <button
+                    type="button"
                     onClick={() => setShowCodeInput(true)}
                     className="text-[11px] font-mono text-zinc-500 hover:text-zinc-950 dark:hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer"
                   >
@@ -179,10 +199,12 @@ export const CartDrawer: React.FC = () => {
                 ) : (
                   <div className="flex gap-2">
                     <input
+                      id="cart-promo-code"
+                      aria-label="Promo or sponsor code"
                       type="text"
                       value={codeInput}
-                      onChange={e => setCodeInput(e.target.value.toUpperCase())}
-                      onKeyDown={e => {
+                      onChange={(e) => setCodeInput(e.target.value.toUpperCase())}
+                      onKeyDown={(e) => {
                         if (e.key === 'Enter') {
                           e.preventDefault()
                           setPromoCode(codeInput.trim())
@@ -192,6 +214,7 @@ export const CartDrawer: React.FC = () => {
                       className="flex-1 px-3 py-1.5 text-xs font-mono uppercase bg-white dark:bg-white/[0.05] border border-zinc-200 dark:border-white/[0.1] rounded-lg focus:outline-hidden focus:border-zinc-950 dark:focus:border-white text-zinc-900 dark:text-white"
                     />
                     <button
+                      type="button"
                       onClick={() => {
                         setPromoCode(codeInput.trim())
                       }}
@@ -208,6 +231,7 @@ export const CartDrawer: React.FC = () => {
                       Code <strong>{promoCode}</strong> will be applied at checkout
                     </span>
                     <button
+                      type="button"
                       onClick={() => {
                         setPromoCode('')
                         setCodeInput('')
@@ -224,7 +248,9 @@ export const CartDrawer: React.FC = () => {
               {/* Automatic BOGO Discount hint */}
               <div className="text-[11px] font-mono text-zinc-500 dark:text-zinc-400 flex items-center justify-between py-1 border-t border-zinc-200/50 dark:border-white/[0.05]">
                 <span>Automatic Discounts:</span>
-                <span className="text-emerald-600 dark:text-emerald-400 font-medium">BOGO Applied at Checkout</span>
+                <span className="text-emerald-600 dark:text-emerald-400 font-medium">
+                  BOGO Applied at Checkout
+                </span>
               </div>
 
               <div className="flex justify-between items-center text-xs font-mono">
@@ -235,6 +261,7 @@ export const CartDrawer: React.FC = () => {
               </div>
 
               <button
+                type="button"
                 onClick={checkout}
                 disabled={isCheckingOut}
                 className="w-full py-3.5 px-4 rounded-xl bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 text-xs font-mono font-bold uppercase tracking-wider flex items-center justify-center gap-2 hover:opacity-90 active:scale-[0.98] transition-all duration-200 cursor-pointer disabled:opacity-50 shadow-xs"

@@ -235,7 +235,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
   }
 
   return (
-    <div className="py-8 bg-zinc-50 dark:bg-[#20222a] min-h-screen text-zinc-900 dark:text-zinc-100 font-sans pb-28 transition-colors duration-300 art-aurora-bg">
+    <div className="py-8 bg-zinc-50 dark:bg-[#20222a] min-h-[100dvh] text-zinc-900 dark:text-zinc-100 font-sans pb-28 transition-colors duration-300 art-aurora-bg">
       <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* 1. Breadcrumbs - Clean Gallery Path */}
         <nav className="flex items-center gap-2 text-xs font-mono text-zinc-500 dark:text-zinc-400 mb-8 overflow-x-auto pb-2 scrollbar-none">

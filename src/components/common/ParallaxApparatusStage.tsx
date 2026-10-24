@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 
 interface ParallaxApparatusStageProps {
   imageSrc: string
@@ -18,12 +19,15 @@ export const ParallaxApparatusStage: React.FC<ParallaxApparatusStageProps> = ({
   priorityTag,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null)
+  const prefersReducedMotion = usePrefersReducedMotion()
   const [scrollProgress, setScrollProgress] = useState(0.5)
   const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 })
   const [isHovered, setIsHovered] = useState(false)
 
   // Scroll listener tracking element position relative to viewport
   useEffect(() => {
+    if (prefersReducedMotion) return
+
     let animationFrameId: number
 
     const handleScroll = () => {
@@ -48,11 +52,18 @@ export const ParallaxApparatusStage: React.FC<ParallaxApparatusStageProps> = ({
       window.removeEventListener('scroll', handleScroll)
       cancelAnimationFrame(animationFrameId)
     }
-  }, [])
+  }, [prefersReducedMotion])
 
-  // Interactive 3D cursor tracking for desktop
+  // Interactive 3D cursor tracking for fine pointers when motion is permitted
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return
+    if (prefersReducedMotion || !containerRef.current) return
+    if (
+      typeof window !== 'undefined' &&
+      typeof window.matchMedia === 'function' &&
+      !window.matchMedia('(hover: hover) and (pointer: fine)').matches
+    ) {
+      return
+    }
     const rect = containerRef.current.getBoundingClientRect()
     const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2
     const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2
@@ -64,20 +75,28 @@ export const ParallaxApparatusStage: React.FC<ParallaxApparatusStageProps> = ({
     setMouseOffset({ x: 0, y: 0 })
   }
 
-  // Derived transforms based on scroll
+  // Derived transforms based on scroll (zeroed out when prefers-reduced-motion is active)
   // centerOffset: -1 (at bottom of screen) -> 0 (dead center) -> +1 (at top of screen)
-  const centerOffset = (scrollProgress - 0.5) * 2
+  const centerOffset = prefersReducedMotion ? 0 : (scrollProgress - 0.5) * 2
 
   // 1. Vertical float: glides opposite to scroll
-  const translateY = centerOffset * -50 + (isHovered ? mouseOffset.y * -8 : 0)
+  const translateY = prefersReducedMotion
+    ? 0
+    : centerOffset * -50 + (isHovered ? mouseOffset.y * -8 : 0)
 
   // 2. 3D Tilt: pitch & yaw responsive to scroll and cursor
-  const rotateX = centerOffset * -14 + (isHovered ? mouseOffset.y * -10 : 0)
-  const rotateY = centerOffset * 12 + (isHovered ? mouseOffset.x * 12 : 0)
-  const rotateZ = baseRotation + centerOffset * 8
+  const rotateX = prefersReducedMotion
+    ? 0
+    : centerOffset * -14 + (isHovered ? mouseOffset.y * -10 : 0)
+  const rotateY = prefersReducedMotion
+    ? 0
+    : centerOffset * 12 + (isHovered ? mouseOffset.x * 12 : 0)
+  const rotateZ = prefersReducedMotion ? baseRotation : baseRotation + centerOffset * 8
 
   // 3. Scale: gently swells as it reaches center stage
-  const scale = 1.02 + (1 - Math.abs(centerOffset)) * 0.08 + (isHovered ? 0.04 : 0)
+  const scale = prefersReducedMotion
+    ? 1
+    : 1.02 + (1 - Math.abs(centerOffset)) * 0.08 + (isHovered ? 0.04 : 0)
 
   // 4. Contact shadow properties
   const shadowBlur = 24 + (1 - Math.abs(centerOffset)) * 12

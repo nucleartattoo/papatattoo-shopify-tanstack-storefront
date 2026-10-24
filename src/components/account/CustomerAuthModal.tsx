@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import {
   loginCustomer,
@@ -7,6 +7,7 @@ import {
   recoverCustomerPassword,
   CustomerProfile,
 } from '../../lib/shopify'
+import { useDialogAccessibility } from '../../hooks/useDialogAccessibility'
 import {
   X,
   User,
@@ -16,7 +17,6 @@ import {
   CheckCircle2,
   AlertCircle,
   Loader2,
-  Sparkles,
 } from 'lucide-react'
 
 interface CustomerAuthModalProps {
@@ -32,6 +32,8 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
   initialMode = 'signin',
   onAuthSuccess,
 }) => {
+  const dialogRef = useRef<HTMLDivElement>(null)
+  const initialInputRef = useRef<HTMLInputElement>(null)
   const [mode, setMode] = useState<'signin' | 'register' | 'forgot'>(initialMode)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -41,7 +43,22 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [successMessage, setSuccessMessage] = useState<string | null>(null)
 
-  if (!isOpen) return null
+  useEffect(() => {
+    if (isOpen) {
+      setMode(initialMode)
+      setErrorMessage(null)
+      setSuccessMessage(null)
+    }
+  }, [isOpen, initialMode])
+
+  useDialogAccessibility({
+    isOpen,
+    onClose,
+    dialogRef,
+    initialFocusRef: initialInputRef,
+  })
+
+  if (!isOpen || typeof document === 'undefined') return null
 
   const handleResetState = () => {
     setErrorMessage(null)
@@ -79,8 +96,14 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
       }, 600)
     } catch (err: any) {
       const msg = err.message || ''
-      if (msg.toLowerCase().includes('unidentified') || msg.toLowerCase().includes('credential') || msg.toLowerCase().includes('password')) {
-        setErrorMessage('Invalid credentials. If you had an account on our previous website, please click "Forgot password?" below to activate your account.')
+      if (
+        msg.toLowerCase().includes('unidentified') ||
+        msg.toLowerCase().includes('credential') ||
+        msg.toLowerCase().includes('password')
+      ) {
+        setErrorMessage(
+          'Invalid credentials. If you had an account on our previous website, please click "Forgot password?" below to activate your account.'
+        )
       } else {
         setErrorMessage(msg || 'Failed to sign in. Please verify your email and password.')
       }
@@ -121,7 +144,9 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
         onClose()
       }, 1200)
     } catch (err: any) {
-      setErrorMessage(err.message || 'Account registration failed. This email may already be registered.')
+      setErrorMessage(
+        err.message || 'Account registration failed. This email may already be registered.'
+      )
     } finally {
       setLoading(false)
     }
@@ -136,7 +161,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
     try {
       await recoverCustomerPassword(email.trim())
       setSuccessMessage('Password reset email dispatched! Please check your inbox.')
-    } catch (err: any) {
+    } catch {
       setErrorMessage('Failed to request password reset.')
     } finally {
       setLoading(false)
@@ -145,12 +170,17 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
 
   return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-in fade-in duration-200 motion-reduce:animate-none"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-md rounded-2xl border border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#0E1015] shadow-2xl p-6 sm:p-7 overflow-hidden"
-        onClick={e => e.stopPropagation()}
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="customer-auth-modal-title"
+        tabIndex={-1}
+        className="relative w-full max-w-md rounded-2xl border border-zinc-200 dark:border-[#222731] bg-white dark:bg-[#0E1015] shadow-2xl p-6 sm:p-7 overflow-hidden outline-hidden"
+        onClick={(e) => e.stopPropagation()}
       >
         {/* Top Header */}
         <div className="flex items-center justify-between pb-4 mb-4 border-b border-zinc-100 dark:border-zinc-800/70">
@@ -162,7 +192,10 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
               <div className="text-[10px] font-mono font-bold text-[#0d9488] dark:text-[#2EE6CA] uppercase tracking-wider">
                 CUSTOMER PORTAL
               </div>
-              <h3 className="text-base font-black uppercase text-zinc-950 dark:text-white tracking-tight">
+              <h3
+                id="customer-auth-modal-title"
+                className="text-base font-black uppercase text-zinc-950 dark:text-white tracking-tight"
+              >
                 {mode === 'signin' && 'Customer Sign In'}
                 {mode === 'register' && 'Create Buyer Account'}
                 {mode === 'forgot' && 'Reset Password'}
@@ -171,9 +204,10 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
           </div>
 
           <button
+            type="button"
             onClick={onClose}
             aria-label="Close authentication modal"
-            className="w-8 h-8 rounded-lg flex items-center justify-center border border-zinc-200 dark:border-[#222731] text-zinc-500 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-[#1A1D24] transition-colors cursor-pointer"
+            className="w-8 h-8 rounded-lg flex items-center justify-center border border-zinc-200 dark:border-[#222731] text-zinc-500 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-[#1A1D24] active:scale-95 transition-all cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -188,7 +222,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                 setMode('signin')
                 handleResetState()
               }}
-              className={`flex-1 py-2 rounded-lg font-bold transition-all ${
+              className={`flex-1 py-2 rounded-lg font-bold transition-colors cursor-pointer ${
                 mode === 'signin'
                   ? 'bg-white dark:bg-[#222735] text-zinc-950 dark:text-[#2EE6CA] shadow-sm'
                   : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-300'
@@ -202,7 +236,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                 setMode('register')
                 handleResetState()
               }}
-              className={`flex-1 py-2 rounded-lg font-bold transition-all ${
+              className={`flex-1 py-2 rounded-lg font-bold transition-colors cursor-pointer ${
                 mode === 'register'
                   ? 'bg-white dark:bg-[#222735] text-zinc-950 dark:text-[#2EE6CA] shadow-sm'
                   : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-300'
@@ -215,14 +249,20 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
 
         {/* Status Alerts */}
         {errorMessage && (
-          <div className="mb-4 p-3 rounded-lg border border-red-500/30 bg-red-500/10 text-red-600 dark:text-red-400 text-xs flex items-start gap-2">
+          <div
+            role="alert"
+            className="mb-4 p-3 rounded-lg border border-red-500/30 bg-red-500/10 text-red-600 dark:text-red-400 text-xs flex items-start gap-2"
+          >
             <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
             <span>{errorMessage}</span>
           </div>
         )}
 
         {successMessage && (
-          <div className="mb-4 p-3 rounded-lg border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs flex items-start gap-2">
+          <div
+            role="status"
+            className="mb-4 p-3 rounded-lg border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs flex items-start gap-2"
+          >
             <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
             <span>{successMessage}</span>
           </div>
@@ -232,16 +272,22 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
         {mode === 'signin' && (
           <form onSubmit={handleSignIn} className="space-y-4">
             <div>
-              <label className="block text-[11px] font-mono font-bold uppercase text-zinc-600 dark:text-zinc-400 mb-1.5">
+              <label
+                htmlFor="auth-signin-email"
+                className="block text-[11px] font-mono font-bold uppercase text-zinc-600 dark:text-zinc-400 mb-1.5"
+              >
                 Email Address
               </label>
               <div className="relative">
-                <Mail className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <Mail className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
+                  ref={initialInputRef}
+                  id="auth-signin-email"
                   type="email"
+                  autoComplete="email"
                   required
                   value={email}
-                  onChange={e => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="artist@tattoo.com"
                   className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#14171E] text-xs font-mono text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-hidden focus:border-[#2EE6CA]"
                 />
@@ -250,7 +296,10 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
 
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <label className="block text-[11px] font-mono font-bold uppercase text-zinc-600 dark:text-zinc-400">
+                <label
+                  htmlFor="auth-signin-password"
+                  className="block text-[11px] font-mono font-bold uppercase text-zinc-600 dark:text-zinc-400"
+                >
                   Password
                 </label>
                 <button
@@ -259,18 +308,20 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                     setMode('forgot')
                     handleResetState()
                   }}
-                  className="text-[11px] font-mono text-[#0d9488] dark:text-[#2EE6CA] hover:underline"
+                  className="text-[11px] font-mono text-[#0d9488] dark:text-[#2EE6CA] hover:underline cursor-pointer"
                 >
                   Forgot password?
                 </button>
               </div>
               <div className="relative">
-                <Lock className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <Lock className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
+                  id="auth-signin-password"
                   type="password"
+                  autoComplete="current-password"
                   required
                   value={password}
-                  onChange={e => setPassword(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#14171E] text-xs font-mono text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-hidden focus:border-[#2EE6CA]"
                 />
@@ -280,7 +331,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 font-mono font-black uppercase text-xs tracking-wider flex items-center justify-center gap-2 hover:opacity-95 transition-opacity disabled:opacity-50 cursor-pointer mt-2"
+              className="w-full py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 font-mono font-black uppercase text-xs tracking-wider flex items-center justify-center gap-2 hover:opacity-95 active:scale-[0.98] transition-all disabled:opacity-50 cursor-pointer mt-2"
             >
               {loading ? (
                 <>
@@ -302,27 +353,38 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
           <form onSubmit={handleRegister} className="space-y-3.5">
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-[11px] font-mono font-bold uppercase text-zinc-600 dark:text-zinc-400 mb-1.5">
+                <label
+                  htmlFor="auth-register-first-name"
+                  className="block text-[11px] font-mono font-bold uppercase text-zinc-600 dark:text-zinc-400 mb-1.5"
+                >
                   First Name
                 </label>
                 <input
+                  ref={initialInputRef}
+                  id="auth-register-first-name"
                   type="text"
+                  autoComplete="given-name"
                   required
                   value={firstName}
-                  onChange={e => setFirstName(e.target.value)}
+                  onChange={(e) => setFirstName(e.target.value)}
                   placeholder="Alex"
                   className="w-full px-3 py-2.5 rounded-lg border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#14171E] text-xs font-mono text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-hidden focus:border-[#2EE6CA]"
                 />
               </div>
               <div>
-                <label className="block text-[11px] font-mono font-bold uppercase text-zinc-600 dark:text-zinc-400 mb-1.5">
+                <label
+                  htmlFor="auth-register-last-name"
+                  className="block text-[11px] font-mono font-bold uppercase text-zinc-600 dark:text-zinc-400 mb-1.5"
+                >
                   Last Name
                 </label>
                 <input
+                  id="auth-register-last-name"
                   type="text"
+                  autoComplete="family-name"
                   required
                   value={lastName}
-                  onChange={e => setLastName(e.target.value)}
+                  onChange={(e) => setLastName(e.target.value)}
                   placeholder="Ink"
                   className="w-full px-3 py-2.5 rounded-lg border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#14171E] text-xs font-mono text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-hidden focus:border-[#2EE6CA]"
                 />
@@ -330,16 +392,21 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
             </div>
 
             <div>
-              <label className="block text-[11px] font-mono font-bold uppercase text-zinc-600 dark:text-zinc-400 mb-1.5">
+              <label
+                htmlFor="auth-register-email"
+                className="block text-[11px] font-mono font-bold uppercase text-zinc-600 dark:text-zinc-400 mb-1.5"
+              >
                 Email Address
               </label>
               <div className="relative">
-                <Mail className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <Mail className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
+                  id="auth-register-email"
                   type="email"
+                  autoComplete="email"
                   required
                   value={email}
-                  onChange={e => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="artist@tattoo.com"
                   className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#14171E] text-xs font-mono text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-hidden focus:border-[#2EE6CA]"
                 />
@@ -347,17 +414,22 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
             </div>
 
             <div>
-              <label className="block text-[11px] font-mono font-bold uppercase text-zinc-600 dark:text-zinc-400 mb-1.5">
+              <label
+                htmlFor="auth-register-password"
+                className="block text-[11px] font-mono font-bold uppercase text-zinc-600 dark:text-zinc-400 mb-1.5"
+              >
                 Password (min 5 characters)
               </label>
               <div className="relative">
-                <Lock className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <Lock className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
+                  id="auth-register-password"
                   type="password"
+                  autoComplete="new-password"
                   required
                   minLength={5}
                   value={password}
-                  onChange={e => setPassword(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#14171E] text-xs font-mono text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-hidden focus:border-[#2EE6CA]"
                 />
@@ -367,7 +439,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 font-mono font-black uppercase text-xs tracking-wider flex items-center justify-center gap-2 hover:opacity-95 transition-opacity disabled:opacity-50 cursor-pointer mt-2"
+              className="w-full py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 font-mono font-black uppercase text-xs tracking-wider flex items-center justify-center gap-2 hover:opacity-95 active:scale-[0.98] transition-all disabled:opacity-50 cursor-pointer mt-2"
             >
               {loading ? (
                 <>
@@ -388,20 +460,27 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
         {mode === 'forgot' && (
           <form onSubmit={handleForgot} className="space-y-4">
             <p className="text-xs text-zinc-500 leading-relaxed">
-              Enter your registered email address below. We'll send an official Shopify link to reset your customer password.
+              Enter your registered email address below. We&apos;ll send an official Shopify link to
+              reset your customer password.
             </p>
 
             <div>
-              <label className="block text-[11px] font-mono font-bold uppercase text-zinc-600 dark:text-zinc-400 mb-1.5">
+              <label
+                htmlFor="auth-forgot-email"
+                className="block text-[11px] font-mono font-bold uppercase text-zinc-600 dark:text-zinc-400 mb-1.5"
+              >
                 Email Address
               </label>
               <div className="relative">
-                <Mail className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <Mail className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
+                  ref={initialInputRef}
+                  id="auth-forgot-email"
                   type="email"
+                  autoComplete="email"
                   required
                   value={email}
-                  onChange={e => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="artist@tattoo.com"
                   className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#14171E] text-xs font-mono text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-hidden focus:border-[#2EE6CA]"
                 />
@@ -411,7 +490,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 font-mono font-black uppercase text-xs tracking-wider flex items-center justify-center gap-2 hover:opacity-95 transition-opacity disabled:opacity-50 cursor-pointer"
+              className="w-full py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 font-mono font-black uppercase text-xs tracking-wider flex items-center justify-center gap-2 hover:opacity-95 active:scale-[0.98] transition-all disabled:opacity-50 cursor-pointer"
             >
               {loading ? (
                 <>
@@ -432,7 +511,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                 setMode('signin')
                 handleResetState()
               }}
-              className="w-full text-center text-xs font-mono text-zinc-500 hover:text-zinc-900 dark:hover:text-white"
+              className="w-full text-center text-xs font-mono text-zinc-500 hover:text-zinc-900 dark:hover:text-white cursor-pointer"
             >
               ← Back to Sign In
             </button>

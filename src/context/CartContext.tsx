@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import { CartLineItem, ShopifyProduct, ShopifyVariant } from '../types/shopify'
 import { createShopifyCart } from '../lib/shopify'
+import { isSafeCheckoutUrl } from '../utils/sanitizeHtml'
 
 interface CartContextType {
   items: CartLineItem[]
@@ -142,6 +143,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const discountCodes = promoCode.trim() ? [promoCode.trim()] : undefined
       const cart = await createShopifyCart(lines, discountCodes)
       if (cart && cart.checkoutUrl) {
+        if (!isSafeCheckoutUrl(cart.checkoutUrl, import.meta.env.VITE_SHOPIFY_STORE_DOMAIN)) {
+          throw new Error('Untrusted checkout redirect URL')
+        }
         // Redirect directly to Shopify Hosted Checkout
         window.location.href = cart.checkoutUrl
       }

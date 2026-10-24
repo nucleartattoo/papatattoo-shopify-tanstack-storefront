@@ -2,12 +2,14 @@
 import React from 'react'
 import {
   Outlet,
-  createRootRoute,
+  createRootRouteWithContext,
   HeadContent,
   Scripts,
   redirect,
+  useLocation,
 } from '@tanstack/react-router'
-import redirectsMap from '../data/redirects.json'
+import type { RouterContext } from '../router'
+import { resolveRedirectTarget } from '../lib/redirects.functions'
 import appCss from '../index.css?url'
 import { Header } from '../components/common/Header'
 import { Footer } from '../components/common/Footer'
@@ -19,13 +21,14 @@ import { ThemeProvider } from '../context/ThemeContext'
 import { LocaleProvider } from '../context/LocaleContext'
 import { CartProvider } from '../context/CartContext'
 
-export const Route = createRootRoute({
-  beforeLoad: ({ location }) => {
-    const rawPath = location.pathname
-    const cleanPath = rawPath.replace(/\/$/, '') || '/'
-    const target =
-      (redirectsMap as Record<string, string>)[rawPath] ||
-      (redirectsMap as Record<string, string>)[cleanPath]
+function resolveHtmlLangFromHref(href: string): string {
+  const match = href.match(/[?&]lang=(en|es|de|fr)\b/i)
+  return match ? match[1].toLowerCase() : 'en'
+}
+
+export const Route = createRootRouteWithContext<RouterContext>()({
+  beforeLoad: async ({ location }) => {
+    const target = await resolveRedirectTarget(location.pathname)
     if (target) {
       throw redirect({
         href: target,
@@ -47,7 +50,6 @@ export const Route = createRootRoute({
       },
       { property: 'og:site_name', content: 'Papa Tattoo Supply' },
       { property: 'og:type', content: 'website' },
-      { property: 'og:url', content: 'https://papatattoo.com/' },
       { property: 'og:locale', content: 'en_US' },
       {
         property: 'og:title',
@@ -81,12 +83,6 @@ export const Route = createRootRoute({
     ],
     links: [
       { rel: 'manifest', href: '/manifest.json' },
-      { rel: 'canonical', href: 'https://papatattoo.com/' },
-      { rel: 'alternate', hrefLang: 'en', href: 'https://papatattoo.com/' },
-      { rel: 'alternate', hrefLang: 'es', href: 'https://papatattoo.com/?lang=ES' },
-      { rel: 'alternate', hrefLang: 'de', href: 'https://papatattoo.com/?lang=DE' },
-      { rel: 'alternate', hrefLang: 'fr', href: 'https://papatattoo.com/?lang=FR' },
-      { rel: 'alternate', hrefLang: 'x-default', href: 'https://papatattoo.com/' },
       { rel: 'stylesheet', href: appCss },
       { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
       { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
@@ -137,12 +133,15 @@ export const Route = createRootRoute({
 })
 
 function RootComponent() {
+  const location = useLocation()
+  const htmlLang = resolveHtmlLangFromHref(location.href)
+
   return (
-    <RootDocument>
+    <RootDocument htmlLang={htmlLang}>
       <ThemeProvider>
         <LocaleProvider>
           <CartProvider>
-            <div className="min-h-screen flex flex-col bg-[#f5f4f0] dark:bg-[#20222a] text-zinc-900 dark:text-zinc-100 transition-colors duration-300 relative overflow-x-hidden">
+            <div className="min-h-[100dvh] flex flex-col bg-[#f5f4f0] dark:bg-[#20222a] text-zinc-900 dark:text-zinc-100 transition-colors duration-300 relative overflow-x-hidden">
               {/* Organic Fluid Ink & Smoke Ambient Canvas */}
               <FluidInkBackground />
               <Header />
@@ -159,9 +158,15 @@ function RootComponent() {
   )
 }
 
-function RootDocument({ children }: { children: React.ReactNode }) {
+function RootDocument({
+  children,
+  htmlLang,
+}: {
+  children: React.ReactNode
+  htmlLang: string
+}) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={htmlLang} suppressHydrationWarning>
       <head>
         <HeadContent />
         <script

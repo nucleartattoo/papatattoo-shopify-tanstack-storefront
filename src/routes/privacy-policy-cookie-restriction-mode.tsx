@@ -2,6 +2,12 @@ import { createFileRoute, redirect } from '@tanstack/react-router'
 import { PrivacyPolicyPage } from '../pages/PrivacyPolicyPage'
 
 export const Route = createFileRoute('/privacy-policy-cookie-restriction-mode')({
+  beforeLoad: () => {
+    throw redirect({
+      to: '/privacy-policy',
+      statusCode: 301,
+    })
+  },
   head: () => ({
     meta: [
       {

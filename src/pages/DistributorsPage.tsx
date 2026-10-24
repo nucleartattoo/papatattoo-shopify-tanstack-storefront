@@ -7,14 +7,21 @@ import {
   CheckCircle2,
   Send,
   Loader2,
-  PackageCheck,
   Truck,
   Award,
   BadgeCheck,
   ArrowRight,
   Layers,
   Sparkles,
+  Mail,
+  Copy,
+  Check,
+  AlertCircle,
 } from 'lucide-react'
+import {
+  submitStorefrontInquiry,
+  type StorefrontInquiryResult,
+} from '../lib/inquiries.functions'
 
 interface Distributor {
   id: string
@@ -72,8 +79,10 @@ const OFFICIAL_DISTRIBUTORS: Distributor[] = [
 ]
 
 export const DistributorsPage: React.FC = () => {
-  const [formSubmitted, setFormSubmitted] = useState(false)
+  const [submissionResult, setSubmissionResult] = useState<StorefrontInquiryResult | null>(null)
   const [formLoading, setFormLoading] = useState(false)
+  const [formError, setFormError] = useState<string | null>(null)
+  const [copied, setCopied] = useState(false)
 
   const [formData, setFormData] = useState({
     companyName: '',
@@ -87,17 +96,44 @@ export const DistributorsPage: React.FC = () => {
     message: '',
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setFormError(null)
     setFormLoading(true)
-    setTimeout(() => {
+
+    try {
+      const result = await submitStorefrontInquiry({
+        data: {
+          kind: 'distributor',
+          ...formData,
+        },
+      })
+      setSubmissionResult(result)
+    } catch (err) {
+      setFormError(
+        err instanceof Error
+          ? err.message
+          : 'Unable to prepare your wholesale application. Please email papatattoosupply@gmail.com directly.'
+      )
+    } finally {
       setFormLoading(false)
-      setFormSubmitted(true)
-    }, 1200)
+    }
+  }
+
+  const handleCopyApplication = async () => {
+    if (!submissionResult) return
+    const text = `To: ${submissionResult.recipient}\nSubject: ${submissionResult.subject}\n\n${submissionResult.bodyText}`
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2500)
+    } catch {
+      // Clipboard may be unavailable in restricted contexts
+    }
   }
 
   return (
-    <div className="min-h-screen bg-transparent text-zinc-900 dark:text-zinc-100 font-sans pb-24 transition-colors">
+    <div className="min-h-[100dvh] bg-transparent text-zinc-900 dark:text-zinc-100 font-sans pb-24 transition-colors">
       {/* 1. HERO SECTION */}
       <section className="relative overflow-hidden border-b border-[#e2dfd8] dark:border-white/[0.08] bg-white/60 dark:bg-[#16181e]/80 backdrop-blur-xs py-16 sm:py-24">
         <div className="absolute inset-0 bg-[radial-gradient(#2ee6ca_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
@@ -125,7 +161,7 @@ export const DistributorsPage: React.FC = () => {
             <div className="pt-2 flex flex-wrap items-center gap-4 justify-center sm:justify-start">
               <a
                 href="#distributor-list"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 text-xs font-mono font-bold uppercase tracking-wider shadow-lg hover:shadow-[0_0_20px_rgba(46,230,202,0.3)] transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 text-xs font-mono font-bold uppercase tracking-wider shadow-lg hover:shadow-[0_0_20px_rgba(46,230,202,0.3)] transition-shadow cursor-pointer"
               >
                 <span>View Authorized Partners</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -176,7 +212,7 @@ export const DistributorsPage: React.FC = () => {
             </h2>
           </div>
           <span className="text-xs font-mono text-zinc-500">
-            AUTHENTIC PAPA WARRANTY & REPAIR VALIDATED
+            AUTHENTIC PAPA WARRANTY &amp; REPAIR VALIDATED
           </span>
         </div>
 
@@ -184,7 +220,7 @@ export const DistributorsPage: React.FC = () => {
           {OFFICIAL_DISTRIBUTORS.map(distributor => (
             <div
               key={distributor.id}
-              className="group rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#1e2028] p-6 flex flex-col justify-between hover:border-zinc-400 dark:hover:border-[#2EE6CA]/50 hover:shadow-xl dark:hover:shadow-[0_12px_32px_rgba(0,0,0,0.4)] transition-all duration-300 relative overflow-hidden"
+              className="group rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#1e2028] p-6 flex flex-col justify-between hover:border-zinc-400 dark:hover:border-[#2EE6CA]/50 hover:shadow-xl dark:hover:shadow-[0_12px_32px_rgba(0,0,0,0.4)] transition-colors duration-200 relative overflow-hidden"
             >
               {/* Corner Badge */}
               <div className="absolute top-4 right-4">
@@ -239,7 +275,7 @@ export const DistributorsPage: React.FC = () => {
                   href={distributor.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-lg border border-[#e2dfd8] dark:border-white/10 hover:border-zinc-950 dark:hover:border-[#2EE6CA] bg-zinc-50 dark:bg-white/[0.04] hover:bg-zinc-950 hover:text-white dark:hover:bg-[#2EE6CA] dark:hover:text-zinc-950 text-xs font-mono font-bold uppercase tracking-wider transition-all cursor-pointer"
+                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-lg border border-[#e2dfd8] dark:border-white/10 hover:border-zinc-950 dark:hover:border-[#2EE6CA] bg-zinc-50 dark:bg-white/[0.04] hover:bg-zinc-950 hover:text-white dark:hover:bg-[#2EE6CA] dark:hover:text-zinc-950 text-xs font-mono font-bold uppercase tracking-wider transition-colors cursor-pointer"
                 >
                   <span>Visit Store / Order</span>
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -255,7 +291,7 @@ export const DistributorsPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12 space-y-2">
             <div className="text-[11px] font-mono font-bold tracking-widest text-[#0d9488] dark:text-[#2EE6CA] uppercase">
-              PARTNER BENEFITS & FACTORY STANDARDS
+              PARTNER BENEFITS &amp; FACTORY STANDARDS
             </div>
             <h2 className="text-2xl sm:text-3xl font-black text-zinc-950 dark:text-white uppercase tracking-tight">
               WHY PARTNER WITH PAPA TATTOO SUPPLY
@@ -303,7 +339,7 @@ export const DistributorsPage: React.FC = () => {
             </div>
 
             <div className="p-5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#1e2028] space-y-3 shadow-xs">
-              <div className="w-10 h-10 rounded-lg bg-purple-500/15 text-purple-400 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-lg bg-[#0d5d50]/10 dark:bg-[#2EE6CA]/15 text-[#0d9488] dark:text-[#2EE6CA] flex items-center justify-center">
                 <Award className="w-5 h-5" />
               </div>
               <h3 className="font-mono font-bold text-sm text-zinc-950 dark:text-white uppercase">
@@ -333,31 +369,77 @@ export const DistributorsPage: React.FC = () => {
             </p>
           </div>
 
-          {formSubmitted ? (
-            <div className="p-8 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-center space-y-3 animate-in fade-in zoom-in-95">
+          {submissionResult ? (
+            <div className="p-8 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-center space-y-4">
               <CheckCircle2 className="w-12 h-12 text-emerald-500 mx-auto" />
-              <h3 className="text-lg font-black font-mono text-zinc-950 dark:text-white uppercase">
-                APPLICATION RECEIVED · UNDER REVIEW
-              </h3>
-              <p className="text-xs font-mono text-zinc-600 dark:text-zinc-400 max-w-md mx-auto">
-                Thank you for your interest in distributing Papa Tattoo Supply apparatus. A dedicated account director will email your wholesale catalog and regional pricing sheet within 24 business hours.
-              </p>
-              <button
-                onClick={() => setFormSubmitted(false)}
-                className="mt-4 px-4 py-2 rounded-lg bg-zinc-900 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 text-xs font-mono font-bold uppercase cursor-pointer"
-              >
-                Submit Another Application
-              </button>
+              {submissionResult.delivered ? (
+                <>
+                  <h3 className="text-lg font-black font-mono text-zinc-950 dark:text-white uppercase">
+                    APPLICATION RECEIVED · UNDER REVIEW
+                  </h3>
+                  <p className="text-xs font-mono text-zinc-600 dark:text-zinc-400 max-w-md mx-auto">
+                    Thank you for your interest in distributing Papa Tattoo Supply apparatus. A dedicated account director will email your wholesale catalog and regional pricing sheet within 24 business hours.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <h3 className="text-lg font-black font-mono text-zinc-950 dark:text-white uppercase">
+                    WHOLESALE APPLICATION READY TO DISPATCH
+                  </h3>
+                  <p className="text-xs font-mono text-zinc-600 dark:text-zinc-400 max-w-lg mx-auto leading-relaxed">
+                    Your distributor credentials for <strong className="text-zinc-900 dark:text-white">{submissionResult.recipient}</strong> are formatted and ready. Open your mail client to transmit directly, or copy the full application below for webmail.
+                  </p>
+                  <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
+                    <a
+                      href={submissionResult.mailtoUrl}
+                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 text-xs font-mono font-bold uppercase hover:opacity-90 transition-opacity"
+                    >
+                      <Mail className="w-3.5 h-3.5" />
+                      <span>Open Mail App</span>
+                    </a>
+                    <button
+                      type="button"
+                      onClick={handleCopyApplication}
+                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-zinc-300 dark:border-white/15 bg-white dark:bg-[#16181e] text-zinc-800 dark:text-zinc-100 text-xs font-mono font-bold uppercase cursor-pointer hover:border-zinc-500 transition-colors"
+                    >
+                      {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+                      <span>{copied ? 'Copied Application' : 'Copy Full Application'}</span>
+                    </button>
+                  </div>
+                </>
+              )}
+              <div className="pt-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSubmissionResult(null)
+                    setCopied(false)
+                  }}
+                  className="text-xs font-mono text-zinc-600 dark:text-zinc-300 underline hover:text-zinc-950 dark:hover:text-white cursor-pointer"
+                >
+                  Edit or Submit Another Application
+                </button>
+              </div>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6 text-xs font-mono">
+              {formError && (
+                <div role="alert" className="flex items-center gap-2 px-3.5 py-2.5 rounded-lg border border-red-500/30 bg-red-500/10 text-red-700 dark:text-red-300 text-xs">
+                  <AlertCircle className="w-4 h-4 shrink-0" />
+                  <span>{formError}</span>
+                </div>
+              )}
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-zinc-700 dark:text-zinc-300 font-bold uppercase mb-1">
+                  <label htmlFor="dist-company" className="block text-zinc-700 dark:text-zinc-300 font-bold uppercase mb-1">
                     Company / Supply Store Name *
                   </label>
                   <input
+                    id="dist-company"
+                    name="companyName"
                     type="text"
+                    autoComplete="organization"
                     required
                     value={formData.companyName}
                     onChange={e => setFormData({ ...formData, companyName: e.target.value })}
@@ -367,11 +449,14 @@ export const DistributorsPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-zinc-700 dark:text-zinc-300 font-bold uppercase mb-1">
+                  <label htmlFor="dist-contact" className="block text-zinc-700 dark:text-zinc-300 font-bold uppercase mb-1">
                     Contact Person Name *
                   </label>
                   <input
+                    id="dist-contact"
+                    name="contactName"
                     type="text"
+                    autoComplete="name"
                     required
                     value={formData.contactName}
                     onChange={e => setFormData({ ...formData, contactName: e.target.value })}
@@ -383,11 +468,14 @@ export const DistributorsPage: React.FC = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-zinc-700 dark:text-zinc-300 font-bold uppercase mb-1">
+                  <label htmlFor="dist-email" className="block text-zinc-700 dark:text-zinc-300 font-bold uppercase mb-1">
                     Business Email *
                   </label>
                   <input
+                    id="dist-email"
+                    name="email"
                     type="email"
+                    autoComplete="email"
                     required
                     value={formData.email}
                     onChange={e => setFormData({ ...formData, email: e.target.value })}
@@ -397,11 +485,14 @@ export const DistributorsPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-zinc-700 dark:text-zinc-300 font-bold uppercase mb-1">
+                  <label htmlFor="dist-phone" className="block text-zinc-700 dark:text-zinc-300 font-bold uppercase mb-1">
                     Phone / WhatsApp *
                   </label>
                   <input
+                    id="dist-phone"
+                    name="phone"
                     type="tel"
+                    autoComplete="tel"
                     required
                     value={formData.phone}
                     onChange={e => setFormData({ ...formData, phone: e.target.value })}
@@ -413,11 +504,14 @@ export const DistributorsPage: React.FC = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-zinc-700 dark:text-zinc-300 font-bold uppercase mb-1">
+                  <label htmlFor="dist-country" className="block text-zinc-700 dark:text-zinc-300 font-bold uppercase mb-1">
                     Country / Target Territory *
                   </label>
                   <input
+                    id="dist-country"
+                    name="country"
                     type="text"
+                    autoComplete="country-name"
                     required
                     value={formData.country}
                     onChange={e => setFormData({ ...formData, country: e.target.value })}
@@ -427,11 +521,14 @@ export const DistributorsPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-zinc-700 dark:text-zinc-300 font-bold uppercase mb-1">
+                  <label htmlFor="dist-website" className="block text-zinc-700 dark:text-zinc-300 font-bold uppercase mb-1">
                     Store Website / Social Handle
                   </label>
                   <input
+                    id="dist-website"
+                    name="website"
                     type="url"
+                    autoComplete="url"
                     value={formData.website}
                     onChange={e => setFormData({ ...formData, website: e.target.value })}
                     placeholder="https://yourstore.com"
@@ -442,15 +539,17 @@ export const DistributorsPage: React.FC = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-zinc-700 dark:text-zinc-300 font-bold uppercase mb-1">
+                  <label htmlFor="dist-business-type" className="block text-zinc-700 dark:text-zinc-300 font-bold uppercase mb-1">
                     Business Model
                   </label>
                   <select
+                    id="dist-business-type"
+                    name="businessType"
                     value={formData.businessType}
                     onChange={e => setFormData({ ...formData, businessType: e.target.value })}
                     className="w-full px-3.5 py-2.5 rounded-lg border border-[#e2dfd8] dark:border-white/10 bg-zinc-50/80 dark:bg-[#16181e] text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#2EE6CA]"
                   >
-                    <option>Retail & Online Store</option>
+                    <option>Retail &amp; Online Store</option>
                     <option>Physical Tattoo Supply Depot</option>
                     <option>Chain Studio Operator</option>
                     <option>Convention / Event Wholesale</option>
@@ -458,10 +557,12 @@ export const DistributorsPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-zinc-700 dark:text-zinc-300 font-bold uppercase mb-1">
+                  <label htmlFor="dist-volume" className="block text-zinc-700 dark:text-zinc-300 font-bold uppercase mb-1">
                     Estimated Monthly Volume
                   </label>
                   <select
+                    id="dist-volume"
+                    name="monthlyVolume"
                     value={formData.monthlyVolume}
                     onChange={e => setFormData({ ...formData, monthlyVolume: e.target.value })}
                     className="w-full px-3.5 py-2.5 rounded-lg border border-[#e2dfd8] dark:border-white/10 bg-zinc-50/80 dark:bg-[#16181e] text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#2EE6CA]"
@@ -475,10 +576,12 @@ export const DistributorsPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-zinc-700 dark:text-zinc-300 font-bold uppercase mb-1">
+                <label htmlFor="dist-message" className="block text-zinc-700 dark:text-zinc-300 font-bold uppercase mb-1">
                   Message / Territory Notes
                 </label>
                 <textarea
+                  id="dist-message"
+                  name="message"
                   rows={3}
                   value={formData.message}
                   onChange={e => setFormData({ ...formData, message: e.target.value })}
@@ -490,12 +593,12 @@ export const DistributorsPage: React.FC = () => {
               <button
                 type="submit"
                 disabled={formLoading}
-                className="w-full py-3.5 rounded-lg bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 font-bold text-xs uppercase tracking-wider hover:shadow-[0_0_20px_rgba(46,230,202,0.4)] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                className="w-full py-3.5 rounded-lg bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 font-bold text-xs uppercase tracking-wider hover:shadow-[0_0_20px_rgba(46,230,202,0.4)] active:scale-[0.98] transition-transform flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
               >
                 {formLoading ? (
                   <>
                     <Loader2 className="w-4 h-4 animate-spin" />
-                    <span>TRANSMITTING CREDENTIALS...</span>
+                    <span>PREPARING APPLICATION...</span>
                   </>
                 ) : (
                   <>

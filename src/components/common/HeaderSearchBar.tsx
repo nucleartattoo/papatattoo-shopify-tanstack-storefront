@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
-import { Search, X, ArrowRight, Sparkles, Command, CornerDownLeft, Tag } from 'lucide-react'
-import { ShopifyProduct } from '../../types/shopify'
-import { getProducts } from '../../lib/shopify'
+import { Search, X, ArrowRight, Sparkles, Command, CornerDownLeft } from 'lucide-react'
+import { catalogQueryOptions } from '../../lib/catalog.queries'
 import { useLocale } from '../../context/LocaleContext'
 
 interface HeaderSearchBarProps {
@@ -28,35 +28,25 @@ export const HeaderSearchBar: React.FC<HeaderSearchBarProps> = ({
   isMobile = false,
 }) => {
   const navigate = useNavigate()
-  const { t } = useLocale()
+  const queryClient = useQueryClient()
+  const { t: _t } = useLocale()
 
   const [query, setQuery] = useState('')
   const [isOpen, setIsOpen] = useState(false)
-  const [catalog, setCatalog] = useState<ShopifyProduct[]>([])
-  const [loading, setLoading] = useState(false)
   const [selectedIndex, setSelectedIndex] = useState<number>(-1)
 
   const containerRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  // 1. Prefetch catalog for instant live search
-  useEffect(() => {
-    let isMounted = true
-    async function loadCatalog() {
-      try {
-        const items = await getProducts({ first: 100 })
-        if (isMounted) {
-          setCatalog(items)
-        }
-      } catch (err) {
-        console.error('Failed to prefetch catalog for search:', err)
-      }
-    }
-    loadCatalog()
-    return () => {
-      isMounted = false
-    }
-  }, [])
+  // 1. Lazy TanStack Query catalog subscription (only fetches when search opens or reuses SSR cache)
+  const { data: catalog = [] } = useQuery({
+    ...catalogQueryOptions,
+    enabled: isOpen,
+  })
+
+  const warmCatalogCache = () => {
+    void queryClient.prefetchQuery(catalogQueryOptions)
+  }
 
   // 2. Global Hotkey Listener: ⌘K or / to focus search, Escape to close
   useEffect(() => {
@@ -191,6 +181,8 @@ export const HeaderSearchBar: React.FC<HeaderSearchBarProps> = ({
           ref={inputRef}
           type="text"
           value={query}
+          aria-label="Search store apparatus"
+          onMouseEnter={warmCatalogCache}
           onChange={e => {
             setQuery(e.target.value)
             setSelectedIndex(-1)
@@ -199,7 +191,7 @@ export const HeaderSearchBar: React.FC<HeaderSearchBarProps> = ({
           onFocus={() => setIsOpen(true)}
           onKeyDown={handleKeyDown}
           placeholder={defaultPlaceholder}
-          className="w-full h-10 pl-9 sm:pl-10 pr-10 text-xs font-mono rounded-xl border border-zinc-200/70 dark:border-zinc-800/70 bg-zinc-50 dark:bg-[#11141B] text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-500 focus:outline-hidden focus:border-[#0d9488] dark:focus:border-[#2EE6CA] focus:ring-1 focus:ring-[#2EE6CA]/20 transition-all shadow-xs"
+          className="w-full h-10 pl-9 sm:pl-10 pr-10 text-xs font-mono rounded-xl border border-zinc-200/70 dark:border-zinc-800/70 bg-zinc-50 dark:bg-[#11141B] text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-500 focus:outline-hidden focus:border-[#0d9488] dark:focus:border-[#2EE6CA] focus:ring-1 focus:ring-[#2EE6CA]/20 transition-colors shadow-xs"
           autoComplete="off"
           spellCheck="false"
         />
@@ -231,9 +223,9 @@ export const HeaderSearchBar: React.FC<HeaderSearchBarProps> = ({
         </div>
       </form>
 
-      {/* Live Suggestions Dropdown (Autocomplete) */}
+      {/* Live Suggestions Dropdown (Autocomplete — instant open per emil-design-eng rule for ⌘K / '/' keyboard actions) */}
       {isOpen && (
-        <div className="absolute top-full left-0 right-0 mt-2 rounded-2xl border border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#0E1015] shadow-2xl overflow-hidden z-50 animate-in fade-in slide-in-from-top-1 text-xs">
+        <div className="absolute top-full left-0 right-0 mt-2 rounded-2xl border border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#0E1015] shadow-2xl overflow-hidden z-50 text-xs">
           {/* Case A: Query is Empty - Popular Searches & Quick Categories */}
           {query.trim().length === 0 && (
             <div className="p-4 space-y-4 font-mono">

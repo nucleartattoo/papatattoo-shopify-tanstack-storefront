@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
 import { ModelViewer3D } from '../components/common/ModelViewer3D'
 import { ParallaxApparatusStage } from '../components/common/ParallaxApparatusStage'
 import { useCart } from '../context/CartContext'
-import { ShopifyProduct } from '../types/shopify'
-import { getProductByHandle } from '../lib/shopify'
+import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
+import { productByHandleQueryOptions } from '../lib/catalog.queries'
 import {
   ShoppingBag,
   ArrowRight,
@@ -12,26 +13,14 @@ import {
   Box,
   Truck,
   FileCheck2,
-  ChevronDown,
   Award,
   Zap,
 } from 'lucide-react'
 
 export const HomePage: React.FC = () => {
   const { addToCart, openCart } = useCart()
-  const [penProduct, setPenProduct] = useState<ShopifyProduct | null>(null)
-
-  useEffect(() => {
-    async function loadCoreProducts() {
-      try {
-        const pen = await getProductByHandle('papa-pen-v2-1')
-        if (pen) setPenProduct(pen)
-      } catch (err) {
-        console.error('Failed to load homepage core products:', err)
-      }
-    }
-    loadCoreProducts()
-  }, [])
+  const prefersReducedMotion = usePrefersReducedMotion()
+  const { data: penProduct = null } = useQuery(productByHandleQueryOptions('papa-pen-v2-1'))
 
   const handleBuyPen = () => {
     if (penProduct && penProduct.variants?.edges?.[0]?.node) {
@@ -43,7 +32,7 @@ export const HomePage: React.FC = () => {
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id)
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth' })
+      el.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth' })
     }
   }
 
@@ -52,7 +41,7 @@ export const HomePage: React.FC = () => {
       {/* ============================================================ */}
       {/* ACT 1: HERO - PAPA PEN V2 3D GRAND CENTERED STAGE */}
       {/* ============================================================ */}
-      <section className="relative min-h-[calc(100vh-80px)] flex flex-col items-center justify-center pt-16 pb-16 sm:pt-20 sm:pb-20 px-4 sm:px-6 lg:px-8 text-center overflow-hidden">
+      <section className="relative min-h-[calc(100dvh-80px)] flex flex-col items-center justify-center pt-16 pb-16 sm:pt-20 sm:pb-20 px-4 sm:px-6 lg:px-8 text-center overflow-hidden">
         {/* Background Architectural Typographic Monument (Apple Keynote Style) */}
         <div
           aria-hidden="true"
@@ -67,7 +56,7 @@ export const HomePage: React.FC = () => {
         {/* Hero Header & Narrative */}
         <div className="max-w-3xl space-y-3 relative z-10 mx-auto">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-zinc-200/80 dark:border-white/10 bg-white/70 dark:bg-white/[0.04] text-[10px] font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6] uppercase tracking-widest backdrop-blur-md shadow-xs">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#0d5d50] dark:bg-[#38e8c6] animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#0d5d50] dark:bg-[#38e8c6] animate-pulse motion-reduce:animate-none" />
             <span>PAPA TATTOO APPARATUS · THE BENCHMARK</span>
           </div>
 
@@ -153,7 +142,7 @@ export const HomePage: React.FC = () => {
       {/* ============================================================ */}
       <section
         id="showcase-cartridges"
-        className="min-h-[85vh] flex items-center py-24 sm:py-36 px-4 sm:px-6 lg:px-8 max-w-7xl 2xl:max-w-[1536px] mx-auto relative"
+        className="min-h-[85dvh] flex items-center py-24 sm:py-36 px-4 sm:px-6 lg:px-8 max-w-7xl 2xl:max-w-[1536px] mx-auto relative"
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center w-full">
           {/* Left Text Column */}
@@ -222,7 +211,7 @@ export const HomePage: React.FC = () => {
       {/* ============================================================ */}
       {/* ACT 3: PAPA VOLT WIRELESS POWER DOCK (FULL-PAGE CINEMATIC SHOWCASE) */}
       {/* ============================================================ */}
-      <section className="min-h-[85vh] flex items-center py-24 sm:py-36 px-4 sm:px-6 lg:px-8 max-w-7xl 2xl:max-w-[1536px] mx-auto relative">
+      <section className="min-h-[85dvh] flex items-center py-24 sm:py-36 px-4 sm:px-6 lg:px-8 max-w-7xl 2xl:max-w-[1536px] mx-auto relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center w-full">
           {/* Left Visual Column (Apple Scroll Parallax Apparatus Stage) */}
           <div className="lg:col-span-6 order-2 lg:order-1 flex items-center justify-center">
@@ -287,7 +276,7 @@ export const HomePage: React.FC = () => {
       {/* ============================================================ */}
       {/* ACT 4: CNC ADJUSTABLE GRIPS (FULL-PAGE CINEMATIC SHOWCASE) */}
       {/* ============================================================ */}
-      <section className="min-h-[85vh] flex items-center py-24 sm:py-36 px-4 sm:px-6 lg:px-8 max-w-7xl 2xl:max-w-[1536px] mx-auto relative">
+      <section className="min-h-[85dvh] flex items-center py-24 sm:py-36 px-4 sm:px-6 lg:px-8 max-w-7xl 2xl:max-w-[1536px] mx-auto relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center w-full">
           {/* Left Text Column */}
           <div className="lg:col-span-6 space-y-6">

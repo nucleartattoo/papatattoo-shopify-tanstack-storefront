@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react'
 import { RotateCw, RefreshCw, Maximize2, Box, Sparkles, Loader2 } from 'lucide-react'
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 
 interface ModelViewer3DProps {
   src: string
@@ -34,14 +35,17 @@ export const ModelViewer3D: React.FC<ModelViewer3DProps> = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const modelViewerRef = useRef<any>(null)
+  const prefersReducedMotion = usePrefersReducedMotion()
 
   const [isScriptLoaded, setIsScriptLoaded] = useState(() => {
     return typeof window !== 'undefined' && !!customElements.get('model-viewer')
   })
   const [isInView, setIsInView] = useState(!lazyLoad)
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [isRotating, setIsRotating] = useState(autoRotate)
+  const [_isLoaded, setIsLoaded] = useState(false)
+  const [userRotationOverride, setUserRotationOverride] = useState<boolean | null>(null)
   const [isActivating, setIsActivating] = useState(false)
+
+  const isRotating = userRotationOverride ?? (autoRotate && !prefersReducedMotion)
 
   // Dynamically load @google/model-viewer only when needed
   const loadScript = useCallback(() => {
@@ -106,7 +110,7 @@ export const ModelViewer3D: React.FC<ModelViewer3DProps> = ({
   }
 
   const toggleAutoRotate = () => {
-    setIsRotating((prev) => !prev)
+    setUserRotationOverride((prev) => !(prev ?? (autoRotate && !prefersReducedMotion)))
   }
 
   const handleFullscreen = () => {

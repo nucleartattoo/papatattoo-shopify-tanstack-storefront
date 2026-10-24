@@ -35,7 +35,7 @@ export const SponsorshipArtistsPage: React.FC = () => {
   }, [searchQuery])
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-[#090A0C] text-zinc-900 dark:text-zinc-100 font-sans pb-20 transition-colors duration-200">
+    <div className="min-h-[100dvh] bg-zinc-50 dark:bg-[#090A0C] text-zinc-900 dark:text-zinc-100 font-sans pb-20 transition-colors duration-200">
       {/* 1. HERO SECTION */}
       <section className="relative overflow-hidden border-b border-zinc-200 dark:border-[#1E232E] bg-white dark:bg-[#0E1015] py-16 sm:py-20">
         <div className="absolute inset-0 bg-[radial-gradient(#2ee6ca_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />

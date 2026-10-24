@@ -1,11 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { createServerFn } from '@tanstack/react-start'
-import { getProducts } from '../lib/shopify'
+import { catalogQueryOptions } from '../lib/catalog.queries'
 import { CollectionPage, CollectionSearchProps } from '../pages/CollectionPage'
-
-const fetchCatalog = createServerFn({ method: 'GET' }).handler(async () => {
-  return await getProducts({ first: 100, language: 'EN' })
-})
 
 export const Route = createFileRoute('/collections')({
   validateSearch: (search: Record<string, unknown>): CollectionSearchProps => ({
@@ -16,9 +11,9 @@ export const Route = createFileRoute('/collections')({
     needle: (search.needle as string) || undefined,
     sort: (search.sort as 'featured' | 'price-asc' | 'price-desc' | 'title-asc') || undefined,
   }),
-  loader: async () => {
+  loader: async ({ context }) => {
     try {
-      const items = await fetchCatalog()
+      const items = await context.queryClient.ensureQueryData(catalogQueryOptions)
       return { products: items }
     } catch {
       return { products: [] }
@@ -40,6 +35,11 @@ export const Route = createFileRoute('/collections')({
         content:
           'Browse precision rotary machines, click grips, needle cartridges, and studio apparatus engineered for professional tattoo artists.',
       },
+      { property: 'og:url', content: 'https://papatattoo.com/collections' },
+      { property: 'og:type', content: 'website' },
+    ],
+    links: [
+      { rel: 'canonical', href: 'https://papatattoo.com/collections' },
     ],
   }),
   component: CollectionPage,

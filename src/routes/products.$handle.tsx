@@ -1,18 +1,22 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { createServerFn } from '@tanstack/react-start'
-import { getProductByHandle } from '../lib/shopify'
+import { createFileRoute, redirect } from '@tanstack/react-router'
+import { productByHandleQueryOptions } from '../lib/catalog.queries'
 import { ProductDetailPage } from '../pages/ProductDetailPage'
 
-const fetchProduct = createServerFn({ method: 'GET' })
-  .validator((d: { handle: string }) => d)
-  .handler(async ({ data }) => {
-    return await getProductByHandle(data.handle)
-  })
-
 export const Route = createFileRoute('/products/$handle')({
-  loader: async ({ params }) => {
+  beforeLoad: ({ params }) => {
+    if (params.handle === 'papa-pen-v2') {
+      throw redirect({
+        to: '/products/$handle',
+        params: { handle: 'papa-pen-v2-1' },
+        statusCode: 301,
+      })
+    }
+  },
+  loader: async ({ context, params }) => {
     try {
-      const product = await fetchProduct({ data: { handle: params.handle } })
+      const product = await context.queryClient.ensureQueryData(
+        productByHandleQueryOptions(params.handle)
+      )
       return { product }
     } catch {
       return { product: null }
@@ -25,6 +29,10 @@ export const Route = createFileRoute('/products/$handle')({
         meta: [
           { title: 'Apparatus Specimen · Papa Tattoo Supply' },
           { name: 'description', content: 'Official Papa Tattoo precision apparatus.' },
+          { name: 'robots', content: 'noindex' },
+        ],
+        links: [
+          { rel: 'canonical', href: 'https://papatattoo.com/products' },
         ],
       }
     }

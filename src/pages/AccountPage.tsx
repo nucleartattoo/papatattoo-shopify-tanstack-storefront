@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from '@tanstack/react-router'
+import { useDialogAccessibility } from '../hooks/useDialogAccessibility'
 import {
   getCustomerProfile,
   loginCustomer,
@@ -73,6 +74,16 @@ export const AccountPage: React.FC = () => {
 
   // Address Modal & Form States
   const [isAddressModalOpen, setIsAddressModalOpen] = useState(false)
+  const addressDialogRef = useRef<HTMLDivElement>(null)
+  const addressFirstInputRef = useRef<HTMLInputElement>(null)
+  const closeAddressModal = useCallback(() => setIsAddressModalOpen(false), [])
+
+  useDialogAccessibility({
+    isOpen: isAddressModalOpen,
+    onClose: closeAddressModal,
+    dialogRef: addressDialogRef,
+    initialFocusRef: addressFirstInputRef,
+  })
   const [editingAddress, setEditingAddress] = useState<CustomerAddress | null>(null)
   const [addressForm, setAddressForm] = useState({
     firstName: '',
@@ -374,7 +385,7 @@ export const AccountPage: React.FC = () => {
   // 1. Loading State
   if (loading) {
     return (
-      <div className="min-h-screen bg-zinc-50 dark:bg-[#060709] flex flex-col items-center justify-center py-24 text-zinc-900 dark:text-white">
+      <div className="min-h-[100dvh] bg-zinc-50 dark:bg-[#060709] flex flex-col items-center justify-center py-24 text-zinc-900 dark:text-white">
         <Loader2 className="w-8 h-8 text-[#00f0ff] animate-spin mb-4" />
         <span className="font-mono text-xs uppercase tracking-widest text-zinc-500">
           CONNECTING TO SHOPIFY CUSTOMER PORTAL...
@@ -386,7 +397,7 @@ export const AccountPage: React.FC = () => {
   // 2. Unauthenticated State: Cyber Terminal Login / Register
   if (!customer) {
     return (
-      <div className="min-h-screen bg-zinc-50 dark:bg-[#060709] py-12 sm:py-20 text-zinc-900 dark:text-zinc-100 relative overflow-hidden">
+      <div className="min-h-[100dvh] bg-zinc-50 dark:bg-[#060709] py-12 sm:py-20 text-zinc-900 dark:text-zinc-100 relative overflow-hidden">
         {/* Ambient Grid & Radiance */}
         <div className="absolute inset-0 sacred-grid-bg opacity-15 pointer-events-none" />
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#00f0ff]/5 blur-[120px] rounded-full pointer-events-none" />
@@ -653,7 +664,7 @@ export const AccountPage: React.FC = () => {
 
   // 3. Authenticated State: Full Cyber Buyer Dashboard
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-[#060709] py-8 sm:py-12 text-zinc-900 dark:text-zinc-100 relative">
+    <div className="min-h-[100dvh] bg-zinc-50 dark:bg-[#060709] py-8 sm:py-12 text-zinc-900 dark:text-zinc-100 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb & Quick Actions */}
         <div className="flex items-center justify-between mb-8 pb-4 border-b border-zinc-200/80 dark:border-zinc-800/80">
@@ -1362,29 +1373,50 @@ export const AccountPage: React.FC = () => {
 
       {/* ADDRESS MODAL (Add / Edit) */}
       {isAddressModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in">
-          <div className="w-full max-w-lg rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#0a0d14] p-6 shadow-2xl space-y-4 hud-corner-bracket">
+        <div
+          onClick={closeAddressModal}
+          className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in motion-reduce:animate-none"
+        >
+          <div
+            ref={addressDialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="account-address-modal-title"
+            tabIndex={-1}
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-lg rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#0a0d14] p-6 shadow-2xl space-y-4 hud-corner-bracket outline-hidden"
+          >
             <div className="flex items-center justify-between pb-3 border-b border-zinc-100 dark:border-zinc-800/70">
-              <h3 className="font-bold text-base uppercase tracking-tight text-zinc-950 dark:text-white font-sans">
+              <h3
+                id="account-address-modal-title"
+                className="font-bold text-base uppercase tracking-tight text-zinc-950 dark:text-white font-sans"
+              >
                 {editingAddress ? 'Edit Address' : 'Add New Address'}
               </h3>
               <button
                 type="button"
-                onClick={() => setIsAddressModalOpen(false)}
-                className="text-zinc-400 hover:text-zinc-950 dark:hover:text-white p-1"
+                onClick={closeAddressModal}
+                aria-label="Close address modal"
+                className="text-zinc-400 hover:text-zinc-950 dark:hover:text-white active:scale-95 transition-all p-1 cursor-pointer"
               >
                 ✕
               </button>
             </div>
 
             {addressError && (
-              <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400 text-xs flex items-start gap-2">
+              <div
+                role="alert"
+                className="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400 text-xs flex items-start gap-2"
+              >
                 <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
                 <span>{addressError}</span>
               </div>
             )}
             {addressSuccess && (
-              <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs flex items-start gap-2">
+              <div
+                role="status"
+                className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs flex items-start gap-2"
+              >
                 <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
                 <span>{addressSuccess}</span>
               </div>
@@ -1393,66 +1425,92 @@ export const AccountPage: React.FC = () => {
             <form onSubmit={handleSaveAddress} className="space-y-3 font-mono text-xs">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-[10px] font-bold uppercase text-zinc-500 mb-1">
+                  <label
+                    htmlFor="address-first-name"
+                    className="block text-[10px] font-bold uppercase text-zinc-500 mb-1"
+                  >
                     First Name
                   </label>
                   <input
+                    ref={addressFirstInputRef}
+                    id="address-first-name"
                     type="text"
+                    autoComplete="given-name"
                     required
                     value={addressForm.firstName}
-                    onChange={e => setAddressForm({ ...addressForm, firstName: e.target.value })}
+                    onChange={(e) => setAddressForm({ ...addressForm, firstName: e.target.value })}
                     className="w-full px-3 py-2 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-[#07090e] text-zinc-950 dark:text-white focus:outline-none focus:border-[#00f0ff]"
                   />
                 </div>
                 <div>
-                  <label className="block text-[10px] font-bold uppercase text-zinc-500 mb-1">
+                  <label
+                    htmlFor="address-last-name"
+                    className="block text-[10px] font-bold uppercase text-zinc-500 mb-1"
+                  >
                     Last Name
                   </label>
                   <input
+                    id="address-last-name"
                     type="text"
+                    autoComplete="family-name"
                     required
                     value={addressForm.lastName}
-                    onChange={e => setAddressForm({ ...addressForm, lastName: e.target.value })}
+                    onChange={(e) => setAddressForm({ ...addressForm, lastName: e.target.value })}
                     className="w-full px-3 py-2 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-[#07090e] text-zinc-950 dark:text-white focus:outline-none focus:border-[#00f0ff]"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-[10px] font-bold uppercase text-zinc-500 mb-1">
+                <label
+                  htmlFor="address-company"
+                  className="block text-[10px] font-bold uppercase text-zinc-500 mb-1"
+                >
                   Studio / Company (Optional)
                 </label>
                 <input
+                  id="address-company"
                   type="text"
+                  autoComplete="organization"
                   value={addressForm.company}
-                  onChange={e => setAddressForm({ ...addressForm, company: e.target.value })}
+                  onChange={(e) => setAddressForm({ ...addressForm, company: e.target.value })}
                   placeholder="Iron Ink Tattoo Studio"
                   className="w-full px-3 py-2 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-[#07090e] text-zinc-950 dark:text-white focus:outline-none focus:border-[#00f0ff]"
                 />
               </div>
 
               <div>
-                <label className="block text-[10px] font-bold uppercase text-zinc-500 mb-1">
+                <label
+                  htmlFor="address-line1"
+                  className="block text-[10px] font-bold uppercase text-zinc-500 mb-1"
+                >
                   Street Address
                 </label>
                 <input
+                  id="address-line1"
                   type="text"
+                  autoComplete="address-line1"
                   required
                   value={addressForm.address1}
-                  onChange={e => setAddressForm({ ...addressForm, address1: e.target.value })}
+                  onChange={(e) => setAddressForm({ ...addressForm, address1: e.target.value })}
                   placeholder="123 Main St"
                   className="w-full px-3 py-2 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-[#07090e] text-zinc-950 dark:text-white focus:outline-none focus:border-[#00f0ff]"
                 />
               </div>
 
               <div>
-                <label className="block text-[10px] font-bold uppercase text-zinc-500 mb-1">
+                <label
+                  htmlFor="address-line2"
+                  className="block text-[10px] font-bold uppercase text-zinc-500 mb-1"
+                >
                   Suite / Unit / Studio # (Optional)
                 </label>
                 <input
+                  id="address-line2"
                   type="text"
+                  autoComplete="address-line2"
                   value={addressForm.address2}
-                  onChange={e => setAddressForm({ ...addressForm, address2: e.target.value })}
+                  onChange={(e) => setAddressForm({ ...addressForm, address2: e.target.value })}
                   placeholder="Suite 4B"
                   className="w-full px-3 py-2 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-[#07090e] text-zinc-950 dark:text-white focus:outline-none focus:border-[#00f0ff]"
                 />
@@ -1460,38 +1518,53 @@ export const AccountPage: React.FC = () => {
 
               <div className="grid grid-cols-3 gap-2">
                 <div>
-                  <label className="block text-[10px] font-bold uppercase text-zinc-500 mb-1">
+                  <label
+                    htmlFor="address-city"
+                    className="block text-[10px] font-bold uppercase text-zinc-500 mb-1"
+                  >
                     City
                   </label>
                   <input
+                    id="address-city"
                     type="text"
+                    autoComplete="address-level2"
                     required
                     value={addressForm.city}
-                    onChange={e => setAddressForm({ ...addressForm, city: e.target.value })}
+                    onChange={(e) => setAddressForm({ ...addressForm, city: e.target.value })}
                     className="w-full px-3 py-2 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-[#07090e] text-zinc-950 dark:text-white focus:outline-none focus:border-[#00f0ff]"
                   />
                 </div>
                 <div>
-                  <label className="block text-[10px] font-bold uppercase text-zinc-500 mb-1">
+                  <label
+                    htmlFor="address-province"
+                    className="block text-[10px] font-bold uppercase text-zinc-500 mb-1"
+                  >
                     State / Prov
                   </label>
                   <input
+                    id="address-province"
                     type="text"
+                    autoComplete="address-level1"
                     required
                     value={addressForm.province}
-                    onChange={e => setAddressForm({ ...addressForm, province: e.target.value })}
+                    onChange={(e) => setAddressForm({ ...addressForm, province: e.target.value })}
                     className="w-full px-3 py-2 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-[#07090e] text-zinc-950 dark:text-white focus:outline-none focus:border-[#00f0ff]"
                   />
                 </div>
                 <div>
-                  <label className="block text-[10px] font-bold uppercase text-zinc-500 mb-1">
+                  <label
+                    htmlFor="address-zip"
+                    className="block text-[10px] font-bold uppercase text-zinc-500 mb-1"
+                  >
                     Postal Code
                   </label>
                   <input
+                    id="address-zip"
                     type="text"
+                    autoComplete="postal-code"
                     required
                     value={addressForm.zip}
-                    onChange={e => setAddressForm({ ...addressForm, zip: e.target.value })}
+                    onChange={(e) => setAddressForm({ ...addressForm, zip: e.target.value })}
                     className="w-full px-3 py-2 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-[#07090e] text-zinc-950 dark:text-white focus:outline-none focus:border-[#00f0ff]"
                   />
                 </div>
@@ -1499,25 +1572,35 @@ export const AccountPage: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-[10px] font-bold uppercase text-zinc-500 mb-1">
+                  <label
+                    htmlFor="address-country"
+                    className="block text-[10px] font-bold uppercase text-zinc-500 mb-1"
+                  >
                     Country
                   </label>
                   <input
+                    id="address-country"
                     type="text"
+                    autoComplete="country-name"
                     required
                     value={addressForm.country}
-                    onChange={e => setAddressForm({ ...addressForm, country: e.target.value })}
+                    onChange={(e) => setAddressForm({ ...addressForm, country: e.target.value })}
                     className="w-full px-3 py-2 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-[#07090e] text-zinc-950 dark:text-white focus:outline-none focus:border-[#00f0ff]"
                   />
                 </div>
                 <div>
-                  <label className="block text-[10px] font-bold uppercase text-zinc-500 mb-1">
+                  <label
+                    htmlFor="address-phone"
+                    className="block text-[10px] font-bold uppercase text-zinc-500 mb-1"
+                  >
                     Phone (For Courier)
                   </label>
                   <input
+                    id="address-phone"
                     type="tel"
+                    autoComplete="tel"
                     value={addressForm.phone}
-                    onChange={e => setAddressForm({ ...addressForm, phone: e.target.value })}
+                    onChange={(e) => setAddressForm({ ...addressForm, phone: e.target.value })}
                     className="w-full px-3 py-2 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-[#07090e] text-zinc-950 dark:text-white focus:outline-none focus:border-[#00f0ff]"
                   />
                 </div>
@@ -1526,15 +1609,15 @@ export const AccountPage: React.FC = () => {
               <div className="pt-3 flex items-center justify-end gap-3">
                 <button
                   type="button"
-                  onClick={() => setIsAddressModalOpen(false)}
-                  className="px-4 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 font-bold uppercase cursor-pointer"
+                  onClick={closeAddressModal}
+                  className="px-4 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 font-bold uppercase active:scale-95 transition-all cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={addressLoading}
-                  className="px-5 py-2 rounded-xl bg-zinc-950 text-white dark:bg-[#00f0ff] dark:text-zinc-950 font-bold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+                  className="px-5 py-2 rounded-xl bg-zinc-950 text-white dark:bg-[#00f0ff] dark:text-zinc-950 font-bold uppercase tracking-wider flex items-center gap-1.5 active:scale-[0.98] transition-all cursor-pointer disabled:opacity-50"
                 >
                   {addressLoading && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>Save Address</span>

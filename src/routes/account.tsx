@@ -12,6 +12,13 @@ export const Route = createFileRoute('/account')({
         content:
           'Access your Papa Tattoo customer account, live order tracking, and saved delivery addresses.',
       },
+      {
+        name: 'robots',
+        content: 'noindex, nofollow',
+      },
+    ],
+    links: [
+      { rel: 'canonical', href: 'https://papatattoo.com/account' },
     ],
   }),
   component: AccountPage,

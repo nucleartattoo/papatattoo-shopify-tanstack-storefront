@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { Link } from '@tanstack/react-router'
-import { Sparkles, ArrowRight, ShieldCheck, Box, Zap, Layers, Cpu } from 'lucide-react'
+import { Sparkles, ArrowRight, Box, Zap } from 'lucide-react'
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 
 export const AppleProductSequence: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null)
+  const prefersReducedMotion = usePrefersReducedMotion()
   const [scrollProgress, setScrollProgress] = useState(0)
 
   // Track scroll through the 280vh container: 0 to 1
@@ -74,7 +76,7 @@ export const AppleProductSequence: React.FC = () => {
       aria-label="Apple-Style Multi-Product Scroll Sequence"
     >
       {/* Sticky Fullscreen Stage (Apple Keynote Style) */}
-      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
+      <div className="sticky top-0 h-[100dvh] w-full flex items-center justify-center overflow-hidden">
         {/* Dynamic Studio Ambient Halo */}
         <div
           className="absolute inset-0 transition-opacity duration-700 pointer-events-none"
@@ -112,10 +114,12 @@ export const AppleProductSequence: React.FC = () => {
         <div className="relative w-full max-w-xl sm:max-w-2xl h-[340px] sm:h-[460px] flex items-center justify-center z-10">
           {/* PRODUCT 1: Papa Premium Needle Cartridges (0% to 35%) */}
           <div
-            className="absolute inset-0 flex items-center justify-center transition-all duration-300"
+            className="absolute inset-0 flex items-center justify-center transition-opacity duration-300"
             style={{
               opacity: p1Opacity,
-              transform: `scale(${p1Scale}) rotate(${p1Rotate}deg) translateY(${(1 - p1Opacity) * 30}px)`,
+              transform: prefersReducedMotion
+                ? 'none'
+                : `scale(${p1Scale}) rotate(${p1Rotate}deg) translateY(${(1 - p1Opacity) * 30}px)`,
               pointerEvents: p1Opacity > 0.5 ? 'auto' : 'none',
             }}
           >
@@ -131,10 +135,12 @@ export const AppleProductSequence: React.FC = () => {
 
           {/* PRODUCT 2: Papa Volt Wireless Battery Pack (33% to 68%) */}
           <div
-            className="absolute inset-0 flex items-center justify-center transition-all duration-300"
+            className="absolute inset-0 flex items-center justify-center transition-opacity duration-300"
             style={{
               opacity: p2Opacity,
-              transform: `scale(${p2Scale}) rotate(${p2Rotate}deg) translateY(${(1 - p2Opacity) * 30}px)`,
+              transform: prefersReducedMotion
+                ? 'none'
+                : `scale(${p2Scale}) rotate(${p2Rotate}deg) translateY(${(1 - p2Opacity) * 30}px)`,
               pointerEvents: p2Opacity > 0.5 ? 'auto' : 'none',
             }}
           >
@@ -150,10 +156,12 @@ export const AppleProductSequence: React.FC = () => {
 
           {/* PRODUCT 3: Papa CNC Adjustable Grip (66% to 100%) */}
           <div
-            className="absolute inset-0 flex items-center justify-center transition-all duration-300"
+            className="absolute inset-0 flex items-center justify-center transition-opacity duration-300"
             style={{
               opacity: p3Opacity,
-              transform: `scale(${p3Scale}) rotate(${p3Rotate}deg) translateY(${(1 - p3Opacity) * 30}px)`,
+              transform: prefersReducedMotion
+                ? 'none'
+                : `scale(${p3Scale}) rotate(${p3Rotate}deg) translateY(${(1 - p3Opacity) * 30}px)`,
               pointerEvents: p3Opacity > 0.5 ? 'auto' : 'none',
             }}
           >
@@ -174,10 +182,10 @@ export const AppleProductSequence: React.FC = () => {
 
         {/* ACT 1 TYPOGRAPHY: Needle Cartridges (0% - 35%) */}
         <div
-          className="absolute bottom-16 sm:bottom-24 left-6 sm:left-16 max-w-md z-20 pointer-events-none transition-all duration-300"
+          className="absolute bottom-16 sm:bottom-24 left-6 sm:left-16 max-w-md z-20 pointer-events-none transition-opacity duration-300"
           style={{
             opacity: p1Opacity,
-            transform: `translateY(${(1 - p1Opacity) * 20}px)`,
+            transform: prefersReducedMotion ? 'none' : `translateY(${(1 - p1Opacity) * 20}px)`,
           }}
         >
           <div className="space-y-2">
@@ -203,10 +211,10 @@ export const AppleProductSequence: React.FC = () => {
 
         {/* ACT 2 TYPOGRAPHY: Papa Volt Wireless Battery (33% - 68%) */}
         <div
-          className="absolute top-1/3 right-6 sm:right-16 max-w-md z-20 pointer-events-none transition-all duration-300 text-right"
+          className="absolute top-1/3 right-6 sm:right-16 max-w-md z-20 pointer-events-none transition-opacity duration-300 text-right"
           style={{
             opacity: p2Opacity,
-            transform: `translateY(${(1 - p2Opacity) * 20}px)`,
+            transform: prefersReducedMotion ? 'none' : `translateY(${(1 - p2Opacity) * 20}px)`,
           }}
         >
           <div className="space-y-2.5">
@@ -230,10 +238,10 @@ export const AppleProductSequence: React.FC = () => {
 
         {/* ACT 3 TYPOGRAPHY: CNC Adjustable Grips & CTA (66% - 100%) */}
         <div
-          className="absolute bottom-16 sm:bottom-24 left-6 sm:left-16 max-w-lg z-20 transition-all duration-300 space-y-4"
+          className="absolute bottom-16 sm:bottom-24 left-6 sm:left-16 max-w-lg z-20 transition-opacity duration-300 space-y-4"
           style={{
             opacity: p3Opacity,
-            transform: `translateY(${(1 - p3Opacity) * 20}px)`,
+            transform: prefersReducedMotion ? 'none' : `translateY(${(1 - p3Opacity) * 20}px)`,
             pointerEvents: p3Opacity > 0.5 ? 'auto' : 'none',
           }}
         >
@@ -272,7 +280,7 @@ export const AppleProductSequence: React.FC = () => {
 
         {/* Bottom Scroll Indicator Pill */}
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/10 font-mono text-[9px] text-zinc-400">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#38e8c6] animate-pulse" />
+          <span className="w-1.5 h-1.5 rounded-full bg-[#38e8c6] animate-pulse motion-reduce:animate-none" />
           <span>SCROLL TO ADVANCE ARSENAL SEQUENCE</span>
         </div>
       </div>

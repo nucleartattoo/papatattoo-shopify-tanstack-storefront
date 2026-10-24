@@ -11,17 +11,23 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [theme, setThemeState] = useState<Theme>(() => {
-    // Default to light mode (Concrete & Raw Paper aesthetic)
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('papa_theme') as Theme | null
-      if (saved === 'dark' || saved === 'light') return saved
-    }
-    return 'light'
-  })
+  // Start with 'light' on both SSR and initial client render to guarantee zero hydration mismatch,
+  // while the inline <head> script already handles the `html.dark` class before first paint.
+  const [theme, setThemeState] = useState<Theme>('light')
+  const [hasHydrated, setHasHydrated] = useState(false)
 
   useEffect(() => {
-    if (typeof window === 'undefined') return
+    const saved = localStorage.getItem('papa_theme') as Theme | null
+    if (saved === 'dark' || saved === 'light') {
+      setThemeState(saved)
+    } else if (document.documentElement.classList.contains('dark')) {
+      setThemeState('dark')
+    }
+    setHasHydrated(true)
+  }, [])
+
+  useEffect(() => {
+    if (!hasHydrated || typeof window === 'undefined') return
     const root = document.documentElement
     if (theme === 'dark') {
       root.classList.add('dark')
@@ -29,10 +35,10 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       root.classList.remove('dark')
     }
     localStorage.setItem('papa_theme', theme)
-  }, [theme])
+  }, [theme, hasHydrated])
 
   const toggleTheme = () => {
-    setThemeState(prev => (prev === 'dark' ? 'light' : 'dark'))
+    setThemeState((prev) => (prev === 'dark' ? 'light' : 'dark'))
   }
 
   const setTheme = (newTheme: Theme) => {

@@ -1,18 +1,25 @@
-import { defineConfig } from "cf/config";
+import { bindings, defineConfig, triggers } from "cf/config";
 
 export default defineConfig({
   accountId: "2f53025c1c1d3b874bec5314c2f85f36",
   worker: {
     name: "papatattoo-shopify-tanstack-storefront",
     compatibilityDate: "2026-09-25",
+    compatibilityFlags: ["nodejs_compat"],
     observability: {
-      enabled: true
+      enabled: true,
+      headSamplingRate: 1,
     },
     entrypoint: "@tanstack/react-start/server-entry",
     workersDev: true,
     triggers: [
-      { type: "fetch", pattern: "test.papatattoo.com/*", zone: "papatattoo.com" }
+      triggers.fetch({ pattern: "test.papatattoo.com/*", zone: "papatattoo.com" }),
     ],
-    domains: ["test.papatattoo.com"]
-  }
+    domains: ["test.papatattoo.com"],
+    env: {
+      VITE_SHOPIFY_STORE_DOMAIN: bindings.text("ftff5p-yr.myshopify.com"),
+      VITE_SHOPIFY_STOREFRONT_PUBLIC_TOKEN: bindings.text("7cfda415ab91273e91e6e7b69f9789cf"),
+      VITE_SHOPIFY_STOREFRONT_API_VERSION: bindings.text("2025-01"),
+    },
+  },
 });

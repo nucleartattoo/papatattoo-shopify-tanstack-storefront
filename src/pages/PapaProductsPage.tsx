@@ -215,7 +215,7 @@ export const PapaProductsPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-transparent text-zinc-900 dark:text-zinc-100 font-sans pb-36 select-none transition-colors">
+    <div className="min-h-[100dvh] bg-transparent text-zinc-900 dark:text-zinc-100 font-sans pb-36 select-none transition-colors">
       {/* ============================================================ */}
       {/* 1. MONUMENTAL APPARATUS CATALOG HEADER */}
       {/* ============================================================ */}

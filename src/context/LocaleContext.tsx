@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
+import { useLocation } from '@tanstack/react-router'
 
 export type Locale = 'EN' | 'ES' | 'DE' | 'FR'
 
@@ -202,26 +203,41 @@ export function detectBrowserLocale(): Locale {
   return 'EN'
 }
 
+function parseLocaleFromHref(href: string): Locale | null {
+  const match = href.match(/[?&]lang=(en|es|de|fr)\b/i)
+  if (!match) return null
+  return match[1].toUpperCase() as Locale
+}
+
 const LocaleContext = createContext<LocaleContextType | undefined>(undefined)
 
 export const LocaleProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [locale, setLocaleState] = useState<Locale>(() => {
+  const location = useLocation()
+  const urlLocale = parseLocaleFromHref(location.href)
+
+  const [locale, setLocaleState] = useState<Locale>(() => urlLocale ?? 'EN')
+
+  // Sync locale when URL ?lang= changes or restore saved/browser preference after hydration
+  useEffect(() => {
+    if (urlLocale) {
+      setLocaleState(urlLocale)
+      return
+    }
     if (typeof window !== 'undefined') {
       try {
         const saved = localStorage.getItem('papa_locale') as Locale | null
         if (saved && (saved === 'EN' || saved === 'ES' || saved === 'DE' || saved === 'FR')) {
-          return saved
+          setLocaleState(saved)
+          return
         }
       } catch {}
-      return detectBrowserLocale()
+      setLocaleState(detectBrowserLocale())
     }
-    return 'EN'
-  })
+  }, [urlLocale])
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       try {
-        localStorage.setItem('papa_locale', locale)
         document.documentElement.lang = locale.toLowerCase()
       } catch {}
     }
@@ -229,6 +245,11 @@ export const LocaleProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
   const setLocale = (newLocale: Locale) => {
     setLocaleState(newLocale)
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('papa_locale', newLocale)
+      } catch {}
+    }
   }
 
   const currency = locale === 'EN' ? 'USD' : 'EUR'

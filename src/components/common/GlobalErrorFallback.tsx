@@ -12,7 +12,7 @@ export const GlobalErrorFallback: React.FC<GlobalErrorFallbackProps> = ({ error,
     error instanceof Error ? error.message : 'An unexpected storefront execution failure occurred.'
 
   return (
-    <div className="min-h-[calc(100vh-160px)] flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="min-h-[calc(100dvh-160px)] flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Background ambient lighting */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 sm:w-[500px] h-96 sm:h-[500px] bg-red-500/5 dark:bg-red-500/10 rounded-full blur-3xl pointer-events-none" />
 

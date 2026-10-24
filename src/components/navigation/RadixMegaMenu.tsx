@@ -130,7 +130,7 @@ export const RadixMegaMenu: React.FC<RadixMegaMenuProps> = ({ onSelectCategory }
           {/* Minimalist Mega Menu Dropdown Panel */}
           <div
             id="papa-megamenu-dropdown"
-            className="w-full bg-white dark:bg-[#0A0C10] border-b border-zinc-200 dark:border-zinc-800 shadow-2xl max-h-[calc(100vh-80px)] overflow-y-auto animate-in fade-in slide-in-from-top-1 duration-150 relative z-10"
+            className="w-full bg-white dark:bg-[#0A0C10] border-b border-zinc-200 dark:border-zinc-800 shadow-2xl max-h-[calc(100dvh-80px)] overflow-y-auto animate-in fade-in slide-in-from-top-1 duration-150 motion-reduce:animate-none relative z-10"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >

@@ -12,6 +12,20 @@ export const Route = createFileRoute('/contact')({
         content:
           'Get in touch with Papa Tattoo Supply for direct studio inquiries, order fulfillment, and technical support.',
       },
+      {
+        property: 'og:title',
+        content: 'Contact Logistics & Studio Support · Papa Tattoo Supply',
+      },
+      {
+        property: 'og:description',
+        content:
+          'Get in touch with Papa Tattoo Supply for direct studio inquiries, order fulfillment, and technical support.',
+      },
+      { property: 'og:url', content: 'https://papatattoo.com/contact' },
+      { property: 'og:type', content: 'website' },
+    ],
+    links: [
+      { rel: 'canonical', href: 'https://papatattoo.com/contact' },
     ],
   }),
   component: ContactPage,

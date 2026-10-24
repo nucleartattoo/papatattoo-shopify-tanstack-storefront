@@ -481,7 +481,7 @@ export const CollectionPage: React.FC = () => {
   }
 
   return (
-    <div className="bg-zinc-50 dark:bg-[#20222a] min-h-screen text-zinc-900 dark:text-zinc-100 art-aurora-bg">
+    <div className="bg-zinc-50 dark:bg-[#20222a] min-h-[100dvh] text-zinc-900 dark:text-zinc-100 art-aurora-bg">
       {/* 1. Top Ultra-Wide Full-Screen Panoramic Stage (Compact Golden Height) */}
       <section className="w-full border-b border-zinc-200/80 dark:border-white/[0.08] bg-[#eceae4] dark:bg-[#15171d] relative overflow-hidden">
         {/* Ambient Movie-Grade Studio Glow */}
@@ -491,42 +491,42 @@ export const CollectionPage: React.FC = () => {
           {/* Left: Breadcrumbs & Punchy Typography */}
           <div className="max-w-2xl space-y-2">
             {/* Compact Breadcrumb */}
-            <nav className="flex items-center gap-1.5 text-[11px] font-mono text-zinc-400">
-              <Link to="/" className="hover:text-white transition-colors">
+            <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-[11px] font-mono text-zinc-600 dark:text-zinc-400">
+              <Link to="/" className="hover:text-zinc-950 dark:hover:text-white transition-colors">
                 HOME
               </Link>
-              <ChevronRight className="w-3 h-3 text-zinc-600" />
-              <Link to="/collections" search={{ category: 'all' }} className="hover:text-white transition-colors">
+              <ChevronRight className="w-3 h-3 text-zinc-400 dark:text-zinc-600" />
+              <Link to="/collections" search={{ category: 'all' }} className="hover:text-zinc-950 dark:hover:text-white transition-colors">
                 CATALOG
               </Link>
-              <ChevronRight className="w-3 h-3 text-zinc-600" />
-              <span className="text-[#2ee6ca] font-bold uppercase">{getCategoryTitle()}</span>
+              <ChevronRight className="w-3 h-3 text-zinc-400 dark:text-zinc-600" />
+              <span className="text-[#0d5d50] dark:text-[#2ee6ca] font-bold uppercase">{getCategoryTitle()}</span>
             </nav>
 
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-white font-['Montserrat',sans-serif]">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-zinc-950 dark:text-white font-['Montserrat',sans-serif]">
               {getCategoryTitle()}
             </h1>
 
-            <p className="text-xs sm:text-sm text-zinc-400 font-sans leading-relaxed line-clamp-2 max-w-xl">
+            <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed line-clamp-2 max-w-xl">
               Industrial grade tattoo engineering apparatus, medical 316L needle pins, and aerospace anodized alloy systems calibrated for professional artists.
             </p>
 
             {/* Architectural Technical Specs Pills */}
             <div className="flex flex-wrap items-center gap-2 pt-1">
-              <span className="px-2 py-0.5 rounded-md bg-white/[0.06] border border-white/[0.08] text-[10px] font-mono text-zinc-300">
+              <span className="px-2 py-0.5 rounded-md bg-zinc-900/[0.06] dark:bg-white/[0.06] border border-zinc-900/10 dark:border-white/[0.08] text-[10px] font-mono text-zinc-700 dark:text-zinc-300">
                 AEROSPACE ALLOY
               </span>
-              <span className="px-2 py-0.5 rounded-md bg-white/[0.06] border border-white/[0.08] text-[10px] font-mono text-zinc-300">
+              <span className="px-2 py-0.5 rounded-md bg-zinc-900/[0.06] dark:bg-white/[0.06] border border-zinc-900/10 dark:border-white/[0.08] text-[10px] font-mono text-zinc-700 dark:text-zinc-300">
                 316L SURGICAL STEEL
               </span>
-              <span className="px-2 py-0.5 rounded-md bg-white/[0.06] border border-white/[0.08] text-[10px] font-mono text-[#2ee6ca]">
+              <span className="px-2 py-0.5 rounded-md bg-[#0d5d50]/[0.08] dark:bg-white/[0.06] border border-[#0d5d50]/20 dark:border-white/[0.08] text-[10px] font-mono font-semibold text-[#0d5d50] dark:text-[#2ee6ca]">
                 CALIBRATED TOLERANCE
               </span>
             </div>
           </div>
 
           {/* Right: Compact 3D Interactive Stage / High-Res Apparatus Visual */}
-          <div className="relative w-full lg:w-96 h-40 sm:h-48 lg:h-52 shrink-0 rounded-xl bg-zinc-900/40 border border-white/[0.08] overflow-hidden flex items-center justify-center">
+          <div className="relative w-full lg:w-96 h-40 sm:h-48 lg:h-52 shrink-0 rounded-xl bg-[#1b1d24] dark:bg-zinc-900/40 border border-zinc-300/80 dark:border-white/[0.08] overflow-hidden flex items-center justify-center">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(46,230,202,0.15)_0%,transparent_70%)] pointer-events-none" />
 
             {activeCategory === 'machines' ? (
@@ -724,7 +724,7 @@ export const CollectionPage: React.FC = () => {
           </aside>
 
           {/* Right Product Grid Area */}
-          <main className="flex-1 min-w-0 space-y-6">
+          <div className="flex-1 min-w-0 space-y-6">
             {/* Top Toolbar: Count & Sort Dropdown */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 sm:p-5 rounded-2xl border border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#11141A] gap-4">
               <div className="text-xs font-mono text-zinc-500">
@@ -739,8 +739,11 @@ export const CollectionPage: React.FC = () => {
               {/* Sort Order Selector */}
               <div className="flex items-center gap-2 text-xs font-mono">
                 <ArrowUpDown className="w-3.5 h-3.5 text-zinc-400" />
-                <span className="text-zinc-400">SORT BY:</span>
+                <label htmlFor="collection-sort-select" className="text-zinc-500 dark:text-zinc-400">
+                  SORT BY:
+                </label>
                 <select
+                  id="collection-sort-select"
                   value={sortOption}
                   onChange={e => setSortOption(e.target.value)}
                   className="px-3 py-1.5 rounded-lg border border-zinc-200/80 dark:border-zinc-800 bg-zinc-50 dark:bg-[#161922] text-xs font-mono text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#2EE6CA]"
@@ -792,7 +795,7 @@ export const CollectionPage: React.FC = () => {
                 </button>
               </div>
             )}
-          </main>
+          </div>
         </div>
 
         {/* 4. Bottom SEO & Global Studio GEO Distribution Monograph */}

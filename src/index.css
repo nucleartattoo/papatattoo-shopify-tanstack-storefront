@@ -31,6 +31,9 @@
   --color-artisan-bronze: #a36f39;
 
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 :root {
@@ -41,6 +44,9 @@
   --text-primary: #121210;
   --text-secondary: #6b6860;
   --brand-cyan: #0d5d50;
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 .dark {
@@ -53,8 +59,10 @@
   --brand-cyan: #38e8c6;
 }
 
-html {
-  scroll-behavior: smooth;
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
@@ -208,7 +216,10 @@ button:disabled,
   width: 8px;
   height: 8px;
   pointer-events: none;
-  transition: all 0.3s ease;
+  transition:
+    opacity 200ms var(--ease-out-strong),
+    border-color 200ms var(--ease-out-strong),
+    filter 200ms var(--ease-out-strong);
 }
 .hud-corner-bracket::before {
   top: -1px;
@@ -353,4 +364,25 @@ button:disabled,
 
 .dark .product-description-content a {
   color: #2ee6ca !important;
+}
+
+/* Reduced Motion Accessibility: preserve subtle opacity/color cues, stop continuous & spatial motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
+
+  .animate-pulse,
+  .animate-bounce,
+  [class*="fluid-ink-"] {
+    animation: none !important;
+  }
+
+  .animate-in {
+    animation-duration: 0.01ms !important;
+    transition-duration: 120ms !important;
+    transform: none !important;
+  }
 }

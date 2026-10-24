@@ -1,29 +1,18 @@
 import React, { useEffect, useState, useRef } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
 import { useCart } from '../../context/CartContext'
-import { ShopifyProduct } from '../../types/shopify'
-import { getProductByHandle } from '../../lib/shopify'
-import { ShoppingBag, ArrowRight, Sparkles, Box, ShieldCheck, Cpu } from 'lucide-react'
+import { productByHandleQueryOptions } from '../../lib/catalog.queries'
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
+import { ShoppingBag, ArrowRight, Sparkles } from 'lucide-react'
 
 export const AppleScrollytelling: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null)
   const modelViewerRef = useRef<any>(null)
+  const prefersReducedMotion = usePrefersReducedMotion()
   const [scrollProgress, setScrollProgress] = useState(0)
-  const [penProduct, setPenProduct] = useState<ShopifyProduct | null>(null)
+  const { data: penProduct = null } = useQuery(productByHandleQueryOptions('papa-pen-v2-1'))
   const { addToCart, openCart } = useCart()
-
-  // Load Papa Pen V2 product data
-  useEffect(() => {
-    async function loadPen() {
-      try {
-        const prod = await getProductByHandle('papa-pen-v2-1')
-        if (prod) setPenProduct(prod)
-      } catch (err) {
-        console.error('Failed to load Papa Pen product:', err)
-      }
-    }
-    loadPen()
-  }, [])
 
   // Dynamically import @google/model-viewer
   useEffect(() => {
@@ -56,8 +45,8 @@ export const AppleScrollytelling: React.FC = () => {
       animationFrameId = requestAnimationFrame(() => {
         setScrollProgress(progress)
 
-        // Scrub 3D camera orbit smoothly as user scrolls
-        if (modelViewerRef.current) {
+        // Scrub 3D camera orbit smoothly as user scrolls (skip continuous rotation under reduced motion)
+        if (!prefersReducedMotion && modelViewerRef.current) {
           // 360-degree continuous rotation driven by scroll position
           const theta = 35 + progress * 360
           // Smooth elevation dip and zoom: 70deg -> 85deg -> 65deg
@@ -78,7 +67,7 @@ export const AppleScrollytelling: React.FC = () => {
       window.removeEventListener('scroll', handleScroll)
       cancelAnimationFrame(animationFrameId)
     }
-  }, [])
+  }, [prefersReducedMotion])
 
   const handleBuyNow = () => {
     if (penProduct && penProduct.variants?.edges?.[0]?.node) {
@@ -109,7 +98,7 @@ export const AppleScrollytelling: React.FC = () => {
       aria-label="Papa Pen Scroll-Driven 3D Scrollytelling"
     >
       {/* Sticky Fullscreen Stage (Apple Keynote Style) */}
-      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
+      <div className="sticky top-0 h-[100dvh] w-full flex items-center justify-center overflow-hidden">
         {/* Deep Atmospheric Radial Spotlight behind 3D Apparatus */}
         <div
           className="absolute inset-0 transition-opacity duration-700 pointer-events-none"
@@ -168,7 +157,10 @@ export const AppleScrollytelling: React.FC = () => {
         {/* ACT 1: Intro (0% - 25%) */}
         <div
           className="absolute bottom-16 sm:bottom-24 left-6 sm:left-16 max-w-lg z-20 pointer-events-none transition-opacity duration-300"
-          style={{ opacity: act1Opacity, transform: `translateY(${(1 - act1Opacity) * 20}px)` }}
+          style={{
+            opacity: act1Opacity,
+            transform: prefersReducedMotion ? 'none' : `translateY(${(1 - act1Opacity) * 20}px)`,
+          }}
         >
           <div className="space-y-2">
             <div className="text-[10px] font-mono font-bold text-[#38e8c6] uppercase tracking-widest">
@@ -186,7 +178,10 @@ export const AppleScrollytelling: React.FC = () => {
         {/* ACT 2: Motor & Stroke (25% - 55%) */}
         <div
           className="absolute top-1/3 right-6 sm:right-16 max-w-md z-20 pointer-events-none transition-opacity duration-300"
-          style={{ opacity: act2Opacity, transform: `translateY(${(1 - act2Opacity) * 20}px)` }}
+          style={{
+            opacity: act2Opacity,
+            transform: prefersReducedMotion ? 'none' : `translateY(${(1 - act2Opacity) * 20}px)`,
+          }}
         >
           <div className="space-y-3 text-right">
             <div className="text-[10px] font-mono font-bold text-[#38e8c6] uppercase tracking-widest">
@@ -209,7 +204,10 @@ export const AppleScrollytelling: React.FC = () => {
         {/* ACT 3: Metallurgy & Ergonomics (55% - 80%) */}
         <div
           className="absolute bottom-20 left-6 sm:left-16 max-w-md z-20 pointer-events-none transition-opacity duration-300"
-          style={{ opacity: act3Opacity, transform: `translateY(${(1 - act3Opacity) * 20}px)` }}
+          style={{
+            opacity: act3Opacity,
+            transform: prefersReducedMotion ? 'none' : `translateY(${(1 - act3Opacity) * 20}px)`,
+          }}
         >
           <div className="space-y-3">
             <div className="text-[10px] font-mono font-bold text-[#e6b366] uppercase tracking-widest">
@@ -232,7 +230,9 @@ export const AppleScrollytelling: React.FC = () => {
           className="absolute bottom-12 sm:bottom-20 left-1/2 -translate-x-1/2 w-full max-w-xl px-4 z-20 transition-opacity duration-300 text-center space-y-4"
           style={{
             opacity: act4Opacity,
-            transform: `translate(-50%, ${(1 - act4Opacity) * 25}px)`,
+            transform: prefersReducedMotion
+              ? 'translate(-50%, 0)'
+              : `translate(-50%, ${(1 - act4Opacity) * 25}px)`,
             pointerEvents: act4Opacity > 0.5 ? 'auto' : 'none',
           }}
         >
@@ -272,7 +272,7 @@ export const AppleScrollytelling: React.FC = () => {
 
         {/* Bottom Scroll Indicator Pill */}
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/10 font-mono text-[9px] text-zinc-400">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#38e8c6] animate-pulse" />
+          <span className="w-1.5 h-1.5 rounded-full bg-[#38e8c6] animate-pulse motion-reduce:animate-none" />
           <span>SCROLL TO ROTATE &amp; DISCOVER</span>
         </div>
       </div>

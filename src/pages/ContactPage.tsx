@@ -8,11 +8,20 @@ import {
   ExternalLink,
   Clock,
   MessageSquare,
+  Copy,
+  Check,
+  AlertCircle,
 } from 'lucide-react'
+import {
+  submitStorefrontInquiry,
+  type StorefrontInquiryResult,
+} from '../lib/inquiries.functions'
 
 export const ContactPage: React.FC = () => {
-  const [formSubmitted, setFormSubmitted] = useState(false)
+  const [submissionResult, setSubmissionResult] = useState<StorefrontInquiryResult | null>(null)
   const [formLoading, setFormLoading] = useState(false)
+  const [formError, setFormError] = useState<string | null>(null)
+  const [copied, setCopied] = useState(false)
 
   const [formData, setFormData] = useState({
     name: '',
@@ -22,17 +31,40 @@ export const ContactPage: React.FC = () => {
     message: '',
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setFormError(null)
     setFormLoading(true)
-    setTimeout(() => {
+
+    try {
+      const result = await submitStorefrontInquiry({
+        data: {
+          kind: 'contact',
+          ...formData,
+        },
+      })
+      setSubmissionResult(result)
+    } catch (err) {
+      setFormError(err instanceof Error ? err.message : 'Unable to prepare your message. Please email us directly.')
+    } finally {
       setFormLoading(false)
-      setFormSubmitted(true)
-    }, 800)
+    }
+  }
+
+  const handleCopyInquiry = async () => {
+    if (!submissionResult) return
+    const text = `To: ${submissionResult.recipient}\nSubject: ${submissionResult.subject}\n\n${submissionResult.bodyText}`
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2500)
+    } catch {
+      // Clipboard may be unavailable in restricted contexts
+    }
   }
 
   return (
-    <div className="min-h-[calc(100vh-80px)] bg-zinc-50 dark:bg-[#0A0C0F] text-zinc-900 dark:text-zinc-100 font-sans transition-colors duration-200 py-8 sm:py-12">
+    <div className="min-h-[calc(100dvh-80px)] bg-zinc-50 dark:bg-[#0A0C0F] text-zinc-900 dark:text-zinc-100 font-sans transition-colors duration-200 py-8 sm:py-12">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* 1. Cohesive Left-Aligned Header */}
@@ -151,35 +183,77 @@ export const ContactPage: React.FC = () => {
               </span>
             </div>
 
-            {formSubmitted ? (
-              <div className="py-12 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-center space-y-3">
+            {submissionResult ? (
+              <div className="p-6 sm:p-8 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-center space-y-4">
                 <CheckCircle2 className="w-10 h-10 text-emerald-500 mx-auto" />
-                <h3 className="text-base font-bold text-zinc-950 dark:text-white">
-                  Message Sent
-                </h3>
-                <p className="text-xs text-zinc-600 dark:text-zinc-300 max-w-sm mx-auto leading-relaxed">
-                  Thank you, {formData.name}. We have received your inquiry and will respond to {formData.email} shortly.
-                </p>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setFormSubmitted(false)
-                    setFormData({ name: '', email: '', topic: 'general', orderNumber: '', message: '' })
-                  }}
-                  className="px-4 py-2 rounded-lg bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 font-semibold text-xs uppercase cursor-pointer hover:opacity-90 transition-opacity"
-                >
-                  Send Another Message
-                </button>
+                {submissionResult.delivered ? (
+                  <>
+                    <h3 className="text-base font-bold text-zinc-950 dark:text-white">
+                      Message Sent
+                    </h3>
+                    <p className="text-xs text-zinc-600 dark:text-zinc-300 max-w-sm mx-auto leading-relaxed">
+                      Thank you, {formData.name}. We have received your inquiry and will respond to {formData.email} shortly.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <h3 className="text-base font-bold text-zinc-950 dark:text-white">
+                      Inquiry Formatted — Ready to Send
+                    </h3>
+                    <p className="text-xs text-zinc-600 dark:text-zinc-300 max-w-md mx-auto leading-relaxed">
+                      Your inquiry for <strong className="text-zinc-900 dark:text-white">{submissionResult.recipient}</strong> is ready with all details pre-filled. Launch your mail app to send directly, or copy the formatted message for browser webmail.
+                    </p>
+                    <div className="flex flex-wrap items-center justify-center gap-2.5 pt-1">
+                      <a
+                        href={submissionResult.mailtoUrl}
+                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 font-semibold text-xs uppercase hover:opacity-90 transition-opacity"
+                      >
+                        <Mail className="w-3.5 h-3.5" />
+                        <span>Open Mail App</span>
+                      </a>
+                      <button
+                        type="button"
+                        onClick={handleCopyInquiry}
+                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-zinc-300 dark:border-white/15 bg-white dark:bg-[#14171E] text-zinc-800 dark:text-zinc-100 font-semibold text-xs uppercase cursor-pointer hover:border-zinc-500 transition-colors"
+                      >
+                        {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+                        <span>{copied ? 'Copied Inquiry' : 'Copy Full Message'}</span>
+                      </button>
+                    </div>
+                  </>
+                )}
+                <div className="pt-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSubmissionResult(null)
+                      setCopied(false)
+                    }}
+                    className="text-xs font-mono text-zinc-600 dark:text-zinc-300 underline hover:text-zinc-950 dark:hover:text-white cursor-pointer"
+                  >
+                    Edit or Send Another Message
+                  </button>
+                </div>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4 text-xs">
+                {formError && (
+                  <div role="alert" className="flex items-center gap-2 px-3.5 py-2.5 rounded-lg border border-red-500/30 bg-red-500/10 text-red-700 dark:text-red-300 text-xs">
+                    <AlertCircle className="w-4 h-4 shrink-0" />
+                    <span>{formError}</span>
+                  </div>
+                )}
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1.5">
+                    <label htmlFor="contact-name" className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1.5">
                       Your Name *
                     </label>
                     <input
+                      id="contact-name"
+                      name="name"
                       type="text"
+                      autoComplete="name"
                       required
                       value={formData.name}
                       onChange={e => setFormData({ ...formData, name: e.target.value })}
@@ -189,11 +263,14 @@ export const ContactPage: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1.5">
+                    <label htmlFor="contact-email" className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1.5">
                       Email Address *
                     </label>
                     <input
+                      id="contact-email"
+                      name="email"
                       type="email"
+                      autoComplete="email"
                       required
                       value={formData.email}
                       onChange={e => setFormData({ ...formData, email: e.target.value })}
@@ -205,10 +282,12 @@ export const ContactPage: React.FC = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1.5">
+                    <label htmlFor="contact-topic" className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1.5">
                       Topic of Inquiry *
                     </label>
                     <select
+                      id="contact-topic"
+                      name="topic"
                       value={formData.topic}
                       onChange={e => setFormData({ ...formData, topic: e.target.value })}
                       className="w-full px-3.5 py-2.5 rounded-lg border border-zinc-200 dark:border-[#222731] bg-zinc-50 dark:bg-[#14171E] text-zinc-900 dark:text-white focus:outline-hidden focus:border-[#0d9488] dark:focus:border-[#2EE6CA] transition-colors"
@@ -221,10 +300,12 @@ export const ContactPage: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1.5">
+                    <label htmlFor="contact-order" className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1.5">
                       Order # <span className="text-zinc-400 font-normal">(Optional)</span>
                     </label>
                     <input
+                      id="contact-order"
+                      name="orderNumber"
                       type="text"
                       value={formData.orderNumber}
                       onChange={e => setFormData({ ...formData, orderNumber: e.target.value })}
@@ -235,10 +316,12 @@ export const ContactPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1.5">
+                  <label htmlFor="contact-message" className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1.5">
                     Message *
                   </label>
                   <textarea
+                    id="contact-message"
+                    name="message"
                     required
                     rows={4}
                     value={formData.message}
@@ -252,12 +335,12 @@ export const ContactPage: React.FC = () => {
                   <button
                     type="submit"
                     disabled={formLoading}
-                    className="w-full py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 font-bold uppercase tracking-wider text-xs flex items-center justify-center gap-2 hover:bg-zinc-800 dark:hover:bg-[#26cbb1] active:scale-[0.99] transition-all disabled:opacity-50 cursor-pointer shadow-xs"
+                    className="w-full py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#2EE6CA] dark:text-zinc-950 font-bold uppercase tracking-wider text-xs flex items-center justify-center gap-2 hover:bg-zinc-800 dark:hover:bg-[#26cbb1] active:scale-[0.98] transition-transform disabled:opacity-50 cursor-pointer shadow-xs"
                   >
                     {formLoading ? (
                       <>
                         <Loader2 className="w-4 h-4 animate-spin" />
-                        <span>Sending...</span>
+                        <span>Preparing Dispatch...</span>
                       </>
                     ) : (
                       <>

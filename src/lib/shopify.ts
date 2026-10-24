@@ -1,20 +1,63 @@
 import { ShopifyProduct } from '../types/shopify'
-import premiumMatrixProduct from '../data/premiumMatrixProduct.json'
-import standardMatrixProduct from '../data/standardMatrixProduct.json'
-import openTipMatrixProduct from '../data/openTipMatrixProduct.json'
 
-const STORE_DOMAIN = import.meta.env.VITE_SHOPIFY_STORE_DOMAIN || 'ftff5p-yr.myshopify.com'
-const PUBLIC_TOKEN = import.meta.env.VITE_SHOPIFY_STOREFRONT_PUBLIC_TOKEN || '7cfda415ab91273e91e6e7b69f9789cf'
-const API_VERSION = import.meta.env.VITE_SHOPIFY_STOREFRONT_API_VERSION || '2025-01'
+let cachedPremiumMatrix: ShopifyProduct | null = null
+let cachedStandardMatrix: ShopifyProduct | null = null
+let cachedOpenTipMatrix: ShopifyProduct | null = null
 
-const ENDPOINT = `https://${STORE_DOMAIN}/api/${API_VERSION}/graphql.json`
+async function loadPremiumMatrixProduct(): Promise<ShopifyProduct> {
+  if (!cachedPremiumMatrix) {
+    const mod = await import('../data/premiumMatrixProduct.json')
+    cachedPremiumMatrix = (mod.default ?? mod) as unknown as ShopifyProduct
+  }
+  return cachedPremiumMatrix
+}
+
+async function loadStandardMatrixProduct(): Promise<ShopifyProduct> {
+  if (!cachedStandardMatrix) {
+    const mod = await import('../data/standardMatrixProduct.json')
+    cachedStandardMatrix = (mod.default ?? mod) as unknown as ShopifyProduct
+  }
+  return cachedStandardMatrix
+}
+
+async function loadOpenTipMatrixProduct(): Promise<ShopifyProduct> {
+  if (!cachedOpenTipMatrix) {
+    const mod = await import('../data/openTipMatrixProduct.json')
+    cachedOpenTipMatrix = (mod.default ?? mod) as unknown as ShopifyProduct
+  }
+  return cachedOpenTipMatrix
+}
+
+function getShopifyConfig() {
+  const runtimeEnv = (
+    globalThis as { process?: { env?: Record<string, string | undefined> } }
+  ).process?.env
+  const storeDomain =
+    runtimeEnv?.VITE_SHOPIFY_STORE_DOMAIN ||
+    import.meta.env.VITE_SHOPIFY_STORE_DOMAIN ||
+    'ftff5p-yr.myshopify.com'
+  const publicToken =
+    runtimeEnv?.VITE_SHOPIFY_STOREFRONT_PUBLIC_TOKEN ||
+    import.meta.env.VITE_SHOPIFY_STOREFRONT_PUBLIC_TOKEN ||
+    '7cfda415ab91273e91e6e7b69f9789cf'
+  const apiVersion =
+    runtimeEnv?.VITE_SHOPIFY_STOREFRONT_API_VERSION ||
+    import.meta.env.VITE_SHOPIFY_STOREFRONT_API_VERSION ||
+    '2025-01'
+
+  return {
+    endpoint: `https://${storeDomain}/api/${apiVersion}/graphql.json`,
+    publicToken,
+  }
+}
 
 export async function shopifyFetch<T = any>(query: string, variables: Record<string, any> = {}): Promise<T> {
-  const response = await fetch(ENDPOINT, {
+  const { endpoint, publicToken } = getShopifyConfig()
+  const response = await fetch(endpoint, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'X-Shopify-Storefront-Access-Token': PUBLIC_TOKEN,
+      'X-Shopify-Storefront-Access-Token': publicToken,
     },
     body: JSON.stringify({ query, variables }),
   })
@@ -92,7 +135,7 @@ export async function getProductByHandle(handle: string, language = 'EN'): Promi
     } catch {
       // ignore and use consolidated matrix product
     }
-    return premiumMatrixProduct as unknown as ShopifyProduct
+    return await loadPremiumMatrixProduct()
   }
 
   if (handle === 'papa-standard-tattoo-cartridges') {
@@ -152,7 +195,7 @@ export async function getProductByHandle(handle: string, language = 'EN'): Promi
     } catch {
       // ignore and use consolidated matrix product
     }
-    return standardMatrixProduct as unknown as ShopifyProduct
+    return await loadStandardMatrixProduct()
   }
 
   if (handle === 'papa-open-tip-tattoo-cartridges') {
@@ -212,7 +255,7 @@ export async function getProductByHandle(handle: string, language = 'EN'): Promi
     } catch {
       // ignore and use consolidated matrix product
     }
-    return openTipMatrixProduct as unknown as ShopifyProduct
+    return await loadOpenTipMatrixProduct()
   }
 
   const query = `
@@ -417,12 +460,12 @@ export async function getProducts(options: {
       // Inject consolidated products if search matches cartridge keywords
       if (qLower.includes('premium') || qLower.includes('cartridge') || qLower.includes('needle')) {
         if (!filtered.some(p => p.handle === 'papa-premium-tattoo-cartridges')) {
-          filtered.unshift(premiumMatrixProduct as unknown as ShopifyProduct)
+          filtered.unshift(await loadPremiumMatrixProduct())
         }
       }
       if (qLower.includes('standard') || (qLower.includes('cartridge') && !qLower.includes('premium'))) {
         if (!filtered.some(p => p.handle === 'papa-standard-tattoo-cartridges')) {
-          filtered.unshift(standardMatrixProduct as unknown as ShopifyProduct)
+          filtered.unshift(await loadStandardMatrixProduct())
         }
       }
 
@@ -455,11 +498,15 @@ export async function getProducts(options: {
     const productMap = new Map<string, ShopifyProduct>()
 
     // EXACTLY TWO Master Products for Cartridges: Premium & Standard
-    if (premiumMatrixProduct) {
-      productMap.set(premiumMatrixProduct.id, premiumMatrixProduct as unknown as ShopifyProduct)
+    const [premiumMatrix, standardMatrix] = await Promise.all([
+      loadPremiumMatrixProduct(),
+      loadStandardMatrixProduct(),
+    ])
+    if (premiumMatrix) {
+      productMap.set(premiumMatrix.id, premiumMatrix)
     }
-    if (standardMatrixProduct) {
-      productMap.set(standardMatrixProduct.id, standardMatrixProduct as unknown as ShopifyProduct)
+    if (standardMatrix) {
+      productMap.set(standardMatrix.id, standardMatrix)
     }
 
     // Add hardware, machines, and studio supplies (filtering out single-needle and Nuclear Tattoo products)
