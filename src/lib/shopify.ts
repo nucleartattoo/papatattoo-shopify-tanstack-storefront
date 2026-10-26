@@ -741,7 +741,6 @@ export async function getCustomerProfile(accessToken: string): Promise<CustomerP
         displayName
         email
         phone
-        tags
         defaultAddress {
           id
           address1

@@ -85,6 +85,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
       }
 
       localStorage.setItem('shopify_customer_profile', JSON.stringify(profile))
+      window.dispatchEvent(new Event('customer-auth-changed'))
       if (onAuthSuccess) {
         onAuthSuccess(profile)
       }
@@ -130,13 +131,19 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
 
       const tokenObj = await loginCustomer(email.trim(), password)
       localStorage.setItem('shopify_customer_token', tokenObj.accessToken)
+      localStorage.setItem('shopify_customer_token_exp', tokenObj.expiresAt)
 
-      const profile = await getCustomerProfile(tokenObj.accessToken)
-      if (profile) {
-        localStorage.setItem('shopify_customer_profile', JSON.stringify(profile))
-        if (onAuthSuccess) {
-          onAuthSuccess(profile)
-        }
+      const fetchedProfile = await getCustomerProfile(tokenObj.accessToken)
+      const profile: CustomerProfile = fetchedProfile || {
+        id: 'customer',
+        email: email.trim(),
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+      }
+      localStorage.setItem('shopify_customer_profile', JSON.stringify(profile))
+      window.dispatchEvent(new Event('customer-auth-changed'))
+      if (onAuthSuccess) {
+        onAuthSuccess(profile)
       }
 
       setTimeout(() => {

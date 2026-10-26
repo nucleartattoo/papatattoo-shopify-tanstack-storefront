@@ -66,6 +66,24 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
       return null
     }
   })
+
+  useEffect(() => {
+    const syncCustomer = () => {
+      try {
+        const saved = localStorage.getItem('shopify_customer_profile')
+        setCustomer(saved ? JSON.parse(saved) : null)
+      } catch {
+        setCustomer(null)
+      }
+    }
+    window.addEventListener('customer-auth-changed', syncCustomer)
+    window.addEventListener('storage', syncCustomer)
+    return () => {
+      window.removeEventListener('customer-auth-changed', syncCustomer)
+      window.removeEventListener('storage', syncCustomer)
+    }
+  }, [])
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [openMobileAccordion, setOpenMobileAccordion] = useState<string | null>(null)
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false)
@@ -80,6 +98,7 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
     localStorage.removeItem('shopify_customer_profile')
     setCustomer(null)
     setIsAccountOpen(false)
+    window.dispatchEvent(new Event('customer-auth-changed'))
   }
 
   const languages: { code: Locale; label: string; flag: string }[] = [
@@ -233,34 +252,37 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
                 <div className="space-y-1">
                   <button
                     onClick={() => {
-                      navigate({ to: '/account' })
+                      navigate({ to: '/account', hash: 'orders' })
+                      window.dispatchEvent(new CustomEvent('account-tab-select', { detail: 'orders' }))
                       setIsAccountOpen(false)
                     }}
                     className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-[#1A1E27] hover:text-[#0d9488] dark:hover:text-[#2ee6ca] transition-colors text-left cursor-pointer"
                   >
-                    <span>Customer Dashboard</span>
+                    <span>My Orders</span>
                     <ArrowRight className="w-3 h-3 text-zinc-400" />
                   </button>
 
                   <button
                     onClick={() => {
-                      navigate({ to: '/account' })
-                      setIsAccountOpen(false)
-                    }}
-                    className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-[#1A1E27] hover:text-[#0d9488] dark:hover:text-[#2ee6ca] transition-colors text-left cursor-pointer"
-                  >
-                    <span>My Orders & Tracking</span>
-                    <ArrowRight className="w-3 h-3 text-zinc-400" />
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      navigate({ to: '/account' })
+                      navigate({ to: '/account', hash: 'addresses' })
+                      window.dispatchEvent(new CustomEvent('account-tab-select', { detail: 'addresses' }))
                       setIsAccountOpen(false)
                     }}
                     className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-[#1A1E27] hover:text-[#0d9488] dark:hover:text-[#2ee6ca] transition-colors text-left cursor-pointer"
                   >
                     <span>Saved Addresses</span>
+                    <ArrowRight className="w-3 h-3 text-zinc-400" />
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      navigate({ to: '/account', hash: 'profile' })
+                      window.dispatchEvent(new CustomEvent('account-tab-select', { detail: 'profile' }))
+                      setIsAccountOpen(false)
+                    }}
+                    className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-[#1A1E27] hover:text-[#0d9488] dark:hover:text-[#2ee6ca] transition-colors text-left cursor-pointer"
+                  >
+                    <span>Profile Settings</span>
                     <ArrowRight className="w-3 h-3 text-zinc-400" />
                   </button>
 
