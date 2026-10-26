@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Link, useLoaderData } from '@tanstack/react-router'
 import { ModelViewer3D } from '../components/common/ModelViewer3D'
 import { ParallaxApparatusStage } from '../components/common/ParallaxApparatusStage'
+import { HomeSlider } from '../components/home/HomeSlider'
 import { HardwareModelCard } from '../components/product/HardwareLineupModules'
 import { useCart } from '../context/CartContext'
 import { catalogQueryOptions } from '../lib/catalog.queries'
@@ -159,6 +160,11 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className="w-full bg-transparent text-zinc-900 dark:text-zinc-100 font-sans overflow-x-hidden">
+      {/* ============================================================ */}
+      {/* ACT 0: WIDESCREEN EXHIBITION SLIDESHOW (7 STUDIO BANNERS)    */}
+      {/* ============================================================ */}
+      <HomeSlider />
+
       {/* ============================================================ */}
       {/* ACT 1: SPLIT SPECIMEN STAGE (100% ABOVE-THE-FOLD & LIVE TELEMETRY) */}
       {/* ============================================================ */}
