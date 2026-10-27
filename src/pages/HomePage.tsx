@@ -13,18 +13,18 @@ import {
 } from '../lib/hardwareLineup'
 import { ShopifyProduct } from '../types/shopify'
 import { formatProductImageUrl } from '../utils/imageUrl'
+import PAPA_ARTISTS from '../data/papaArtists.json'
 import {
   ShoppingBag,
   ArrowRight,
-  Sparkles,
+  ArrowUpRight,
   Box,
   Truck,
   FileCheck2,
   Award,
-  Zap,
   Check,
-  Layers,
   Image as ImageIcon,
+  ShieldCheck,
 } from 'lucide-react'
 
 const EMPTY_PRODUCTS: ShopifyProduct[] = []
@@ -36,6 +36,31 @@ const HERO_FALLBACK_IMAGES: Record<string, string> = {
   'papa-apollo-rotary-black':
     '/product-images/img_115_apollo-rotary-tattoo-machine-rca-dl-m30-black_cutout.webp',
 }
+
+const NEEDLE_CONFIG_FAMILIES = [
+  {
+    code: 'RL',
+    name: 'Round Liner',
+    spec: 'Tight grouping for crisp single-pass outlines',
+  },
+  {
+    code: 'RS',
+    name: 'Round Shader',
+    spec: 'Open cylindrical matrix for soft transitions',
+  },
+  {
+    code: 'M1',
+    name: 'Weaved Magnum',
+    spec: 'Dual-row flat array for high-density color packing',
+  },
+  {
+    code: 'M1C',
+    name: 'Curved Magnum',
+    spec: 'Arched tip profile for seamless whip shading',
+  },
+] as const
+
+const FEATURED_ARTISTS = PAPA_ARTISTS.slice(0, 8)
 
 export const HomePage: React.FC = () => {
   const { addToCart, openCart } = useCart()
@@ -104,7 +129,7 @@ export const HomePage: React.FC = () => {
     }
     blurTimerRef.current = window.setTimeout(() => {
       setIsBlurTransitioning(false)
-    }, 150)
+    }, 160)
   }
 
   const handleBuyActiveMachine = () => {
@@ -158,31 +183,32 @@ export const HomePage: React.FC = () => {
     return picked.slice(0, 4)
   }, [allModelGroups])
 
+  const cleanStrokeLabel = (activeBenchmark?.strokeLabel || '3.5 mm')
+    .replace(/[–—]/g, '-')
+    .replace(/\s*Precision/i, '')
+  const cleanVoltageLabel = (activeBenchmark?.voltageLabel || '5V - 12V')
+    .replace(/[–—]/g, '-')
+    .replace(/\s*DC/i, '')
+  const cleanWeightLabel = (activeBenchmark?.weightLabel || '134 g')
+    .replace(/[–—]/g, '-')
+    .replace(/\s*\(?forward-biased\)?/i, '')
+    .replace(/\s*\(machine\)/i, '')
+
   return (
     <div className="w-full bg-transparent text-zinc-900 dark:text-zinc-100 font-sans overflow-x-hidden">
       {/* ============================================================ */}
-      {/* ACT 0: WIDESCREEN EXHIBITION SLIDESHOW (7 STUDIO BANNERS)    */}
+      {/* ACT 1: FLAGSHIP SPECIMEN STAGE (PRIMARY ABOVE-THE-FOLD HERO) */}
       {/* ============================================================ */}
-      <HomeSlider />
-
-      {/* ============================================================ */}
-      {/* ACT 1: SPLIT SPECIMEN STAGE (100% ABOVE-THE-FOLD & LIVE TELEMETRY) */}
-      {/* ============================================================ */}
-      <section className="relative border-b border-[#e2dfd8] dark:border-white/[0.08] pt-8 pb-12 sm:pt-12 sm:pb-16 lg:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <section className="relative pt-6 pb-10 sm:pt-10 sm:pb-14 lg:py-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            {/* Left Column: Machine Switcher, Authentic Pricing & Engineering Telemetry */}
+            {/* Left Column: Machine Switcher, Headline, Telemetry & Direct Action */}
             <div className="lg:col-span-6 space-y-5">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#0d5d50]/25 dark:border-[#38e8c6]/25 bg-[#0d5d50]/[0.06] dark:bg-[#38e8c6]/[0.08] text-[11px] font-mono font-semibold text-[#0d5d50] dark:text-[#38e8c6] uppercase tracking-wider">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#0d5d50] dark:bg-[#38e8c6]" />
-                <span>Factory-Direct Rotary Engineering</span>
-              </div>
-
               {/* Flagship Machine Selector Tabs */}
               <div
                 role="tablist"
                 aria-label="Select flagship rotary machine"
-                className="flex flex-wrap items-center gap-1.5 pt-1"
+                className="inline-flex flex-wrap lg:flex-nowrap items-center gap-1 p-1 rounded-xl bg-[#eceae4]/90 dark:bg-[#181b22] border border-[#e2dfd8] dark:border-white/[0.07]"
               >
                 {machineBenchmarks.map((bm, idx) => {
                   const isSelected = idx === activeMachineIndex
@@ -201,10 +227,10 @@ export const HomePage: React.FC = () => {
                       role="tab"
                       aria-selected={isSelected}
                       onClick={() => handleSelectHeroMachine(idx)}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-[transform,background-color,color,border-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] cursor-pointer ${
+                      className={`px-2.5 xl:px-3.5 py-1.5 rounded-lg text-[11px] xl:text-xs font-mono font-semibold whitespace-nowrap transition-[transform,background-color,color,box-shadow] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] cursor-pointer ${
                         isSelected
-                          ? 'bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 border border-zinc-950 dark:border-white shadow-xs'
-                          : 'bg-white/80 dark:bg-[#262933] text-zinc-600 dark:text-zinc-300 border border-[#e2dfd8] dark:border-white/[0.08] hover:border-zinc-400 dark:hover:border-white/20 hover:text-zinc-950 dark:hover:text-white'
+                          ? 'bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 shadow-xs'
+                          : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white'
                       }`}
                     >
                       {shortLabel}
@@ -215,15 +241,11 @@ export const HomePage: React.FC = () => {
 
               {/* Active Machine Headline & Summary */}
               <div className="space-y-2.5">
-                <div className="flex items-center gap-2.5 font-mono text-xs text-zinc-500 dark:text-zinc-400">
-                  <span className="uppercase tracking-wider font-semibold text-[#0d5d50] dark:text-[#38e8c6]">
-                    {activeBenchmark?.roleTag}
-                  </span>
-                  <span>·</span>
-                  <span>{activeBenchmark?.chassisLabel}</span>
+                <div className="text-xs font-mono text-[#0d5d50] dark:text-[#38e8c6] font-semibold">
+                  {activeBenchmark?.roleTag} · {activeBenchmark?.chassisLabel}
                 </div>
 
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-zinc-950 dark:text-white font-['Montserrat',sans-serif] leading-[0.96]">
+                <h1 className="text-4xl sm:text-5xl xl:text-[60px] font-black tracking-tighter text-zinc-950 dark:text-white font-['Montserrat',sans-serif] leading-[0.95]">
                   {activeBenchmark?.handle === 'papa-pen-v3-black-full-set'
                     ? 'PAPA PEN V3'
                     : activeBenchmark?.handle === 'papa-pen-v2-1'
@@ -233,54 +255,54 @@ export const HomePage: React.FC = () => {
                     : 'PAPA PEN CLASSIC'}
                 </h1>
 
-                <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-xl">
-                  {activeBenchmark?.bestFor}. Engineered with a{' '}
-                  <span className="font-medium text-zinc-900 dark:text-white">
+                <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-lg">
+                  {activeBenchmark?.bestFor}. Driven by a{' '}
+                  <span className="font-semibold text-zinc-950 dark:text-white">
                     {activeBenchmark?.motorLabel.toLowerCase()}
                   </span>{' '}
-                  for zero-bogging torque across lining, whip shading, and dense color packing.
+                  for zero-bogging torque across lining and dense color packing.
                 </p>
               </div>
 
               {/* 3-Column Live Engineering Telemetry Strip */}
-              <div className="grid grid-cols-3 gap-3 p-3.5 rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white/85 dark:bg-[#262933]/90 backdrop-blur-md">
+              <div className="grid grid-cols-3 gap-2.5 p-3.5 rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white/85 dark:bg-[#1a1d24]/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-md">
                 <div>
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 dark:text-zinc-500 block">
+                  <span className="text-[10px] font-mono text-zinc-500 dark:text-zinc-400 block">
                     Stroke Cam
                   </span>
-                  <span className="text-xs sm:text-sm font-mono font-bold text-zinc-950 dark:text-white mt-0.5 block">
-                    {activeBenchmark?.strokeLabel}
+                  <span className="text-xs sm:text-sm font-mono font-bold text-zinc-950 dark:text-white mt-0.5 block tabular-nums truncate">
+                    {cleanStrokeLabel}
                   </span>
                 </div>
                 <div className="border-x border-[#eceae4] dark:border-white/[0.08] px-3">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 dark:text-zinc-500 block">
+                  <span className="text-[10px] font-mono text-zinc-500 dark:text-zinc-400 block">
                     Operating Range
                   </span>
-                  <span className="text-xs sm:text-sm font-mono font-bold text-zinc-950 dark:text-white mt-0.5 block">
-                    {activeBenchmark?.voltageLabel}
+                  <span className="text-xs sm:text-sm font-mono font-bold text-zinc-950 dark:text-white mt-0.5 block tabular-nums truncate">
+                    {cleanVoltageLabel}
                   </span>
                 </div>
-                <div>
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 dark:text-zinc-500 block">
+                <div className="pl-1">
+                  <span className="text-[10px] font-mono text-zinc-500 dark:text-zinc-400 block">
                     Balance Mass
                   </span>
-                  <span className="text-xs sm:text-sm font-mono font-bold text-zinc-950 dark:text-white mt-0.5 block">
-                    {activeBenchmark?.weightLabel}
+                  <span className="text-xs sm:text-sm font-mono font-bold text-zinc-950 dark:text-white mt-0.5 block tabular-nums truncate">
+                    {cleanWeightLabel}
                   </span>
                 </div>
               </div>
 
-              {/* Authentic Price & Primary Actions (Always Visible Above the Fold) */}
-              <div className="pt-1 flex flex-wrap items-center gap-3 sm:gap-4">
-                <div className="pr-2">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 dark:text-zinc-500 block">
-                    Factory Direct Price
+              {/* Authentic Price & Primary Actions */}
+              <div className="pt-1 flex flex-wrap sm:flex-nowrap items-center gap-2.5 xl:gap-3.5">
+                <div className="pr-1.5 xl:pr-2.5 shrink-0">
+                  <span className="text-[10px] font-mono text-zinc-500 dark:text-zinc-400 block">
+                    Factory Direct
                   </span>
-                  <div className="flex items-baseline gap-1.5 tabular-nums">
-                    <span className="text-2xl sm:text-3xl font-black font-mono text-zinc-950 dark:text-white tracking-tight">
+                  <div className="flex items-baseline gap-1 tabular-nums">
+                    <span className="text-2xl xl:text-3xl font-black font-mono text-zinc-950 dark:text-white tracking-tight">
                       ${activePrice.toFixed(2)}
                     </span>
-                    <span className="text-xs font-mono text-zinc-500 dark:text-zinc-400">
+                    <span className="text-[11px] font-mono text-zinc-500 dark:text-zinc-400">
                       {activeCurrency}
                     </span>
                   </div>
@@ -289,7 +311,7 @@ export const HomePage: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleBuyActiveMachine}
-                  className={`px-6 py-3.5 rounded-xl font-mono font-bold text-xs uppercase tracking-wider inline-flex items-center gap-2 transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] shadow-sm cursor-pointer ${
+                  className={`px-4 xl:px-6 py-3 rounded-xl font-mono font-bold text-xs uppercase tracking-wider inline-flex items-center gap-2 whitespace-nowrap shrink-0 transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] shadow-sm cursor-pointer ${
                     addedHeroCart
                       ? 'bg-emerald-600 text-white'
                       : 'bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-zinc-200'
@@ -316,9 +338,9 @@ export const HomePage: React.FC = () => {
                       activeBenchmark?.handle ||
                       'papa-pen-v2-1',
                   }}
-                  className="px-5 py-3.5 rounded-xl border border-[#d6d3cb] dark:border-white/15 bg-white/80 dark:bg-[#262933] hover:border-zinc-950 dark:hover:border-white text-xs font-mono font-semibold text-zinc-800 dark:text-zinc-200 hover:text-zinc-950 dark:hover:text-white inline-flex items-center gap-2 transition-[transform,border-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97]"
+                  className="px-3.5 xl:px-5 py-3 rounded-xl border border-[#d6d3cb] dark:border-white/15 bg-white/80 dark:bg-[#22252f] hover:border-zinc-950 dark:hover:border-white text-xs font-mono font-semibold text-zinc-800 dark:text-zinc-200 hover:text-zinc-950 dark:hover:text-white inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 transition-[transform,border-color,color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97]"
                 >
-                  <span>Inspect Specimen</span>
+                  <span>View Specs</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
@@ -326,46 +348,39 @@ export const HomePage: React.FC = () => {
 
             {/* Right Column: High-Contrast Specimen Stage with Optional 3D Toggle */}
             <div className="lg:col-span-6">
-              <div className="relative aspect-[4/3] sm:aspect-[16/11] lg:aspect-square w-full rounded-3xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#1c1e24] p-6 sm:p-10 flex items-center justify-center overflow-hidden shadow-sm">
+              <div className="relative aspect-[4/3] sm:aspect-[16/11] lg:aspect-square w-full rounded-3xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white/85 dark:bg-[#181b22] p-6 sm:p-10 flex items-center justify-center overflow-hidden shadow-[0_24px_60px_-20px_rgba(18,18,16,0.12),inset_0_1px_0_rgba(255,255,255,0.8)] dark:shadow-[0_28px_70px_-20px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.07)]">
                 {/* Subtle Radial Instrument Glow */}
                 <div
                   aria-hidden="true"
-                  className="absolute inset-10 rounded-full bg-[radial-gradient(circle,rgba(56,232,198,0.12)_0%,transparent_70%)] pointer-events-none"
+                  className="absolute inset-8 rounded-full bg-[radial-gradient(circle,rgba(56,232,198,0.14)_0%,transparent_68%)] pointer-events-none"
                 />
-
-                {/* Top Corner Specimen Markers */}
-                <div className="absolute top-4 left-4 z-20 flex items-center gap-2">
-                  <span className="px-2.5 py-1 rounded-md bg-white/90 dark:bg-[#262933]/90 border border-[#e2dfd8] dark:border-white/10 text-[10px] font-mono font-semibold text-zinc-600 dark:text-zinc-300 uppercase tracking-wider">
-                    REF // {(activeProduct?.handle || activeBenchmark?.handle || 'PAPA-PEN').toUpperCase()}
-                  </span>
-                </div>
 
                 {/* On-Demand 2D Studio Photo / 3D Interactive Switcher */}
                 {activeBenchmark?.supports3D && (
-                  <div className="absolute top-4 right-4 z-20 inline-flex items-center p-1 rounded-xl bg-white/90 dark:bg-[#262933]/90 border border-[#e2dfd8] dark:border-white/10 shadow-xs">
+                  <div className="absolute top-5 right-5 z-20 inline-flex items-center p-1 rounded-xl bg-[#f5f4f0]/90 dark:bg-[#22252f]/90 border border-[#e2dfd8] dark:border-white/10 backdrop-blur-md">
                     <button
                       type="button"
                       onClick={() => setStageMode('photo')}
-                      className={`px-2.5 py-1 rounded-lg text-[10px] font-mono font-semibold inline-flex items-center gap-1 transition-colors cursor-pointer ${
+                      className={`px-3 py-1.5 rounded-lg text-[11px] font-mono font-semibold inline-flex items-center gap-1.5 transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] cursor-pointer ${
                         stageMode === 'photo'
                           ? 'bg-zinc-950 text-white dark:bg-white dark:text-zinc-950'
                           : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white'
                       }`}
                     >
-                      <ImageIcon className="w-3 h-3" />
-                      <span>Studio Photo</span>
+                      <ImageIcon className="w-3.5 h-3.5" />
+                      <span>Photo</span>
                     </button>
                     <button
                       type="button"
                       onClick={() => setStageMode('3d')}
-                      className={`px-2.5 py-1 rounded-lg text-[10px] font-mono font-semibold inline-flex items-center gap-1 transition-colors cursor-pointer ${
+                      className={`px-3 py-1.5 rounded-lg text-[11px] font-mono font-semibold inline-flex items-center gap-1.5 transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] cursor-pointer ${
                         stageMode === '3d'
                           ? 'bg-zinc-950 text-white dark:bg-white dark:text-zinc-950'
                           : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white'
                       }`}
                     >
-                      <Box className="w-3 h-3 text-[#0d5d50] dark:text-[#38e8c6]" />
-                      <span>3D View</span>
+                      <Box className="w-3.5 h-3.5 text-[#0d5d50] dark:text-[#38e8c6]" />
+                      <span>3D Model</span>
                     </button>
                   </div>
                 )}
@@ -394,9 +409,9 @@ export const HomePage: React.FC = () => {
                     <img
                       src={heroImageUrl}
                       alt={activeProduct?.title || activeBenchmark?.fallbackName}
-                      className={`max-h-[84%] max-w-[84%] w-auto h-auto object-contain transition-[transform,opacity,filter] duration-200 ease-[var(--ease-out-strong)] group-hover:scale-[1.03] drop-shadow-[0_16px_28px_rgba(18,18,16,0.14)] dark:drop-shadow-[0_20px_36px_rgba(0,0,0,0.55)] ${
+                      className={`max-h-[82%] max-w-[82%] w-auto h-auto object-contain transition-[transform,opacity,filter] duration-200 ease-[var(--ease-out-strong)] group-hover:scale-[1.035] drop-shadow-[0_20px_34px_rgba(18,18,16,0.16)] dark:drop-shadow-[0_24px_44px_rgba(0,0,0,0.65)] ${
                         isBlurTransitioning
-                          ? 'opacity-70 blur-[1.5px] scale-[0.985]'
+                          ? 'opacity-65 blur-[2px] scale-[0.97]'
                           : 'opacity-100 blur-0 scale-100'
                       }`}
                       fetchPriority="high"
@@ -410,8 +425,8 @@ export const HomePage: React.FC = () => {
                   </Link>
                 )}
 
-                {/* Bottom Specimen Caption Bar */}
-                <div className="absolute bottom-4 inset-x-4 z-20 flex items-center justify-between gap-2 px-3.5 py-2 rounded-xl bg-white/85 dark:bg-[#262933]/85 backdrop-blur-md border border-[#e2dfd8] dark:border-white/[0.08] text-[11px] font-mono">
+                {/* Bottom Specimen Bar */}
+                <div className="absolute bottom-5 inset-x-5 z-20 flex items-center justify-between gap-3 px-4 py-2.5 rounded-2xl bg-[#f5f4f0]/90 dark:bg-[#22252f]/90 backdrop-blur-md border border-[#e2dfd8] dark:border-white/[0.08] text-xs font-mono">
                   <span className="text-zinc-600 dark:text-zinc-300 truncate">
                     {activeBenchmark?.motorLabel}
                   </span>
@@ -419,8 +434,8 @@ export const HomePage: React.FC = () => {
                     to="/products"
                     className="text-[#0d5d50] dark:text-[#38e8c6] font-semibold hover:underline shrink-0 inline-flex items-center gap-1"
                   >
-                    <span>All {allModelGroups.length || 28} Models</span>
-                    <ArrowRight className="w-3 h-3" />
+                    <span>Compare {allModelGroups.length || 28} Models</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
               </div>
@@ -430,25 +445,29 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ============================================================ */}
-      {/* ACT 2: INTERACTIVE FLAGSHIP SHOWROOM (CONSOLIDATED SWATCH MODELS) */}
+      {/* ACT 2: WIDESCREEN EXHIBITION RELEASES (7 STUDIO BANNERS)     */}
+      {/* ============================================================ */}
+      <HomeSlider />
+
+      {/* ============================================================ */}
+      {/* ACT 3: INTERACTIVE FLAGSHIP SHOWROOM (SWATCH FAMILIES)       */}
       {/* ============================================================ */}
       {featuredModels.length > 0 && (
-        <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl 2xl:max-w-[1440px] mx-auto border-b border-[#e2dfd8] dark:border-white/[0.08]">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
-            <div>
-              <div className="inline-flex items-center gap-1.5 text-[11px] font-mono font-semibold text-[#0d5d50] dark:text-[#38e8c6] uppercase tracking-wider">
-                <Layers className="w-3.5 h-3.5" />
-                <span>Modular Hardware Families · Live Swatch Selection</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-zinc-950 dark:text-white font-['Montserrat',sans-serif] mt-1">
-                Flagship Studio Systems
+        <section className="py-20 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl 2xl:max-w-[1440px] mx-auto border-b border-[#e2dfd8] dark:border-white/[0.08]">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+            <div className="space-y-2 max-w-xl">
+              <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-zinc-950 dark:text-white font-['Montserrat',sans-serif]">
+                FLAGSHIP STUDIO SYSTEMS
               </h2>
+              <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400">
+                Select anodized finishes and cartridge series directly inside each hardware family.
+              </p>
             </div>
 
-            <div className="flex flex-wrap items-center gap-2.5">
+            <div className="flex flex-wrap items-center gap-2.5 shrink-0">
               <Link
                 to="/products"
-                className="px-4 py-2 rounded-xl bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 text-xs font-mono font-semibold inline-flex items-center gap-1.5 hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97]"
+                className="px-4 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 text-xs font-mono font-semibold inline-flex items-center gap-1.5 whitespace-nowrap hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97]"
               >
                 <span>Open Hardware Lineup</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -456,9 +475,9 @@ export const HomePage: React.FC = () => {
               <Link
                 to="/products"
                 search={{ view: 'sheet' }}
-                className="px-4 py-2 rounded-xl border border-[#d6d3cb] dark:border-white/15 bg-white dark:bg-[#262933] text-xs font-mono font-semibold text-zinc-700 dark:text-zinc-200 hover:border-zinc-950 dark:hover:border-white transition-colors"
+                className="px-4 py-2.5 rounded-xl border border-[#d6d3cb] dark:border-white/15 bg-white dark:bg-[#22252f] text-xs font-mono font-semibold text-zinc-700 dark:text-zinc-200 whitespace-nowrap hover:border-zinc-950 dark:hover:border-white transition-[transform,border-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97]"
               >
-                <span>Quick-Order Spec Sheet ({products.length || 46} SKUs)</span>
+                <span>Quick-Order Sheet ({products.length || 46} SKUs)</span>
               </Link>
             </div>
           </div>
@@ -472,278 +491,424 @@ export const HomePage: React.FC = () => {
       )}
 
       {/* ============================================================ */}
-      {/* ACT 3: PAPA PREMIUM NEEDLE CARTRIDGES (316L METALLURGY) */}
+      {/* ACT 4: 316L NEEDLE ARCHITECTURE (ASYMMETRIC BENTO GRID)      */}
       {/* ============================================================ */}
       <section
         id="showcase-cartridges"
         className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl 2xl:max-w-[1440px] mx-auto border-b border-[#e2dfd8] dark:border-white/[0.08]"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center w-full">
-          <div className="lg:col-span-6 space-y-6">
-            <div className="space-y-2">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-amber-500/25 bg-amber-500/10 text-[10px] font-mono font-bold text-amber-700 dark:text-amber-400 uppercase tracking-widest">
-                <Sparkles className="w-3 h-3" />
-                <span>01 // MICRON NEEDLE METALLURGY</span>
-              </div>
-              <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-zinc-950 dark:text-white font-['Montserrat',sans-serif]">
-                PAPA CARTRIDGES
-              </h2>
-              <p className="text-xs font-mono uppercase tracking-wider text-amber-700 dark:text-amber-400 font-bold">
-                JAPANESE 316L SURGICAL STEEL PINS · MEMBRANE SEALED
-              </p>
-            </div>
-
-            <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed">
-              Engineered on automated precision fixtures to eliminate needle deflection. Flexible silicone safety membrane eliminates ink backflow into machine motors. 62 configurations across Round Liner, Shader, Magnum, and Curved Magnum.
-            </p>
-
-            <div className="grid grid-cols-3 gap-4 py-4 border-y border-[#e2dfd8] dark:border-white/[0.08] text-center font-mono">
-              <div className="space-y-0.5">
-                <div className="text-base sm:text-lg font-black text-zinc-950 dark:text-white">62 Sizes</div>
-                <div className="text-[10px] text-zinc-500 dark:text-zinc-400 uppercase">RL · RS · M1 · M1C</div>
-              </div>
-              <div className="space-y-0.5 border-x border-[#e2dfd8] dark:border-white/[0.08]">
-                <div className="text-base sm:text-lg font-black text-zinc-950 dark:text-white">316L</div>
-                <div className="text-[10px] text-zinc-500 dark:text-zinc-400 uppercase">Surgical Steel</div>
-              </div>
-              <div className="space-y-0.5">
-                <div className="text-base sm:text-lg font-black text-zinc-950 dark:text-white">Box of 20</div>
-                <div className="text-[10px] text-zinc-500 dark:text-zinc-400 uppercase">Sterile Blister</div>
-              </div>
-            </div>
-
-            <div className="pt-2 flex flex-wrap items-center gap-4">
-              <Link
-                to="/products/$handle"
-                params={{ handle: 'papa-premium-tattoo-cartridges' }}
-                className="px-7 py-3.5 rounded-xl bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-mono font-bold text-xs uppercase tracking-wider inline-flex items-center gap-2 hover:bg-zinc-800 dark:hover:bg-zinc-200 active:scale-[0.97] transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] shadow-sm"
-              >
-                <span>Configure 62 Needle Sizes</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <span className="text-xs font-mono font-bold text-zinc-500 dark:text-zinc-400 tabular-nums">
-                STANDARD $22.00 · PREMIUM $25.00 USD
-              </span>
-            </div>
+        <div className="max-w-2xl mb-10 space-y-2.5">
+          <div className="text-xs font-mono font-semibold uppercase tracking-wider text-amber-700 dark:text-amber-400">
+            Japanese 316L Surgical Metallurgy
           </div>
-
-          <div className="lg:col-span-6 flex items-center justify-center">
-            <ParallaxApparatusStage
-              imageSrc="/product-images/papa-premium-tattoo-cartridges-round-cutout.webp"
-              alt="Papa Premium Needle Cartridge"
-              accentColor="amber"
-              baseRotation={-8}
-              priorityTag="316L SURGICAL PIN MATRIX"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/* ACT 4: PAPA VOLT WIRELESS POWER DOCK */}
-      {/* ============================================================ */}
-      <section className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl 2xl:max-w-[1440px] mx-auto border-b border-[#e2dfd8] dark:border-white/[0.08]">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center w-full">
-          <div className="lg:col-span-6 order-2 lg:order-1 flex items-center justify-center">
-            <ParallaxApparatusStage
-              imageSrc="/product-images/img_041_papa_volt_large_cutout.webp"
-              alt="Papa Volt Wireless Battery Dock"
-              accentColor="cyan"
-              baseRotation={6}
-              priorityTag="CORD-FREE 5-12V CLEAN POWER"
-            />
-          </div>
-
-          <div className="lg:col-span-6 order-1 lg:order-2 space-y-6">
-            <div className="space-y-2">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#0d5d50]/20 dark:border-[#38e8c6]/20 bg-[#38e8c6]/10 text-[10px] font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6] uppercase tracking-widest">
-                <Zap className="w-3 h-3" />
-                <span>02 // CORD-FREE CONTINUOUS REVOLUTION</span>
-              </div>
-              <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-zinc-950 dark:text-white font-['Montserrat',sans-serif]">
-                PAPA VOLT POWER
-              </h2>
-              <p className="text-xs font-mono uppercase tracking-wider text-[#0d5d50] dark:text-[#38e8c6] font-bold">
-                UNINTERRUPTED 5–12V CLEAN CURRENT DRIVE
-              </p>
-            </div>
-
-            <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed">
-              Ultra-compact, lightweight lithium battery dock engineered with universal RCA fitment. Delivers up to 8 continuous hours of regulated, low-ripple voltage without tethering cables.
-            </p>
-
-            <div className="grid grid-cols-3 gap-4 py-4 border-y border-[#e2dfd8] dark:border-white/[0.08] text-center font-mono">
-              <div className="space-y-0.5">
-                <div className="text-base sm:text-lg font-black text-zinc-950 dark:text-white">2,000 mAh</div>
-                <div className="text-[10px] text-zinc-500 dark:text-zinc-400 uppercase">Lithium Cell</div>
-              </div>
-              <div className="space-y-0.5 border-x border-[#e2dfd8] dark:border-white/[0.08]">
-                <div className="text-base sm:text-lg font-black text-zinc-950 dark:text-white">5V – 12V</div>
-                <div className="text-[10px] text-zinc-500 dark:text-zinc-400 uppercase">Regulated Output</div>
-              </div>
-              <div className="space-y-0.5">
-                <div className="text-base sm:text-lg font-black text-zinc-950 dark:text-white">USB-C</div>
-                <div className="text-[10px] text-zinc-500 dark:text-zinc-400 uppercase">Fast Charge</div>
-              </div>
-            </div>
-
-            <div className="pt-2 flex flex-wrap items-center gap-4">
-              <Link
-                to="/products/$handle"
-                params={{ handle: 'papa-volt-battery' }}
-                className="px-7 py-3.5 rounded-xl bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-mono font-bold text-xs uppercase tracking-wider inline-flex items-center gap-2 hover:bg-zinc-800 dark:hover:bg-zinc-200 active:scale-[0.97] transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] shadow-sm"
-              >
-                <span>Inspect Papa Volt Battery</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                to="/products"
-                search={{ category: 'power' }}
-                className="text-xs font-mono font-semibold text-[#0d5d50] dark:text-[#38e8c6] hover:underline"
-              >
-                View All Power &amp; Cords →
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/* ACT 5: CNC ADJUSTABLE GRIPS */}
-      {/* ============================================================ */}
-      <section className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl 2xl:max-w-[1440px] mx-auto border-b border-[#e2dfd8] dark:border-white/[0.08]">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center w-full">
-          <div className="lg:col-span-6 space-y-6">
-            <div className="space-y-2">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#e2dfd8] dark:border-white/10 bg-white dark:bg-white/[0.04] text-[10px] font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6] uppercase tracking-widest">
-                <Box className="w-3 h-3" />
-                <span>03 // CNC 6061 AIRCRAFT INTERFACE</span>
-              </div>
-              <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-zinc-950 dark:text-white font-['Montserrat',sans-serif]">
-                ADJUSTABLE GRIPS
-              </h2>
-              <p className="text-xs font-mono uppercase tracking-wider text-zinc-500 dark:text-zinc-400 font-bold">
-                MILLIMETER CLICK-STOP PROJECTION LOCKING · 8 ANODIZED FINISHES
-              </p>
-            </div>
-
-            <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed">
-              Machined from solid aerospace 6061-T6 aluminum billet and surgical 316L stainless steel with non-slip knurled geometry. Ergonomically shifts machine weight forward to eliminate wrist strain during multi-hour marathon sessions.
-            </p>
-
-            <div className="grid grid-cols-3 gap-4 py-4 border-y border-[#e2dfd8] dark:border-white/[0.08] text-center font-mono">
-              <div className="space-y-0.5">
-                <div className="text-base sm:text-lg font-black text-zinc-950 dark:text-white">6061-T6</div>
-                <div className="text-[10px] text-zinc-500 dark:text-zinc-400 uppercase">Anodized Billet</div>
-              </div>
-              <div className="space-y-0.5 border-x border-[#e2dfd8] dark:border-white/[0.08]">
-                <div className="text-base sm:text-lg font-black text-zinc-950 dark:text-white">Click-Stop</div>
-                <div className="text-[10px] text-zinc-500 dark:text-zinc-400 uppercase">Needle Dial</div>
-              </div>
-              <div className="space-y-0.5">
-                <div className="text-base sm:text-lg font-black text-zinc-950 dark:text-white">134 °C</div>
-                <div className="text-[10px] text-zinc-500 dark:text-zinc-400 uppercase">Autoclavable</div>
-              </div>
-            </div>
-
-            <div className="pt-2 flex flex-wrap items-center gap-4">
-              <Link
-                to="/products"
-                search={{ category: 'grips' }}
-                className="px-7 py-3.5 rounded-xl bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-mono font-bold text-xs uppercase tracking-wider inline-flex items-center gap-2 hover:bg-zinc-800 dark:hover:bg-zinc-200 active:scale-[0.97] transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] shadow-sm"
-              >
-                <span>Explore 8 Grip Models</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <span className="text-xs font-mono font-bold text-zinc-500 dark:text-zinc-400 tabular-nums">
-                FROM $79.95 USD
-              </span>
-            </div>
-          </div>
-
-          <div className="lg:col-span-6 flex items-center justify-center">
-            <ParallaxApparatusStage
-              imageSrc="/product-images/img_111_papa_adjustment_grips_1__cutout.webp"
-              alt="Papa CNC Adjustable Grip"
-              accentColor="emerald"
-              baseRotation={-6}
-              priorityTag="6061-T6 AIRCRAFT ALLOY"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/* ACT 6: GLOBAL STUDIO STANDARDS & PRO TEAM ROSTER */}
-      {/* ============================================================ */}
-      <section className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl 2xl:max-w-[1440px] mx-auto">
-        <div className="text-center max-w-3xl mx-auto mb-14 space-y-3">
-          <div className="text-[10px] font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6] uppercase tracking-widest">
-            + GLOBAL DISPATCH &amp; QUALITY ASSURANCE
-          </div>
-          <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-zinc-950 dark:text-white font-['Montserrat',sans-serif]">
-            STUDIO &amp; WHOLESALE NETWORK
+          <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-zinc-950 dark:text-white font-['Montserrat',sans-serif]">
+            PAPA NEEDLE CARTRIDGES
           </h2>
-          <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed">
-            Direct central manufacturing distribution to verified tattoo studios, resident artists, and supply retailers worldwide.
+          <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            Automated micro-fixture soldering eliminates needle deflection. Internal silicone membrane prevents pigment backflow into rotary motors.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#262933] p-7 space-y-3.5">
-            <Truck className="w-6 h-6 text-[#0d5d50] dark:text-[#38e8c6]" />
-            <h3 className="text-base font-bold uppercase text-zinc-950 dark:text-white font-sans">
-              40+ COUNTRIES DISPATCH
-            </h3>
-            <p className="text-xs text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed">
-              Express international air logistics with dedicated customs clearance for tattoo studios across the US, EU, UK, Canada, and Australia.
-            </p>
-            <div className="pt-1">
+        {/* 3-Cell Asymmetric Bento Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+          {/* Cell 1 (7 Cols): Tinted Architectural Specimen Showcase */}
+          <div className="lg:col-span-7 relative rounded-3xl bg-[#efeae0]/85 dark:bg-[#14161d] text-zinc-950 dark:text-white border border-amber-500/25 dark:border-white/[0.08] p-7 sm:p-10 flex flex-col justify-between overflow-hidden shadow-[0_20px_50px_-20px_rgba(18,18,16,0.08),inset_0_1px_0_rgba(255,255,255,0.7)] dark:shadow-[0_24px_60px_-20px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.08)]">
+            <div
+              aria-hidden="true"
+              className="absolute -right-16 -top-16 w-96 h-96 rounded-full bg-[radial-gradient(circle,rgba(230,179,102,0.22)_0%,transparent_70%)] pointer-events-none"
+            />
+
+            <div className="relative z-10 flex flex-wrap items-center justify-between gap-4">
+              <div className="space-y-1">
+                <span className="text-xs font-mono text-amber-700 dark:text-amber-400 font-semibold">
+                  62 Configurations · Sterile Blister Box of 20
+                </span>
+                <h3 className="text-2xl sm:text-3xl font-black tracking-tight font-['Montserrat',sans-serif]">
+                  MEMBRANE SEALED PRECISION
+                </h3>
+              </div>
+
+              <div className="text-right font-mono">
+                <span className="text-[11px] text-zinc-500 dark:text-zinc-400 block">Box of 20</span>
+                <span className="text-xl sm:text-2xl font-black text-amber-700 dark:text-amber-400 tabular-nums">
+                  $22.00 - $25.00
+                </span>
+              </div>
+            </div>
+
+            <div className="relative z-10 my-6 flex items-center justify-center min-h-[240px] sm:min-h-[280px]">
+              <img
+                src="/product-images/papa-premium-tattoo-cartridges-round-cutout.webp"
+                alt="Papa Premium 316L Needle Cartridges"
+                loading="lazy"
+                className="max-h-[250px] sm:max-h-[290px] w-auto object-contain drop-shadow-[0_20px_36px_rgba(18,18,16,0.18)] dark:drop-shadow-[0_28px_50px_rgba(0,0,0,0.75)] transition-transform duration-300 ease-[var(--ease-out-strong)] hover:scale-[1.03]"
+              />
+            </div>
+
+            <div className="relative z-10 flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-amber-900/10 dark:border-white/[0.08]">
+              <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-zinc-600 dark:text-zinc-300">
+                <span>100% EO Gas Sterilized</span>
+                <span className="text-zinc-400 dark:text-white/25">|</span>
+                <span>Medical Polycarbonate Housing</span>
+              </div>
+
               <Link
-                to="/distributors"
-                className="text-xs font-mono font-bold uppercase text-[#0d5d50] dark:text-[#38e8c6] hover:underline inline-flex items-center gap-1"
+                to="/products/$handle"
+                params={{ handle: 'papa-premium-tattoo-cartridges' }}
+                className="px-6 py-3 rounded-xl bg-zinc-950 text-white dark:bg-amber-400 dark:text-zinc-950 font-mono font-bold text-xs uppercase tracking-wider inline-flex items-center gap-2 hover:bg-zinc-800 dark:hover:bg-amber-300 transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97]"
               >
-                <span>Authorized Distributors</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <span>Configure 62 Sizes</span>
+                <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
 
-          <div className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#262933] p-7 space-y-3.5">
-            <FileCheck2 className="w-6 h-6 text-amber-500" />
-            <h3 className="text-base font-bold uppercase text-zinc-950 dark:text-white font-sans">
-              STERILE BATCH AUDIT
-            </h3>
-            <p className="text-xs text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed">
-              Manufactured in Class 100,000 cleanrooms. 100% individual EO Gas blister packed with verifiable batch indicators.
-            </p>
-            <div className="pt-1">
-              <Link
-                to="/about"
-                className="text-xs font-mono font-bold uppercase text-[#0d5d50] dark:text-[#38e8c6] hover:underline inline-flex items-center gap-1"
-              >
-                <span>Engineering Standards</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
+          {/* Right Column (5 Cols): 2 Stacked Engineering Bento Cells */}
+          <div className="lg:col-span-5 flex flex-col gap-6">
+            {/* Cell 2: 4 Needle Taper Configurations */}
+            <div className="flex-1 rounded-3xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#1a1d24] p-6 sm:p-7 flex flex-col justify-between shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
+              <div className="flex items-center justify-between gap-2 mb-4">
+                <h3 className="text-base font-bold text-zinc-950 dark:text-white tracking-tight">
+                  Four Needle Geometries
+                </h3>
+                <span className="text-xs font-mono text-zinc-500 dark:text-zinc-400">
+                  0.25 mm - 0.35 mm Gauges
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {NEEDLE_CONFIG_FAMILIES.map(item => (
+                  <Link
+                    key={item.code}
+                    to="/products/$handle"
+                    params={{ handle: 'papa-premium-tattoo-cartridges' }}
+                    className="group p-3.5 rounded-2xl border border-[#eceae4] dark:border-white/[0.06] bg-[#f8f7f4] dark:bg-[#22252f]/70 hover:border-amber-500/50 transition-[transform,border-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.98]"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-mono font-black text-amber-700 dark:text-amber-400">
+                        {item.code}
+                      </span>
+                      <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400 group-hover:text-zinc-950 dark:group-hover:text-white transition-colors" />
+                    </div>
+                    <div className="text-xs font-bold text-zinc-950 dark:text-white mt-1">
+                      {item.name}
+                    </div>
+                    <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-0.5 leading-snug">
+                      {item.spec}
+                    </p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Cell 3: Standard vs Premium Comparison Tile */}
+            <div className="rounded-3xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#eceae4]/75 dark:bg-[#1e212a] p-6 sm:p-7 flex items-center justify-between gap-5">
+              <div className="space-y-2">
+                <span className="text-xs font-mono font-semibold text-[#0d5d50] dark:text-[#38e8c6]">
+                  High-Volume Studio Pack
+                </span>
+                <h3 className="text-lg font-black text-zinc-950 dark:text-white font-['Montserrat',sans-serif]">
+                  STANDARD SERIES CARTRIDGES
+                </h3>
+                <p className="text-xs text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-xs">
+                  Universal twist-fit housing for daily workhorse lining and shading at $22.00 per box.
+                </p>
+                <div className="pt-1">
+                  <Link
+                    to="/products/$handle"
+                    params={{ handle: 'papa-standard-tattoo-cartridges' }}
+                    className="text-xs font-mono font-bold text-zinc-950 dark:text-white hover:text-[#0d5d50] dark:hover:text-[#38e8c6] inline-flex items-center gap-1.5 transition-colors"
+                  >
+                    <span>Shop Standard Series</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </div>
+
+              <img
+                src="/product-images/img_001_papa-cartridges-needles-magnum_cutout.webp"
+                alt="Papa Standard Needle Cartridge"
+                loading="lazy"
+                className="w-24 sm:w-28 h-24 sm:h-28 object-contain shrink-0 drop-shadow-md"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* ACT 5: CORDLESS POWER & CNC GRIPS (DUAL MONOLITH SHOWCASE)   */}
+      {/* ============================================================ */}
+      <section className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl 2xl:max-w-[1440px] mx-auto border-b border-[#e2dfd8] dark:border-white/[0.08]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
+          {/* Monolith 1: Papa Volt Wireless Power */}
+          <div className="rounded-3xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white/80 dark:bg-[#181b22] p-7 sm:p-10 flex flex-col justify-between shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
+            <div className="space-y-3">
+              <div className="text-xs font-mono font-semibold text-[#0d5d50] dark:text-[#38e8c6]">
+                5V - 12V Regulated Output · Universal RCA Fitment
+              </div>
+              <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-zinc-950 dark:text-white font-['Montserrat',sans-serif]">
+                PAPA VOLT WIRELESS POWER
+              </h2>
+              <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                Ultra-compact 2,000 mAh lithium dock delivering up to 8 hours of low-ripple voltage without tethering cords.
+              </p>
+            </div>
+
+            <div className="my-4 flex items-center justify-center">
+              <ParallaxApparatusStage
+                imageSrc="/product-images/img_041_papa_volt_large_cutout.webp"
+                alt="Papa Volt Wireless Battery Dock"
+                accentColor="cyan"
+                baseRotation={5}
+                className="max-w-[360px] sm:max-w-[400px]"
+              />
+            </div>
+
+            <div className="space-y-5">
+              <div className="grid grid-cols-3 gap-3 p-3.5 rounded-2xl bg-[#f5f4f0] dark:bg-[#22252f] text-center font-mono">
+                <div>
+                  <span className="text-sm font-black text-zinc-950 dark:text-white block">
+                    2,000 mAh
+                  </span>
+                  <span className="text-[10px] text-zinc-500 dark:text-zinc-400">
+                    Lithium Cell
+                  </span>
+                </div>
+                <div className="border-x border-[#e2dfd8] dark:border-white/[0.08]">
+                  <span className="text-sm font-black text-zinc-950 dark:text-white block">
+                    5V - 12V
+                  </span>
+                  <span className="text-[10px] text-zinc-500 dark:text-zinc-400">
+                    Clean Drive
+                  </span>
+                </div>
+                <div>
+                  <span className="text-sm font-black text-zinc-950 dark:text-white block">
+                    USB-C
+                  </span>
+                  <span className="text-[10px] text-zinc-500 dark:text-zinc-400">
+                    Fast Charge
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <Link
+                  to="/products/$handle"
+                  params={{ handle: 'papa-volt-battery' }}
+                  className="px-6 py-3 rounded-xl bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-mono font-bold text-xs uppercase tracking-wider inline-flex items-center gap-2 hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97]"
+                >
+                  <span>Explore Papa Volt</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  to="/products"
+                  search={{ category: 'power' }}
+                  className="text-xs font-mono font-semibold text-[#0d5d50] dark:text-[#38e8c6] hover:underline"
+                >
+                  All Power Units →
+                </Link>
+              </div>
             </div>
           </div>
 
-          <div className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#262933] p-7 space-y-3.5">
-            <Award className="w-6 h-6 text-[#0d5d50] dark:text-[#38e8c6]" />
-            <h3 className="text-base font-bold uppercase text-zinc-950 dark:text-white font-sans">
-              PRO TEAM ROSTER
-            </h3>
-            <p className="text-xs text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed">
-              Sponsored international resident artists creating world-class black &amp; grey, realism, and traditional work on Papa apparatus.
-            </p>
-            <div className="pt-1">
+          {/* Monolith 2: CNC Adjustable Click Grips */}
+          <div className="rounded-3xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white/80 dark:bg-[#181b22] p-7 sm:p-10 flex flex-col justify-between shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
+            <div className="space-y-3">
+              <div className="text-xs font-mono font-semibold text-[#0d5d50] dark:text-[#38e8c6]">
+                Aerospace 6061-T6 Billet · 316L Stainless Backstem
+              </div>
+              <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-zinc-950 dark:text-white font-['Montserrat',sans-serif]">
+                CNC CLICK GRIPS
+              </h2>
+              <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                Ratcheted millimeter click-stop needle depth locking shifts balance forward to reduce wrist fatigue.
+              </p>
+            </div>
+
+            <div className="my-4 flex items-center justify-center">
+              <ParallaxApparatusStage
+                imageSrc="/product-images/img_111_papa_adjustment_grips_1__cutout.webp"
+                alt="Papa CNC Adjustable Click Grip"
+                accentColor="emerald"
+                baseRotation={-5}
+                className="max-w-[360px] sm:max-w-[400px]"
+              />
+            </div>
+
+            <div className="space-y-5">
+              <div className="grid grid-cols-3 gap-3 p-3.5 rounded-2xl bg-[#f5f4f0] dark:bg-[#22252f] text-center font-mono">
+                <div>
+                  <span className="text-sm font-black text-zinc-950 dark:text-white block">
+                    6061-T6
+                  </span>
+                  <span className="text-[10px] text-zinc-500 dark:text-zinc-400">
+                    Anodized Alloy
+                  </span>
+                </div>
+                <div className="border-x border-[#e2dfd8] dark:border-white/[0.08]">
+                  <span className="text-sm font-black text-zinc-950 dark:text-white block">
+                    Click-Stop
+                  </span>
+                  <span className="text-[10px] text-zinc-500 dark:text-zinc-400">
+                    Depth Lock
+                  </span>
+                </div>
+                <div>
+                  <span className="text-sm font-black text-zinc-950 dark:text-white block">
+                    134 °C
+                  </span>
+                  <span className="text-[10px] text-zinc-500 dark:text-zinc-400">
+                    Autoclavable
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <Link
+                  to="/products"
+                  search={{ category: 'grips' }}
+                  className="px-6 py-3 rounded-xl bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-mono font-bold text-xs uppercase tracking-wider inline-flex items-center gap-2 hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97]"
+                >
+                  <span>Explore 8 Grip Models</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <span className="text-xs font-mono font-bold text-zinc-500 dark:text-zinc-400 tabular-nums">
+                  From $79.95 USD
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* ACT 6: SPONSORED PRO TEAM & GLOBAL STUDIO LEDGER (7:5 SPLIT) */}
+      {/* ============================================================ */}
+      <section className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl 2xl:max-w-[1440px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+          {/* Left 7 Columns: Authentic Pro Team Artist Portrait Wall */}
+          <div className="lg:col-span-7 space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+              <div className="space-y-1.5">
+                <div className="text-xs font-mono font-semibold uppercase tracking-wider text-[#0d5d50] dark:text-[#38e8c6]">
+                  Official Pro Team Roster
+                </div>
+                <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-zinc-950 dark:text-white font-['Montserrat',sans-serif]">
+                  TRUSTED BY 40+ RESIDENT ARTISTS
+                </h2>
+              </div>
+
               <Link
                 to="/sponsorship-artists"
-                className="text-xs font-mono font-bold uppercase text-[#0d5d50] dark:text-[#38e8c6] hover:underline inline-flex items-center gap-1"
+                className="text-xs font-mono font-bold text-zinc-950 dark:text-white hover:text-[#0d5d50] dark:hover:text-[#38e8c6] inline-flex items-center gap-1.5 shrink-0 transition-colors"
               >
-                <span>Meet 40 Sponsored Artists</span>
+                <span>Full Artist Directory</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              {FEATURED_ARTISTS.map(artist => (
+                <Link
+                  key={artist.id}
+                  to="/sponsorship-artists"
+                  className="group relative aspect-[4/5] rounded-2xl overflow-hidden border border-[#e2dfd8] dark:border-white/[0.08] bg-zinc-900"
+                >
+                  <img
+                    src={artist.image}
+                    alt={artist.name}
+                    loading="lazy"
+                    className="w-full h-full object-cover object-center transition-transform duration-300 ease-[var(--ease-out-strong)] group-hover:scale-[1.05]"
+                  />
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"
+                  />
+                  <div className="absolute bottom-3 inset-x-3 text-left">
+                    <div className="text-xs font-bold text-white truncate">
+                      {artist.name}
+                    </div>
+                    <div className="text-[10px] font-mono text-zinc-300 truncate">
+                      {artist.handle}
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Right 5 Columns: Architectural Studio & Wholesale Ledger */}
+          <div className="lg:col-span-5 rounded-3xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#181b22] p-7 sm:p-9 divide-y divide-[#eceae4] dark:divide-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
+            <div className="pb-6 space-y-2.5">
+              <div className="flex items-center justify-between">
+                <h3 className="text-base font-bold text-zinc-950 dark:text-white tracking-tight">
+                  40+ Countries Express Dispatch
+                </h3>
+                <Truck className="w-5 h-5 text-[#0d5d50] dark:text-[#38e8c6] shrink-0" />
+              </div>
+              <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                Priority air logistics and verified regional distributors serving tattoo studios across North America, Europe, UK, and Australia.
+              </p>
+              <div className="pt-1">
+                <Link
+                  to="/distributors"
+                  className="text-xs font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6] hover:underline inline-flex items-center gap-1"
+                >
+                  <span>Authorized Distributors</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+
+            <div className="py-6 space-y-2.5">
+              <div className="flex items-center justify-between">
+                <h3 className="text-base font-bold text-zinc-950 dark:text-white tracking-tight">
+                  Class 100,000 Cleanroom Sterility
+                </h3>
+                <FileCheck2 className="w-5 h-5 text-amber-500 shrink-0" />
+              </div>
+              <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                Every cartridge needle and disposable grip is individually blister-sealed and certified with EO Gas batch indicators.
+              </p>
+              <div className="pt-1">
+                <Link
+                  to="/about"
+                  className="text-xs font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6] hover:underline inline-flex items-center gap-1"
+                >
+                  <span>Engineering Standards</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+
+            <div className="pt-6 space-y-2.5">
+              <div className="flex items-center justify-between">
+                <h3 className="text-base font-bold text-zinc-950 dark:text-white tracking-tight">
+                  Direct Factory Warranty &amp; Wholesale
+                </h3>
+                <ShieldCheck className="w-5 h-5 text-[#0d5d50] dark:text-[#38e8c6] shrink-0" />
+              </div>
+              <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                Dedicated studio volume pricing, custom anodized batch runs, and in-house rotary motor servicing.
+              </p>
+              <div className="pt-1 flex flex-wrap items-center gap-4">
+                <Link
+                  to="/contact"
+                  className="text-xs font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6] hover:underline inline-flex items-center gap-1"
+                >
+                  <span>Direct Factory Inquiry</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+                <Link
+                  to="/sponsorship-artists"
+                  className="text-xs font-mono font-semibold text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white inline-flex items-center gap-1 transition-colors"
+                >
+                  <Award className="w-3.5 h-3.5" />
+                  <span>Apply for Sponsorship</span>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

@@ -117,19 +117,16 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
   }
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-[#e2dfd8] dark:border-white/[0.08] bg-[#f5f4f0]/90 dark:bg-[#1c1e24]/85 backdrop-blur-xl transition-colors duration-300">
-      {/* Top Announcement Bar - Concrete & Raw Paper Accent */}
-      <div className="hidden sm:flex items-center justify-center px-6 py-1.5 bg-[#eceae4] dark:bg-[#15171d] border-b border-[#e2dfd8] dark:border-white/[0.05] text-[11px] font-mono text-[#6b6860] dark:text-zinc-400">
-        <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#0d5d50] dark:bg-[#2ee6ca]" />
-          <span>For Professionals Only!</span>
-        </div>
+    <header className="sticky top-0 z-40 w-full border-b border-[#e2dfd8] dark:border-white/[0.08] bg-[#f5f4f0]/90 dark:bg-[#16181f]/90 backdrop-blur-xl transition-colors duration-300">
+      {/* Top Announcement Bar */}
+      <div className="hidden sm:flex items-center justify-center px-6 py-1.5 bg-[#eceae4]/85 dark:bg-[#111318] border-b border-[#e2dfd8] dark:border-white/[0.05] text-[11px] font-mono text-[#6b6860] dark:text-zinc-400">
+        <span>For Professional Studios &amp; Licensed Tattoo Artists</span>
       </div>
 
       <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 h-16 lg:h-18 flex items-center justify-between gap-4 xl:gap-8">
         {/* Logo & Desktop Nav Menu */}
         <div className="flex items-center gap-4 xl:gap-8 shrink-0">
-          <Link to="/" className="cursor-pointer flex items-center" aria-label="Papa Tattoo Supply Home">
+          <Link to="/" className="cursor-pointer flex items-center transition-transform duration-150 ease-[var(--ease-out-strong)] active:scale-[0.98]" aria-label="Papa Tattoo Supply Home">
             <Logo size="md" showText={false} />
           </Link>
 
@@ -152,21 +149,21 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
               setIsMobileSearchOpen(!isMobileSearchOpen)
               setMobileMenuOpen(false)
             }}
-            className="lg:hidden p-2 text-zinc-600 dark:text-white/80 hover:text-zinc-950 dark:hover:text-[#2ee6ca] transition-colors cursor-pointer"
+            className="lg:hidden p-2 text-zinc-600 dark:text-white/80 hover:text-zinc-950 dark:hover:text-[#38e8c6] transition-[transform,color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.95] cursor-pointer"
             aria-label="Search"
             title="Search Entire Store"
           >
             <Search className="w-5 h-5" />
           </button>
 
-          {/* 1. Language Selector (Pure Icon, No Border/Background, Enlarged) */}
+          {/* 1. Language Selector */}
           <div ref={langRef} className="relative">
             <button
               onClick={() => {
                 setIsLangOpen(!isLangOpen)
                 setIsAccountOpen(false)
               }}
-              className="p-2 text-zinc-600 dark:text-white/80 hover:text-zinc-950 dark:hover:text-[#2ee6ca] transition-colors cursor-pointer"
+              className="p-2 text-zinc-600 dark:text-white/80 hover:text-zinc-950 dark:hover:text-[#38e8c6] transition-[transform,color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.95] cursor-pointer"
               title={`Language: ${locale}`}
               aria-label="Change Language"
             >
@@ -174,7 +171,7 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
             </button>
 
             {isLangOpen && (
-              <div className="absolute right-0 mt-2 w-40 rounded-xl shadow-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#16181e] p-1.5 z-50 animate-in fade-in slide-in-from-top-1">
+              <div className="origin-top-right absolute right-0 mt-2 w-44 rounded-2xl shadow-[0_20px_50px_-12px_rgba(18,18,16,0.18)] dark:shadow-[0_24px_60px_-12px_rgba(0,0,0,0.75)] border border-[#e2dfd8] dark:border-white/[0.09] bg-white dark:bg-[#181b22] p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150 ease-[var(--ease-out-strong)]">
                 {languages.map(lang => (
                   <button
                     key={lang.code}
@@ -182,35 +179,35 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
                       setLocale(lang.code)
                       setIsLangOpen(false)
                     }}
-                    className={`w-full flex items-center justify-between px-3 py-2 text-xs rounded-md text-left transition-colors font-mono ${
+                    className={`w-full flex items-center justify-between px-3 py-2 text-xs rounded-xl text-left transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.98] font-mono ${
                       locale === lang.code
-                        ? 'bg-zinc-100 dark:bg-white/[0.1] text-zinc-950 dark:text-[#2ee6ca] font-bold'
-                        : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-white/[0.05]'
+                        ? 'bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-bold'
+                        : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-white/[0.06]'
                     }`}
                   >
                     <span>{lang.label}</span>
-                    <span>{lang.flag}</span>
+                    <span className="text-[11px] opacity-80">{lang.code}</span>
                   </button>
                 ))}
               </div>
             )}
           </div>
 
-          {/* 2. Theme Toggle Button (Pure Icon, No Border/Background, Enlarged) */}
+          {/* 2. Theme Toggle Button */}
           <button
             onClick={toggleTheme}
-            className="p-2 text-zinc-600 dark:text-white/80 hover:text-zinc-950 dark:hover:text-amber-400 transition-colors cursor-pointer"
+            className="p-2 text-zinc-600 dark:text-white/80 hover:text-zinc-950 dark:hover:text-amber-400 transition-[transform,color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.95] cursor-pointer"
             aria-label="Toggle Theme"
             title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
           >
             {theme === 'dark' ? (
-              <Sun className="w-5.5 h-5.5 sm:w-6 sm:h-6 text-amber-400 hover:rotate-45 transition-transform" />
+              <Sun className="w-5.5 h-5.5 sm:w-6 sm:h-6 text-amber-400 transition-transform duration-200 ease-[var(--ease-out-strong)] hover:rotate-45" />
             ) : (
-              <Moon className="w-5.5 h-5.5 sm:w-6 sm:h-6 text-zinc-700 hover:-rotate-12 transition-transform" />
+              <Moon className="w-5.5 h-5.5 sm:w-6 sm:h-6 text-zinc-700 transition-transform duration-200 ease-[var(--ease-out-strong)] hover:-rotate-12" />
             )}
           </button>
 
-          {/* 3. Customer Account Menu (Pure Icon, No Border/Background, Enlarged) */}
+          {/* 3. Customer Account Menu */}
           <div ref={accountRef} className="relative">
             <button
               onClick={() => {
@@ -224,27 +221,27 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
                   setIsLangOpen(false)
                 }
               }}
-              className="relative p-2 text-zinc-600 dark:text-white/80 hover:text-zinc-950 dark:hover:text-[#2ee6ca] transition-colors cursor-pointer"
+              className="relative p-2 text-zinc-600 dark:text-white/80 hover:text-zinc-950 dark:hover:text-[#38e8c6] transition-[transform,color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.95] cursor-pointer"
               aria-label="Customer Account"
               title={customer ? `Buyer: ${customer.firstName || customer.email}` : 'Buyer Sign In / Create Account'}
             >
               <User className="w-5.5 h-5.5 sm:w-6 sm:h-6" />
               {customer && (
-                <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#2ee6ca] ring-2 ring-white dark:ring-[#16181e]" />
+                <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#38e8c6] ring-2 ring-[#f5f4f0] dark:ring-[#16181f]" />
               )}
             </button>
 
             {/* Account Menu - Only shown when already logged in */}
             {isAccountOpen && customer && (
-              <div className="absolute right-0 mt-2 w-64 rounded-2xl shadow-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#16181e] p-3 z-50 animate-in fade-in slide-in-from-top-1 text-xs font-mono">
-                <div className="p-3 rounded-xl bg-zinc-50 dark:bg-[#14171E] border border-zinc-100 dark:border-zinc-800/70 mb-2">
-                  <div className="text-[10px] text-[#0d9488] dark:text-[#2ee6ca] font-bold uppercase tracking-wider">
-                    REGISTERED BUYER
+              <div className="origin-top-right absolute right-0 mt-2 w-64 rounded-2xl shadow-[0_20px_50px_-12px_rgba(18,18,16,0.18)] dark:shadow-[0_24px_60px_-12px_rgba(0,0,0,0.75)] border border-[#e2dfd8] dark:border-white/[0.09] bg-white dark:bg-[#181b22] p-3 z-50 animate-in fade-in zoom-in-95 duration-150 ease-[var(--ease-out-strong)] text-xs font-mono">
+                <div className="p-3 rounded-xl bg-[#f5f4f0] dark:bg-[#22252f] border border-[#e2dfd8] dark:border-white/[0.06] mb-2">
+                  <div className="text-[10px] text-[#0d5d50] dark:text-[#38e8c6] font-bold uppercase tracking-wider">
+                    Verified Studio Account
                   </div>
                   <div className="text-zinc-950 dark:text-white font-bold text-sm truncate mt-0.5">
-                    Hello, {customer.firstName || 'Shopper'} 👋
+                    {customer.firstName || 'Studio Buyer'}
                   </div>
-                  <div className="text-[11px] text-zinc-500 truncate mt-0.5">
+                  <div className="text-[11px] text-zinc-500 dark:text-zinc-400 truncate mt-0.5">
                     {customer.email}
                   </div>
                 </div>
@@ -256,7 +253,7 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
                       window.dispatchEvent(new CustomEvent('account-tab-select', { detail: 'orders' }))
                       setIsAccountOpen(false)
                     }}
-                    className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-[#1A1E27] hover:text-[#0d9488] dark:hover:text-[#2ee6ca] transition-colors text-left cursor-pointer"
+                    className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-zinc-700 dark:text-zinc-300 hover:bg-[#f5f4f0] dark:hover:bg-white/[0.06] hover:text-[#0d5d50] dark:hover:text-[#38e8c6] transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.98] text-left cursor-pointer"
                   >
                     <span>My Orders</span>
                     <ArrowRight className="w-3 h-3 text-zinc-400" />
@@ -268,7 +265,7 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
                       window.dispatchEvent(new CustomEvent('account-tab-select', { detail: 'addresses' }))
                       setIsAccountOpen(false)
                     }}
-                    className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-[#1A1E27] hover:text-[#0d9488] dark:hover:text-[#2ee6ca] transition-colors text-left cursor-pointer"
+                    className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-zinc-700 dark:text-zinc-300 hover:bg-[#f5f4f0] dark:hover:bg-white/[0.06] hover:text-[#0d5d50] dark:hover:text-[#38e8c6] transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.98] text-left cursor-pointer"
                   >
                     <span>Saved Addresses</span>
                     <ArrowRight className="w-3 h-3 text-zinc-400" />
@@ -280,17 +277,17 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
                       window.dispatchEvent(new CustomEvent('account-tab-select', { detail: 'profile' }))
                       setIsAccountOpen(false)
                     }}
-                    className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-[#1A1E27] hover:text-[#0d9488] dark:hover:text-[#2ee6ca] transition-colors text-left cursor-pointer"
+                    className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-zinc-700 dark:text-zinc-300 hover:bg-[#f5f4f0] dark:hover:bg-white/[0.06] hover:text-[#0d5d50] dark:hover:text-[#38e8c6] transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.98] text-left cursor-pointer"
                   >
                     <span>Profile Settings</span>
                     <ArrowRight className="w-3 h-3 text-zinc-400" />
                   </button>
 
-                  <hr className="border-zinc-100 dark:border-white/[0.08] my-1" />
+                  <hr className="border-[#e2dfd8] dark:border-white/[0.08] my-1" />
 
                   <button
                     onClick={handleSignOut}
-                    className="w-full text-left px-3 py-2 rounded-lg text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 font-bold transition-colors cursor-pointer"
+                    className="w-full text-left px-3 py-2 rounded-xl text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 font-bold transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.98] cursor-pointer"
                   >
                     Sign Out
                   </button>
@@ -299,16 +296,16 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
             )}
           </div>
 
-          {/* 4. Cart Trigger (Pure Icon, No Border/Background, Enlarged) */}
+          {/* 4. Cart Trigger */}
           <button
             onClick={openCart}
-            className="relative p-2 text-zinc-700 dark:text-white/90 hover:text-zinc-950 dark:hover:text-[#2ee6ca] transition-colors cursor-pointer"
+            className="relative p-2 text-zinc-700 dark:text-white/90 hover:text-zinc-950 dark:hover:text-[#38e8c6] transition-[transform,color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.95] cursor-pointer"
             aria-label="Open Cart"
             title="Shopping Cart"
           >
             <ShoppingBag className="w-5.5 h-5.5 sm:w-6 sm:h-6" />
             {totalQuantity > 0 && (
-              <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-[19px] h-[19px] px-1 rounded-full bg-[#2ee6ca] text-zinc-950 text-[10px] font-mono font-black leading-none shadow-sm">
+              <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-[19px] h-[19px] px-1 rounded-full bg-[#38e8c6] text-zinc-950 text-[10px] font-mono font-black leading-none shadow-2xs">
                 {totalQuantity}
               </span>
             )}
@@ -321,7 +318,7 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
               setIsMobileSearchOpen(false)
             }}
             aria-label={mobileMenuOpen ? 'Close mobile menu' : 'Open mobile menu'}
-            className="lg:hidden w-9 h-9 flex items-center justify-center rounded-lg border border-zinc-200 dark:border-[#222731] text-zinc-700 dark:text-zinc-300"
+            className="lg:hidden w-9 h-9 flex items-center justify-center rounded-xl border border-[#e2dfd8] dark:border-white/[0.09] text-zinc-700 dark:text-zinc-300 transition-[transform,border-color,color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.95]"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>

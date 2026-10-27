@@ -1,29 +1,29 @@
 import React from 'react'
 
+/**
+ * Restrained architectural studio lighting atmosphere.
+ * Replaces heavy, high-opacity neon blobs with subtle, museum-grade ambient
+ * illumination and a fixed, non-repainting micro-grain surface texture.
+ */
 export const FluidInkBackground: React.FC = () => {
   return (
     <div
       aria-hidden="true"
       className="fixed inset-0 pointer-events-none overflow-hidden z-0 select-none"
     >
-      {/* Ink Cloud 1: Deep Emerald Tattoo Pigment (Top-Left Drift) */}
+      {/* Top-Left Architectural Key Light: Subtle Emerald/Cyan Studio Wash */}
       <div
-        className="absolute -top-32 -left-32 w-[600px] h-[600px] sm:w-[900px] sm:h-[900px] rounded-full opacity-70 dark:opacity-85 blur-[90px] sm:blur-[130px] bg-[radial-gradient(circle,rgba(56,232,198,0.35)_0%,rgba(13,93,80,0.18)_45%,transparent_70%)] animate-[fluid-ink-drift_22s_ease-in-out_infinite_alternate] motion-reduce:animate-none"
+        className="absolute -top-48 -left-48 w-[640px] h-[640px] sm:w-[960px] sm:h-[960px] rounded-full opacity-25 dark:opacity-30 blur-[120px] sm:blur-[160px] bg-[radial-gradient(circle,rgba(56,232,198,0.22)_0%,rgba(13,93,80,0.08)_48%,transparent_72%)]"
       />
 
-      {/* Ink Cloud 2: Warm Artisan Amber Pigment Swirl (Right-Center Swirl) */}
+      {/* Right-Center Warm Rim Light: Restrained Anodized Bronze Accent */}
       <div
-        className="absolute top-[30%] -right-32 w-[550px] h-[550px] sm:w-[850px] sm:h-[850px] rounded-full opacity-65 dark:opacity-80 blur-[90px] sm:blur-[140px] bg-[radial-gradient(circle,rgba(230,179,102,0.30)_0%,rgba(163,111,57,0.14)_50%,transparent_70%)] animate-[fluid-ink-drift-reverse_26s_ease-in-out_infinite_alternate] motion-reduce:animate-none"
+        className="absolute top-[28%] -right-48 w-[560px] h-[560px] sm:w-[820px] sm:h-[820px] rounded-full opacity-20 dark:opacity-25 blur-[130px] sm:blur-[170px] bg-[radial-gradient(circle,rgba(230,179,102,0.18)_0%,rgba(163,111,57,0.06)_52%,transparent_72%)]"
       />
 
-      {/* Ink Cloud 3: Midnight Cyan & Emerald Smoke (Left-Bottom Drift) */}
+      {/* Bottom-Left Deep Studio Fill */}
       <div
-        className="absolute top-[65%] -left-28 w-[500px] h-[500px] sm:w-[750px] sm:h-[750px] rounded-full opacity-60 dark:opacity-75 blur-[100px] sm:blur-[150px] bg-[radial-gradient(circle,rgba(56,232,198,0.28)_0%,rgba(20,80,70,0.12)_50%,transparent_70%)] animate-[fluid-ink-drift_20s_ease-in-out_infinite_alternate] motion-reduce:animate-none"
-      />
-
-      {/* Ink Cloud 4: Golden Bronze Crucible Glow (Bottom-Right Anchor) */}
-      <div
-        className="absolute -bottom-28 right-1/4 w-[500px] h-[500px] sm:w-[700px] sm:h-[700px] rounded-full opacity-55 dark:opacity-70 blur-[100px] sm:blur-[140px] bg-[radial-gradient(circle,rgba(230,179,102,0.25)_0%,transparent_65%)] animate-[fluid-ink-pulse_18s_ease-in-out_infinite_alternate] motion-reduce:animate-none"
+        className="absolute -bottom-48 left-1/4 w-[520px] h-[520px] sm:w-[760px] sm:h-[760px] rounded-full opacity-15 dark:opacity-20 blur-[130px] sm:blur-[160px] bg-[radial-gradient(circle,rgba(56,232,198,0.16)_0%,transparent_68%)]"
       />
     </div>
   )

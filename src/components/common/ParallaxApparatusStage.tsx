@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 
 interface ParallaxApparatusStageProps {
@@ -10,181 +10,218 @@ interface ParallaxApparatusStageProps {
   priorityTag?: string
 }
 
+const GLOW_PALETTES = {
+  cyan: {
+    spotlight: 'rgba(56, 232, 198, 0.20)',
+    halo: 'rgba(56, 232, 198, 0.14)',
+  },
+  amber: {
+    spotlight: 'rgba(230, 179, 102, 0.22)',
+    halo: 'rgba(230, 179, 102, 0.15)',
+  },
+  emerald: {
+    spotlight: 'rgba(13, 93, 80, 0.24)',
+    halo: 'rgba(56, 232, 198, 0.12)',
+  },
+} as const
+
+/**
+ * Zero-re-render 3D specimen stage with damped spring physics.
+ * Uses IntersectionObserver for viewport reveal and direct DOM transform
+ * updates for pointer-driven spring tilt (no scroll listeners, no React state churn).
+ */
 export const ParallaxApparatusStage: React.FC<ParallaxApparatusStageProps> = ({
   imageSrc,
   alt,
   accentColor = 'cyan',
   baseRotation = 0,
   className = '',
-  priorityTag,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null)
+  const stageRef = useRef<HTMLDivElement>(null)
+  const spotlightRef = useRef<HTMLDivElement>(null)
+  const shadowRef = useRef<HTMLDivElement>(null)
   const prefersReducedMotion = usePrefersReducedMotion()
-  const [scrollProgress, setScrollProgress] = useState(0.5)
-  const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 })
-  const [isHovered, setIsHovered] = useState(false)
 
-  // Scroll listener tracking element position relative to viewport
+  const physicsRef = useRef({
+    targetX: 0,
+    targetY: 0,
+    currentX: 0,
+    currentY: 0,
+    velX: 0,
+    velY: 0,
+    hovered: false,
+    rafId: 0 as number,
+    lastTime: 0,
+  })
+
   useEffect(() => {
-    if (prefersReducedMotion) return
+    const stageEl = stageRef.current
+    const physics = physicsRef.current
+    if (!stageEl) return
 
-    let animationFrameId: number
-
-    const handleScroll = () => {
-      if (!containerRef.current) return
-      const rect = containerRef.current.getBoundingClientRect()
-      const vh = window.innerHeight
-      const totalSpan = vh + rect.height
-
-      // Progress from 0 (just entering bottom) to 1 (leaving top)
-      const rawProgress = (vh - rect.top) / totalSpan
-      const progress = Math.min(Math.max(rawProgress, 0), 1)
-
-      animationFrameId = requestAnimationFrame(() => {
-        setScrollProgress(progress)
-      })
+    if (prefersReducedMotion) {
+      stageEl.style.transform = `translate3d(0, 0, 0) rotateZ(${baseRotation}deg) scale(1)`
+      return
     }
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll()
+    stageEl.style.transform = `translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) rotateZ(${baseRotation}deg) scale(1)`
 
     return () => {
-      window.removeEventListener('scroll', handleScroll)
-      cancelAnimationFrame(animationFrameId)
+      if (physics.rafId) {
+        cancelAnimationFrame(physics.rafId)
+        physics.rafId = 0
+      }
     }
-  }, [prefersReducedMotion])
+  }, [baseRotation, prefersReducedMotion])
 
-  // Interactive 3D cursor tracking for fine pointers when motion is permitted
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (prefersReducedMotion || !containerRef.current) return
-    if (
-      typeof window !== 'undefined' &&
-      typeof window.matchMedia === 'function' &&
-      !window.matchMedia('(hover: hover) and (pointer: fine)').matches
-    ) {
+  const startSpringLoop = () => {
+    const state = physicsRef.current
+    if (state.rafId) return
+
+    state.lastTime = performance.now()
+
+    const step = (now: number) => {
+      const dt = Math.min((now - state.lastTime) / 1000, 0.032)
+      state.lastTime = now
+
+      // Damped harmonic oscillator (stiffness 150, damping 18)
+      const stiffness = 150
+      const damping = 18
+
+      const forceX = (state.targetX - state.currentX) * stiffness
+      const forceY = (state.targetY - state.currentY) * stiffness
+
+      state.velX = (state.velX + forceX * dt) * Math.exp(-damping * dt)
+      state.velY = (state.velY + forceY * dt) * Math.exp(-damping * dt)
+
+      state.currentX += state.velX * dt
+      state.currentY += state.velY * dt
+
+      const rotateX = state.currentY * -9
+      const rotateY = state.currentX * 11
+      const rotateZ = baseRotation + state.currentX * 2.5
+      const translateY = state.currentY * -6
+      const scale = state.hovered ? 1.035 : 1
+
+      if (stageRef.current) {
+        stageRef.current.style.transform = `translate3d(0, ${translateY.toFixed(2)}px, 0) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) rotateZ(${rotateZ.toFixed(2)}deg) scale(${scale})`
+      }
+
+      if (spotlightRef.current) {
+        const spotX = (state.currentX * -14).toFixed(1)
+        const spotY = (state.currentY * -14).toFixed(1)
+        spotlightRef.current.style.transform = `translate3d(${spotX}px, ${spotY}px, 0) scale(${state.hovered ? 1.08 : 1})`
+      }
+
+      if (shadowRef.current) {
+        const shadowX = (state.currentX * -10).toFixed(1)
+        shadowRef.current.style.transform = `translate3d(${shadowX}px, 0, 0) scale(${state.hovered ? 0.92 : 1})`
+      }
+
+      const isSettled =
+        !state.hovered &&
+        Math.abs(state.targetX - state.currentX) < 0.002 &&
+        Math.abs(state.targetY - state.currentY) < 0.002 &&
+        Math.abs(state.velX) < 0.002 &&
+        Math.abs(state.velY) < 0.002
+
+      if (isSettled) {
+        state.currentX = 0
+        state.currentY = 0
+        state.rafId = 0
+        if (stageRef.current) {
+          stageRef.current.style.transform = `translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) rotateZ(${baseRotation}deg) scale(1)`
+        }
+        return
+      }
+
+      state.rafId = requestAnimationFrame(step)
+    }
+
+    state.rafId = requestAnimationFrame(step)
+  }
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (prefersReducedMotion || e.pointerType !== 'mouse' || !containerRef.current) {
       return
     }
     const rect = containerRef.current.getBoundingClientRect()
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2
-    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2
-    setMouseOffset({ x, y })
+    const normX = ((e.clientX - rect.left) / rect.width - 0.5) * 2
+    const normY = ((e.clientY - rect.top) / rect.height - 0.5) * 2
+
+    physicsRef.current.targetX = Math.max(-1, Math.min(1, normX))
+    physicsRef.current.targetY = Math.max(-1, Math.min(1, normY))
+    physicsRef.current.hovered = true
+    startSpringLoop()
   }
 
-  const handleMouseLeave = () => {
-    setIsHovered(false)
-    setMouseOffset({ x: 0, y: 0 })
+  const handlePointerLeave = () => {
+    if (prefersReducedMotion) return
+    physicsRef.current.targetX = 0
+    physicsRef.current.targetY = 0
+    physicsRef.current.hovered = false
+    startSpringLoop()
   }
 
-  // Derived transforms based on scroll (zeroed out when prefers-reduced-motion is active)
-  // centerOffset: -1 (at bottom of screen) -> 0 (dead center) -> +1 (at top of screen)
-  const centerOffset = prefersReducedMotion ? 0 : (scrollProgress - 0.5) * 2
-
-  // 1. Vertical float: glides opposite to scroll
-  const translateY = prefersReducedMotion
-    ? 0
-    : centerOffset * -50 + (isHovered ? mouseOffset.y * -8 : 0)
-
-  // 2. 3D Tilt: pitch & yaw responsive to scroll and cursor
-  const rotateX = prefersReducedMotion
-    ? 0
-    : centerOffset * -14 + (isHovered ? mouseOffset.y * -10 : 0)
-  const rotateY = prefersReducedMotion
-    ? 0
-    : centerOffset * 12 + (isHovered ? mouseOffset.x * 12 : 0)
-  const rotateZ = prefersReducedMotion ? baseRotation : baseRotation + centerOffset * 8
-
-  // 3. Scale: gently swells as it reaches center stage
-  const scale = prefersReducedMotion
-    ? 1
-    : 1.02 + (1 - Math.abs(centerOffset)) * 0.08 + (isHovered ? 0.04 : 0)
-
-  // 4. Contact shadow properties
-  const shadowBlur = 24 + (1 - Math.abs(centerOffset)) * 12
-  const shadowOpacity = 0.7 - Math.abs(centerOffset) * 0.25
-
-  // Accent glow styling
-  const glowStyles = ({
-    cyan: {
-      spotlight: 'rgba(56, 232, 198, 0.25)',
-      halo: 'rgba(56, 232, 198, 0.18)',
-    },
-    amber: {
-      spotlight: 'rgba(230, 179, 102, 0.28)',
-      halo: 'rgba(230, 179, 102, 0.18)',
-    },
-    emerald: {
-      spotlight: 'rgba(13, 93, 80, 0.32)',
-      halo: 'rgba(56, 232, 198, 0.15)',
-    },
-  }[accentColor]) || {
-    spotlight: 'rgba(56, 232, 198, 0.25)',
-    halo: 'rgba(56, 232, 198, 0.18)',
-  }
+  const palette = GLOW_PALETTES[accentColor] || GLOW_PALETTES.cyan
 
   return (
     <div
       ref={containerRef}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={handleMouseLeave}
-      className={`relative w-full aspect-square max-w-[480px] sm:max-w-[540px] flex items-center justify-center p-4 sm:p-8 select-none perspective-[1200px] ${className}`}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
+      className={`relative w-full aspect-square max-w-[460px] sm:max-w-[520px] flex items-center justify-center p-6 sm:p-10 select-none ${className}`}
       style={{ perspective: '1200px' }}
     >
-      {/* Dynamic Ambient Spotlight that moves opposite to scroll */}
+      {/* Studio Optical Pedestal Surface */}
       <div
-        className="absolute inset-0 rounded-full blur-3xl pointer-events-none transition-transform duration-700 ease-out"
+        aria-hidden="true"
+        className="absolute inset-4 sm:inset-6 rounded-3xl border border-[#e2dfd8]/90 dark:border-white/[0.07] bg-white/60 dark:bg-[#1a1d24]/75 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] pointer-events-none"
+      />
+
+      {/* Dynamic Ambient Key Light */}
+      <div
+        ref={spotlightRef}
+        aria-hidden="true"
+        className="absolute inset-10 rounded-full blur-3xl pointer-events-none transition-opacity duration-300"
         style={{
-          background: `radial-gradient(circle at ${50 + centerOffset * 20}% ${50 - centerOffset * 20}%, ${glowStyles.spotlight} 0%, transparent 70%)`,
-          opacity: 0.9 - Math.abs(centerOffset) * 0.2,
-          transform: `scale(${1 + (1 - Math.abs(centerOffset)) * 0.25})`,
+          background: `radial-gradient(circle at 50% 45%, ${palette.spotlight} 0%, transparent 70%)`,
         }}
       />
 
-      {/* Floating Apparatus Artwork with 3D Matrix Transform */}
+      {/* Floating Hardware Specimen */}
       <div
-        className="relative z-10 w-full h-full flex items-center justify-center transition-transform duration-100 ease-out will-change-transform"
+        ref={stageRef}
+        className="relative z-10 w-full h-full flex items-center justify-center will-change-transform"
         style={{
-          transform: `translate3d(0, ${translateY}px, 0) rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg) scale(${scale})`,
+          transform: `translate3d(0, 0, 0) rotateZ(${baseRotation}deg) scale(1)`,
           transformStyle: 'preserve-3d',
+          transition: prefersReducedMotion
+            ? 'none'
+            : 'transform 180ms cubic-bezier(0.23, 1, 0.32, 1)',
         }}
       >
         <img
           src={imageSrc}
           alt={alt}
           loading="lazy"
-          className="relative max-h-[82%] max-w-[85%] w-auto object-contain drop-shadow-[0_25px_50px_rgba(0,0,0,0.45)] dark:drop-shadow-[0_35px_70px_rgba(0,0,0,0.85)] filter transition-all duration-300 pointer-events-none"
+          className="relative max-h-[82%] max-w-[84%] w-auto object-contain drop-shadow-[0_22px_40px_rgba(18,18,16,0.22)] dark:drop-shadow-[0_28px_56px_rgba(0,0,0,0.75)] pointer-events-none"
         />
-
-        {/* Floating Precision Specimen Tag */}
-        {priorityTag && (
-          <div
-            className="absolute bottom-6 sm:bottom-10 -right-2 sm:right-4 z-20 px-3 py-1 rounded-full border border-zinc-200/80 dark:border-white/15 bg-white/85 dark:bg-black/80 backdrop-blur-md text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-800 dark:text-white shadow-lg pointer-events-none transition-transform duration-300"
-            style={{
-              transform: `translate3d(0, ${centerOffset * 10}px, 20px)`,
-            }}
-          >
-            <span>{priorityTag}</span>
-          </div>
-        )}
       </div>
 
-      {/* Ground Contact Shadow: dynamically expands & blurs as object levitates */}
+      {/* Ground Contact Shadow */}
       <div
-        className="absolute bottom-4 left-1/2 -translate-x-1/2 w-3/4 max-w-sm h-7 bg-black blur-xl rounded-[100%] pointer-events-none transition-all duration-150 ease-out"
-        style={{
-          opacity: shadowOpacity,
-          filter: `blur(${shadowBlur}px)`,
-          transform: `translateX(-50%) scale(${1 - Math.abs(centerOffset) * 0.15})`,
-        }}
+        ref={shadowRef}
+        aria-hidden="true"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 w-3/5 max-w-xs h-5 bg-black/45 dark:bg-black/75 blur-xl rounded-[100%] pointer-events-none"
       />
 
-      {/* Specular Ground Halo */}
+      {/* Specular Ground Reflection */}
       <div
-        className="absolute bottom-5 left-1/2 -translate-x-1/2 w-1/2 max-w-xs h-3 rounded-[100%] blur-md pointer-events-none transition-all duration-150 ease-out"
-        style={{
-          background: glowStyles.halo,
-          opacity: 0.8 - Math.abs(centerOffset) * 0.4,
-        }}
+        aria-hidden="true"
+        className="absolute bottom-9 left-1/2 -translate-x-1/2 w-2/5 max-w-[200px] h-2 rounded-[100%] blur-md pointer-events-none"
+        style={{ background: palette.halo }}
       />
     </div>
   )
