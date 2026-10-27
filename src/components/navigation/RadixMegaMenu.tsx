@@ -121,7 +121,7 @@ export const RadixMegaMenu: React.FC<RadixMegaMenuProps> = ({ onSelectCategory }
           {/* Minimalist Mega Menu Dropdown Panel */}
           <div
             id="papa-megamenu-dropdown"
-            className="origin-top w-full bg-[#f8f7f4] dark:bg-[#14161d] border-b border-[#e2dfd8] dark:border-white/[0.08] shadow-[0_24px_60px_-16px_rgba(18,18,16,0.18)] dark:shadow-[0_28px_70px_-16px_rgba(0,0,0,0.8)] max-h-[calc(100dvh-80px)] overflow-y-auto animate-in fade-in slide-in-from-top-1 duration-150 ease-[var(--ease-out-strong)] motion-reduce:animate-none relative z-10"
+            className="origin-top w-full apple-glass-sheet border-b border-[#e2dfd8] dark:border-white/[0.08] shadow-[0_24px_60px_-16px_rgba(18,18,16,0.18)] dark:shadow-[0_28px_70px_-16px_rgba(0,0,0,0.8)] max-h-[calc(100dvh-80px)] overflow-y-auto animate-in fade-in slide-in-from-top-1 duration-150 ease-[var(--ease-out-strong)] motion-reduce:animate-none relative z-10"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >

@@ -117,9 +117,9 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
   }
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-[#e2dfd8] dark:border-white/[0.08] bg-[#f5f4f0]/90 dark:bg-[#16181f]/90 backdrop-blur-xl transition-colors duration-300">
+    <header className="sticky top-0 z-40 w-full border-b border-[#e2dfd8] dark:border-white/[0.08] apple-glass-chrome transition-colors duration-300">
       {/* Top Announcement Bar */}
-      <div className="hidden sm:flex items-center justify-center px-6 py-1.5 bg-[#eceae4]/85 dark:bg-[#111318] border-b border-[#e2dfd8] dark:border-white/[0.05] text-[11px] font-mono text-[#6b6860] dark:text-zinc-400">
+      <div className="hidden sm:flex items-center justify-center px-6 py-1.5 bg-[#eceae4]/85 dark:bg-[#111318]/90 border-b border-[#e2dfd8] dark:border-white/[0.05] text-[11px] font-mono tracking-[0.03em] text-[#6b6860] dark:text-zinc-300">
         <span>For Professional Studios &amp; Licensed Tattoo Artists</span>
       </div>
 
@@ -171,7 +171,7 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
             </button>
 
             {isLangOpen && (
-              <div className="origin-top-right absolute right-0 mt-2 w-44 rounded-2xl shadow-[0_20px_50px_-12px_rgba(18,18,16,0.18)] dark:shadow-[0_24px_60px_-12px_rgba(0,0,0,0.75)] border border-[#e2dfd8] dark:border-white/[0.09] bg-white dark:bg-[#181b22] p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150 ease-[var(--ease-out-strong)]">
+              <div className="origin-top-right absolute right-0 mt-2 w-44 rounded-2xl border border-[#e2dfd8] dark:border-white/[0.1] apple-glass-popover p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150 ease-[var(--ease-out-strong)]">
                 {languages.map(lang => (
                   <button
                     key={lang.code}
@@ -233,7 +233,7 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
 
             {/* Account Menu - Only shown when already logged in */}
             {isAccountOpen && customer && (
-              <div className="origin-top-right absolute right-0 mt-2 w-64 rounded-2xl shadow-[0_20px_50px_-12px_rgba(18,18,16,0.18)] dark:shadow-[0_24px_60px_-12px_rgba(0,0,0,0.75)] border border-[#e2dfd8] dark:border-white/[0.09] bg-white dark:bg-[#181b22] p-3 z-50 animate-in fade-in zoom-in-95 duration-150 ease-[var(--ease-out-strong)] text-xs font-mono">
+              <div className="origin-top-right absolute right-0 mt-2 w-64 rounded-2xl border border-[#e2dfd8] dark:border-white/[0.1] apple-glass-popover p-3 z-50 animate-in fade-in zoom-in-95 duration-150 ease-[var(--ease-out-strong)] text-xs font-mono">
                 <div className="p-3 rounded-xl bg-[#f5f4f0] dark:bg-[#22252f] border border-[#e2dfd8] dark:border-white/[0.06] mb-2">
                   <div className="text-[10px] text-[#0d5d50] dark:text-[#38e8c6] font-bold uppercase tracking-wider">
                     Verified Studio Account

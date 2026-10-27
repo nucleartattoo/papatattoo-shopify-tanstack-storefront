@@ -8,6 +8,12 @@ import {
   Play,
 } from 'lucide-react'
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
+import {
+  computeReleaseVelocity,
+  projectMomentum,
+  rubberband,
+  VelocitySample,
+} from '../../utils/appleSpring'
 
 export interface SlideItem {
   id: string
@@ -100,8 +106,19 @@ export const HomeSlider: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isPausedByUser, setIsPausedByUser] = useState(false)
   const [isInteracting, setIsInteracting] = useState(false)
-  const [touchStartX, setTouchStartX] = useState<number | null>(null)
+  const [dragOffsetPx, setDragOffsetPx] = useState(0)
+  const [isDragging, setIsDragging] = useState(false)
+  const canvasRef = useRef<HTMLDivElement>(null)
   const autoPlayTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const dragStateRef = useRef({
+    active: false,
+    pointerId: -1,
+    startX: 0,
+    startY: 0,
+    lockedAxis: null as 'x' | 'y' | null,
+    didDrag: false,
+    samples: [] as VelocitySample[],
+  })
 
   const handleNext = useCallback(() => {
     setCurrentIndex(prev => (prev + 1) % SLIDES_DATA.length)
@@ -111,7 +128,8 @@ export const HomeSlider: React.FC = () => {
     setCurrentIndex(prev => (prev - 1 + SLIDES_DATA.length) % SLIDES_DATA.length)
   }, [])
 
-  const isAutoPlaying = !prefersReducedMotion && !isPausedByUser && !isInteracting
+  const isAutoPlaying =
+    !prefersReducedMotion && !isPausedByUser && !isInteracting && !isDragging
 
   useEffect(() => {
     if (!isAutoPlaying) {
@@ -138,20 +156,85 @@ export const HomeSlider: React.FC = () => {
     }
   }
 
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStartX(e.touches[0].clientX)
+  // 1:1 Pointer Drag + Rubber-banding + Momentum Projection (§1, §2, §6, §9, §10)
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.button !== 0) return
+    const target = e.target as HTMLElement
+    if (target.closest('button')) return
+
+    const d = dragStateRef.current
+    d.active = true
+    d.pointerId = e.pointerId
+    d.startX = e.clientX
+    d.startY = e.clientY
+    d.lockedAxis = null
+    d.didDrag = false
+    d.samples = [{ x: e.clientX, y: e.clientY, t: performance.now() }]
   }
 
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX === null) return
-    const touchEndX = e.changedTouches[0].clientX
-    const diff = touchStartX - touchEndX
-    if (diff > 45) {
-      handleNext()
-    } else if (diff < -45) {
-      handlePrev()
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const d = dragStateRef.current
+    if (!d.active || e.pointerId !== d.pointerId) return
+
+    const dx = e.clientX - d.startX
+    const dy = e.clientY - d.startY
+
+    if (!d.lockedAxis) {
+      if (Math.hypot(dx, dy) < 8) return
+      if (Math.abs(dx) > Math.abs(dy)) {
+        d.lockedAxis = 'x'
+        d.didDrag = true
+        setIsDragging(true)
+        e.currentTarget.setPointerCapture?.(e.pointerId)
+      } else {
+        d.lockedAxis = 'y'
+        d.active = false
+        return
+      }
     }
-    setTouchStartX(null)
+
+    if (d.lockedAxis !== 'x') return
+
+    const now = performance.now()
+    d.samples.push({ x: e.clientX, y: e.clientY, t: now })
+    if (d.samples.length > 8) d.samples.shift()
+
+    const width = canvasRef.current?.offsetWidth || 960
+    setDragOffsetPx(rubberband(dx, width, 0.35))
+  }
+
+  const finishPointerGesture = (
+    e: React.PointerEvent<HTMLDivElement>,
+    cancelled = false
+  ) => {
+    const d = dragStateRef.current
+    if (!d.active || e.pointerId !== d.pointerId) return
+    d.active = false
+
+    if (e.currentTarget.hasPointerCapture?.(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId)
+    }
+
+    if (d.lockedAxis === 'x' && !cancelled) {
+      const dx = e.clientX - d.startX
+      const { vx } = computeReleaseVelocity(d.samples, performance.now())
+      // Project resting endpoint from release velocity (§6 Momentum projection)
+      const projected = dx + projectMomentum(vx, 0.994)
+      const threshold = Math.min(
+        (canvasRef.current?.offsetWidth || 640) * 0.14,
+        90
+      )
+
+      if (projected < -threshold || vx < -320) {
+        handleNext()
+      } else if (projected > threshold || vx > 320) {
+        handlePrev()
+      }
+    }
+
+    d.lockedAxis = null
+    setIsDragging(false)
+    setDragOffsetPx(0)
   }
 
   const currentSlide = SLIDES_DATA[currentIndex]
@@ -169,13 +252,18 @@ export const HomeSlider: React.FC = () => {
         }
       }}
       onKeyDown={handleKeyDown}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
       className="group/slider relative w-full border-y border-[#e2dfd8] dark:border-white/[0.08] bg-white/75 dark:bg-[#171920]/90 backdrop-blur-md select-none"
     >
       <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
         {/* Framed Widescreen Exhibition Canvas */}
-        <div className="relative w-full aspect-[1920/485] rounded-2xl sm:rounded-3xl bg-[#0c0e12] overflow-hidden border border-[#e2dfd8] dark:border-white/[0.09] shadow-[0_20px_50px_-16px_rgba(18,18,16,0.16)] dark:shadow-[0_24px_60px_-16px_rgba(0,0,0,0.65)]">
+        <div
+          ref={canvasRef}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={e => finishPointerGesture(e, false)}
+          onPointerCancel={e => finishPointerGesture(e, true)}
+          className="relative w-full aspect-[1920/485] rounded-2xl sm:rounded-3xl bg-[#0c0e12] overflow-hidden border border-[#e2dfd8] dark:border-white/[0.09] shadow-[0_20px_50px_-16px_rgba(18,18,16,0.16)] dark:shadow-[0_24px_60px_-16px_rgba(0,0,0,0.65)] touch-pan-y cursor-grab active:cursor-grabbing"
+        >
           {SLIDES_DATA.map((slide, idx) => {
             const isActive = idx === currentIndex
             return (
@@ -186,6 +274,21 @@ export const HomeSlider: React.FC = () => {
                 tabIndex={isActive ? 0 : -1}
                 aria-hidden={!isActive}
                 aria-label={`${slide.title}: ${slide.ctaLabel}`}
+                onClick={e => {
+                  if (dragStateRef.current.didDrag) {
+                    e.preventDefault()
+                    dragStateRef.current.didDrag = false
+                  }
+                }}
+                draggable={false}
+                style={
+                  isActive && dragOffsetPx !== 0 && !prefersReducedMotion
+                    ? {
+                        transform: `translate3d(${dragOffsetPx.toFixed(1)}px, 0, 0) scale(1)`,
+                        transition: 'none',
+                      }
+                    : undefined
+                }
                 className={`absolute inset-0 block transition-[opacity,transform,filter] duration-500 ease-[var(--ease-out-strong)] motion-reduce:transition-none focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-[#38e8c6] ${
                   isActive
                     ? 'opacity-100 scale-100 blur-0 z-10 pointer-events-auto'
@@ -195,13 +298,14 @@ export const HomeSlider: React.FC = () => {
                 <img
                   src={slide.image}
                   alt={slide.title}
+                  draggable={false}
                   loading={idx === 0 ? 'eager' : 'lazy'}
                   onError={e => {
                     if (e.currentTarget.src !== slide.fallbackImage) {
                       e.currentTarget.src = slide.fallbackImage
                     }
                   }}
-                  className="w-full h-full object-cover object-center"
+                  className="w-full h-full object-cover object-center pointer-events-none"
                 />
               </Link>
             )

@@ -34,6 +34,9 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
 }) => {
   const dialogRef = useRef<HTMLDivElement>(null)
   const initialInputRef = useRef<HTMLInputElement>(null)
+  const [prevIsOpen, setPrevIsOpen] = useState(isOpen)
+  const [isRendered, setIsRendered] = useState(isOpen)
+  const [isClosing, setIsClosing] = useState(false)
   const [mode, setMode] = useState<'signin' | 'register' | 'forgot'>(initialMode)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -43,13 +46,27 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [successMessage, setSuccessMessage] = useState<string | null>(null)
 
-  useEffect(() => {
+  if (isOpen !== prevIsOpen) {
+    setPrevIsOpen(isOpen)
     if (isOpen) {
+      setIsRendered(true)
+      setIsClosing(false)
       setMode(initialMode)
       setErrorMessage(null)
       setSuccessMessage(null)
+    } else if (isRendered) {
+      setIsClosing(true)
     }
-  }, [isOpen, initialMode])
+  }
+
+  useEffect(() => {
+    if (!isClosing) return
+    const timer = window.setTimeout(() => {
+      setIsRendered(false)
+      setIsClosing(false)
+    }, 180)
+    return () => window.clearTimeout(timer)
+  }, [isClosing])
 
   useDialogAccessibility({
     isOpen,
@@ -58,7 +75,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
     initialFocusRef: initialInputRef,
   })
 
-  if (!isOpen || typeof document === 'undefined') return null
+  if (!isRendered || typeof document === 'undefined') return null
 
   const handleResetState = () => {
     setErrorMessage(null)
@@ -176,7 +193,9 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
 
   return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-in fade-in duration-200 motion-reduce:animate-none"
+      className={`fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md transition-opacity duration-180 ease-[var(--ease-out-strong)] motion-reduce:transition-none ${
+        isClosing ? 'opacity-0 pointer-events-none' : 'opacity-100 animate-in fade-in duration-180'
+      }`}
       onClick={onClose}
     >
       <div
@@ -185,7 +204,11 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
         aria-modal="true"
         aria-labelledby="customer-auth-modal-title"
         tabIndex={-1}
-        className="relative w-full max-w-md rounded-2xl border border-zinc-200/80 dark:border-white/[0.1] bg-white dark:bg-[#1c1e24] shadow-2xl p-6 sm:p-7 overflow-hidden outline-hidden"
+        className={`relative w-full max-w-md rounded-2xl border border-zinc-200/80 dark:border-white/[0.1] apple-glass-popover p-6 sm:p-7 overflow-hidden outline-hidden transition-[transform,opacity] duration-180 ease-[var(--ease-out-strong)] motion-reduce:transition-none ${
+          isClosing
+            ? 'scale-[0.96] opacity-0'
+            : 'scale-100 opacity-100 animate-in zoom-in-95 duration-180'
+        }`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Header */}
@@ -213,7 +236,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
             type="button"
             onClick={onClose}
             aria-label="Close authentication modal"
-            className="w-8 h-8 rounded-lg flex items-center justify-center border border-zinc-200 dark:border-white/[0.1] text-zinc-500 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-[#14161b] active:scale-95 transition-all cursor-pointer"
+            className="w-8 h-8 rounded-lg flex items-center justify-center border border-zinc-200 dark:border-white/[0.1] text-zinc-500 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-[#14161b] active:scale-95 transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)] cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -337,7 +360,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-mono font-black uppercase text-xs tracking-wider flex items-center justify-center gap-2 hover:opacity-95 active:scale-[0.98] transition-all disabled:opacity-50 cursor-pointer mt-2"
+              className="w-full py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-mono font-black uppercase text-xs tracking-wider flex items-center justify-center gap-2 hover:opacity-95 active:scale-[0.98] transition-[transform,opacity] duration-150 ease-[var(--ease-out-strong)] disabled:opacity-50 cursor-pointer mt-2"
             >
               {loading ? (
                 <>
@@ -445,7 +468,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-mono font-black uppercase text-xs tracking-wider flex items-center justify-center gap-2 hover:opacity-95 active:scale-[0.98] transition-all disabled:opacity-50 cursor-pointer mt-2"
+              className="w-full py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-mono font-black uppercase text-xs tracking-wider flex items-center justify-center gap-2 hover:opacity-95 active:scale-[0.98] transition-[transform,opacity] duration-150 ease-[var(--ease-out-strong)] disabled:opacity-50 cursor-pointer mt-2"
             >
               {loading ? (
                 <>
@@ -496,7 +519,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-mono font-black uppercase text-xs tracking-wider flex items-center justify-center gap-2 hover:opacity-95 active:scale-[0.98] transition-all disabled:opacity-50 cursor-pointer"
+              className="w-full py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-mono font-black uppercase text-xs tracking-wider flex items-center justify-center gap-2 hover:opacity-95 active:scale-[0.98] transition-[transform,opacity] duration-150 ease-[var(--ease-out-strong)] disabled:opacity-50 cursor-pointer"
             >
               {loading ? (
                 <>

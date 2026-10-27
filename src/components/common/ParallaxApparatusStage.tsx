@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
+import { appleSpringParams, stepSpring1D } from '../../utils/appleSpring'
 
 interface ParallaxApparatusStageProps {
   imageSrc: string
@@ -81,28 +82,41 @@ export const ParallaxApparatusStage: React.FC<ParallaxApparatusStageProps> = ({
 
     state.lastTime = performance.now()
 
+    // Critically damped Apple default spring (dampingRatio = 1.0, response = 0.35s)
+    // Decomposed into independent X, Y, and scale springs (§3, §4 Apple Design)
+    const { stiffness, damping } = appleSpringParams(1.0, 0.35)
+
     const step = (now: number) => {
-      const dt = Math.min((now - state.lastTime) / 1000, 0.032)
+      const elapsedSec = (now - state.lastTime) / 1000
       state.lastTime = now
 
-      // Damped harmonic oscillator (stiffness 150, damping 18)
-      const stiffness = 150
-      const damping = 18
+      const nextX = stepSpring1D(
+        state.currentX,
+        state.velX,
+        state.targetX,
+        elapsedSec,
+        stiffness,
+        damping
+      )
+      const nextY = stepSpring1D(
+        state.currentY,
+        state.velY,
+        state.targetY,
+        elapsedSec,
+        stiffness,
+        damping
+      )
 
-      const forceX = (state.targetX - state.currentX) * stiffness
-      const forceY = (state.targetY - state.currentY) * stiffness
-
-      state.velX = (state.velX + forceX * dt) * Math.exp(-damping * dt)
-      state.velY = (state.velY + forceY * dt) * Math.exp(-damping * dt)
-
-      state.currentX += state.velX * dt
-      state.currentY += state.velY * dt
+      state.currentX = nextX.x
+      state.velX = nextX.vx
+      state.currentY = nextY.x
+      state.velY = nextY.vx
 
       const rotateX = state.currentY * -9
       const rotateY = state.currentX * 11
       const rotateZ = baseRotation + state.currentX * 2.5
       const translateY = state.currentY * -6
-      const scale = state.hovered ? 1.035 : 1
+      const scale = state.hovered ? 1.032 : 1
 
       if (stageRef.current) {
         stageRef.current.style.transform = `translate3d(0, ${translateY.toFixed(2)}px, 0) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) rotateZ(${rotateZ.toFixed(2)}deg) scale(${scale})`
@@ -190,16 +204,13 @@ export const ParallaxApparatusStage: React.FC<ParallaxApparatusStageProps> = ({
         }}
       />
 
-      {/* Floating Hardware Specimen */}
+      {/* Floating Hardware Specimen — driven directly by rAF spring with zero CSS transition lag (§1, §3) */}
       <div
         ref={stageRef}
         className="relative z-10 w-full h-full flex items-center justify-center will-change-transform"
         style={{
           transform: `translate3d(0, 0, 0) rotateZ(${baseRotation}deg) scale(1)`,
           transformStyle: 'preserve-3d',
-          transition: prefersReducedMotion
-            ? 'none'
-            : 'transform 180ms cubic-bezier(0.23, 1, 0.32, 1)',
         }}
       >
         <img

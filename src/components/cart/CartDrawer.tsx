@@ -1,8 +1,19 @@
-import React, { useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useCart } from '../../context/CartContext'
 import { useLocale } from '../../context/LocaleContext'
 import { useDialogAccessibility } from '../../hooks/useDialogAccessibility'
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
+import {
+  appleSpringParams,
+  computeReleaseVelocity,
+  projectMomentum,
+  rubberband,
+  stepSpring1D,
+  VelocitySample,
+} from '../../utils/appleSpring'
 import { X, Trash2, Plus, Minus, ShoppingBag, ArrowRight, Loader2, Tag, Check } from 'lucide-react'
+
+const DEFAULT_DRAWER_WIDTH = 448
 
 export const CartDrawer: React.FC = () => {
   const {
@@ -20,8 +31,12 @@ export const CartDrawer: React.FC = () => {
   } = useCart()
 
   const { t } = useLocale()
+  const prefersReducedMotion = usePrefersReducedMotion()
   const dialogRef = useRef<HTMLDivElement>(null)
+  const backdropRef = useRef<HTMLDivElement>(null)
   const closeButtonRef = useRef<HTMLButtonElement>(null)
+
+  const [isRendered, setIsRendered] = useState(isOpen)
   const [codeInput, setCodeInput] = useState(promoCode)
   const [prevPromoCode, setPrevPromoCode] = useState(promoCode)
   const [showCodeInput, setShowCodeInput] = useState(!!promoCode)
@@ -31,6 +46,168 @@ export const CartDrawer: React.FC = () => {
     setCodeInput(promoCode)
   }
 
+  // Ensure drawer mounts immediately when opened so spring starts from live presentation value
+  if (isOpen && !isRendered) {
+    setIsRendered(true)
+  }
+
+  // Spring & 1:1 gesture state (stored in ref for zero-re-render 60/120fps updates)
+  const motionRef = useRef({
+    x: DEFAULT_DRAWER_WIDTH,
+    vx: 0,
+    targetX: isOpen ? 0 : DEFAULT_DRAWER_WIDTH,
+    rafId: 0,
+    lastTime: 0,
+    dragging: false,
+    pointerId: -1,
+    startClientX: 0,
+    startClientY: 0,
+    grabOffsetX: 0,
+    gestureLocked: null as 'horizontal' | 'vertical' | null,
+    samples: [] as VelocitySample[],
+  })
+
+  const applyTransform = useCallback(
+    (x: number, width: number) => {
+      const panel = dialogRef.current
+      const backdrop = backdropRef.current
+      if (panel) {
+        panel.style.transform = prefersReducedMotion
+          ? 'none'
+          : `translate3d(${x.toFixed(2)}px, 0, 0)`
+        if (prefersReducedMotion) {
+          panel.style.opacity = x < width * 0.5 ? '1' : '0'
+        } else {
+          panel.style.opacity = '1'
+        }
+      }
+      if (backdrop) {
+        const progress = Math.max(0, Math.min(1, 1 - Math.max(0, x) / Math.max(width, 1)))
+        backdrop.style.opacity = progress.toFixed(3)
+      }
+    },
+    [prefersReducedMotion]
+  )
+
+  const runSpringTo = useCallback(
+    (
+      targetX: number,
+      initialVelocityPxPerSec?: number,
+      dampingRatio = 1.0,
+      response = 0.32,
+      onRest?: () => void
+    ) => {
+      const m = motionRef.current
+      m.targetX = targetX
+      if (typeof initialVelocityPxPerSec === 'number') {
+        m.vx = initialVelocityPxPerSec
+      }
+
+      const width = dialogRef.current?.offsetWidth || DEFAULT_DRAWER_WIDTH
+
+      if (prefersReducedMotion) {
+        if (m.rafId) {
+          cancelAnimationFrame(m.rafId)
+          m.rafId = 0
+        }
+        m.x = targetX
+        m.vx = 0
+        applyTransform(targetX, width)
+        onRest?.()
+        return
+      }
+
+      const { stiffness, damping } = appleSpringParams(dampingRatio, response)
+
+      if (m.rafId) {
+        cancelAnimationFrame(m.rafId)
+        m.rafId = 0
+      }
+      m.lastTime = performance.now()
+
+      const step = (now: number) => {
+        const elapsedSec = (now - m.lastTime) / 1000
+        m.lastTime = now
+
+        const next = stepSpring1D(
+          m.x,
+          m.vx,
+          m.targetX,
+          elapsedSec,
+          stiffness,
+          damping
+        )
+        m.x = next.x
+        m.vx = next.vx
+
+        const currentWidth = dialogRef.current?.offsetWidth || DEFAULT_DRAWER_WIDTH
+        applyTransform(m.x, currentWidth)
+
+        const settled =
+          Math.abs(m.x - m.targetX) < 0.5 && Math.abs(m.vx) < 6
+
+        if (settled) {
+          m.x = m.targetX
+          m.vx = 0
+          m.rafId = 0
+          applyTransform(m.x, currentWidth)
+          onRest?.()
+          return
+        }
+
+        m.rafId = requestAnimationFrame(step)
+      }
+
+      m.rafId = requestAnimationFrame(step)
+    },
+    [applyTransform, prefersReducedMotion]
+  )
+
+  // Synchronize open/close state with interruptible spring (§3, §4, §7)
+  useEffect(() => {
+    if (!isRendered) return
+    const m = motionRef.current
+    const width = dialogRef.current?.offsetWidth || DEFAULT_DRAWER_WIDTH
+
+    if (isOpen) {
+      // If opening from fully closed, seed starting position at panel width
+      if (m.x >= width * 0.98 && m.rafId === 0) {
+        m.x = width
+        applyTransform(m.x, width)
+      }
+      // Critically damped spring (ζ = 1.0, response = 0.32s)
+      runSpringTo(0, undefined, 1.0, 0.32)
+    } else {
+      // Dismiss along the exact same horizontal path to the right
+      runSpringTo(width, undefined, 1.0, 0.28, () => {
+        setIsRendered(false)
+      })
+      // Fallback timer in case tab is hidden and rAF is throttled by the browser
+      const fallbackTimer = window.setTimeout(() => {
+        if (!isOpen) {
+          if (m.rafId) {
+            cancelAnimationFrame(m.rafId)
+            m.rafId = 0
+          }
+          m.x = width
+          m.vx = 0
+          setIsRendered(false)
+        }
+      }, 360)
+      return () => window.clearTimeout(fallbackTimer)
+    }
+  }, [applyTransform, isOpen, isRendered, runSpringTo])
+
+  useEffect(() => {
+    const m = motionRef.current
+    return () => {
+      if (m.rafId) {
+        cancelAnimationFrame(m.rafId)
+        m.rafId = 0
+      }
+    }
+  }, [])
+
   useDialogAccessibility({
     isOpen,
     onClose: closeCart,
@@ -38,28 +215,133 @@ export const CartDrawer: React.FC = () => {
     initialFocusRef: closeButtonRef,
   })
 
-  if (!isOpen) return null
+  // 1:1 Pointer Drag + Hysteresis + Rubber-banding + Velocity Handoff (§2, §5, §6, §9, §10)
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.button !== 0) return
+    const target = e.target as HTMLElement
+    if (target.closest('button, a, input, textarea, select, [role="button"]')) {
+      return
+    }
+
+    const m = motionRef.current
+    // Interrupt any in-flight spring immediately at its live presentation value (§3)
+    if (m.rafId) {
+      cancelAnimationFrame(m.rafId)
+      m.rafId = 0
+    }
+
+    m.dragging = true
+    m.pointerId = e.pointerId
+    m.startClientX = e.clientX
+    m.startClientY = e.clientY
+    m.grabOffsetX = m.x
+    m.gestureLocked = null
+    m.samples = [{ x: e.clientX, y: e.clientY, t: performance.now() }]
+  }
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const m = motionRef.current
+    if (!m.dragging || e.pointerId !== m.pointerId) return
+
+    const dx = e.clientX - m.startClientX
+    const dy = e.clientY - m.startClientY
+
+    // ~10px hysteresis before committing to horizontal drawer drag vs vertical scroll (§10)
+    if (!m.gestureLocked) {
+      if (Math.hypot(dx, dy) < 9) return
+      if (Math.abs(dx) > Math.abs(dy) * 1.15) {
+        m.gestureLocked = 'horizontal'
+        e.currentTarget.setPointerCapture?.(e.pointerId)
+      } else {
+        m.gestureLocked = 'vertical'
+        m.dragging = false
+        return
+      }
+    }
+
+    if (m.gestureLocked !== 'horizontal') return
+
+    const now = performance.now()
+    m.samples.push({ x: e.clientX, y: e.clientY, t: now })
+    if (m.samples.length > 8) m.samples.shift()
+
+    const width = dialogRef.current?.offsetWidth || DEFAULT_DRAWER_WIDTH
+    const rawX = m.grabOffsetX + dx
+
+    // Rubber-band when pulling left past the open boundary (rawX < 0) (§9)
+    const nextX =
+      rawX < 0 ? rubberband(rawX, width, 0.22) : Math.min(rawX, width)
+
+    m.x = nextX
+    applyTransform(nextX, width)
+  }
+
+  const finishPointerDrag = (e: React.PointerEvent<HTMLDivElement>, cancelled = false) => {
+    const m = motionRef.current
+    if (!m.dragging || e.pointerId !== m.pointerId) return
+    m.dragging = false
+
+    if (e.currentTarget.hasPointerCapture?.(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId)
+    }
+
+    if (m.gestureLocked !== 'horizontal') {
+      m.gestureLocked = null
+      return
+    }
+    m.gestureLocked = null
+
+    const width = dialogRef.current?.offsetWidth || DEFAULT_DRAWER_WIDTH
+    const { vx } = cancelled
+      ? { vx: 0 }
+      : computeReleaseVelocity(m.samples, performance.now())
+
+    // Project resting endpoint from release velocity (§6 Momentum projection)
+    const projectedX = m.x + projectMomentum(vx, 0.993)
+    const shouldDismiss =
+      !cancelled &&
+      (vx > 420 || (vx >= -120 && projectedX > width * 0.35))
+
+    if (shouldDismiss) {
+      // Hand off release velocity into the dismiss spring (§5)
+      runSpringTo(width, vx, 0.92, 0.28, () => {
+        setIsRendered(false)
+      })
+      closeCart()
+    } else {
+      // Spring back to open state with slight bounce only if gesture carried momentum (§4)
+      const dampingRatio = Math.abs(vx) > 300 ? 0.86 : 1.0
+      runSpringTo(0, vx, dampingRatio, 0.32)
+    }
+  }
+
+  if (!isRendered) return null
 
   return (
     <div className="fixed inset-0 z-50 overflow-hidden">
-      {/* Backdrop overlay */}
+      {/* Backdrop overlay — dims proportionally to drawer progress (§12) */}
       <div
+        ref={backdropRef}
         aria-hidden="true"
         onClick={closeCart}
-        className="absolute inset-0 bg-black/55 dark:bg-black/75 backdrop-blur-xs transition-opacity duration-200 ease-[var(--ease-out-strong)] animate-in fade-in motion-reduce:animate-none"
+        className="absolute inset-0 bg-black/55 dark:bg-black/75 backdrop-blur-xs transition-none"
       />
 
-      <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
+      <div className="fixed inset-y-0 right-0 max-w-full flex pl-10 pointer-events-none">
         <div
           ref={dialogRef}
           role="dialog"
           aria-modal="true"
           aria-labelledby="cart-drawer-title"
           tabIndex={-1}
-          className="w-screen max-w-md h-[100dvh] bg-[#f5f4f0] dark:bg-[#20222a] border-l border-[#e2dfd8] dark:border-white/[0.08] shadow-[inset_1px_0_0_rgba(255,255,255,0.75),-24px_0_64px_rgba(0,0,0,0.22)] dark:shadow-[inset_1px_0_0_rgba(255,255,255,0.06),-24px_0_64px_rgba(0,0,0,0.55)] flex flex-col justify-between animate-in slide-in-from-right duration-300 ease-[var(--ease-drawer)] motion-reduce:animate-none outline-hidden"
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={e => finishPointerDrag(e, false)}
+          onPointerCancel={e => finishPointerDrag(e, true)}
+          className="pointer-events-auto w-screen max-w-md h-[100dvh] apple-glass-sheet border-l border-[#e2dfd8] dark:border-white/[0.08] shadow-[inset_1px_0_0_rgba(255,255,255,0.75),-24px_0_64px_rgba(0,0,0,0.22)] dark:shadow-[inset_1px_0_0_rgba(255,255,255,0.06),-24px_0_64px_rgba(0,0,0,0.55)] flex flex-col justify-between will-change-transform outline-hidden touch-pan-y"
         >
-          {/* Header - Gallery Top Bar */}
-          <div className="px-6 py-5 bg-white/85 dark:bg-[#22252f]/90 backdrop-blur-md border-b border-[#e2dfd8] dark:border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] flex items-center justify-between">
+          {/* Header - Translucent Gallery Top Bar */}
+          <div className="px-6 py-5 apple-glass-chrome border-b border-[#e2dfd8] dark:border-white/[0.08] flex items-center justify-between select-none">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-[#f8f7f4] dark:bg-[#181b22] border border-[#e2dfd8] dark:border-white/[0.08] flex items-center justify-center">
                 <ShoppingBag className="w-4 h-4 text-zinc-950 dark:text-white" />
@@ -189,7 +471,7 @@ export const CartDrawer: React.FC = () => {
 
           {/* Footer & Checkout Action */}
           {items.length > 0 && (
-            <div className="p-6 border-t border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] space-y-3.5">
+            <div className="p-6 border-t border-[#e2dfd8] dark:border-white/[0.08] bg-white/90 dark:bg-[#22252f]/95 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] space-y-3.5">
               {/* Promo & VIP Discount Input */}
               <div className="space-y-2">
                 {!showCodeInput ? (

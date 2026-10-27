@@ -951,24 +951,31 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
           </section>
         )}
 
-        {/* 5. Mobile Sticky Quick-Buy Bar */}
-        {showStickyBuy &&
-          selectedVariant?.availableForSale !== false &&
+        {/* 5. Mobile Sticky Quick-Buy Bar — symmetric slide/fade along bottom path with translucent chrome (§7, §12) */}
+        {selectedVariant?.availableForSale !== false &&
           product.availableForSale !== false && (
-            <div className="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-[#f5f4f0]/95 dark:bg-[#16181f]/95 backdrop-blur-xl border-t border-[#e2dfd8] dark:border-white/10 p-3.5 px-5 flex items-center justify-between gap-4 shadow-2xl">
+            <div
+              aria-hidden={!showStickyBuy}
+              className={`lg:hidden fixed bottom-0 inset-x-0 z-40 apple-glass-chrome border-t border-[#e2dfd8] dark:border-white/10 p-3.5 px-5 flex items-center justify-between gap-4 shadow-2xl transition-[transform,opacity] duration-250 ease-[var(--ease-drawer)] motion-reduce:transition-opacity ${
+                showStickyBuy
+                  ? 'translate-y-0 opacity-100 pointer-events-auto'
+                  : 'translate-y-full opacity-0 pointer-events-none'
+              }`}
+            >
               <div className="min-w-0">
                 <div className="text-xs font-bold text-zinc-950 dark:text-white truncate font-sans">
                   {selectedVariant?.title && selectedVariant.title !== 'Default Title'
                     ? selectedVariant.title
                     : product.title}
                 </div>
-                <div className="text-sm font-black font-mono text-[#0d5d50] dark:text-[#38e8c6]">
+                <div className="text-sm font-black font-mono tabular-nums text-[#0d5d50] dark:text-[#38e8c6]">
                   ${price.toFixed(2)} {currency}
                 </div>
               </div>
 
               <button
                 type="button"
+                tabIndex={showStickyBuy ? 0 : -1}
                 onClick={handleAddToCart}
                 className="px-6 py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-mono font-black text-xs uppercase tracking-wider flex items-center gap-2 hover:bg-zinc-800 dark:hover:bg-[#5df0d3] active:scale-[0.97] transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] shrink-0 cursor-pointer"
               >

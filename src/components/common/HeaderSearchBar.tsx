@@ -223,9 +223,9 @@ export const HeaderSearchBar: React.FC<HeaderSearchBarProps> = ({
         </div>
       </form>
 
-      {/* Live Suggestions Dropdown (Autocomplete — instant open per emil-design-eng rule for ⌘K / '/' keyboard actions) */}
+      {/* Live Suggestions Dropdown (Autocomplete — anchored to input origin with translucent material §7, §12) */}
       {isOpen && (
-        <div className="absolute top-full left-0 right-0 mt-2 rounded-2xl border border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-[#0E1015] shadow-2xl overflow-hidden z-50 text-xs">
+        <div className="origin-top absolute top-full left-0 right-0 mt-2 rounded-2xl border border-zinc-200/80 dark:border-white/[0.1] apple-glass-popover overflow-hidden z-50 text-xs animate-in fade-in zoom-in-95 duration-150 ease-[var(--ease-out-strong)]">
           {/* Case A: Query is Empty - Popular Searches & Quick Categories */}
           {query.trim().length === 0 && (
             <div className="p-4 space-y-4 font-mono">
@@ -240,7 +240,7 @@ export const HeaderSearchBar: React.FC<HeaderSearchBarProps> = ({
                       key={item}
                       type="button"
                       onClick={() => handleSearchSubmit(item)}
-                      className="px-2.5 py-1 rounded-lg bg-zinc-100 dark:bg-[#161922] hover:bg-zinc-200 dark:hover:bg-[#1E2330] text-zinc-700 dark:text-zinc-300 text-[11px] transition-colors flex items-center gap-1.5"
+                      className="px-2.5 py-1 rounded-lg bg-zinc-100 dark:bg-[#161922] hover:bg-zinc-200 dark:hover:bg-[#1E2330] text-zinc-700 dark:text-zinc-300 text-[11px] transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] flex items-center gap-1.5"
                     >
                       <Search className="w-2.5 h-2.5 text-zinc-400" />
                       <span>{item}</span>
@@ -261,7 +261,7 @@ export const HeaderSearchBar: React.FC<HeaderSearchBarProps> = ({
                       if (onCloseMobile) onCloseMobile()
                       navigate({ to: '/collections', search: { category: 'needles' } })
                     }}
-                    className="p-2 rounded-lg bg-zinc-50 dark:bg-[#12151C] hover:bg-zinc-100 dark:hover:bg-[#1A1E27] text-left text-zinc-700 dark:text-zinc-300 flex items-center justify-between"
+                    className="p-2 rounded-lg bg-zinc-50 dark:bg-[#12151C] hover:bg-zinc-100 dark:hover:bg-[#1A1E27] text-left text-zinc-700 dark:text-zinc-300 transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.98] flex items-center justify-between"
                   >
                     <span>Needle Cartridges</span>
                     <span className="text-[#0d9488] dark:text-[#2EE6CA]">→</span>
@@ -273,7 +273,7 @@ export const HeaderSearchBar: React.FC<HeaderSearchBarProps> = ({
                       if (onCloseMobile) onCloseMobile()
                       navigate({ to: '/collections', search: { category: 'grips' } })
                     }}
-                    className="p-2 rounded-lg bg-zinc-50 dark:bg-[#12151C] hover:bg-zinc-100 dark:hover:bg-[#1A1E27] text-left text-zinc-700 dark:text-zinc-300 flex items-center justify-between"
+                    className="p-2 rounded-lg bg-zinc-50 dark:bg-[#12151C] hover:bg-zinc-100 dark:hover:bg-[#1A1E27] text-left text-zinc-700 dark:text-zinc-300 transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.98] flex items-center justify-between"
                   >
                     <span>Adjustable Grips</span>
                     <span className="text-[#0d9488] dark:text-[#2EE6CA]">→</span>
@@ -285,7 +285,7 @@ export const HeaderSearchBar: React.FC<HeaderSearchBarProps> = ({
                       if (onCloseMobile) onCloseMobile()
                       navigate({ to: '/collections', search: { category: 'machines' } })
                     }}
-                    className="p-2 rounded-lg bg-zinc-50 dark:bg-[#12151C] hover:bg-zinc-100 dark:hover:bg-[#1A1E27] text-left text-zinc-700 dark:text-zinc-300 flex items-center justify-between"
+                    className="p-2 rounded-lg bg-zinc-50 dark:bg-[#12151C] hover:bg-zinc-100 dark:hover:bg-[#1A1E27] text-left text-zinc-700 dark:text-zinc-300 transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.98] flex items-center justify-between"
                   >
                     <span>Rotary Machines</span>
                     <span className="text-[#0d9488] dark:text-[#2EE6CA]">→</span>
@@ -297,7 +297,7 @@ export const HeaderSearchBar: React.FC<HeaderSearchBarProps> = ({
                       if (onCloseMobile) onCloseMobile()
                       navigate({ to: '/collections', search: { category: 'all' } })
                     }}
-                    className="p-2 rounded-lg bg-zinc-50 dark:bg-[#12151C] hover:bg-zinc-100 dark:hover:bg-[#1A1E27] text-left text-zinc-700 dark:text-zinc-300 flex items-center justify-between"
+                    className="p-2 rounded-lg bg-zinc-50 dark:bg-[#12151C] hover:bg-zinc-100 dark:hover:bg-[#1A1E27] text-left text-zinc-700 dark:text-zinc-300 transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.98] flex items-center justify-between"
                   >
                     <span>All Products (392)</span>
                     <span className="text-[#0d9488] dark:text-[#2EE6CA]">→</span>
