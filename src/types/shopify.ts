@@ -6,6 +6,7 @@ export interface ShopifyImage {
 export interface ShopifyVariant {
   id: string
   title: string
+  sku?: string | null
   availableForSale?: boolean
   price: {
     amount: string
