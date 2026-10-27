@@ -27,7 +27,7 @@ type InquiryTopic = 'general' | 'order' | 'warranty' | 'wholesale'
 interface TopicPreset {
   id: InquiryTopic
   label: string
-  code: string
+  department: string
   description: string
   placeholder: string
 }
@@ -36,7 +36,7 @@ const TOPIC_PRESETS: TopicPreset[] = [
   {
     id: 'order',
     label: 'Order & Tracking',
-    code: 'LOG-01',
+    department: 'LOGISTICS',
     description: 'Shipment tracking, commercial invoice requests, or delivery address updates.',
     placeholder:
       'Please include your Order # and let us know if you need tracking updates, invoice documentation, or dispatch assistance...',
@@ -44,7 +44,7 @@ const TOPIC_PRESETS: TopicPreset[] = [
   {
     id: 'warranty',
     label: 'Machine Service / RMA',
-    code: 'RMA-02',
+    department: 'WARRANTY',
     description: 'Rotary motor diagnostics, stroke cam service, battery pack warranty, or RMA status.',
     placeholder:
       'Describe your machine model (e.g. Papa Pen V3 Pro), operating voltage, and issue symptoms for our repair bench...',
@@ -52,7 +52,7 @@ const TOPIC_PRESETS: TopicPreset[] = [
   {
     id: 'wholesale',
     label: 'Studio & Wholesale',
-    code: 'B2B-03',
+    department: 'WHOLESALE',
     description: 'Multi-artist studio accounts, bulk cartridge box pricing, or regional distribution.',
     placeholder:
       'Share your studio name, location, and estimated monthly cartridge or hardware volume...',
@@ -60,7 +60,7 @@ const TOPIC_PRESETS: TopicPreset[] = [
   {
     id: 'general',
     label: 'Technical Inquiry',
-    code: 'GEN-04',
+    department: 'TECHNICAL',
     description: 'Needle compatibility, grip sizing, voltage recommendations, or general questions.',
     placeholder:
       'Ask about cartridge membrane specs, grip compatibility, or recommended stroke length...',
@@ -138,16 +138,16 @@ export const ContactPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-[calc(100dvh-80px)] bg-zinc-50 dark:bg-[#14161b] text-zinc-900 dark:text-zinc-100 font-sans transition-colors duration-200 pb-20">
+    <div className="min-h-[calc(100dvh-80px)] bg-[#f5f4f0] dark:bg-[#20222a] text-zinc-900 dark:text-zinc-100 font-sans transition-colors duration-200 pb-20">
       {/* 1. HEADER BANNER */}
-      <section className="border-b border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] py-10 sm:py-14">
+      <section className="border-b border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] py-10 sm:py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-200/80 dark:border-white/10 bg-[#f8f7f4] dark:bg-[#14161b] text-[#0d5d50] dark:text-[#38e8c6] text-[11px] font-mono font-bold tracking-wider uppercase">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#0d5d50] dark:bg-[#38e8c6]" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] text-[#0d5d50] dark:text-[#38e8c6] text-[11px] font-mono font-bold tracking-wider uppercase">
+              <MessageSquare className="w-3.5 h-3.5" />
               <span>STUDIO DISPATCH &amp; TECHNICAL SUPPORT DESK</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-['Montserrat',sans-serif] font-black uppercase tracking-tight text-zinc-950 dark:text-white leading-tight">
+            <h1 className="text-3xl sm:text-4xl font-display font-black uppercase tracking-tight text-zinc-950 dark:text-white leading-tight">
               CONTACT PAPA TATTOO SUPPLY
             </h1>
             <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
@@ -158,14 +158,14 @@ export const ContactPage: React.FC = () => {
           <div className="flex flex-wrap items-center gap-2.5 text-xs font-mono">
             <Link
               to="/products"
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-zinc-200/80 dark:border-white/10 bg-[#f8f7f4] dark:bg-[#14161b] text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-white/25 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-white/25 active:scale-[0.98] transition-[transform,border-color,color] duration-150 ease-[var(--ease-out-strong)]"
             >
               <PackageSearch className="w-3.5 h-3.5 text-[#0d5d50] dark:text-[#38e8c6]" />
               <span>Hardware Lineup</span>
             </Link>
             <Link
               to="/distributors"
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-zinc-200/80 dark:border-white/10 bg-[#f8f7f4] dark:bg-[#14161b] text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-white/25 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-white/25 active:scale-[0.98] transition-[transform,border-color,color] duration-150 ease-[var(--ease-out-strong)]"
             >
               <Building2 className="w-3.5 h-3.5 text-[#0d5d50] dark:text-[#38e8c6]" />
               <span>Wholesale &amp; Distributors</span>
@@ -179,20 +179,20 @@ export const ContactPage: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Left Column: Direct Channels & RMA Protocol (5 cols) */}
           <div className="lg:col-span-5 space-y-5">
-            <div className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] p-6 sm:p-7 space-y-6">
-              <div className="flex items-center justify-between border-b border-zinc-100 dark:border-white/[0.06] pb-3">
+            <div className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-6 sm:p-7 space-y-6">
+              <div className="flex items-center justify-between border-b border-[#e2dfd8]/70 dark:border-white/[0.06] pb-3">
                 <h2 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
                   DIRECT STUDIO CHANNELS
                 </h2>
-                <span className="text-[10px] font-mono font-bold uppercase text-[#0d5d50] dark:text-[#38e8c6]">
+                <span className="text-[10px] font-mono font-bold uppercase tabular-nums text-[#0d5d50] dark:text-[#38e8c6]">
                   24H SLA
                 </span>
               </div>
 
               {/* Email + Quick Copy */}
-              <div className="flex items-start justify-between gap-3">
+              <div className="flex flex-wrap items-center justify-between gap-3">
                 <div className="flex items-start gap-3.5 min-w-0">
-                  <div className="w-10 h-10 rounded-xl bg-[#f8f7f4] dark:bg-[#14161b] border border-zinc-200/70 dark:border-white/10 text-[#0d5d50] dark:text-[#38e8c6] flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-[#f8f7f4] dark:bg-[#181b22] border border-[#e2dfd8] dark:border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] text-[#0d5d50] dark:text-[#38e8c6] flex items-center justify-center shrink-0">
                     <Mail className="w-4 h-4" />
                   </div>
                   <div className="min-w-0">
@@ -201,7 +201,7 @@ export const ContactPage: React.FC = () => {
                     </div>
                     <a
                       href="mailto:papatattoosupply@gmail.com"
-                      className="text-sm font-mono font-bold text-zinc-900 dark:text-white hover:text-[#0d5d50] dark:hover:text-[#38e8c6] transition-colors truncate block mt-0.5"
+                      className="text-xs sm:text-[13px] font-mono font-bold text-zinc-900 dark:text-white hover:text-[#0d5d50] dark:hover:text-[#38e8c6] transition-colors duration-150 block mt-0.5 whitespace-nowrap"
                     >
                       papatattoosupply@gmail.com
                     </a>
@@ -211,12 +211,12 @@ export const ContactPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleCopyDirectEmail}
-                  className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-zinc-200/80 dark:border-white/10 bg-[#f8f7f4] dark:bg-[#14161b] text-[11px] font-mono font-semibold text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 active:scale-[0.98] transition-all cursor-pointer"
+                  className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] text-[11px] font-mono font-semibold text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-white/25 active:scale-[0.97] transition-[transform,border-color,color] duration-150 ease-[var(--ease-out-strong)] cursor-pointer"
                   title="Copy email address"
                 >
                   {emailCopied ? (
                     <>
-                      <Check className="w-3 h-3 text-emerald-500" />
+                      <Check className="w-3 h-3 text-[#0d5d50] dark:text-[#38e8c6]" />
                       <span>Copied</span>
                     </>
                   ) : (
@@ -230,15 +230,15 @@ export const ContactPage: React.FC = () => {
 
               {/* Operating Hours */}
               <div className="flex items-start gap-3.5">
-                <div className="w-10 h-10 rounded-xl bg-[#f8f7f4] dark:bg-[#14161b] border border-zinc-200/70 dark:border-white/10 text-zinc-600 dark:text-zinc-400 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-[#f8f7f4] dark:bg-[#181b22] border border-[#e2dfd8] dark:border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] text-zinc-600 dark:text-zinc-400 flex items-center justify-center shrink-0">
                   <Clock className="w-4 h-4" />
                 </div>
                 <div>
                   <div className="text-[11px] font-mono uppercase tracking-wider text-zinc-400">
                     OPERATING HOURS
                   </div>
-                  <div className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 mt-0.5">
-                    Monday – Friday · 09:00 – 18:00
+                  <div className="text-sm font-semibold tabular-nums text-zinc-900 dark:text-zinc-100 mt-0.5">
+                    Monday to Friday · 09:00 to 18:00
                   </div>
                   <div className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
                     All studio inquiries and tracking requests answered within 24 business hours.
@@ -248,7 +248,7 @@ export const ContactPage: React.FC = () => {
 
               {/* Instagram */}
               <div className="flex items-start gap-3.5">
-                <div className="w-10 h-10 rounded-xl bg-[#f8f7f4] dark:bg-[#14161b] border border-zinc-200/70 dark:border-white/10 text-zinc-700 dark:text-zinc-300 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-[#f8f7f4] dark:bg-[#181b22] border border-[#e2dfd8] dark:border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] text-zinc-700 dark:text-zinc-300 flex items-center justify-center shrink-0">
                   <svg
                     className="w-4 h-4"
                     viewBox="0 0 24 24"
@@ -271,7 +271,7 @@ export const ContactPage: React.FC = () => {
                     href="https://instagram.com/papatattoosupply"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm font-mono font-bold text-zinc-900 dark:text-white hover:text-[#0d5d50] dark:hover:text-[#38e8c6] transition-colors inline-flex items-center gap-1.5 mt-0.5"
+                    className="text-sm font-mono font-bold text-zinc-900 dark:text-white hover:text-[#0d5d50] dark:hover:text-[#38e8c6] transition-colors duration-150 inline-flex items-center gap-1.5 mt-0.5"
                   >
                     <span>@papatattoosupply</span>
                     <ExternalLink className="w-3.5 h-3.5 text-zinc-400" />
@@ -281,7 +281,7 @@ export const ContactPage: React.FC = () => {
             </div>
 
             {/* Machine Repair / RMA Protocol Card */}
-            <div className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181a20] p-6 space-y-3">
+            <div className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-6 space-y-3">
               <div className="flex items-center justify-between">
                 <div className="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6] uppercase">
                   <Wrench className="w-4 h-4 shrink-0" />
@@ -297,7 +297,7 @@ export const ContactPage: React.FC = () => {
                   href="https://drive.google.com/file/d/1nMPw2A9x_AwQnlFp0yew_2XNbMBKoiEf/view"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-mono font-bold uppercase tracking-wider hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.98] transition-all"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-mono font-bold uppercase tracking-wider hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.98] transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)]"
                 >
                   <FileText className="w-3.5 h-3.5" />
                   <span>Download RMA Form (PDF)</span>
@@ -308,8 +308,8 @@ export const ContactPage: React.FC = () => {
           </div>
 
           {/* Right Column: Interactive Dispatch Console Form (7 cols) */}
-          <div className="lg:col-span-7 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] p-6 sm:p-8">
-            <div className="flex items-center justify-between gap-2 pb-4 mb-5 border-b border-zinc-100 dark:border-white/[0.06]">
+          <div className="lg:col-span-7 rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-6 sm:p-8">
+            <div className="flex items-center justify-between gap-2 pb-4 mb-5 border-b border-[#e2dfd8]/70 dark:border-white/[0.06]">
               <div className="flex items-center gap-2">
                 <MessageSquare className="w-4 h-4 text-[#0d5d50] dark:text-[#38e8c6]" />
                 <h2 className="text-sm font-bold uppercase tracking-wider text-zinc-950 dark:text-white font-mono">
@@ -317,13 +317,13 @@ export const ContactPage: React.FC = () => {
                 </h2>
               </div>
               <span className="text-[11px] text-zinc-400 font-mono">
-                {activePreset.code} · * REQUIRED
+                {activePreset.department} · * REQUIRED
               </span>
             </div>
 
             {submissionResult ? (
-              <div className="p-6 sm:p-8 rounded-2xl border border-emerald-500/30 bg-emerald-500/10 text-center space-y-4">
-                <CheckCircle2 className="w-10 h-10 text-emerald-500 mx-auto" />
+              <div className="p-6 sm:p-8 rounded-2xl border border-[#0d5d50]/30 dark:border-[#38e8c6]/30 bg-[#0d5d50]/10 dark:bg-[#38e8c6]/10 text-center space-y-4">
+                <CheckCircle2 className="w-10 h-10 text-[#0d5d50] dark:text-[#38e8c6] mx-auto" />
                 {submissionResult.delivered ? (
                   <>
                     <h3 className="text-base font-bold font-mono uppercase text-zinc-950 dark:text-white">
@@ -336,7 +336,7 @@ export const ContactPage: React.FC = () => {
                 ) : (
                   <>
                     <h3 className="text-base font-bold font-mono uppercase text-zinc-950 dark:text-white">
-                      INQUIRY FORMATTED — READY TO SEND
+                      INQUIRY FORMATTED · READY TO SEND
                     </h3>
                     <p className="text-xs text-zinc-600 dark:text-zinc-300 max-w-md mx-auto leading-relaxed">
                       Your dispatch message for{' '}
@@ -348,7 +348,7 @@ export const ContactPage: React.FC = () => {
                     <div className="flex flex-wrap items-center justify-center gap-2.5 pt-1">
                       <a
                         href={submissionResult.mailtoUrl}
-                        className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-mono font-bold text-xs uppercase hover:opacity-90 active:scale-[0.98] transition-all"
+                        className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-mono font-bold text-xs uppercase hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.98] transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)]"
                       >
                         <Mail className="w-3.5 h-3.5" />
                         <span>Open Mail App</span>
@@ -356,10 +356,10 @@ export const ContactPage: React.FC = () => {
                       <button
                         type="button"
                         onClick={handleCopyInquiry}
-                        className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-zinc-300 dark:border-white/15 bg-white dark:bg-[#14161b] text-zinc-800 dark:text-zinc-100 font-mono font-bold text-xs uppercase cursor-pointer hover:border-zinc-500 active:scale-[0.98] transition-all"
+                        className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/15 bg-white dark:bg-[#181b22] text-zinc-800 dark:text-zinc-100 font-mono font-bold text-xs uppercase cursor-pointer hover:border-zinc-500 active:scale-[0.98] transition-[transform,border-color,color] duration-150 ease-[var(--ease-out-strong)]"
                       >
                         {copied ? (
-                          <Check className="w-3.5 h-3.5 text-emerald-500" />
+                          <Check className="w-3.5 h-3.5 text-[#0d5d50] dark:text-[#38e8c6]" />
                         ) : (
                           <Copy className="w-3.5 h-3.5" />
                         )}
@@ -407,13 +407,13 @@ export const ContactPage: React.FC = () => {
                           type="button"
                           onClick={() => setFormData(prev => ({ ...prev, topic: preset.id }))}
                           aria-pressed={isSelected}
-                          className={`px-3 py-2.5 rounded-xl border text-left transition-all cursor-pointer active:scale-[0.98] ${
+                          className={`px-3.5 py-2.5 rounded-xl border text-left transition-[transform,background-color,border-color,color,box-shadow] duration-150 ease-[var(--ease-out-strong)] cursor-pointer active:scale-[0.98] ${
                             isSelected
-                              ? 'border-zinc-950 dark:border-[#38e8c6] bg-zinc-950 text-white dark:bg-[#38e8c6]/15 dark:text-[#38e8c6]'
-                              : 'border-zinc-200/80 dark:border-white/10 bg-[#f8f7f4] dark:bg-[#14161b] text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-white/25'
+                              ? 'border-zinc-950 dark:border-[#38e8c6] bg-zinc-950 text-white dark:bg-[#38e8c6]/15 dark:text-[#38e8c6] shadow-xs'
+                              : 'border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-white/25'
                           }`}
                         >
-                          <div className="text-[10px] font-mono opacity-70">{preset.code}</div>
+                          <div className="text-[10px] font-mono opacity-70 tracking-wider">{preset.department}</div>
                           <div className="font-mono font-bold text-[11px] mt-0.5 leading-tight">
                             {preset.label}
                           </div>
@@ -428,7 +428,7 @@ export const ContactPage: React.FC = () => {
 
                 {/* Contextual Helper Banner for RMA or Wholesale */}
                 {formData.topic === 'warranty' && (
-                  <div className="p-3.5 rounded-xl border border-zinc-200/80 dark:border-white/10 bg-[#f8f7f4] dark:bg-[#14161b] flex items-center justify-between gap-3">
+                  <div className="p-3.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] flex items-center justify-between gap-3">
                     <div className="text-[11px] text-zinc-600 dark:text-zinc-300">
                       <strong className="font-mono uppercase text-zinc-900 dark:text-white">
                         RMA Tip:
@@ -448,7 +448,7 @@ export const ContactPage: React.FC = () => {
                 )}
 
                 {formData.topic === 'wholesale' && (
-                  <div className="p-3.5 rounded-xl border border-zinc-200/80 dark:border-white/10 bg-[#f8f7f4] dark:bg-[#14161b] flex items-center justify-between gap-3">
+                  <div className="p-3.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] flex items-center justify-between gap-3">
                     <div className="text-[11px] text-zinc-600 dark:text-zinc-300">
                       Applying for regional territory distribution? You can also submit a full distributor dossier.
                     </div>
@@ -479,7 +479,7 @@ export const ContactPage: React.FC = () => {
                       value={formData.name}
                       onChange={e => setFormData({ ...formData, name: e.target.value })}
                       placeholder="Alex Hunter · Blackline Studio"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200/80 dark:border-white/10 bg-[#f8f7f4] dark:bg-[#14161b] text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
                     />
                   </div>
 
@@ -499,7 +499,7 @@ export const ContactPage: React.FC = () => {
                       value={formData.email}
                       onChange={e => setFormData({ ...formData, email: e.target.value })}
                       placeholder="artist@studio.com"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200/80 dark:border-white/10 bg-[#f8f7f4] dark:bg-[#14161b] text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
                     />
                   </div>
                 </div>
@@ -519,7 +519,7 @@ export const ContactPage: React.FC = () => {
                       onChange={e =>
                         setFormData({ ...formData, topic: e.target.value as InquiryTopic })
                       }
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200/80 dark:border-white/10 bg-[#f8f7f4] dark:bg-[#14161b] text-zinc-900 dark:text-white focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors font-mono"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-zinc-900 dark:text-white focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150 font-mono"
                     >
                       <option value="order">Order Status &amp; Shipping</option>
                       <option value="warranty">Machine Service &amp; Warranty</option>
@@ -542,7 +542,7 @@ export const ContactPage: React.FC = () => {
                       value={formData.orderNumber}
                       onChange={e => setFormData({ ...formData, orderNumber: e.target.value })}
                       placeholder="#10482"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200/80 dark:border-white/10 bg-[#f8f7f4] dark:bg-[#14161b] text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors font-mono"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150 font-mono tabular-nums"
                     />
                   </div>
                 </div>
@@ -562,7 +562,7 @@ export const ContactPage: React.FC = () => {
                     value={formData.message}
                     onChange={e => setFormData({ ...formData, message: e.target.value })}
                     placeholder={activePreset.placeholder}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200/80 dark:border-white/10 bg-[#f8f7f4] dark:bg-[#14161b] text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors resize-y"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150 resize-y"
                   />
                 </div>
 
@@ -570,7 +570,7 @@ export const ContactPage: React.FC = () => {
                   <button
                     type="submit"
                     disabled={formLoading}
-                    className="w-full py-3.5 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-mono font-bold uppercase tracking-wider text-xs flex items-center justify-center gap-2 hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.98] transition-all disabled:opacity-50 cursor-pointer shadow-xs"
+                    className="w-full py-3.5 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-mono font-bold uppercase tracking-wider text-xs flex items-center justify-center gap-2 hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.98] transition-[transform,background-color,color,opacity] duration-150 ease-[var(--ease-out-strong)] disabled:opacity-50 cursor-pointer shadow-xs"
                   >
                     {formLoading ? (
                       <>
