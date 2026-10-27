@@ -95,10 +95,10 @@ export const HardwareModelCard: React.FC<{ group: HardwareModelGroup }> = ({ gro
 
   return (
     <article
-      className={`group relative rounded-2xl border p-5 flex flex-col justify-between transition-[border-color,box-shadow,transform] duration-200 ease-[var(--ease-out-strong)] ${
+      className={`group relative rounded-2xl border p-5 flex flex-col justify-between shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-[border-color,box-shadow,transform] duration-200 ease-[var(--ease-out-strong)] ${
         group.isFlagshipAmber
-          ? 'border-amber-500/30 dark:border-amber-500/35 bg-white dark:bg-[#262933] hover:border-amber-500/55 hover:shadow-[0_16px_34px_-12px_rgba(180,115,20,0.18)] dark:hover:shadow-[0_16px_34px_rgba(245,158,11,0.12)]'
-          : 'border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#262933] hover:border-zinc-300 dark:hover:border-white/20 hover:shadow-[0_16px_34px_-12px_rgba(18,18,16,0.1)] dark:hover:shadow-[0_16px_34px_rgba(0,0,0,0.45)]'
+          ? 'border-amber-500/30 dark:border-amber-500/35 bg-white dark:bg-[#22252f] hover:border-amber-500/55 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_16px_34px_-12px_rgba(180,115,20,0.18)] dark:hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_16px_34px_rgba(245,158,11,0.12)]'
+          : 'border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] hover:border-zinc-300 dark:hover:border-white/20 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_16px_34px_-12px_rgba(18,18,16,0.1)] dark:hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_16px_34px_rgba(0,0,0,0.45)]'
       }`}
     >
       <div>
@@ -116,14 +116,12 @@ export const HardwareModelCard: React.FC<{ group: HardwareModelGroup }> = ({ gro
           )}
 
           {activeOption.available ? (
-            <span className="inline-flex items-center gap-1.5 text-[10px] font-mono text-[#0d5d50] dark:text-[#38e8c6]">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-              <span>{t('card_in_stock')}</span>
+            <span className="text-[10px] font-mono font-semibold text-[#0d5d50] dark:text-[#38e8c6] whitespace-nowrap">
+              {t('card_in_stock')}
             </span>
           ) : (
-            <span className="inline-flex items-center gap-1.5 text-[10px] font-mono text-zinc-400 dark:text-zinc-500">
-              <span className="w-1.5 h-1.5 rounded-full bg-zinc-300 dark:bg-zinc-600" />
-              <span>Sold out</span>
+            <span className="text-[10px] font-mono text-zinc-400 dark:text-zinc-500 whitespace-nowrap">
+              Sold out
             </span>
           )}
         </div>
@@ -132,7 +130,7 @@ export const HardwareModelCard: React.FC<{ group: HardwareModelGroup }> = ({ gro
         <Link
           to="/products/$handle"
           params={{ handle: activeProduct.handle }}
-          className="relative aspect-square w-full rounded-xl bg-[#f8f7f4] dark:bg-[#1c1e24] flex items-center justify-center p-4 overflow-hidden border border-[#eceae4] dark:border-white/[0.05]"
+          className="relative aspect-square w-full rounded-xl bg-[#f8f7f4] dark:bg-[#181b22] flex items-center justify-center p-4 overflow-hidden border border-[#eceae4] dark:border-white/[0.06] shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
         >
           <div
             className="absolute inset-6 rounded-full opacity-[0.07] dark:opacity-[0.14] blur-2xl transition-opacity duration-200 ease-[var(--ease-out-strong)] group-hover:opacity-[0.15] dark:group-hover:opacity-[0.24] pointer-events-none"
@@ -157,12 +155,6 @@ export const HardwareModelCard: React.FC<{ group: HardwareModelGroup }> = ({ gro
               }
             }}
           />
-
-          {hasSwatches && (
-            <span className="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded-md bg-white/85 dark:bg-black/55 backdrop-blur-md border border-[#e2dfd8]/80 dark:border-white/10 text-[10px] font-mono text-zinc-600 dark:text-zinc-300 tabular-nums">
-              {group.options.length} {group.options[0].swatchType === 'dot' ? 'finishes' : 'options'}
-            </span>
-          )}
         </Link>
 
         {/* Anodized Swatches / Edition Selector */}
@@ -172,7 +164,7 @@ export const HardwareModelCard: React.FC<{ group: HardwareModelGroup }> = ({ gro
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between gap-2 text-[11px] font-mono">
                   <span className="text-zinc-400 dark:text-zinc-500">
-                    {group.swatchLabelPrefix || 'Finish'}
+                    {group.swatchLabelPrefix || 'Finish'} ({group.options.length})
                   </span>
                   <span className="text-zinc-700 dark:text-zinc-300 font-medium truncate">
                     {activeOption.label}
@@ -192,7 +184,7 @@ export const HardwareModelCard: React.FC<{ group: HardwareModelGroup }> = ({ gro
                         onClick={() => handleSelectOption(idx)}
                         className={`relative w-5 h-5 rounded-full transition-transform duration-150 ease-[var(--ease-out-strong)] active:scale-90 ${
                           isSelected
-                            ? 'ring-2 ring-offset-2 ring-zinc-900 dark:ring-[#38e8c6] ring-offset-white dark:ring-offset-[#262933] scale-105'
+                            ? 'ring-2 ring-offset-2 ring-zinc-900 dark:ring-[#38e8c6] ring-offset-white dark:ring-offset-[#22252f] scale-105'
                             : 'ring-1 ring-black/15 dark:ring-white/20 hover:scale-110 opacity-85 hover:opacity-100'
                         }`}
                         style={{ background: opt.swatchCss }}
@@ -225,7 +217,7 @@ export const HardwareModelCard: React.FC<{ group: HardwareModelGroup }> = ({ gro
                       className={`px-2.5 py-1 rounded-lg text-[11px] font-mono font-medium transition-[background-color,color,border-color,transform] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] border ${
                         isSelected
                           ? 'bg-zinc-950 text-white border-zinc-950 dark:bg-[#38e8c6] dark:text-zinc-950 dark:border-[#38e8c6]'
-                          : 'bg-[#f8f7f4] dark:bg-[#1c1e24] text-zinc-600 dark:text-zinc-300 border-[#e2dfd8] dark:border-white/10 hover:border-zinc-400 dark:hover:border-white/25'
+                          : 'bg-[#f8f7f4] dark:bg-[#181b22] text-zinc-600 dark:text-zinc-300 border-[#e2dfd8] dark:border-white/10 hover:border-zinc-400 dark:hover:border-white/25'
                       }`}
                     >
                       {opt.label}
@@ -347,7 +339,7 @@ export const LiveMachineComparator: React.FC<{
   return (
     <section
       aria-label="Rotary Machine Benchmark Comparison"
-      className="rounded-3xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#1a1c24] p-5 sm:p-8 shadow-[0_18px_40px_-18px_rgba(18,18,16,0.12)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.45)]"
+      className="rounded-3xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#1c1f28] p-5 sm:p-8 shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_18px_40px_-18px_rgba(18,18,16,0.12)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_20px_50px_rgba(0,0,0,0.45)]"
     >
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#eceae4] dark:border-white/[0.08]">
         <div>
@@ -374,7 +366,7 @@ export const LiveMachineComparator: React.FC<{
             <button
               type="button"
               onClick={onClose}
-              className="p-2 rounded-xl border border-[#e2dfd8] dark:border-white/10 text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors"
+              className="p-2 rounded-xl border border-[#e2dfd8] dark:border-white/10 text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-[color,border-color,transform] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.95]"
               aria-label="Close machine comparison"
               title="Close comparison"
             >
@@ -385,7 +377,7 @@ export const LiveMachineComparator: React.FC<{
       </div>
 
       {show3DStage && (
-        <div className="mt-6 p-4 rounded-2xl border border-[#eceae4] dark:border-white/[0.06] bg-[#f8f7f4] dark:bg-[#14161c] relative min-h-[320px] flex items-center justify-center">
+        <div className="mt-6 p-4 rounded-2xl border border-[#eceae4] dark:border-white/[0.06] bg-[#f8f7f4] dark:bg-[#14161c] relative min-h-[320px] flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
           <div className="absolute top-3.5 left-3.5 z-10 px-3 py-1 rounded-lg bg-zinc-950/85 text-white text-[11px] font-mono">
             Papa Pen V2 · Interactive 3D Specimen (Drag to Orbit)
           </div>
@@ -419,11 +411,11 @@ export const LiveMachineComparator: React.FC<{
           return (
             <div
               key={item.handle}
-              className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4]/80 dark:bg-[#1f222b] p-5 flex flex-col justify-between gap-5"
+              className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4]/80 dark:bg-[#22252f] p-5 flex flex-col justify-between gap-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between gap-2">
-                  <span className="px-2.5 py-0.5 rounded-md bg-white dark:bg-white/[0.06] border border-[#e2dfd8] dark:border-white/10 text-[10px] font-mono font-semibold text-[#0d5d50] dark:text-[#38e8c6] uppercase">
+                  <span className="px-2.5 py-0.5 rounded-md bg-white dark:bg-white/[0.06] border border-[#e2dfd8] dark:border-white/10 text-[10px] font-mono font-semibold text-[#0d5d50] dark:text-[#38e8c6] uppercase whitespace-nowrap">
                     {item.roleTag}
                   </span>
                   <span className="text-sm font-mono font-bold text-zinc-950 dark:text-white tabular-nums whitespace-nowrap">
@@ -435,7 +427,7 @@ export const LiveMachineComparator: React.FC<{
                 <Link
                   to="/products/$handle"
                   params={{ handle: item.handle }}
-                  className="aspect-[16/10] w-full rounded-xl bg-white dark:bg-[#171920] border border-[#eceae4] dark:border-white/[0.05] flex items-center justify-center p-3 overflow-hidden group/img"
+                  className="aspect-[16/10] w-full rounded-xl bg-white dark:bg-[#181b22] border border-[#eceae4] dark:border-white/[0.06] shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] flex items-center justify-center p-3 overflow-hidden group/img"
                 >
                   <img
                     src={imgSrc}
@@ -458,7 +450,7 @@ export const LiveMachineComparator: React.FC<{
                   <div>
                     <div className="flex items-center justify-between text-[11px]">
                       <dt className="text-zinc-400 dark:text-zinc-500">Stroke</dt>
-                      <dd className="font-semibold text-zinc-800 dark:text-zinc-200 tabular-nums">
+                      <dd className="font-semibold text-zinc-800 dark:text-zinc-200 tabular-nums whitespace-nowrap">
                         {item.strokeLabel}
                       </dd>
                     </div>
@@ -473,7 +465,7 @@ export const LiveMachineComparator: React.FC<{
                   <div>
                     <div className="flex items-center justify-between text-[11px]">
                       <dt className="text-zinc-400 dark:text-zinc-500">Mass</dt>
-                      <dd className="font-semibold text-zinc-800 dark:text-zinc-200 tabular-nums">
+                      <dd className="font-semibold text-zinc-800 dark:text-zinc-200 tabular-nums whitespace-nowrap">
                         {item.weightLabel}
                       </dd>
                     </div>
@@ -494,7 +486,7 @@ export const LiveMachineComparator: React.FC<{
 
                   <div className="flex items-center justify-between gap-2">
                     <dt className="text-[11px] text-zinc-400 dark:text-zinc-500 shrink-0">Voltage</dt>
-                    <dd className="text-[11px] font-medium text-zinc-800 dark:text-zinc-200 tabular-nums">
+                    <dd className="text-[11px] font-medium text-zinc-800 dark:text-zinc-200 tabular-nums whitespace-nowrap">
                       {item.voltageLabel}
                     </dd>
                   </div>
@@ -568,7 +560,7 @@ const SpecSheetRow: React.FC<SpecSheetRowProps> = ({
         <Link
           to="/products/$handle"
           params={{ handle: product.handle }}
-          className="w-12 h-12 rounded-xl bg-[#f8f7f4] dark:bg-[#191b21] border border-[#eceae4] dark:border-white/[0.06] flex items-center justify-center p-1.5 shrink-0"
+          className="w-12 h-12 rounded-xl bg-[#f8f7f4] dark:bg-[#181b22] border border-[#eceae4] dark:border-white/[0.06] flex items-center justify-center p-1.5 shrink-0"
         >
           <img
             src={imgSrc}
@@ -614,7 +606,7 @@ const SpecSheetRow: React.FC<SpecSheetRowProps> = ({
           <span className="text-[10px] font-normal text-zinc-400">{currency}</span>
         </div>
         <span
-          className={`text-[10px] font-mono ${
+          className={`text-[10px] font-mono whitespace-nowrap ${
             isAvailable
               ? 'text-[#0d5d50] dark:text-[#38e8c6]'
               : 'text-zinc-400 dark:text-zinc-500'
@@ -634,18 +626,18 @@ const SpecSheetRow: React.FC<SpecSheetRowProps> = ({
           <Link
             to="/products/$handle"
             params={{ handle: product.handle }}
-            className="px-3 py-1.5 rounded-lg border border-[#e2dfd8] dark:border-white/15 bg-white dark:bg-white/[0.04] hover:border-zinc-400 dark:hover:border-[#38e8c6]/50 text-xs font-mono font-semibold text-zinc-900 dark:text-white inline-flex items-center gap-1 transition-[border-color,transform] duration-150 active:scale-[0.97] whitespace-nowrap"
+            className="px-3 py-1.5 rounded-lg border border-[#e2dfd8] dark:border-white/15 bg-white dark:bg-white/[0.04] hover:border-zinc-400 dark:hover:border-[#38e8c6]/50 text-xs font-mono font-semibold text-zinc-900 dark:text-white inline-flex items-center gap-1 transition-[border-color,transform] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] whitespace-nowrap"
           >
             <span>Configure</span>
             <ArrowRight className="w-3 h-3" />
           </Link>
         ) : (
           <>
-            <div className="inline-flex items-center rounded-lg border border-[#e2dfd8] dark:border-white/10 bg-[#f8f7f4] dark:bg-[#191b21]">
+            <div className="inline-flex items-center rounded-lg border border-[#e2dfd8] dark:border-white/10 bg-[#f8f7f4] dark:bg-[#181b22]">
               <button
                 type="button"
                 onClick={() => setQty(q => Math.max(1, q - 1))}
-                className="p-1.5 text-zinc-500 hover:text-zinc-900 dark:hover:text-white"
+                className="p-1.5 text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-[color,transform] duration-150 active:scale-90"
                 aria-label="Decrease quantity"
               >
                 <Minus className="w-3 h-3" />
@@ -656,7 +648,7 @@ const SpecSheetRow: React.FC<SpecSheetRowProps> = ({
               <button
                 type="button"
                 onClick={() => setQty(q => Math.min(20, q + 1))}
-                className="p-1.5 text-zinc-500 hover:text-zinc-900 dark:hover:text-white"
+                className="p-1.5 text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-[color,transform] duration-150 active:scale-90"
                 aria-label="Increase quantity"
               >
                 <Plus className="w-3 h-3" />
@@ -713,8 +705,8 @@ export const StudioSpecSheet: React.FC<{ groups: HardwareModelGroup[] }> = ({ gr
   })
 
   return (
-    <div className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#262933] overflow-hidden shadow-xs">
-      <div className="hidden md:grid md:grid-cols-12 gap-4 px-6 py-3 bg-[#f8f7f4] dark:bg-[#1c1e24] border-b border-[#e2dfd8] dark:border-white/[0.08] text-[11px] font-mono font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
+    <div className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] overflow-hidden shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
+      <div className="hidden md:grid md:grid-cols-12 gap-4 px-6 py-3 bg-[#f8f7f4] dark:bg-[#181b22] border-b border-[#e2dfd8] dark:border-white/[0.08] text-[11px] font-mono font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
         <div className="col-span-5">Apparatus / SKU</div>
         <div className="col-span-3">Engineering Specification</div>
         <div className="col-span-2 text-right">Unit Price</div>

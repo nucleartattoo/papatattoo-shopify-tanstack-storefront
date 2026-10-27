@@ -54,7 +54,7 @@ const CHAPTER_CONFIG: ChapterMeta[] = [
     shortLabel: 'Machines',
     title: 'Rotary Tattoo Machines',
     specSummary: 'German coreless & direct-drive architecture · 3.5 mm to 4.5 mm stroke',
-    heroMetric: '3.5–4.5 mm Stroke',
+    heroMetric: '3.5 to 4.5 mm Stroke',
     preferredHandles: [
       'papa-pen-v3-black-full-set',
       'papa-pen-v2-1',
@@ -92,7 +92,7 @@ const CHAPTER_CONFIG: ChapterMeta[] = [
     shortLabel: 'Power',
     title: 'Power & Drive Interfaces',
     specSummary: 'Cordless OLED battery packs, desktop voltage units & gold-plated RCA leads',
-    heroMetric: '5–13 V Regulated',
+    heroMetric: '5 to 13 V Regulated',
     preferredHandles: [
       'papa-volt-battery',
       'papa-power-bullet',
@@ -240,12 +240,12 @@ export const PapaProductsPage: React.FC = () => {
                 Papa Hardware Lineup
               </h1>
               <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                Explore continuous-drive rotary machines, Japanese 316L surgical needle cartridges, and CNC 6061-T6 click grips—consolidated by hardware family with live finish selection and rapid studio ordering.
+                Explore continuous-drive rotary machines, Japanese 316L surgical needle cartridges, and CNC 6061-T6 click grips, consolidated by hardware family with live finish selection and rapid studio ordering.
               </p>
             </div>
 
             <div className="flex flex-wrap items-center gap-3 shrink-0">
-              <div className="px-3.5 py-2 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white/80 dark:bg-white/[0.03] text-xs font-mono text-zinc-600 dark:text-zinc-300 tabular-nums">
+              <div className="px-3.5 py-2 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white/80 dark:bg-white/[0.03] shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] text-xs font-mono text-zinc-600 dark:text-zinc-300 tabular-nums whitespace-nowrap">
                 <span className="font-bold text-zinc-950 dark:text-white">
                   {allModelGroups.length}
                 </span>{' '}
@@ -258,7 +258,7 @@ export const PapaProductsPage: React.FC = () => {
 
               <Link
                 to="/collections"
-                className="px-3.5 py-2 rounded-xl border border-[#e2dfd8] dark:border-white/15 bg-white dark:bg-white/[0.05] hover:border-zinc-400 dark:hover:border-[#38e8c6]/50 text-xs font-mono font-semibold text-zinc-800 dark:text-zinc-200 inline-flex items-center gap-1.5 transition-[border-color,transform] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] whitespace-nowrap"
+                className="px-3.5 py-2 rounded-xl border border-[#e2dfd8] dark:border-white/15 bg-white dark:bg-white/[0.05] shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] hover:border-zinc-400 dark:hover:border-[#38e8c6]/50 text-xs font-mono font-semibold text-zinc-800 dark:text-zinc-200 inline-flex items-center gap-1.5 transition-[border-color,transform] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] whitespace-nowrap"
               >
                 <span>Needle &amp; SKU Filter</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -291,10 +291,10 @@ export const PapaProductsPage: React.FC = () => {
                   type="button"
                   aria-pressed={isSelected}
                   onClick={() => handleSelectFamilyTile(chapter.id)}
-                  className={`group text-left rounded-2xl border p-4 flex flex-col justify-between gap-3 transition-[border-color,background-color,box-shadow,transform] duration-200 ease-[var(--ease-out-strong)] active:scale-[0.98] ${
+                  className={`group text-left rounded-2xl border p-4 flex flex-col justify-between gap-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-[border-color,background-color,box-shadow,transform] duration-200 ease-[var(--ease-out-strong)] active:scale-[0.98] cursor-pointer ${
                     isSelected
-                      ? 'border-[#0d5d50] dark:border-[#38e8c6] bg-white dark:bg-[#262933] ring-1 ring-[#0d5d50] dark:ring-[#38e8c6] shadow-sm'
-                      : 'border-[#e2dfd8] dark:border-white/[0.08] bg-white/85 dark:bg-[#1e212a] hover:bg-white dark:hover:bg-[#262933] hover:border-zinc-300 dark:hover:border-white/20'
+                      ? 'border-[#0d5d50] dark:border-[#38e8c6] bg-white dark:bg-[#22252f] ring-1 ring-[#0d5d50] dark:ring-[#38e8c6]'
+                      : 'border-[#e2dfd8] dark:border-white/[0.08] bg-white/90 dark:bg-[#1c1f28] hover:bg-white dark:hover:bg-[#22252f] hover:border-zinc-300 dark:hover:border-white/20'
                   }`}
                 >
                   <div className="flex items-center justify-between gap-2 w-full">
@@ -312,7 +312,7 @@ export const PapaProductsPage: React.FC = () => {
                     </span>
                   </div>
 
-                  <div className="h-24 sm:h-28 w-full rounded-xl bg-[#f8f7f4] dark:bg-[#16181f] border border-[#eceae4] dark:border-white/[0.04] flex items-center justify-center p-2.5 overflow-hidden">
+                  <div className="h-24 sm:h-28 w-full rounded-xl bg-[#f8f7f4] dark:bg-[#181b22] border border-[#eceae4] dark:border-white/[0.05] shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] flex items-center justify-center p-2.5 overflow-hidden">
                     <img
                       src={imgUrl}
                       alt={chapter.title}
@@ -341,7 +341,7 @@ export const PapaProductsPage: React.FC = () => {
       {/* ============================================================ */}
       <div
         ref={catalogAnchorRef}
-        className="sticky top-16 sm:top-[93px] lg:top-[101px] z-30 w-full border-b border-[#e2dfd8]/90 dark:border-white/[0.08] bg-[#f5f4f0]/95 dark:bg-[#181a21]/92 backdrop-blur-xl"
+        className="sticky top-16 lg:top-[72px] z-30 w-full border-b border-[#e2dfd8]/90 dark:border-white/[0.08] bg-[#f5f4f0]/95 dark:bg-[#181b22]/92 backdrop-blur-xl"
       >
         <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-col xl:flex-row xl:items-center justify-between gap-2.5">
           {/* Concise Category Tabs */}
@@ -572,7 +572,7 @@ export const PapaProductsPage: React.FC = () => {
                       ))}
 
                       {/* Inline 62-Size Cartridge Engineering Architecture Card */}
-                      <div className="sm:col-span-2 rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#1e212a] p-6 sm:p-8 flex flex-col justify-between gap-6">
+                      <div className="sm:col-span-2 rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-6 sm:p-8 flex flex-col justify-between gap-6">
                         <div className="space-y-3">
                           <div className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-amber-700 dark:text-amber-400">
                             <Sparkles className="w-3.5 h-3.5" />
@@ -588,19 +588,19 @@ export const PapaProductsPage: React.FC = () => {
 
                         <div className="grid grid-cols-3 gap-3 py-3.5 border-y border-[#eceae4] dark:border-white/[0.07] font-mono">
                           <div>
-                            <div className="text-sm sm:text-base font-bold text-zinc-950 dark:text-white tabular-nums">
+                            <div className="text-sm sm:text-base font-bold text-zinc-950 dark:text-white tabular-nums whitespace-nowrap">
                               RL · RS · M1 · RM
                             </div>
                             <div className="text-[11px] text-zinc-400">4 Needle Families</div>
                           </div>
                           <div>
-                            <div className="text-sm sm:text-base font-bold text-zinc-950 dark:text-white tabular-nums">
-                              0.25 – 0.35 mm
+                            <div className="text-sm sm:text-base font-bold text-zinc-950 dark:text-white tabular-nums whitespace-nowrap">
+                              0.25 to 0.35 mm
                             </div>
                             <div className="text-[11px] text-zinc-400">Bugpin &amp; Standard</div>
                           </div>
                           <div>
-                            <div className="text-sm sm:text-base font-bold text-zinc-950 dark:text-white tabular-nums">
+                            <div className="text-sm sm:text-base font-bold text-zinc-950 dark:text-white tabular-nums whitespace-nowrap">
                               100% EO Gas
                             </div>
                             <div className="text-[11px] text-zinc-400">Sterile Blisters</div>
@@ -611,7 +611,7 @@ export const PapaProductsPage: React.FC = () => {
                           <Link
                             to="/collections"
                             search={{ category: 'cartridges', series: 'premium' }}
-                            className="px-4 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 text-xs font-mono font-semibold uppercase tracking-wider inline-flex items-center gap-1.5 hover:opacity-90 transition-opacity active:scale-[0.98] whitespace-nowrap"
+                            className="px-4 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 text-xs font-mono font-semibold uppercase tracking-wider inline-flex items-center gap-1.5 hover:opacity-90 transition-[opacity,transform] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] whitespace-nowrap"
                           >
                             <span>Filter by Needle Gauge</span>
                             <ArrowRight className="w-3.5 h-3.5" />
@@ -621,7 +621,7 @@ export const PapaProductsPage: React.FC = () => {
                             onClick={() =>
                               updateRouteSearch({ category: 'cartridges', view: 'sheet' })
                             }
-                            className="px-4 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/15 text-xs font-mono font-semibold text-zinc-700 dark:text-zinc-200 hover:border-zinc-400 dark:hover:border-white/30 transition-colors whitespace-nowrap"
+                            className="px-4 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/15 text-xs font-mono font-semibold text-zinc-700 dark:text-zinc-200 hover:border-zinc-400 dark:hover:border-white/30 transition-[border-color,transform] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] whitespace-nowrap cursor-pointer"
                           >
                             Quick-Order View
                           </button>
@@ -688,7 +688,7 @@ export const PapaProductsPage: React.FC = () => {
         {/* ============================================================ */}
         {/* 4. STUDIO & B2B FACTORY PROCUREMENT BAND                      */}
         {/* ============================================================ */}
-        <section className="rounded-3xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#1e2028] p-6 sm:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <section className="rounded-3xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#1c1f28] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-6 sm:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="space-y-2 max-w-xl">
             <div className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-[#0d5d50] dark:text-[#38e8c6]">
               <Building2 className="w-4 h-4" />

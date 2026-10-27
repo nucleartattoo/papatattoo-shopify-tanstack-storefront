@@ -202,7 +202,7 @@ function resolveSingleSpecLine(product: ShopifyProduct, category: LineupCategory
     return 'Tactile Indexing Rest · Precision Needle Control'
   }
   if (h.includes('volt-battery')) {
-    return '5.0–12.0 V OLED Readout · Cordless RCA Interface'
+    return '5.0 to 12.0 V OLED Readout · Cordless RCA Interface'
   }
   if (h.includes('power-bullet')) {
     return 'Compact Desktop Voltage Regulator · CNC Alloy Housing'
@@ -274,7 +274,7 @@ export function groupProductsIntoModels(products: ShopifyProduct[]): HardwareMod
       id: 'family-papa-pen-v3',
       category: 'machines',
       masterTitle: 'Papa Pen V3',
-      specLine: '3.5–4.5 mm Modular Stroke · German Direct-Drive · 168 g',
+      specLine: '3.5 to 4.5 mm Modular Stroke · German Direct-Drive · 168 g',
       sortPriority: 10,
       swatchLabelPrefix: 'Edition',
       options: sorted.map(p => ({
@@ -456,11 +456,11 @@ export function buildLiveMachineBenchmarks(products: ShopifyProduct[]): MachineB
       bestFor: 'All-round lining, whip shading & solid packing',
       strokeLabel: '3.5 / 4.0 / 4.2 / 4.5 mm',
       strokeMaxMm: 4.5,
-      motorLabel: 'High-Torque German Direct-Drive',
-      voltageLabel: '4.5 – 13.0 V DC',
+      motorLabel: 'German Direct-Drive',
+      voltageLabel: '4.5 to 13.0 V DC',
       weightLabel: '168 g balanced',
       weightGrams: 168,
-      chassisLabel: 'CNC 6061-T6 Aerospace Billet',
+      chassisLabel: 'CNC 6061-T6 Billet',
     },
     {
       handle: 'papa-pen-v2-1',
@@ -469,8 +469,8 @@ export function buildLiveMachineBenchmarks(products: ShopifyProduct[]): MachineB
       bestFor: 'Zero-vibration fine line & smooth black-and-grey',
       strokeLabel: '3.5 mm Fixed Precision',
       strokeMaxMm: 3.5,
-      motorLabel: 'Custom German Coreless Motor',
-      voltageLabel: '5.0 – 12.6 V DC',
+      motorLabel: 'German Coreless Motor',
+      voltageLabel: '5.0 to 12.6 V DC',
       weightLabel: '150 g forward-biased',
       weightGrams: 150,
       chassisLabel: '6061-T6 Aircraft Billet',
@@ -484,7 +484,7 @@ export function buildLiveMachineBenchmarks(products: ShopifyProduct[]): MachineB
       strokeLabel: '3.5 mm Continuous Rotary',
       strokeMaxMm: 3.5,
       motorLabel: 'Precision Coreless Rotary',
-      voltageLabel: '5.0 – 12.0 V DC',
+      voltageLabel: '5.0 to 12.0 V DC',
       weightLabel: '148 g ergonomic',
       weightGrams: 148,
       chassisLabel: 'Anodized Billet Aluminum',
@@ -492,12 +492,12 @@ export function buildLiveMachineBenchmarks(products: ShopifyProduct[]): MachineB
     {
       handle: 'papa-apollo-rotary-black',
       fallbackName: 'Papa Apollo Rotary',
-      roleTag: 'Compact Direct-Drive',
+      roleTag: 'Direct-Drive',
       bestFor: 'High-saturation color packing & bold linework',
       strokeLabel: '4.0 mm Direct Punch',
       strokeMaxMm: 4.0,
       motorLabel: 'Low-Vibration Direct-Drive',
-      voltageLabel: '6.0 – 11.0 V DC',
+      voltageLabel: '6.0 to 11.0 V DC',
       weightLabel: '142 g ultra-compact',
       weightGrams: 142,
       chassisLabel: 'Milled Alloy Chassis',

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Link, useLoaderData, useNavigate, useSearch } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
 import { ShopifyProduct, ShopifyVariant } from '../types/shopify'
@@ -55,7 +55,7 @@ export interface CategoryDef {
   subcategories?: SubcategoryDef[]
 }
 
-export const STORE_CATEGORIES: CategoryDef[] = [
+const STORE_CATEGORIES: CategoryDef[] = [
   {
     id: 'machines',
     label: 'Papa Machines',
@@ -299,7 +299,7 @@ const STAGE_BY_CATEGORY: Record<string, StagePresentation> = {
     badge: 'ROTARY DRIVE SYSTEMS',
     description:
       'Direct-drive and coreless rotary pen machines machined from solid 6061-T6 aerospace billet aluminum for zero-vibration lining, whip shading, and color packing.',
-    pills: ['GERMAN CORELESS MOTOR', '3.5 – 4.5 MM STROKE', '6061-T6 BILLET'],
+    pills: ['GERMAN CORELESS MOTOR', '3.5 TO 4.5 MM STROKE', '6061-T6 BILLET'],
     imageHandles: ['papa-pen-v3-black-full-set', 'papa-pen-v2-1'],
     fallbackImage: '/product-images/img_113_papa_pen_jet_black_1__cutout.webp',
     supports3D: true,
@@ -327,7 +327,7 @@ const STAGE_BY_CATEGORY: Record<string, StagePresentation> = {
     badge: 'ZERO-RIPPLE DC POWER',
     description:
       'Cordless OLED lithium battery docks, regulated desktop power consoles, 24K gold-plated silicone RCA cords, and 360° cast-metal studio foot switches.',
-    pills: ['5.0 – 12.0 V DC', '24K GOLD RCA', 'OVERLOAD GUARD'],
+    pills: ['5.0 TO 12.0 V DC', '24K GOLD RCA', 'OVERLOAD GUARD'],
     imageHandles: ['papa-volt-battery', 'papa-power-supply', 'papa-power-bullet'],
     fallbackImage: '/product-images/img_113_papa_pen_jet_black_1__cutout.webp',
   },
@@ -404,8 +404,11 @@ export const CollectionPage: React.FC = () => {
     return initial
   })
 
-  // Synchronize state when URL query params change
-  useEffect(() => {
+  // Synchronize state when URL query params change during render (zero cascading effect re-renders)
+  const searchKey = `${searchParams.category || ''}|${searchParams.sub || ''}|${searchParams.q || ''}|${searchParams.series || ''}|${searchParams.sort || ''}`
+  const [prevSearchKey, setPrevSearchKey] = useState(searchKey)
+  if (searchKey !== prevSearchKey) {
+    setPrevSearchKey(searchKey)
     const norm = normalizeCategoryParam(searchParams.category)
     setActiveCategory(norm)
     if (norm !== 'all') {
@@ -423,13 +426,7 @@ export const CollectionPage: React.FC = () => {
       setActiveSeries('all')
     }
     if (searchParams.sort) setSortOption(searchParams.sort)
-  }, [
-    searchParams.category,
-    searchParams.sub,
-    searchParams.q,
-    searchParams.series,
-    searchParams.sort,
-  ])
+  }
 
   const nonGranularProducts = useMemo(() => {
     return products.filter(p => !isGranularCartridge(p) && !isNuclearTattooProduct(p))
@@ -558,14 +555,17 @@ export const CollectionPage: React.FC = () => {
   const activeCartridgeProduct =
     matrixTier === 'premium' ? premiumCartridgeProduct : standardCartridgeProduct
 
-  useEffect(() => {
+  const effectiveCartridgeVariant = useMemo(() => {
     const edges = activeCartridgeProduct?.variants?.edges
-    if (edges && edges.length > 0) {
-      const firstAvailable =
-        edges.find(e => e.node.availableForSale !== false)?.node || edges[0].node
-      setSelectedCartridgeVariant(firstAvailable)
+    if (!edges || edges.length === 0) return null
+    if (
+      selectedCartridgeVariant &&
+      edges.some(e => e.node.id === selectedCartridgeVariant.id)
+    ) {
+      return selectedCartridgeVariant
     }
-  }, [activeCartridgeProduct])
+    return edges.find(e => e.node.availableForSale !== false)?.node || edges[0].node
+  }, [activeCartridgeProduct, selectedCartridgeVariant])
 
   const handleToggleExpand = (catId: string, e?: React.MouseEvent) => {
     if (e) e.stopPropagation()
@@ -660,9 +660,9 @@ export const CollectionPage: React.FC = () => {
   )
 
   return (
-    <div className="bg-zinc-50 dark:bg-[#14161b] min-h-[100dvh] text-zinc-900 dark:text-zinc-100">
+    <div className="bg-[#f5f4f0] dark:bg-[#20222a] min-h-[100dvh] text-zinc-900 dark:text-zinc-100">
       {/* 1. Category Stage Banner — Synchronized to Active Category */}
-      <section className="w-full border-b border-zinc-200/80 dark:border-white/[0.08] bg-[#f4f3ef] dark:bg-[#181a20] relative overflow-hidden">
+      <section className="w-full border-b border-[#e2dfd8] dark:border-white/[0.08] bg-[#eceae4]/75 dark:bg-[#181b22] relative overflow-hidden">
         <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 min-h-[200px] sm:min-h-[220px] flex flex-col lg:flex-row lg:items-center justify-between py-6 sm:py-7 gap-6 relative z-10">
           {/* Left: Breadcrumbs & Category Overview */}
           <div className="max-w-2xl space-y-2.5">
@@ -699,10 +699,10 @@ export const CollectionPage: React.FC = () => {
               {currentStage.pills.map((pill, idx) => (
                 <span
                   key={pill}
-                  className={`px-2.5 py-1 rounded-md border text-[10px] font-mono font-bold ${
+                  className={`px-2.5 py-1 rounded-md border text-[10px] font-mono font-bold whitespace-nowrap ${
                     idx === currentStage.pills.length - 1
                       ? 'bg-[#0d5d50]/10 dark:bg-[#38e8c6]/10 border-[#0d5d50]/25 dark:border-[#38e8c6]/25 text-[#0d5d50] dark:text-[#38e8c6]'
-                      : 'bg-white/80 dark:bg-white/[0.04] border-zinc-200/80 dark:border-white/10 text-zinc-700 dark:text-zinc-300'
+                      : 'bg-white/85 dark:bg-white/[0.04] border-[#e2dfd8] dark:border-white/10 text-zinc-700 dark:text-zinc-300 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]'
                   }`}
                 >
                   {pill}
@@ -712,19 +712,15 @@ export const CollectionPage: React.FC = () => {
           </div>
 
           {/* Right: Category-Matched Specimen Stage */}
-          <div className="relative w-full lg:w-96 h-44 sm:h-48 shrink-0 rounded-2xl bg-white dark:bg-[#1c1e24] border border-zinc-200/80 dark:border-white/[0.08] overflow-hidden flex items-center justify-center p-4">
+          <div className="relative w-full lg:w-96 h-44 sm:h-48 shrink-0 rounded-2xl bg-white dark:bg-[#22252f] border border-[#e2dfd8] dark:border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] overflow-hidden flex items-center justify-center p-4">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(56,232,198,0.10)_0%,transparent_70%)] pointer-events-none" />
 
-            <div className="absolute top-3 left-3 z-20 px-2.5 py-1 rounded-md bg-zinc-100/90 dark:bg-black/65 backdrop-blur-md border border-zinc-200/80 dark:border-white/10 text-zinc-800 dark:text-zinc-200 text-[10px] font-mono font-bold uppercase tracking-wider pointer-events-none">
-              {currentStage.badge}
-            </div>
-
             {currentStage.supports3D && (
-              <div className="absolute bottom-3 right-3 z-20 flex items-center gap-1 p-0.5 rounded-lg bg-zinc-100/90 dark:bg-black/70 border border-zinc-200/80 dark:border-white/10 font-mono text-[10px]">
+              <div className="absolute bottom-3 right-3 z-20 flex items-center gap-1 p-0.5 rounded-lg bg-[#f5f4f0]/95 dark:bg-[#14161c]/85 backdrop-blur-md border border-[#e2dfd8] dark:border-white/10 font-mono text-[10px]">
                 <button
                   type="button"
                   onClick={() => setStage3DActive(false)}
-                  className={`flex items-center gap-1 px-2 py-1 rounded-md font-bold transition-all cursor-pointer ${
+                  className={`flex items-center gap-1 px-2 py-1 rounded-md font-bold transition-[background-color,color,transform] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.96] cursor-pointer ${
                     !stage3DActive
                       ? 'bg-zinc-950 text-white dark:bg-white dark:text-zinc-950'
                       : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white'
@@ -736,7 +732,7 @@ export const CollectionPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setStage3DActive(true)}
-                  className={`flex items-center gap-1 px-2 py-1 rounded-md font-bold transition-all cursor-pointer ${
+                  className={`flex items-center gap-1 px-2 py-1 rounded-md font-bold transition-[background-color,color,transform] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.96] cursor-pointer ${
                     stage3DActive
                       ? 'bg-zinc-950 text-white dark:bg-white dark:text-zinc-950'
                       : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white'
@@ -762,7 +758,7 @@ export const CollectionPage: React.FC = () => {
                 key={`${activeCategory}-${stageImageUrl}`}
                 src={stageImageUrl}
                 alt={getCategoryTitle()}
-                className="relative z-10 max-h-[85%] max-w-[85%] w-auto object-contain transition-transform duration-300"
+                className="relative z-10 max-h-[85%] max-w-[85%] w-auto object-contain transition-transform duration-300 drop-shadow-[0_10px_20px_rgba(18,18,16,0.12)] dark:drop-shadow-[0_14px_24px_rgba(0,0,0,0.5)]"
               />
             )}
           </div>
@@ -773,8 +769,8 @@ export const CollectionPage: React.FC = () => {
         {/* 2. Main Layout: Sidebar Filters + Products Grid */}
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Left Sidebar Filter Column */}
-          <aside className="w-full lg:w-68 lg:shrink-0 lg:pr-6 lg:border-r lg:border-zinc-200/80 dark:lg:border-white/[0.08] space-y-6">
-            <div className="flex items-center justify-between pb-3 border-b border-zinc-200/80 dark:border-white/[0.08]">
+          <aside className="w-full lg:w-68 lg:shrink-0 lg:pr-6 lg:border-r lg:border-[#e2dfd8] dark:lg:border-white/[0.08] space-y-6">
+            <div className="flex items-center justify-between pb-3 border-b border-[#e2dfd8] dark:border-white/[0.08]">
               <div className="flex items-center gap-2">
                 <SlidersHorizontal className="w-3.5 h-3.5 text-[#0d5d50] dark:text-[#38e8c6]" />
                 <span className="text-xs font-mono font-black uppercase tracking-wider text-zinc-900 dark:text-zinc-100">
@@ -806,7 +802,7 @@ export const CollectionPage: React.FC = () => {
                 onChange={e => setSearchQuery(e.target.value)}
                 placeholder="Filter by model or spec..."
                 aria-label="Filter collection by model or specification"
-                className="w-full pl-8 pr-8 py-2 rounded-xl border border-zinc-200/80 dark:border-white/10 bg-white dark:bg-[#1c1e24] text-xs font-mono text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6]"
+                className="w-full pl-8 pr-8 py-2 rounded-xl border border-[#e2dfd8] dark:border-white/10 bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] text-xs font-mono text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6]"
               />
               {searchQuery && (
                 <button
@@ -826,15 +822,15 @@ export const CollectionPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => handleSelectCategory('all')}
-                className={`w-full flex items-center justify-between py-2 px-3 rounded-xl text-xs font-mono transition-all cursor-pointer ${
+                className={`w-full flex items-center justify-between py-2 px-3 rounded-xl text-xs font-mono transition-[background-color,color,transform] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.98] cursor-pointer ${
                   activeCategory === 'all'
                     ? 'bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-bold'
-                    : 'text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-white/[0.05]'
+                    : 'text-zinc-700 dark:text-zinc-300 hover:bg-[#eceae4]/80 dark:hover:bg-white/[0.06]'
                 }`}
               >
                 <span>All Apparatus</span>
                 <span
-                  className={`text-[10px] px-1.5 py-0.5 rounded-md ${
+                  className={`text-[10px] px-1.5 py-0.5 rounded-md tabular-nums ${
                     activeCategory === 'all'
                       ? 'bg-white/20 text-white dark:bg-black/15 dark:text-zinc-950'
                       : 'bg-zinc-200/70 dark:bg-white/[0.06] text-zinc-500 dark:text-zinc-400'
@@ -853,12 +849,12 @@ export const CollectionPage: React.FC = () => {
                 return (
                   <div key={cat.id} className="space-y-0.5">
                     <div
-                      className={`flex items-center justify-between py-1.5 px-3 rounded-xl text-xs font-mono transition-all ${
+                      className={`flex items-center justify-between py-1.5 px-3 rounded-xl text-xs font-mono transition-[background-color,color] duration-150 ${
                         isCatActive && !activeSubcategory
                           ? 'bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-bold'
                           : isCatActive
                           ? 'text-[#0d5d50] dark:text-[#38e8c6] font-bold bg-[#0d5d50]/10 dark:bg-[#38e8c6]/10'
-                          : 'text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-white/[0.05]'
+                          : 'text-zinc-700 dark:text-zinc-300 hover:bg-[#eceae4]/80 dark:hover:bg-white/[0.06]'
                       }`}
                     >
                       <button
@@ -868,7 +864,7 @@ export const CollectionPage: React.FC = () => {
                       >
                         <span className="truncate">{cat.label}</span>
                         <span
-                          className={`text-[10px] px-1.5 py-0.5 rounded-md ${
+                          className={`text-[10px] px-1.5 py-0.5 rounded-md tabular-nums ${
                             isCatActive && !activeSubcategory
                               ? 'bg-white/20 text-white dark:bg-black/15 dark:text-zinc-950'
                               : 'bg-zinc-200/70 dark:bg-white/[0.06] text-zinc-500 dark:text-zinc-400'
@@ -897,7 +893,7 @@ export const CollectionPage: React.FC = () => {
                     </div>
 
                     {hasSub && isExpanded && (
-                      <div className="pl-3.5 ml-3 border-l border-zinc-200 dark:border-white/10 space-y-0.5 py-1">
+                      <div className="pl-3.5 ml-3 border-l border-[#e2dfd8] dark:border-white/10 space-y-0.5 py-1">
                         {cat.subcategories!.map(sub => {
                           const isSubActive = isCatActive && activeSubcategory === sub.id
                           const subCount = subcategoryCounts[sub.id] ?? 0
@@ -907,20 +903,13 @@ export const CollectionPage: React.FC = () => {
                               key={sub.id}
                               type="button"
                               onClick={() => handleSelectSubcategory(cat.id, sub.id)}
-                              className={`w-full flex items-center justify-between py-1.5 px-2.5 rounded-lg text-[11px] font-mono transition-all text-left cursor-pointer ${
+                              className={`w-full flex items-center justify-between py-1.5 px-2.5 rounded-lg text-[11px] font-mono transition-[background-color,color,transform] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.98] text-left cursor-pointer ${
                                 isSubActive
                                   ? 'text-[#0d5d50] dark:text-[#38e8c6] font-bold bg-[#0d5d50]/10 dark:bg-[#38e8c6]/10'
-                                  : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200 hover:bg-zinc-100/60 dark:hover:bg-white/[0.04]'
+                                  : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200 hover:bg-[#eceae4]/60 dark:hover:bg-white/[0.04]'
                               }`}
                             >
                               <span className="truncate pr-1 flex items-center gap-1.5">
-                                <span
-                                  className={`w-1.5 h-1.5 rounded-full shrink-0 ${
-                                    isSubActive
-                                      ? 'bg-[#0d5d50] dark:bg-[#38e8c6]'
-                                      : 'bg-zinc-300 dark:bg-zinc-600'
-                                  }`}
-                                />
                                 <span className="truncate">{sub.label}</span>
                                 {sub.badge && (
                                   <span className="px-1.5 py-0.2 rounded bg-amber-500/15 text-amber-700 dark:text-amber-300 text-[9px] font-bold">
@@ -928,7 +917,7 @@ export const CollectionPage: React.FC = () => {
                                   </span>
                                 )}
                               </span>
-                              <span className="text-[10px] text-zinc-400 dark:text-zinc-500 shrink-0">
+                              <span className="text-[10px] text-zinc-400 dark:text-zinc-500 shrink-0 tabular-nums">
                                 {subCount}
                               </span>
                             </button>
@@ -942,7 +931,7 @@ export const CollectionPage: React.FC = () => {
             </div>
 
             {/* In-Stock Toggle */}
-            <div className="pt-4 border-t border-zinc-200/80 dark:border-white/[0.08]">
+            <div className="pt-4 border-t border-[#e2dfd8] dark:border-white/[0.08]">
               <label className="flex items-center justify-between cursor-pointer text-xs font-mono text-zinc-700 dark:text-zinc-300">
                 <span>In-Stock Ready Only</span>
                 <input
@@ -958,7 +947,7 @@ export const CollectionPage: React.FC = () => {
           {/* Right Product Grid Area */}
           <div className="flex-1 min-w-0 space-y-6">
             {/* Top Toolbar: Count, View Mode Toggle (Consolidated Models vs All SKUs), & Sort */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] gap-4">
               <div className="flex flex-wrap items-center gap-3">
                 <div className="text-xs font-mono text-zinc-500 dark:text-zinc-400">
                   SHOWING{' '}
@@ -979,14 +968,14 @@ export const CollectionPage: React.FC = () => {
                 <div
                   role="group"
                   aria-label="Catalog grouping mode"
-                  className="inline-flex items-center p-0.5 rounded-xl bg-zinc-100 dark:bg-[#14161b] border border-zinc-200/80 dark:border-white/10 font-mono text-[11px]"
+                  className="inline-flex items-center p-0.5 rounded-xl bg-[#f5f4f0] dark:bg-[#181b22] border border-[#e2dfd8] dark:border-white/10 font-mono text-[11px]"
                 >
                   <button
                     type="button"
                     onClick={() => setDisplayMode('grouped')}
-                    className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
+                    className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg font-bold transition-[background-color,color,transform] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] cursor-pointer ${
                       displayMode === 'grouped'
-                        ? 'bg-white dark:bg-[#252830] text-zinc-950 dark:text-white shadow-2xs'
+                        ? 'bg-white dark:bg-[#282c38] text-zinc-950 dark:text-white shadow-2xs'
                         : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white'
                     }`}
                   >
@@ -996,9 +985,9 @@ export const CollectionPage: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setDisplayMode('skus')}
-                    className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
+                    className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg font-bold transition-[background-color,color,transform] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] cursor-pointer ${
                       displayMode === 'skus'
-                        ? 'bg-white dark:bg-[#252830] text-zinc-950 dark:text-white shadow-2xs'
+                        ? 'bg-white dark:bg-[#282c38] text-zinc-950 dark:text-white shadow-2xs'
                         : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white'
                     }`}
                   >
@@ -1021,7 +1010,7 @@ export const CollectionPage: React.FC = () => {
                   id="collection-sort-select"
                   value={sortOption}
                   onChange={e => setSortOption(e.target.value)}
-                  className="px-3 py-1.5 rounded-xl border border-zinc-200/80 dark:border-white/10 bg-zinc-50 dark:bg-[#14161b] text-xs font-mono text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6]"
+                  className="px-3 py-1.5 rounded-xl border border-[#e2dfd8] dark:border-white/10 bg-[#f8f7f4] dark:bg-[#181b22] text-xs font-mono text-zinc-800 dark:text-zinc-200 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6]"
                 >
                   <option value="featured">Featured Engineering</option>
                   <option value="price-asc">Price: Low to High</option>
@@ -1033,8 +1022,8 @@ export const CollectionPage: React.FC = () => {
 
             {/* Inline 62-Size Cartridge Matrix Workbench when viewing Cartridges */}
             {activeCategory === 'cartridges' && activeCartridgeProduct && (
-              <div className="p-6 sm:p-7 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] space-y-5">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-zinc-200/80 dark:border-white/[0.08]">
+              <div className="p-6 sm:p-7 rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] space-y-5">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#e2dfd8] dark:border-white/[0.08]">
                   <div>
                     <div className="flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-widest text-[#0d5d50] dark:text-[#38e8c6]">
                       <Sparkles className="w-3.5 h-3.5" />
@@ -1045,11 +1034,11 @@ export const CollectionPage: React.FC = () => {
                     </h2>
                   </div>
 
-                  <div className="inline-flex p-1 rounded-xl bg-zinc-100 dark:bg-[#14161b] border border-zinc-200/80 dark:border-white/10 font-mono text-xs self-start">
+                  <div className="inline-flex p-1 rounded-xl bg-[#f5f4f0] dark:bg-[#181b22] border border-[#e2dfd8] dark:border-white/10 font-mono text-xs self-start">
                     <button
                       type="button"
                       onClick={() => setMatrixTier('premium')}
-                      className={`px-3 py-1.5 rounded-lg font-bold uppercase whitespace-nowrap transition-all cursor-pointer ${
+                      className={`px-3 py-1.5 rounded-lg font-bold uppercase whitespace-nowrap transition-[background-color,color,transform] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] cursor-pointer ${
                         matrixTier === 'premium'
                           ? 'bg-zinc-950 text-white dark:bg-amber-500 dark:text-zinc-950'
                           : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white'
@@ -1063,7 +1052,7 @@ export const CollectionPage: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => setMatrixTier('standard')}
-                      className={`px-3 py-1.5 rounded-lg font-bold uppercase whitespace-nowrap transition-all cursor-pointer ${
+                      className={`px-3 py-1.5 rounded-lg font-bold uppercase whitespace-nowrap transition-[background-color,color,transform] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] cursor-pointer ${
                         matrixTier === 'standard'
                           ? 'bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950'
                           : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white'
@@ -1079,20 +1068,20 @@ export const CollectionPage: React.FC = () => {
 
                 <CartridgeMatrixSelector
                   product={activeCartridgeProduct}
-                  selectedVariant={selectedCartridgeVariant}
+                  selectedVariant={effectiveCartridgeVariant}
                   onSelectVariant={setSelectedCartridgeVariant}
                 />
 
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-3 border-t border-zinc-200/80 dark:border-white/[0.08]">
-                  <div className="flex items-center gap-3">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-3 border-t border-[#e2dfd8] dark:border-white/[0.08]">
+                  <div className="flex flex-wrap items-center gap-3">
                     <span className="text-xs font-mono text-zinc-500">SELECTED:</span>
                     <span className="text-sm font-mono font-bold text-zinc-950 dark:text-white">
-                      {selectedCartridgeVariant?.title || 'Select configuration'}
+                      {effectiveCartridgeVariant?.title || 'Select configuration'}
                     </span>
-                    <span className="text-sm font-mono font-black text-[#0d5d50] dark:text-[#38e8c6]">
+                    <span className="text-sm font-mono font-black text-[#0d5d50] dark:text-[#38e8c6] whitespace-nowrap">
                       $
                       {parseFloat(
-                        selectedCartridgeVariant?.price.amount ||
+                        effectiveCartridgeVariant?.price.amount ||
                           activeCartridgeProduct.priceRange.minVariantPrice.amount
                       ).toFixed(2)}{' '}
                       / Box of 20
@@ -1100,22 +1089,22 @@ export const CollectionPage: React.FC = () => {
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <div className="flex items-center border border-zinc-200/80 dark:border-white/10 rounded-xl bg-zinc-50 dark:bg-[#14161b] h-10 px-1">
+                    <div className="flex items-center border border-[#e2dfd8] dark:border-white/10 rounded-xl bg-[#f8f7f4] dark:bg-[#181b22] h-10 px-1">
                       <button
                         type="button"
                         onClick={() => setCartridgeQty(Math.max(1, cartridgeQty - 1))}
-                        className="w-8 h-full font-mono text-sm text-zinc-500 hover:text-zinc-950 dark:hover:text-white cursor-pointer"
+                        className="w-8 h-full font-mono text-sm text-zinc-500 hover:text-zinc-950 dark:hover:text-white transition-[color,transform] duration-150 active:scale-90 cursor-pointer"
                         aria-label="Decrease box quantity"
                       >
                         -
                       </button>
-                      <span className="w-8 text-center font-mono text-xs font-bold">
+                      <span className="w-8 text-center font-mono text-xs font-bold tabular-nums">
                         {cartridgeQty}
                       </span>
                       <button
                         type="button"
                         onClick={() => setCartridgeQty(cartridgeQty + 1)}
-                        className="w-8 h-full font-mono text-sm text-zinc-500 hover:text-zinc-950 dark:hover:text-white cursor-pointer"
+                        className="w-8 h-full font-mono text-sm text-zinc-500 hover:text-zinc-950 dark:hover:text-white transition-[color,transform] duration-150 active:scale-90 cursor-pointer"
                         aria-label="Increase box quantity"
                       >
                         +
@@ -1124,21 +1113,21 @@ export const CollectionPage: React.FC = () => {
 
                     <button
                       type="button"
-                      disabled={selectedCartridgeVariant?.availableForSale === false}
+                      disabled={effectiveCartridgeVariant?.availableForSale === false}
                       onClick={() => {
-                        if (!selectedCartridgeVariant) return
+                        if (!effectiveCartridgeVariant) return
                         addToCart(
                           activeCartridgeProduct,
-                          selectedCartridgeVariant,
+                          effectiveCartridgeVariant,
                           cartridgeQty
                         )
                         openCart()
                       }}
-                      className="px-5 h-10 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-mono font-black text-xs uppercase tracking-wider flex items-center gap-2 hover:opacity-90 active:scale-[0.98] transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                      className="px-5 h-10 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-mono font-black text-xs uppercase tracking-wider flex items-center gap-2 hover:opacity-90 active:scale-[0.98] transition-[opacity,transform] duration-150 ease-[var(--ease-out-strong)] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed whitespace-nowrap"
                     >
                       <ShoppingBag className="w-3.5 h-3.5" />
                       <span>
-                        {selectedCartridgeVariant?.availableForSale === false
+                        {effectiveCartridgeVariant?.availableForSale === false
                           ? 'Config Sold Out'
                           : 'Add Boxes to Cart'}
                       </span>
@@ -1154,7 +1143,7 @@ export const CollectionPage: React.FC = () => {
                 {[1, 2, 3, 4, 5, 6].map(n => (
                   <div
                     key={n}
-                    className="rounded-2xl border border-zinc-200/70 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] p-5 animate-pulse space-y-4"
+                    className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] p-5 animate-pulse space-y-4"
                   >
                     <div className="w-full aspect-square bg-zinc-200 dark:bg-white/[0.05] rounded-xl" />
                     <div className="h-4 bg-zinc-200 dark:bg-white/[0.05] rounded-sm w-3/4" />
@@ -1175,8 +1164,8 @@ export const CollectionPage: React.FC = () => {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-20 border border-dashed border-zinc-300 dark:border-white/10 rounded-2xl p-8 bg-white dark:bg-[#1c1e24]">
-                <div className="inline-flex p-4 rounded-full bg-zinc-100 dark:bg-white/[0.05] text-zinc-400 mb-4">
+              <div className="text-center py-20 border border-dashed border-[#e2dfd8] dark:border-white/10 rounded-2xl p-8 bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
+                <div className="inline-flex p-4 rounded-full bg-[#f5f4f0] dark:bg-white/[0.05] text-zinc-400 mb-4">
                   <Filter className="w-6 h-6" />
                 </div>
                 <h3 className="text-base font-bold uppercase text-zinc-800 dark:text-zinc-200">
@@ -1189,7 +1178,7 @@ export const CollectionPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleResetFilters}
-                  className="mt-5 px-5 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-mono font-bold text-xs uppercase transition-opacity hover:opacity-90 cursor-pointer"
+                  className="mt-5 px-5 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-mono font-bold text-xs uppercase transition-[opacity,transform] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] hover:opacity-90 cursor-pointer"
                 >
                   Reset All Filters
                 </button>
@@ -1199,7 +1188,7 @@ export const CollectionPage: React.FC = () => {
         </div>
 
         {/* 3. Global Studio Distribution & Regulatory Standards */}
-        <section className="mt-20 pt-12 border-t border-zinc-200/80 dark:border-white/[0.08]">
+        <section className="mt-20 pt-12 border-t border-[#e2dfd8] dark:border-white/[0.08]">
           <div className="max-w-4xl mb-8 space-y-2">
             <div className="text-[10px] font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6] uppercase tracking-widest">
               GLOBAL STUDIO SPECIFICATION · REGULATORY &amp; DISPATCH STANDARDS
@@ -1215,7 +1204,7 @@ export const CollectionPage: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] space-y-3">
+            <div className="p-6 rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] space-y-3">
               <div className="text-xs font-mono font-bold text-zinc-950 dark:text-white uppercase tracking-wider">
                 WORLDWIDE STUDIO LOGISTICS
               </div>
@@ -1229,7 +1218,7 @@ export const CollectionPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="p-6 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] space-y-3">
+            <div className="p-6 rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] space-y-3">
               <div className="text-xs font-mono font-bold text-zinc-950 dark:text-white uppercase tracking-wider">
                 316L SURGICAL METALLURGY
               </div>
@@ -1243,7 +1232,7 @@ export const CollectionPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="p-6 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] space-y-3">
+            <div className="p-6 rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] space-y-3">
               <div className="text-xs font-mono font-bold text-zinc-950 dark:text-white uppercase tracking-wider">
                 UNIVERSAL DOCK COMPATIBILITY
               </div>

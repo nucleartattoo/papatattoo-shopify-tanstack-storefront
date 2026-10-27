@@ -83,10 +83,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   return (
     <div
-      className={`group relative rounded-2xl border p-5 flex flex-col justify-between transition-[border-color,box-shadow,transform] duration-200 ease-[var(--ease-out-strong)] ${
+      className={`group relative rounded-2xl border p-5 flex flex-col justify-between shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-[border-color,box-shadow,transform] duration-200 ease-[var(--ease-out-strong)] ${
         isPremiumCartridge
-          ? 'border-amber-500/25 dark:border-amber-500/30 bg-white dark:bg-[#262933] hover:border-amber-500/45 dark:hover:border-amber-400/50 hover:shadow-[0_14px_30px_-12px_rgba(180,115,20,0.16)] dark:hover:shadow-[0_14px_32px_rgba(245,158,11,0.1)]'
-          : 'border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#262933] hover:border-zinc-300 dark:hover:border-white/20 hover:shadow-[0_14px_30px_-12px_rgba(18,18,16,0.1)] dark:hover:shadow-[0_14px_32px_rgba(0,0,0,0.45)]'
+          ? 'border-amber-500/25 dark:border-amber-500/30 bg-white dark:bg-[#22252f] hover:border-amber-500/45 dark:hover:border-amber-400/50 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_14px_30px_-12px_rgba(180,115,20,0.16)] dark:hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_14px_32px_rgba(245,158,11,0.1)]'
+          : 'border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] hover:border-zinc-300 dark:hover:border-white/20 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_14px_30px_-12px_rgba(18,18,16,0.1)] dark:hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_14px_32px_rgba(0,0,0,0.45)]'
       }`}
     >
       <div>
@@ -103,14 +103,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           )}
 
           {isAnyVariantAvailable ? (
-            <span className="inline-flex items-center gap-1.5 text-[10px] font-mono text-[#0d5d50] dark:text-[#38e8c6]">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-              <span>{t('card_in_stock')}</span>
+            <span className="text-[10px] font-mono font-semibold text-[#0d5d50] dark:text-[#38e8c6] whitespace-nowrap">
+              {t('card_in_stock')}
             </span>
           ) : (
-            <span className="inline-flex items-center gap-1.5 text-[10px] font-mono text-zinc-400 dark:text-zinc-500">
-              <span className="w-1.5 h-1.5 rounded-full bg-zinc-300 dark:bg-zinc-600" />
-              <span>Sold out</span>
+            <span className="text-[10px] font-mono text-zinc-400 dark:text-zinc-500 whitespace-nowrap">
+              Sold out
             </span>
           )}
         </div>
@@ -118,7 +116,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <Link
           to="/products/$handle"
           params={{ handle: product.handle }}
-          className="relative aspect-square w-full rounded-xl bg-[#f8f7f4] dark:bg-[#1c1e24] flex items-center justify-center p-4 overflow-hidden border border-[#eceae4] dark:border-white/[0.05]"
+          className="relative aspect-square w-full rounded-xl bg-[#f8f7f4] dark:bg-[#181b22] flex items-center justify-center p-4 overflow-hidden border border-[#eceae4] dark:border-white/[0.06] shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
         >
           <div
             className="absolute inset-6 rounded-full opacity-[0.08] dark:opacity-[0.14] blur-2xl transition-opacity duration-200 ease-[var(--ease-out-strong)] group-hover:opacity-[0.16] dark:group-hover:opacity-[0.24] pointer-events-none"
