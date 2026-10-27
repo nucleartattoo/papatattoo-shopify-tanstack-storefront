@@ -72,7 +72,7 @@ body {
   color: var(--text-primary);
   font-family: var(--font-sans);
   transition: background-color 0.25s ease, color 0.25s ease;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Interactive cursor defaults (restoring pointer cursor for buttons in Tailwind v4) */
@@ -353,7 +353,7 @@ button:disabled,
 }
 
 .product-description-content a {
-  color: #0d9488;
+  color: #0d5d50;
   text-decoration: underline;
 }
 
@@ -372,7 +372,7 @@ button:disabled,
 }
 
 .dark .product-description-content a {
-  color: #2ee6ca !important;
+  color: #38e8c6 !important;
 }
 
 /* Reduced Motion Accessibility: preserve subtle opacity/color cues, stop continuous & spatial motion */

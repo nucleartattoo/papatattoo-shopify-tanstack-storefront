@@ -111,15 +111,15 @@ const COOKIE_LIST: CookieItem[] = [
 ]
 
 const DOCUMENT_SECTIONS = [
-  { id: 'overview', code: 'SEC-01', label: 'Privacy Overview' },
-  { id: 'what-we-collect', code: 'SEC-02', label: 'What We Collect' },
-  { id: 'how-we-use', code: 'SEC-03', label: 'How We Use Info' },
-  { id: 'security', code: 'SEC-04', label: 'Data & Payment Security' },
-  { id: 'cookies', code: 'SEC-05', label: 'How We Use Cookies' },
-  { id: 'external-links', code: 'SEC-06', label: 'External Website Links' },
-  { id: 'controlling', code: 'SEC-07', label: 'Controlling Personal Info' },
-  { id: 'cookie-list', code: 'SEC-08', label: 'Cookie Registry (16)' },
-  { id: 'terms', code: 'SEC-09', label: 'Terms of Sale & RMA' },
+  { id: 'overview', index: '01', label: 'Privacy Overview' },
+  { id: 'what-we-collect', index: '02', label: 'What We Collect' },
+  { id: 'how-we-use', index: '03', label: 'How We Use Info' },
+  { id: 'security', index: '04', label: 'Data & Payment Security' },
+  { id: 'cookies', index: '05', label: 'How We Use Cookies' },
+  { id: 'external-links', index: '06', label: 'External Website Links' },
+  { id: 'controlling', index: '07', label: 'Controlling Personal Info' },
+  { id: 'cookie-list', index: '08', label: 'Cookie Registry (16)' },
+  { id: 'terms', index: '09', label: 'Terms of Sale & RMA' },
 ] as const
 
 const COOKIE_CATEGORIES: Array<'All' | CookieCategory> = [
@@ -175,29 +175,29 @@ export const PrivacyPolicyPage: React.FC = () => {
   }, [selectedCategory, cookieQuery])
 
   return (
-    <div className="min-h-[100dvh] bg-zinc-50 dark:bg-[#14161b] text-zinc-900 dark:text-zinc-100 font-sans pb-24 transition-colors">
+    <div className="min-h-[100dvh] bg-[#f5f4f0] dark:bg-[#20222a] text-zinc-900 dark:text-zinc-100 font-sans pb-24 transition-colors duration-200">
       {/* 1. INDUSTRIAL COMPLIANCE DOSSIER HEADER */}
-      <section className="border-b border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] py-10 sm:py-16">
+      <section className="border-b border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] py-10 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb */}
           <nav
             aria-label="Breadcrumb"
             className="flex items-center gap-2 text-xs font-mono text-zinc-500 dark:text-zinc-400 mb-8"
           >
-            <Link to="/" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
+            <Link to="/" className="hover:text-zinc-900 dark:hover:text-white transition-colors duration-150">
               HOME
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-zinc-400" />
             <span className="text-[#0d5d50] dark:text-[#38e8c6] font-bold uppercase">
-              PRIVACY, COOKIE & RMA PROTOCOL
+              PRIVACY, COOKIE &amp; RMA PROTOCOL
             </span>
           </nav>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
             <div className="lg:col-span-7 space-y-4">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#0d5d50]/25 dark:border-[#38e8c6]/25 bg-[#0d5d50]/8 dark:bg-[#38e8c6]/10 text-[#0d5d50] dark:text-[#38e8c6] text-[11px] font-mono font-bold tracking-widest uppercase">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-[#0d5d50] dark:text-[#38e8c6] text-[11px] font-mono font-bold tracking-widest uppercase">
                 <Lock className="w-3.5 h-3.5" />
-                <span>DOC-REF: PTS-LEGAL-2026 · COMPLIANCE DISCLOSURES</span>
+                <span>STUDIO COMPLIANCE &amp; RMA DISCLOSURES</span>
               </div>
 
               <h1 className="font-['Montserrat',sans-serif] text-3xl sm:text-5xl font-black uppercase tracking-tight leading-[1.04] text-zinc-950 dark:text-white">
@@ -211,11 +211,11 @@ export const PrivacyPolicyPage: React.FC = () => {
 
             {/* Right 4-Tile Compliance Spec Matrix */}
             <div className="lg:col-span-5 grid grid-cols-2 gap-3">
-              <div className="p-4 rounded-xl border border-zinc-200/80 dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#14161b]">
+              <div className="p-4 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
                 <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
                   CHECKOUT VAULT
                 </div>
-                <div className="text-lg font-black font-mono text-zinc-950 dark:text-white mt-1">
+                <div className="text-lg font-black font-mono tabular-nums text-zinc-950 dark:text-white mt-1">
                   PCI-DSS L1
                 </div>
                 <div className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-0.5">
@@ -223,11 +223,11 @@ export const PrivacyPolicyPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="p-4 rounded-xl border border-zinc-200/80 dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#14161b]">
+              <div className="p-4 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
                 <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
                   COOKIE REGISTRY
                 </div>
-                <div className="text-lg font-black font-mono text-[#0d5d50] dark:text-[#38e8c6] mt-1">
+                <div className="text-lg font-black font-mono tabular-nums text-[#0d5d50] dark:text-[#38e8c6] mt-1">
                   16 KEYS
                 </div>
                 <div className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-0.5">
@@ -235,11 +235,11 @@ export const PrivacyPolicyPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="p-4 rounded-xl border border-zinc-200/80 dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#14161b]">
+              <div className="p-4 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
                 <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
                   FAULT RETURN WINDOW
                 </div>
-                <div className="text-lg font-black font-mono text-zinc-950 dark:text-white mt-1">
+                <div className="text-lg font-black font-mono tabular-nums text-zinc-950 dark:text-white mt-1">
                   14 DAYS
                 </div>
                 <div className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-0.5">
@@ -247,11 +247,11 @@ export const PrivacyPolicyPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="p-4 rounded-xl border border-zinc-200/80 dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#14161b]">
+              <div className="p-4 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
                 <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
                   STERILITY PROTOCOL
                 </div>
-                <div className="text-lg font-black font-mono text-[#0d5d50] dark:text-[#38e8c6] mt-1">
+                <div className="text-lg font-black font-mono tabular-nums text-[#0d5d50] dark:text-[#38e8c6] mt-1">
                   316L + EO
                 </div>
                 <div className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-0.5">
@@ -268,9 +268,10 @@ export const PrivacyPolicyPage: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           {/* Sticky Left Clause Navigation & RMA Bench */}
           <aside className="lg:col-span-4 xl:col-span-3 lg:sticky lg:top-24 space-y-6">
-            <div className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] p-5 shadow-xs">
-              <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 pb-3 mb-3 border-b border-zinc-200/80 dark:border-white/[0.08]">
-                CLAUSE INDEX // 01–09
+            <div className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-5">
+              <div className="flex items-center justify-between text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 pb-3 mb-3 border-b border-[#e2dfd8] dark:border-white/[0.08]">
+                <span>POLICY CLAUSE INDEX</span>
+                <span className="tabular-nums text-[#0d5d50] dark:text-[#38e8c6]">09</span>
               </div>
 
               <nav aria-label="Policy clauses" className="space-y-1 font-mono text-xs">
@@ -288,21 +289,21 @@ export const PrivacyPolicyPage: React.FC = () => {
                           block: 'start',
                         })
                       }}
-                      className={`flex items-center justify-between px-3 py-2 rounded-xl transition-all ${
+                      className={`flex items-center justify-between px-3 py-2 rounded-xl active:scale-[0.98] transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)] ${
                         isActive
                           ? 'bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-bold'
-                          : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-[#14161b] hover:text-zinc-950 dark:hover:text-white'
+                          : 'text-zinc-600 dark:text-zinc-400 hover:bg-[#f8f7f4] dark:hover:bg-[#181b22] hover:text-zinc-950 dark:hover:text-white'
                       }`}
                     >
                       <span className="truncate">{sec.label}</span>
                       <span
-                        className={`text-[10px] shrink-0 ml-2 ${
+                        className={`text-[10px] tabular-nums shrink-0 ml-2 ${
                           isActive
                             ? 'text-white/80 dark:text-zinc-950/80'
                             : 'text-zinc-400 dark:text-zinc-500'
                         }`}
                       >
-                        {sec.code}
+                        {sec.index}
                       </span>
                     </a>
                   )
@@ -311,7 +312,7 @@ export const PrivacyPolicyPage: React.FC = () => {
             </div>
 
             {/* Quick Factory RMA Repair Card */}
-            <div className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181a20] p-5 space-y-3">
+            <div className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-5 space-y-3">
               <div className="flex items-center justify-between text-[10px] font-mono font-bold uppercase tracking-widest text-[#0d5d50] dark:text-[#38e8c6]">
                 <span>FACTORY SERVICE DESK</span>
                 <FileText className="w-3.5 h-3.5" />
@@ -326,7 +327,7 @@ export const PrivacyPolicyPage: React.FC = () => {
                 href="https://drive.google.com/file/d/1nMPw2A9x_AwQnlFp0yew_2XNbMBKoiEf/view"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-mono font-bold uppercase tracking-wider hover:opacity-95 active:scale-[0.98] transition-all"
+                className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-mono font-bold uppercase tracking-wider hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.97] transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)]"
               >
                 <span>Open RMA Intake PDF</span>
                 <ExternalLink className="w-3.5 h-3.5" />
@@ -339,17 +340,17 @@ export const PrivacyPolicyPage: React.FC = () => {
             {/* Section 1: Overview */}
             <section
               id="overview"
-              className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] p-6 sm:p-8 space-y-4 scroll-mt-28"
+              className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-6 sm:p-8 space-y-4 scroll-mt-28"
             >
-              <div className="flex items-center justify-between pb-3 border-b border-zinc-200/80 dark:border-white/[0.08]">
+              <div className="flex items-center justify-between pb-3 border-b border-[#e2dfd8] dark:border-white/[0.08]">
                 <div className="flex items-center gap-2.5">
                   <ShieldCheck className="w-5 h-5 text-[#0d5d50] dark:text-[#38e8c6]" />
                   <h2 className="font-['Montserrat',sans-serif] text-base sm:text-lg font-black uppercase tracking-tight text-zinc-950 dark:text-white">
                     PRIVACY POLICY OVERVIEW
                   </h2>
                 </div>
-                <span className="text-[11px] font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6]">
-                  SEC-01
+                <span className="text-[11px] font-mono font-bold tabular-nums text-[#0d5d50] dark:text-[#38e8c6]">
+                  01
                 </span>
               </div>
               <div className="space-y-3 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
@@ -365,32 +366,32 @@ export const PrivacyPolicyPage: React.FC = () => {
             {/* Section 2: What We Collect */}
             <section
               id="what-we-collect"
-              className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] p-6 sm:p-8 space-y-4 scroll-mt-28"
+              className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-6 sm:p-8 space-y-4 scroll-mt-28"
             >
-              <div className="flex items-center justify-between pb-3 border-b border-zinc-200/80 dark:border-white/[0.08]">
+              <div className="flex items-center justify-between pb-3 border-b border-[#e2dfd8] dark:border-white/[0.08]">
                 <div className="flex items-center gap-2.5">
                   <CheckCircle2 className="w-5 h-5 text-[#0d5d50] dark:text-[#38e8c6]" />
                   <h2 className="font-['Montserrat',sans-serif] text-base sm:text-lg font-black uppercase tracking-tight text-zinc-950 dark:text-white">
                     WHAT WE COLLECT
                   </h2>
                 </div>
-                <span className="text-[11px] font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6]">
-                  SEC-02
+                <span className="text-[11px] font-mono font-bold tabular-nums text-[#0d5d50] dark:text-[#38e8c6]">
+                  02
                 </span>
               </div>
               <div className="space-y-4 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
                 <p>We may collect the following information:</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 font-mono text-xs">
-                  <div className="p-3.5 rounded-xl bg-[#f8f7f4] dark:bg-[#14161b] border border-zinc-200/70 dark:border-white/[0.06] text-zinc-800 dark:text-zinc-200">
+                  <div className="p-3.5 rounded-xl bg-[#f8f7f4] dark:bg-[#181b22] border border-[#e2dfd8] dark:border-white/[0.06] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-zinc-800 dark:text-zinc-200">
                     01 · Full Name &amp; Studio Identity
                   </div>
-                  <div className="p-3.5 rounded-xl bg-[#f8f7f4] dark:bg-[#14161b] border border-zinc-200/70 dark:border-white/[0.06] text-zinc-800 dark:text-zinc-200">
+                  <div className="p-3.5 rounded-xl bg-[#f8f7f4] dark:bg-[#181b22] border border-[#e2dfd8] dark:border-white/[0.06] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-zinc-800 dark:text-zinc-200">
                     02 · Contact information including email address
                   </div>
-                  <div className="p-3.5 rounded-xl bg-[#f8f7f4] dark:bg-[#14161b] border border-zinc-200/70 dark:border-white/[0.06] text-zinc-800 dark:text-zinc-200">
+                  <div className="p-3.5 rounded-xl bg-[#f8f7f4] dark:bg-[#181b22] border border-[#e2dfd8] dark:border-white/[0.06] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-zinc-800 dark:text-zinc-200">
                     03 · Demographic information (postcode, preferences, interests)
                   </div>
-                  <div className="p-3.5 rounded-xl bg-[#f8f7f4] dark:bg-[#14161b] border border-zinc-200/70 dark:border-white/[0.06] text-zinc-800 dark:text-zinc-200">
+                  <div className="p-3.5 rounded-xl bg-[#f8f7f4] dark:bg-[#181b22] border border-[#e2dfd8] dark:border-white/[0.06] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-zinc-800 dark:text-zinc-200">
                     04 · Information relevant to customer surveys and/or offers
                   </div>
                 </div>
@@ -408,7 +409,7 @@ export const PrivacyPolicyPage: React.FC = () => {
                     }}
                     className="text-[#0d5d50] dark:text-[#38e8c6] font-mono font-bold hover:underline"
                   >
-                    List of cookies we collect (SEC-08)
+                    List of cookies we collect
                   </a>{' '}
                   section below.
                 </p>
@@ -418,17 +419,17 @@ export const PrivacyPolicyPage: React.FC = () => {
             {/* Section 3: What We Do with the Information */}
             <section
               id="how-we-use"
-              className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] p-6 sm:p-8 space-y-4 scroll-mt-28"
+              className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-6 sm:p-8 space-y-4 scroll-mt-28"
             >
-              <div className="flex items-center justify-between pb-3 border-b border-zinc-200/80 dark:border-white/[0.08]">
+              <div className="flex items-center justify-between pb-3 border-b border-[#e2dfd8] dark:border-white/[0.08]">
                 <div className="flex items-center gap-2.5">
                   <Sliders className="w-5 h-5 text-[#0d5d50] dark:text-[#38e8c6]" />
                   <h2 className="font-['Montserrat',sans-serif] text-base sm:text-lg font-black uppercase tracking-tight text-zinc-950 dark:text-white">
                     WHAT WE DO WITH THE INFORMATION WE GATHER
                   </h2>
                 </div>
-                <span className="text-[11px] font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6]">
-                  SEC-03
+                <span className="text-[11px] font-mono font-bold tabular-nums text-[#0d5d50] dark:text-[#38e8c6]">
+                  03
                 </span>
               </div>
               <div className="space-y-4 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
@@ -451,17 +452,17 @@ export const PrivacyPolicyPage: React.FC = () => {
             {/* Section 4: Security */}
             <section
               id="security"
-              className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] p-6 sm:p-8 space-y-4 scroll-mt-28"
+              className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-6 sm:p-8 space-y-4 scroll-mt-28"
             >
-              <div className="flex items-center justify-between pb-3 border-b border-zinc-200/80 dark:border-white/[0.08]">
+              <div className="flex items-center justify-between pb-3 border-b border-[#e2dfd8] dark:border-white/[0.08]">
                 <div className="flex items-center gap-2.5">
                   <Lock className="w-5 h-5 text-[#0d5d50] dark:text-[#38e8c6]" />
                   <h2 className="font-['Montserrat',sans-serif] text-base sm:text-lg font-black uppercase tracking-tight text-zinc-950 dark:text-white">
                     SECURITY
                   </h2>
                 </div>
-                <span className="text-[11px] font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6]">
-                  SEC-04
+                <span className="text-[11px] font-mono font-bold tabular-nums text-[#0d5d50] dark:text-[#38e8c6]">
+                  04
                 </span>
               </div>
               <div className="space-y-3 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
@@ -477,17 +478,17 @@ export const PrivacyPolicyPage: React.FC = () => {
             {/* Section 5: How We Use Cookies */}
             <section
               id="cookies"
-              className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] p-6 sm:p-8 space-y-4 scroll-mt-28"
+              className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-6 sm:p-8 space-y-4 scroll-mt-28"
             >
-              <div className="flex items-center justify-between pb-3 border-b border-zinc-200/80 dark:border-white/[0.08]">
+              <div className="flex items-center justify-between pb-3 border-b border-[#e2dfd8] dark:border-white/[0.08]">
                 <div className="flex items-center gap-2.5">
                   <Cookie className="w-5 h-5 text-[#0d5d50] dark:text-[#38e8c6]" />
                   <h2 className="font-['Montserrat',sans-serif] text-base sm:text-lg font-black uppercase tracking-tight text-zinc-950 dark:text-white">
                     HOW WE USE COOKIES
                   </h2>
                 </div>
-                <span className="text-[11px] font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6]">
-                  SEC-05
+                <span className="text-[11px] font-mono font-bold tabular-nums text-[#0d5d50] dark:text-[#38e8c6]">
+                  05
                 </span>
               </div>
               <div className="space-y-3 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
@@ -509,17 +510,17 @@ export const PrivacyPolicyPage: React.FC = () => {
             {/* Section 6: Links to Other Websites */}
             <section
               id="external-links"
-              className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] p-6 sm:p-8 space-y-4 scroll-mt-28"
+              className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-6 sm:p-8 space-y-4 scroll-mt-28"
             >
-              <div className="flex items-center justify-between pb-3 border-b border-zinc-200/80 dark:border-white/[0.08]">
+              <div className="flex items-center justify-between pb-3 border-b border-[#e2dfd8] dark:border-white/[0.08]">
                 <div className="flex items-center gap-2.5">
                   <ExternalLink className="w-5 h-5 text-[#0d5d50] dark:text-[#38e8c6]" />
                   <h2 className="font-['Montserrat',sans-serif] text-base sm:text-lg font-black uppercase tracking-tight text-zinc-950 dark:text-white">
                     LINKS TO OTHER WEBSITES
                   </h2>
                 </div>
-                <span className="text-[11px] font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6]">
-                  SEC-06
+                <span className="text-[11px] font-mono font-bold tabular-nums text-[#0d5d50] dark:text-[#38e8c6]">
+                  06
                 </span>
               </div>
               <div className="space-y-3 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
@@ -532,17 +533,17 @@ export const PrivacyPolicyPage: React.FC = () => {
             {/* Section 7: Controlling Your Personal Information */}
             <section
               id="controlling"
-              className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] p-6 sm:p-8 space-y-4 scroll-mt-28"
+              className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-6 sm:p-8 space-y-4 scroll-mt-28"
             >
-              <div className="flex items-center justify-between pb-3 border-b border-zinc-200/80 dark:border-white/[0.08]">
+              <div className="flex items-center justify-between pb-3 border-b border-[#e2dfd8] dark:border-white/[0.08]">
                 <div className="flex items-center gap-2.5">
                   <HelpCircle className="w-5 h-5 text-[#0d5d50] dark:text-[#38e8c6]" />
                   <h2 className="font-['Montserrat',sans-serif] text-base sm:text-lg font-black uppercase tracking-tight text-zinc-950 dark:text-white">
                     CONTROLLING YOUR PERSONAL INFORMATION
                   </h2>
                 </div>
-                <span className="text-[11px] font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6]">
-                  SEC-07
+                <span className="text-[11px] font-mono font-bold tabular-nums text-[#0d5d50] dark:text-[#38e8c6]">
+                  07
                 </span>
               </div>
               <div className="space-y-4 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
@@ -572,9 +573,9 @@ export const PrivacyPolicyPage: React.FC = () => {
             {/* Section 8: List of Cookies We Collect (Interactive Filterable Registry) */}
             <section
               id="cookie-list"
-              className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] overflow-hidden shadow-xs scroll-mt-28"
+              className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] overflow-hidden scroll-mt-28"
             >
-              <div className="p-6 sm:p-8 border-b border-zinc-200/80 dark:border-white/[0.08] space-y-5">
+              <div className="p-6 sm:p-8 border-b border-[#e2dfd8] dark:border-white/[0.08] space-y-5">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
                     <Table className="w-5 h-5 text-[#0d5d50] dark:text-[#38e8c6]" />
@@ -582,8 +583,8 @@ export const PrivacyPolicyPage: React.FC = () => {
                       LIST OF COOKIES WE COLLECT
                     </h2>
                   </div>
-                  <span className="text-[11px] font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6]">
-                    SEC-08
+                  <span className="text-[11px] font-mono font-bold tabular-nums text-[#0d5d50] dark:text-[#38e8c6]">
+                    08
                   </span>
                 </div>
 
@@ -605,10 +606,10 @@ export const PrivacyPolicyPage: React.FC = () => {
                           key={category}
                           type="button"
                           onClick={() => setSelectedCategory(category)}
-                          className={`px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold uppercase transition-all cursor-pointer active:scale-[0.98] ${
+                          className={`px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold uppercase tabular-nums cursor-pointer active:scale-[0.97] transition-[transform,background-color,color,border-color] duration-150 ease-[var(--ease-out-strong)] ${
                             isSelected
-                              ? 'bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950'
-                              : 'bg-[#f8f7f4] dark:bg-[#14161b] text-zinc-600 dark:text-zinc-400 border border-zinc-200/80 dark:border-white/[0.08] hover:text-zinc-950 dark:hover:text-white'
+                              ? 'bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 border border-transparent'
+                              : 'bg-[#f8f7f4] dark:bg-[#181b22] text-zinc-600 dark:text-zinc-400 border border-[#e2dfd8] dark:border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] hover:text-zinc-950 dark:hover:text-white'
                           }`}
                         >
                           {category} ({count})
@@ -628,7 +629,7 @@ export const PrivacyPolicyPage: React.FC = () => {
                       value={cookieQuery}
                       onChange={e => setCookieQuery(e.target.value)}
                       placeholder="Filter cookie key..."
-                      className="w-full pl-8 pr-3 py-1.5 rounded-lg border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-xs font-mono text-zinc-950 dark:text-white placeholder-zinc-400 focus:outline-none focus:border-[#0d5d50] dark:focus:border-[#38e8c6]"
+                      className="w-full pl-8 pr-3 py-1.5 rounded-lg border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-xs font-mono text-zinc-950 dark:text-white placeholder-zinc-400 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
                     />
                   </div>
                 </div>
@@ -636,7 +637,7 @@ export const PrivacyPolicyPage: React.FC = () => {
 
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs font-mono">
-                  <thead className="bg-[#f8f7f4] dark:bg-[#14161b] border-b border-zinc-200/80 dark:border-white/[0.08] text-zinc-900 dark:text-white uppercase font-bold tracking-wider">
+                  <thead className="bg-[#f8f7f4] dark:bg-[#181b22] border-b border-[#e2dfd8] dark:border-white/[0.08] text-zinc-900 dark:text-white uppercase font-bold tracking-wider">
                     <tr>
                       <th scope="col" className="px-6 py-3.5 w-1/3">
                         Cookie Name
@@ -649,7 +650,7 @@ export const PrivacyPolicyPage: React.FC = () => {
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-zinc-200/70 dark:divide-white/[0.06]">
+                  <tbody className="divide-y divide-[#e2dfd8]/70 dark:divide-white/[0.06]">
                     {filteredCookies.length === 0 ? (
                       <tr>
                         <td
@@ -663,7 +664,7 @@ export const PrivacyPolicyPage: React.FC = () => {
                       filteredCookies.map((item) => (
                         <tr
                           key={item.name}
-                          className="hover:bg-zinc-50/80 dark:hover:bg-white/[0.02] transition-colors"
+                          className="hover:bg-[#f8f7f4]/80 dark:hover:bg-white/[0.02] transition-colors duration-150"
                         >
                           <th
                             scope="row"
@@ -672,7 +673,7 @@ export const PrivacyPolicyPage: React.FC = () => {
                             {item.name}
                           </th>
                           <td className="px-4 py-3.5 align-top">
-                            <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] bg-zinc-100 dark:bg-[#14161b] text-zinc-600 dark:text-zinc-300 border border-zinc-200/70 dark:border-white/[0.08]">
+                            <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] bg-[#f8f7f4] dark:bg-[#181b22] text-zinc-600 dark:text-zinc-300 border border-[#e2dfd8] dark:border-white/[0.08]">
                               {item.category}
                             </span>
                           </td>
@@ -690,23 +691,23 @@ export const PrivacyPolicyPage: React.FC = () => {
             {/* Section 9: Commercial Terms & RMA Protocols */}
             <section
               id="terms"
-              className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] p-6 sm:p-8 space-y-6 scroll-mt-28"
+              className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-6 sm:p-8 space-y-6 scroll-mt-28"
             >
-              <div className="flex items-center justify-between pb-3 border-b border-zinc-200/80 dark:border-white/[0.08]">
+              <div className="flex items-center justify-between pb-3 border-b border-[#e2dfd8] dark:border-white/[0.08]">
                 <div className="flex items-center gap-2.5">
                   <FileCheck2 className="w-5 h-5 text-[#0d5d50] dark:text-[#38e8c6]" />
                   <h2 className="font-['Montserrat',sans-serif] text-base sm:text-lg font-black uppercase tracking-tight text-zinc-950 dark:text-white">
                     COMMERCIAL SALE TERMS, STERILITY &amp; RMA PROTOCOL
                   </h2>
                 </div>
-                <span className="text-[11px] font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6]">
-                  SEC-09
+                <span className="text-[11px] font-mono font-bold tabular-nums text-[#0d5d50] dark:text-[#38e8c6]">
+                  09
                 </span>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* 14-Day Return Policy */}
-                <div className="p-5 rounded-xl border border-zinc-200/80 dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#14161b] space-y-2">
+                <div className="p-5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] space-y-2">
                   <h3 className="font-mono font-bold text-xs uppercase text-zinc-900 dark:text-white flex items-center gap-2">
                     <AlertCircle className="w-4 h-4 text-[#0d5d50] dark:text-[#38e8c6]" />
                     <span>14-Day Fault Return Policy</span>
@@ -719,7 +720,7 @@ export const PrivacyPolicyPage: React.FC = () => {
                 {/* Quality Standards & Sterilization */}
                 <div
                   id="quality"
-                  className="p-5 rounded-xl border border-zinc-200/80 dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#14161b] space-y-2 scroll-mt-28"
+                  className="p-5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] space-y-2 scroll-mt-28"
                 >
                   <h3 className="font-mono font-bold text-xs uppercase text-zinc-900 dark:text-white flex items-center gap-2">
                     <ShieldCheck className="w-4 h-4 text-[#0d5d50] dark:text-[#38e8c6]" />
@@ -732,7 +733,7 @@ export const PrivacyPolicyPage: React.FC = () => {
               </div>
 
               {/* Official Factory RMA Repair PDF Form */}
-              <div className="p-5 rounded-xl border border-zinc-200/80 dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#14161b] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="p-5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
                   <div className="font-mono font-bold text-xs text-zinc-950 dark:text-white uppercase flex items-center gap-2">
                     <FileText className="w-4 h-4 text-[#0d5d50] dark:text-[#38e8c6]" />
@@ -746,7 +747,7 @@ export const PrivacyPolicyPage: React.FC = () => {
                   href="https://drive.google.com/file/d/1nMPw2A9x_AwQnlFp0yew_2XNbMBKoiEf/view"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-mono font-bold uppercase tracking-wider shrink-0 hover:opacity-95 active:scale-[0.98] transition-all"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-mono font-bold uppercase tracking-wider shrink-0 hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.97] transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)]"
                 >
                   <span>Download RMA PDF</span>
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -755,7 +756,7 @@ export const PrivacyPolicyPage: React.FC = () => {
             </section>
 
             {/* Contact Support Footer Card */}
-            <div className="p-6 sm:p-8 rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181a20] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="p-6 sm:p-8 rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div className="space-y-1">
                 <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#0d5d50] dark:text-[#38e8c6]">
                   COMPLIANCE &amp; LOGISTICS DESK
@@ -769,7 +770,7 @@ export const PrivacyPolicyPage: React.FC = () => {
               </div>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-mono font-bold uppercase tracking-wider shrink-0 hover:opacity-95 active:scale-[0.98] transition-all"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-mono font-bold uppercase tracking-wider shrink-0 hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.97] transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)]"
               >
                 <Mail className="w-3.5 h-3.5" />
                 <span>Contact Support</span>

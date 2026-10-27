@@ -78,7 +78,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
         name: 'twitter:image',
         content: 'https://papatattoo.com/slides/slide_2_premium_cartridges.png',
       },
-      { name: 'theme-color', content: '#1c1e24', media: '(prefers-color-scheme: dark)' },
+      { name: 'theme-color', content: '#20222a', media: '(prefers-color-scheme: dark)' },
       { name: 'theme-color', content: '#f5f4f0', media: '(prefers-color-scheme: light)' },
     ],
     links: [
@@ -141,7 +141,7 @@ function RootComponent() {
       <ThemeProvider>
         <LocaleProvider>
           <CartProvider>
-            <div className="min-h-[100dvh] flex flex-col bg-[#f5f4f0] dark:bg-[#20222a] text-zinc-900 dark:text-zinc-100 transition-colors duration-300 relative overflow-x-hidden">
+            <div className="min-h-[100dvh] flex flex-col bg-[#f5f4f0] dark:bg-[#20222a] text-zinc-900 dark:text-zinc-100 transition-colors duration-300 relative overflow-x-clip">
               {/* Organic Fluid Ink & Smoke Ambient Canvas */}
               <FluidInkBackground />
               <Header />
@@ -186,7 +186,7 @@ function RootDocument({
           }}
         />
       </head>
-      <body suppressHydrationWarning className="bg-zinc-50 dark:bg-[#090A0C] transition-colors duration-200 antialiased selection:bg-[#2EE6CA] selection:text-black">
+      <body suppressHydrationWarning className="bg-[#f5f4f0] dark:bg-[#20222a] transition-colors duration-200 antialiased selection:bg-[#0d5d50] selection:text-white dark:selection:bg-[#38e8c6] dark:selection:text-zinc-950">
         {children}
         <Scripts />
       </body>

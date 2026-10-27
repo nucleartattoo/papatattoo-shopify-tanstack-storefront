@@ -34,6 +34,7 @@ import {
   Truck,
   Eye,
   EyeOff,
+  X,
 } from 'lucide-react'
 
 function notifyCustomerAuthChanged() {
@@ -509,10 +510,10 @@ export const AccountPage: React.FC = () => {
   // 1. Loading State
   if (loading) {
     return (
-      <div className="min-h-[70dvh] bg-zinc-50 dark:bg-[#14161b] flex flex-col items-center justify-center py-24 text-zinc-900 dark:text-white">
+      <div className="min-h-[70dvh] bg-[#f5f4f0] dark:bg-[#20222a] flex flex-col items-center justify-center py-24 text-zinc-900 dark:text-white">
         <Loader2 className="w-6 h-6 text-[#0d5d50] dark:text-[#38e8c6] animate-spin mb-3" />
-        <span className="text-sm text-zinc-500 dark:text-zinc-400">
-          Loading your account...
+        <span className="text-xs font-mono uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+          Loading studio account...
         </span>
       </div>
     )
@@ -521,19 +522,22 @@ export const AccountPage: React.FC = () => {
   // 2. Unauthenticated State: Clean, Centered Sign In / Create Account Card
   if (!customer) {
     return (
-      <div className="min-h-[80dvh] bg-zinc-50 dark:bg-[#14161b] py-12 sm:py-20 px-4 sm:px-6 text-zinc-900 dark:text-zinc-100 transition-colors flex flex-col justify-center">
+      <div className="min-h-[80dvh] bg-[#f5f4f0] dark:bg-[#20222a] py-12 sm:py-20 px-4 sm:px-6 text-zinc-900 dark:text-zinc-100 transition-colors duration-200 flex flex-col justify-center">
         <div className="w-full max-w-md mx-auto">
-          <div className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] p-6 sm:p-8 shadow-sm">
+          <div className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_12px_32px_rgba(0,0,0,0.04)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_16px_40px_rgba(0,0,0,0.35)] p-6 sm:p-8">
             {/* Header */}
             <div className="text-center mb-6">
-              <h1 className="text-2xl font-bold tracking-tight text-zinc-950 dark:text-white">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-[#0d5d50] dark:text-[#38e8c6] text-[10px] font-mono font-bold tracking-widest uppercase mb-3">
+                <span>STUDIO ACCOUNT PORTAL</span>
+              </div>
+              <h1 className="text-2xl font-['Montserrat',sans-serif] font-black uppercase tracking-tight text-zinc-950 dark:text-white">
                 {authMode === 'signin' && 'Sign In'}
                 {authMode === 'register' && 'Create Account'}
                 {authMode === 'forgot' && 'Reset Password'}
               </h1>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1.5">
-                {authMode === 'signin' && 'Sign in to view your orders and manage your addresses.'}
-                {authMode === 'register' && 'Create an account for faster checkout and order tracking.'}
+              <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1.5 leading-relaxed">
+                {authMode === 'signin' && 'Sign in to view your orders and manage your studio shipping addresses.'}
+                {authMode === 'register' && 'Create an account for faster checkout and live parcel tracking.'}
                 {authMode === 'forgot' && "Enter your email and we'll send you a password reset link."}
               </p>
             </div>
@@ -543,7 +547,7 @@ export const AccountPage: React.FC = () => {
               <div
                 role="tablist"
                 aria-label="Account access"
-                className="grid grid-cols-2 gap-1 p-1 rounded-xl bg-zinc-100 dark:bg-[#14161b] border border-zinc-200/70 dark:border-white/[0.06] mb-6 text-xs font-medium"
+                className="grid grid-cols-2 gap-1 p-1 rounded-xl bg-[#f8f7f4] dark:bg-[#181b22] border border-[#e2dfd8] dark:border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] mb-6 text-xs font-mono font-bold uppercase"
               >
                 <button
                   type="button"
@@ -554,9 +558,9 @@ export const AccountPage: React.FC = () => {
                     setAuthError(null)
                     setAuthSuccess(null)
                   }}
-                  className={`py-2 rounded-lg text-center transition-all cursor-pointer ${
+                  className={`py-2 rounded-lg text-center active:scale-[0.98] transition-[transform,background-color,color,box-shadow] duration-150 ease-[var(--ease-out-strong)] cursor-pointer ${
                     authMode === 'signin'
-                      ? 'bg-white dark:bg-[#1c1e24] text-zinc-950 dark:text-white font-semibold shadow-xs'
+                      ? 'bg-white dark:bg-[#22252f] text-zinc-950 dark:text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.05)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]'
                       : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-200'
                   }`}
                 >
@@ -571,9 +575,9 @@ export const AccountPage: React.FC = () => {
                     setAuthError(null)
                     setAuthSuccess(null)
                   }}
-                  className={`py-2 rounded-lg text-center transition-all cursor-pointer ${
+                  className={`py-2 rounded-lg text-center active:scale-[0.98] transition-[transform,background-color,color,box-shadow] duration-150 ease-[var(--ease-out-strong)] cursor-pointer ${
                     authMode === 'register'
-                      ? 'bg-white dark:bg-[#1c1e24] text-zinc-950 dark:text-white font-semibold shadow-xs'
+                      ? 'bg-white dark:bg-[#22252f] text-zinc-950 dark:text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.05)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]'
                       : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-200'
                   }`}
                 >
@@ -595,7 +599,7 @@ export const AccountPage: React.FC = () => {
             {authSuccess && (
               <div
                 role="status"
-                className="mb-4 p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 text-xs flex items-start gap-2.5"
+                className="mb-4 p-3.5 rounded-xl bg-[#0d5d50]/10 dark:bg-[#38e8c6]/10 border border-[#0d5d50]/25 dark:border-[#38e8c6]/25 text-[#0d5d50] dark:text-[#38e8c6] text-xs flex items-start gap-2.5"
               >
                 <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
                 <span>{authSuccess}</span>
@@ -608,7 +612,7 @@ export const AccountPage: React.FC = () => {
                 <div>
                   <label
                     htmlFor="account-signin-email"
-                    className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1.5"
+                    className="block text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-1.5"
                   >
                     Email
                   </label>
@@ -622,7 +626,7 @@ export const AccountPage: React.FC = () => {
                       value={email}
                       onChange={e => setEmail(e.target.value)}
                       placeholder="you@example.com"
-                      className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-sm text-zinc-950 dark:text-white placeholder-zinc-400 focus:outline-none focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors"
+                      className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-sm text-zinc-950 dark:text-white placeholder-zinc-400 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
                     />
                   </div>
                 </div>
@@ -631,7 +635,7 @@ export const AccountPage: React.FC = () => {
                   <div className="flex items-center justify-between mb-1.5">
                     <label
                       htmlFor="account-signin-password"
-                      className="text-xs font-medium text-zinc-700 dark:text-zinc-300"
+                      className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300"
                     >
                       Password
                     </label>
@@ -642,7 +646,7 @@ export const AccountPage: React.FC = () => {
                         setAuthError(null)
                         setAuthSuccess(null)
                       }}
-                      className="text-xs font-medium text-[#0d5d50] dark:text-[#38e8c6] hover:underline cursor-pointer"
+                      className="text-xs font-mono font-semibold text-[#0d5d50] dark:text-[#38e8c6] hover:underline cursor-pointer"
                     >
                       Forgot password?
                     </button>
@@ -657,13 +661,13 @@ export const AccountPage: React.FC = () => {
                       value={password}
                       onChange={e => setPassword(e.target.value)}
                       placeholder="Enter your password"
-                      className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-sm text-zinc-950 dark:text-white placeholder-zinc-400 focus:outline-none focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors"
+                      className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-sm text-zinc-950 dark:text-white placeholder-zinc-400 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(prev => !prev)}
                       aria-label={showPassword ? 'Hide password' : 'Show password'}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 p-1 cursor-pointer"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 p-1 transition-colors duration-150 cursor-pointer"
                     >
                       {showPassword ? (
                         <EyeOff className="w-4 h-4" />
@@ -677,7 +681,7 @@ export const AccountPage: React.FC = () => {
                 <button
                   type="submit"
                   disabled={authLoading}
-                  className="w-full mt-2 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-sm font-semibold hover:opacity-95 active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                  className="w-full mt-2 py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-mono font-bold uppercase tracking-wider hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.98] transition-[transform,background-color,color,opacity] duration-150 ease-[var(--ease-out-strong)] flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 shadow-xs"
                 >
                   {authLoading && <Loader2 className="w-4 h-4 animate-spin" />}
                   <span>Sign In</span>
@@ -692,7 +696,7 @@ export const AccountPage: React.FC = () => {
                   <div>
                     <label
                       htmlFor="account-register-first-name"
-                      className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1.5"
+                      className="block text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-1.5"
                     >
                       First name
                     </label>
@@ -704,13 +708,13 @@ export const AccountPage: React.FC = () => {
                       value={firstName}
                       onChange={e => setFirstName(e.target.value)}
                       placeholder="First name"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-sm text-zinc-950 dark:text-white placeholder-zinc-400 focus:outline-none focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-sm text-zinc-950 dark:text-white placeholder-zinc-400 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
                     />
                   </div>
                   <div>
                     <label
                       htmlFor="account-register-last-name"
-                      className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1.5"
+                      className="block text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-1.5"
                     >
                       Last name
                     </label>
@@ -722,7 +726,7 @@ export const AccountPage: React.FC = () => {
                       value={lastName}
                       onChange={e => setLastName(e.target.value)}
                       placeholder="Last name"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-sm text-zinc-950 dark:text-white placeholder-zinc-400 focus:outline-none focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-sm text-zinc-950 dark:text-white placeholder-zinc-400 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
                     />
                   </div>
                 </div>
@@ -730,7 +734,7 @@ export const AccountPage: React.FC = () => {
                 <div>
                   <label
                     htmlFor="account-register-email"
-                    className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1.5"
+                    className="block text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-1.5"
                   >
                     Email
                   </label>
@@ -744,7 +748,7 @@ export const AccountPage: React.FC = () => {
                       value={email}
                       onChange={e => setEmail(e.target.value)}
                       placeholder="you@example.com"
-                      className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-sm text-zinc-950 dark:text-white placeholder-zinc-400 focus:outline-none focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors"
+                      className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-sm text-zinc-950 dark:text-white placeholder-zinc-400 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
                     />
                   </div>
                 </div>
@@ -752,7 +756,7 @@ export const AccountPage: React.FC = () => {
                 <div>
                   <label
                     htmlFor="account-register-password"
-                    className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1.5"
+                    className="block text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-1.5"
                   >
                     Password
                   </label>
@@ -767,13 +771,13 @@ export const AccountPage: React.FC = () => {
                       value={password}
                       onChange={e => setPassword(e.target.value)}
                       placeholder="At least 5 characters"
-                      className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-sm text-zinc-950 dark:text-white placeholder-zinc-400 focus:outline-none focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors"
+                      className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-sm text-zinc-950 dark:text-white placeholder-zinc-400 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(prev => !prev)}
                       aria-label={showPassword ? 'Hide password' : 'Show password'}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 p-1 cursor-pointer"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 p-1 transition-colors duration-150 cursor-pointer"
                     >
                       {showPassword ? (
                         <EyeOff className="w-4 h-4" />
@@ -787,7 +791,7 @@ export const AccountPage: React.FC = () => {
                 <button
                   type="submit"
                   disabled={authLoading}
-                  className="w-full mt-2 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-sm font-semibold hover:opacity-95 active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                  className="w-full mt-2 py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-mono font-bold uppercase tracking-wider hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.98] transition-[transform,background-color,color,opacity] duration-150 ease-[var(--ease-out-strong)] flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 shadow-xs"
                 >
                   {authLoading && <Loader2 className="w-4 h-4 animate-spin" />}
                   <span>Create Account</span>
@@ -801,7 +805,7 @@ export const AccountPage: React.FC = () => {
                 <div>
                   <label
                     htmlFor="account-recover-email"
-                    className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1.5"
+                    className="block text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-1.5"
                   >
                     Email
                   </label>
@@ -815,7 +819,7 @@ export const AccountPage: React.FC = () => {
                       value={email}
                       onChange={e => setEmail(e.target.value)}
                       placeholder="you@example.com"
-                      className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-sm text-zinc-950 dark:text-white placeholder-zinc-400 focus:outline-none focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors"
+                      className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-sm text-zinc-950 dark:text-white placeholder-zinc-400 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
                     />
                   </div>
                 </div>
@@ -823,7 +827,7 @@ export const AccountPage: React.FC = () => {
                 <button
                   type="submit"
                   disabled={authLoading}
-                  className="w-full mt-2 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-sm font-semibold hover:opacity-95 active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                  className="w-full mt-2 py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-mono font-bold uppercase tracking-wider hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.98] transition-[transform,background-color,color,opacity] duration-150 ease-[var(--ease-out-strong)] flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 shadow-xs"
                 >
                   {authLoading && <Loader2 className="w-4 h-4 animate-spin" />}
                   <span>Send Reset Link</span>
@@ -837,7 +841,7 @@ export const AccountPage: React.FC = () => {
                       setAuthError(null)
                       setAuthSuccess(null)
                     }}
-                    className="text-xs font-medium text-zinc-500 hover:text-zinc-950 dark:hover:text-white cursor-pointer"
+                    className="text-xs font-mono font-semibold text-zinc-500 hover:text-zinc-950 dark:hover:text-white transition-colors duration-150 cursor-pointer"
                   >
                     ← Back to Sign In
                   </button>
@@ -855,18 +859,18 @@ export const AccountPage: React.FC = () => {
     [customer.firstName, customer.lastName].filter(Boolean).join(' ').trim() || customer.email
 
   return (
-    <div className="min-h-[80dvh] bg-zinc-50 dark:bg-[#14161b] py-8 sm:py-12 text-zinc-900 dark:text-zinc-100 transition-colors">
+    <div className="min-h-[80dvh] bg-[#f5f4f0] dark:bg-[#20222a] py-8 sm:py-12 text-zinc-900 dark:text-zinc-100 transition-colors duration-200">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Account Header */}
-        <div className="flex flex-wrap items-center justify-between gap-4 pb-6 mb-6 border-b border-zinc-200/80 dark:border-white/[0.08]">
+        <div className="flex flex-wrap items-center justify-between gap-4 pb-6 mb-6 border-b border-[#e2dfd8] dark:border-white/[0.08]">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-950 dark:text-white">
+            <h1 className="text-2xl sm:text-3xl font-['Montserrat',sans-serif] font-black uppercase tracking-tight text-zinc-950 dark:text-white">
               My Account
             </h1>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
-              Signed in as <span className="font-medium text-zinc-800 dark:text-zinc-200">{displayName}</span>
+            <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1">
+              Signed in as <span className="font-mono font-semibold text-zinc-800 dark:text-zinc-200">{displayName}</span>
               {displayName !== customer.email && (
-                <span className="text-zinc-400 dark:text-zinc-500"> ({customer.email})</span>
+                <span className="font-mono text-zinc-400 dark:text-zinc-500"> ({customer.email})</span>
               )}
             </p>
           </div>
@@ -874,7 +878,7 @@ export const AccountPage: React.FC = () => {
           <button
             type="button"
             onClick={handleSignOut}
-            className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl border border-zinc-200 dark:border-white/[0.1] bg-white dark:bg-[#1c1e24] text-xs font-medium text-zinc-700 dark:text-zinc-300 hover:text-red-600 dark:hover:text-red-400 hover:border-red-500/30 transition-colors cursor-pointer"
+            className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] text-xs font-mono font-bold uppercase text-zinc-700 dark:text-zinc-300 hover:text-red-600 dark:hover:text-red-400 hover:border-red-500/30 active:scale-[0.97] transition-[transform,color,border-color] duration-150 ease-[var(--ease-out-strong)] cursor-pointer"
           >
             <LogOut className="w-3.5 h-3.5" />
             <span>Sign out</span>
@@ -885,14 +889,14 @@ export const AccountPage: React.FC = () => {
         <div
           role="tablist"
           aria-label="Account sections"
-          className="flex items-center gap-2 border-b border-zinc-200/80 dark:border-white/[0.08] mb-8"
+          className="flex items-center gap-2 border-b border-[#e2dfd8] dark:border-white/[0.08] mb-8"
         >
           <button
             type="button"
             role="tab"
             aria-selected={activeTab === 'orders'}
             onClick={() => setActiveTab('orders')}
-            className={`inline-flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 -mb-px transition-colors cursor-pointer whitespace-nowrap ${
+            className={`inline-flex items-center gap-2 px-4 py-3 text-xs font-mono font-bold uppercase border-b-2 -mb-px transition-colors duration-150 cursor-pointer whitespace-nowrap ${
               activeTab === 'orders'
                 ? 'border-[#0d5d50] dark:border-[#38e8c6] text-zinc-950 dark:text-white'
                 : 'border-transparent text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200'
@@ -900,7 +904,7 @@ export const AccountPage: React.FC = () => {
           >
             <Package className="w-4 h-4" />
             <span>Orders</span>
-            <span className="px-2 py-0.5 rounded-full text-xs bg-zinc-100 dark:bg-[#1c1e24] text-zinc-600 dark:text-zinc-400">
+            <span className="px-2 py-0.5 rounded-full text-[11px] tabular-nums bg-white dark:bg-[#22252f] border border-[#e2dfd8] dark:border-white/[0.08] text-zinc-600 dark:text-zinc-400">
               {orders.length}
             </span>
           </button>
@@ -910,7 +914,7 @@ export const AccountPage: React.FC = () => {
             role="tab"
             aria-selected={activeTab === 'addresses'}
             onClick={() => setActiveTab('addresses')}
-            className={`inline-flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 -mb-px transition-colors cursor-pointer whitespace-nowrap ${
+            className={`inline-flex items-center gap-2 px-4 py-3 text-xs font-mono font-bold uppercase border-b-2 -mb-px transition-colors duration-150 cursor-pointer whitespace-nowrap ${
               activeTab === 'addresses'
                 ? 'border-[#0d5d50] dark:border-[#38e8c6] text-zinc-950 dark:text-white'
                 : 'border-transparent text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200'
@@ -918,7 +922,7 @@ export const AccountPage: React.FC = () => {
           >
             <MapPin className="w-4 h-4" />
             <span>Addresses</span>
-            <span className="px-2 py-0.5 rounded-full text-xs bg-zinc-100 dark:bg-[#1c1e24] text-zinc-600 dark:text-zinc-400">
+            <span className="px-2 py-0.5 rounded-full text-[11px] tabular-nums bg-white dark:bg-[#22252f] border border-[#e2dfd8] dark:border-white/[0.08] text-zinc-600 dark:text-zinc-400">
               {addresses.length}
             </span>
           </button>
@@ -928,7 +932,7 @@ export const AccountPage: React.FC = () => {
             role="tab"
             aria-selected={activeTab === 'profile'}
             onClick={() => setActiveTab('profile')}
-            className={`inline-flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 -mb-px transition-colors cursor-pointer whitespace-nowrap ${
+            className={`inline-flex items-center gap-2 px-4 py-3 text-xs font-mono font-bold uppercase border-b-2 -mb-px transition-colors duration-150 cursor-pointer whitespace-nowrap ${
               activeTab === 'profile'
                 ? 'border-[#0d5d50] dark:border-[#38e8c6] text-zinc-950 dark:text-white'
                 : 'border-transparent text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200'
@@ -943,18 +947,20 @@ export const AccountPage: React.FC = () => {
         {activeTab === 'orders' && (
           <div className="space-y-4">
             {orders.length === 0 ? (
-              <div className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] p-12 text-center space-y-3">
-                <ShoppingBag className="w-8 h-8 text-zinc-400 mx-auto" />
-                <div className="text-base font-semibold text-zinc-950 dark:text-white">
+              <div className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-12 text-center space-y-3">
+                <div className="w-12 h-12 rounded-2xl bg-[#f8f7f4] dark:bg-[#181b22] border border-[#e2dfd8] dark:border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] flex items-center justify-center mx-auto">
+                  <ShoppingBag className="w-5 h-5 text-zinc-400" />
+                </div>
+                <div className="text-base font-bold uppercase font-mono text-zinc-950 dark:text-white">
                   No orders yet
                 </div>
-                <p className="text-sm text-zinc-500 dark:text-zinc-400 max-w-sm mx-auto">
-                  When you place an order, it will appear here with order details and tracking links.
+                <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 max-w-sm mx-auto leading-relaxed">
+                  When you place an order, it will appear here with order details and live tracking links.
                 </p>
                 <div className="pt-2">
                   <Link
                     to="/collections"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-semibold hover:opacity-95 transition-all"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-mono font-bold uppercase tracking-wider hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.97] transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)]"
                   >
                     <span>Start Shopping</span>
                   </Link>
@@ -965,31 +971,31 @@ export const AccountPage: React.FC = () => {
                 {orders.map(order => (
                   <div
                     key={order.id}
-                    className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] p-5 sm:p-6 shadow-xs space-y-4"
+                    className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-5 sm:p-6 space-y-4"
                   >
                     {/* Order Header */}
-                    <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-zinc-200/80 dark:border-white/[0.08]">
+                    <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[#e2dfd8]/80 dark:border-white/[0.08]">
                       <div>
                         <div className="flex items-center gap-2.5">
-                          <span className="text-base font-bold text-zinc-950 dark:text-white">
+                          <span className="text-base font-mono font-bold tabular-nums text-zinc-950 dark:text-white">
                             Order {order.name}
                           </span>
                           <span
-                            className={`text-[11px] font-medium px-2 py-0.5 rounded-md ${
+                            className={`text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded-md ${
                               order.fulfillmentStatus === 'FULFILLED'
-                                ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400'
+                                ? 'bg-[#0d5d50]/10 dark:bg-[#38e8c6]/10 text-[#0d5d50] dark:text-[#38e8c6]'
                                 : 'bg-amber-500/10 text-amber-700 dark:text-amber-400'
                             }`}
                           >
                             {order.fulfillmentStatus || 'Unfulfilled'}
                           </span>
                           {order.financialStatus && (
-                            <span className="text-[11px] font-medium px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-[#14161b] text-zinc-600 dark:text-zinc-400">
+                            <span className="text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded-md bg-[#f8f7f4] dark:bg-[#181b22] border border-[#e2dfd8] dark:border-white/[0.08] text-zinc-600 dark:text-zinc-400">
                               {order.financialStatus}
                             </span>
                           )}
                         </div>
-                        <div className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
+                        <div className="text-xs font-mono text-zinc-500 dark:text-zinc-400 mt-1">
                           Placed on{' '}
                           {new Date(order.processedAt).toLocaleDateString(undefined, {
                             year: 'numeric',
@@ -1000,7 +1006,7 @@ export const AccountPage: React.FC = () => {
                       </div>
 
                       <div className="text-right">
-                        <div className="text-base font-bold text-zinc-950 dark:text-white">
+                        <div className="text-base font-mono font-bold tabular-nums whitespace-nowrap text-zinc-950 dark:text-white">
                           ${parseFloat(order.totalPrice.amount).toFixed(2)} {order.totalPrice.currencyCode}
                         </div>
                         {order.statusUrl && (
@@ -1008,7 +1014,7 @@ export const AccountPage: React.FC = () => {
                             href={order.statusUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-xs font-medium text-[#0d5d50] dark:text-[#38e8c6] hover:underline mt-0.5"
+                            className="inline-flex items-center gap-1 text-xs font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6] hover:underline mt-0.5"
                           >
                             <span>View order status</span>
                             <ExternalLink className="w-3 h-3" />
@@ -1018,7 +1024,7 @@ export const AccountPage: React.FC = () => {
                     </div>
 
                     {/* Order Line Items */}
-                    <div className="divide-y divide-zinc-200/60 dark:divide-white/[0.06]">
+                    <div className="divide-y divide-[#e2dfd8]/70 dark:divide-white/[0.06]">
                       {order.lineItems?.edges?.map((itemEdge, idx) => {
                         const item = itemEdge.node
                         return (
@@ -1031,31 +1037,31 @@ export const AccountPage: React.FC = () => {
                                 <img
                                   src={item.variant.image.url}
                                   alt={item.title}
-                                  className="w-12 h-12 object-contain rounded-lg bg-zinc-50 dark:bg-[#14161b] p-1 border border-zinc-200/80 dark:border-white/[0.08] shrink-0"
+                                  className="w-12 h-12 object-contain rounded-xl bg-[#f8f7f4] dark:bg-[#181b22] p-1 border border-[#e2dfd8] dark:border-white/[0.08] shrink-0"
                                 />
                               ) : (
-                                <div className="w-12 h-12 rounded-lg bg-zinc-100 dark:bg-[#14161b] flex items-center justify-center text-zinc-400 shrink-0">
+                                <div className="w-12 h-12 rounded-xl bg-[#f8f7f4] dark:bg-[#181b22] border border-[#e2dfd8] dark:border-white/[0.08] flex items-center justify-center text-zinc-400 shrink-0">
                                   <Package className="w-5 h-5" />
                                 </div>
                               )}
                               <div className="min-w-0">
-                                <div className="text-sm font-medium text-zinc-950 dark:text-zinc-100 truncate">
+                                <div className="text-sm font-semibold text-zinc-950 dark:text-zinc-100 truncate">
                                   {item.title}
                                 </div>
                                 {item.variant?.title && item.variant.title !== 'Default Title' && (
-                                  <div className="text-xs text-zinc-500 dark:text-zinc-400 truncate">
+                                  <div className="text-xs font-mono text-zinc-500 dark:text-zinc-400 truncate">
                                     {item.variant.title}
                                   </div>
                                 )}
                               </div>
                             </div>
 
-                            <div className="text-right shrink-0">
+                            <div className="text-right shrink-0 font-mono tabular-nums">
                               <div className="text-xs text-zinc-500 dark:text-zinc-400">
                                 Qty: {item.quantity}
                               </div>
                               {item.variant?.price && (
-                                <div className="text-sm font-medium text-zinc-950 dark:text-white">
+                                <div className="text-sm font-bold text-zinc-950 dark:text-white whitespace-nowrap">
                                   ${parseFloat(item.variant.price.amount).toFixed(2)}
                                 </div>
                               )}
@@ -1067,8 +1073,8 @@ export const AccountPage: React.FC = () => {
 
                     {/* Tracking Info */}
                     {order.successfulFulfillments && order.successfulFulfillments.length > 0 && (
-                      <div className="pt-3 border-t border-zinc-200/80 dark:border-white/[0.08] flex flex-wrap items-center justify-between gap-3 text-xs">
-                        <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-400 font-medium">
+                      <div className="pt-3 border-t border-[#e2dfd8]/80 dark:border-white/[0.08] flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+                        <div className="flex items-center gap-2 text-[#0d5d50] dark:text-[#38e8c6] font-bold">
                           <Truck className="w-4 h-4" />
                           <span>{order.successfulFulfillments[0].trackingCompany || 'Shipped'}</span>
                         </div>
@@ -1079,7 +1085,7 @@ export const AccountPage: React.FC = () => {
                               href={order.successfulFulfillments[0].trackingInfo[0].url || '#'}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="font-medium text-[#0d5d50] dark:text-[#38e8c6] hover:underline"
+                              className="font-bold tabular-nums text-[#0d5d50] dark:text-[#38e8c6] hover:underline"
                             >
                               {order.successfulFulfillments[0].trackingInfo[0].number}
                             </a>
@@ -1098,13 +1104,13 @@ export const AccountPage: React.FC = () => {
         {activeTab === 'addresses' && (
           <div className="space-y-5">
             <div className="flex items-center justify-between gap-3">
-              <h2 className="text-lg font-semibold text-zinc-950 dark:text-white">
+              <h2 className="text-base font-mono font-bold uppercase text-zinc-950 dark:text-white">
                 Saved Addresses
               </h2>
               <button
                 type="button"
                 onClick={openNewAddressModal}
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-semibold hover:opacity-95 transition-all cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-mono font-bold uppercase hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.97] transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)] cursor-pointer"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Add Address</span>
@@ -1122,19 +1128,21 @@ export const AccountPage: React.FC = () => {
             )}
 
             {addresses.length === 0 ? (
-              <div className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] p-12 text-center space-y-3">
-                <MapPin className="w-8 h-8 text-zinc-400 mx-auto" />
-                <div className="text-base font-semibold text-zinc-950 dark:text-white">
+              <div className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-12 text-center space-y-3">
+                <div className="w-12 h-12 rounded-2xl bg-[#f8f7f4] dark:bg-[#181b22] border border-[#e2dfd8] dark:border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] flex items-center justify-center mx-auto">
+                  <MapPin className="w-5 h-5 text-zinc-400" />
+                </div>
+                <div className="text-base font-bold uppercase font-mono text-zinc-950 dark:text-white">
                   No addresses saved
                 </div>
-                <p className="text-sm text-zinc-500 dark:text-zinc-400 max-w-sm mx-auto">
-                  Add a shipping address for faster checkout.
+                <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 max-w-sm mx-auto">
+                  Add a studio shipping address for faster checkout.
                 </p>
                 <div className="pt-1">
                   <button
                     type="button"
                     onClick={openNewAddressModal}
-                    className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-semibold hover:opacity-95 transition-all cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-mono font-bold uppercase hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.97] transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)] cursor-pointer"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     <span>Add Address</span>
@@ -1149,27 +1157,27 @@ export const AccountPage: React.FC = () => {
                   return (
                     <div
                       key={addr.id}
-                      className={`rounded-2xl border p-5 flex flex-col justify-between transition-all bg-white dark:bg-[#1c1e24] ${
+                      className={`rounded-2xl border p-5 flex flex-col justify-between transition-colors duration-150 bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] ${
                         isDefault
                           ? 'border-[#0d5d50] dark:border-[#38e8c6]'
-                          : 'border-zinc-200/80 dark:border-white/[0.08]'
+                          : 'border-[#e2dfd8] dark:border-white/[0.08]'
                       }`}
                     >
                       <div>
                         <div className="flex items-center justify-between mb-2.5">
-                          <span className="font-semibold text-sm text-zinc-950 dark:text-white">
+                          <span className="font-bold text-sm text-zinc-950 dark:text-white">
                             {addr.firstName} {addr.lastName}
                           </span>
                           {isDefault && (
-                            <span className="text-[11px] font-medium px-2 py-0.5 rounded-md bg-[#0d5d50]/10 dark:bg-[#38e8c6]/10 text-[#0d5d50] dark:text-[#38e8c6]">
+                            <span className="text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded-md bg-[#0d5d50]/10 dark:bg-[#38e8c6]/10 text-[#0d5d50] dark:text-[#38e8c6]">
                               Default
                             </span>
                           )}
                         </div>
 
-                        <div className="text-sm text-zinc-600 dark:text-zinc-400 space-y-0.5">
+                        <div className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 space-y-0.5">
                           {addr.company && (
-                            <div className="font-medium text-zinc-800 dark:text-zinc-200">
+                            <div className="font-semibold text-zinc-800 dark:text-zinc-200">
                               {addr.company}
                             </div>
                           )}
@@ -1180,31 +1188,31 @@ export const AccountPage: React.FC = () => {
                           </div>
                           <div>{addr.country}</div>
                           {addr.phone && (
-                            <div className="text-xs text-zinc-500 dark:text-zinc-400 pt-1">
+                            <div className="text-xs font-mono tabular-nums text-zinc-500 dark:text-zinc-400 pt-1">
                               {addr.phone}
                             </div>
                           )}
                         </div>
                       </div>
 
-                      <div className="mt-4 pt-3 border-t border-zinc-200/80 dark:border-white/[0.08] flex items-center justify-between text-xs">
+                      <div className="mt-4 pt-3 border-t border-[#e2dfd8]/80 dark:border-white/[0.08] flex items-center justify-between text-xs font-mono">
                         {isConfirmingDelete ? (
                           <div className="flex items-center gap-2 w-full justify-between">
-                            <span className="text-red-600 dark:text-red-400 font-medium">
+                            <span className="text-red-600 dark:text-red-400 font-bold">
                               Delete this address?
                             </span>
                             <div className="flex items-center gap-2">
                               <button
                                 type="button"
                                 onClick={() => setPendingDeleteAddressId(null)}
-                                className="px-2.5 py-1 rounded-lg border border-zinc-200 dark:border-white/[0.1] text-zinc-600 dark:text-zinc-300 cursor-pointer"
+                                className="px-2.5 py-1 rounded-lg border border-[#e2dfd8] dark:border-white/[0.1] text-zinc-600 dark:text-zinc-300 active:scale-[0.97] transition-transform duration-150 cursor-pointer"
                               >
                                 Cancel
                               </button>
                               <button
                                 type="button"
                                 onClick={() => handleDeleteAddress(addr.id)}
-                                className="px-2.5 py-1 rounded-lg bg-red-600 text-white font-medium cursor-pointer"
+                                className="px-2.5 py-1 rounded-lg bg-red-600 text-white font-bold active:scale-[0.97] transition-transform duration-150 cursor-pointer"
                               >
                                 Delete
                               </button>
@@ -1216,7 +1224,7 @@ export const AccountPage: React.FC = () => {
                               <button
                                 type="button"
                                 onClick={() => openEditAddressModal(addr)}
-                                className="inline-flex items-center gap-1 text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white transition-colors cursor-pointer"
+                                className="inline-flex items-center gap-1 text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white transition-colors duration-150 cursor-pointer"
                               >
                                 <Edit2 className="w-3.5 h-3.5" />
                                 <span>Edit</span>
@@ -1224,7 +1232,7 @@ export const AccountPage: React.FC = () => {
                               <button
                                 type="button"
                                 onClick={() => setPendingDeleteAddressId(addr.id)}
-                                className="inline-flex items-center gap-1 text-red-600 dark:text-red-400 hover:opacity-80 transition-opacity cursor-pointer"
+                                className="inline-flex items-center gap-1 text-red-600 dark:text-red-400 hover:opacity-80 transition-opacity duration-150 cursor-pointer"
                               >
                                 <Trash2 className="w-3.5 h-3.5" />
                                 <span>Delete</span>
@@ -1235,7 +1243,7 @@ export const AccountPage: React.FC = () => {
                               <button
                                 type="button"
                                 onClick={() => handleSetDefaultAddress(addr.id)}
-                                className="font-medium text-[#0d5d50] dark:text-[#38e8c6] hover:underline cursor-pointer"
+                                className="font-bold text-[#0d5d50] dark:text-[#38e8c6] hover:underline cursor-pointer"
                               >
                                 Set as default
                               </button>
@@ -1266,7 +1274,7 @@ export const AccountPage: React.FC = () => {
             {profileSuccess && (
               <div
                 role="status"
-                className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 text-xs flex items-start gap-2"
+                className="p-3.5 rounded-xl bg-[#0d5d50]/10 dark:bg-[#38e8c6]/10 border border-[#0d5d50]/25 dark:border-[#38e8c6]/25 text-[#0d5d50] dark:text-[#38e8c6] text-xs flex items-start gap-2"
               >
                 <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
                 <span>{profileSuccess}</span>
@@ -1274,8 +1282,8 @@ export const AccountPage: React.FC = () => {
             )}
 
             <form onSubmit={handleSaveProfile} className="space-y-6">
-              <div className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] p-6 space-y-4">
-                <h2 className="text-base font-semibold text-zinc-950 dark:text-white">
+              <div className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-6 space-y-4">
+                <h2 className="text-sm font-mono font-bold uppercase tracking-wider text-zinc-950 dark:text-white">
                   Personal Information
                 </h2>
 
@@ -1283,7 +1291,7 @@ export const AccountPage: React.FC = () => {
                   <div>
                     <label
                       htmlFor="profile-first-name"
-                      className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1.5"
+                      className="block text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-1.5"
                     >
                       First name
                     </label>
@@ -1294,13 +1302,13 @@ export const AccountPage: React.FC = () => {
                       required
                       value={profileForm.firstName}
                       onChange={e => setProfileForm({ ...profileForm, firstName: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-sm text-zinc-950 dark:text-white focus:outline-none focus:border-[#0d5d50] dark:focus:border-[#38e8c6]"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-sm text-zinc-950 dark:text-white focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
                     />
                   </div>
                   <div>
                     <label
                       htmlFor="profile-last-name"
-                      className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1.5"
+                      className="block text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-1.5"
                     >
                       Last name
                     </label>
@@ -1311,7 +1319,7 @@ export const AccountPage: React.FC = () => {
                       required
                       value={profileForm.lastName}
                       onChange={e => setProfileForm({ ...profileForm, lastName: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-sm text-zinc-950 dark:text-white focus:outline-none focus:border-[#0d5d50] dark:focus:border-[#38e8c6]"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-sm text-zinc-950 dark:text-white focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
                     />
                   </div>
                 </div>
@@ -1319,7 +1327,7 @@ export const AccountPage: React.FC = () => {
                 <div>
                   <label
                     htmlFor="profile-email-readonly"
-                    className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1.5"
+                    className="block text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-1.5"
                   >
                     Email
                   </label>
@@ -1328,14 +1336,14 @@ export const AccountPage: React.FC = () => {
                     type="email"
                     disabled
                     value={customer.email}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-white/[0.08] bg-zinc-100 dark:bg-[#14161b]/60 text-sm text-zinc-500 cursor-not-allowed"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.06] bg-[#eceae4]/70 dark:bg-[#181b22]/60 text-sm font-mono text-zinc-500 cursor-not-allowed"
                   />
                 </div>
 
                 <div>
                   <label
                     htmlFor="profile-phone"
-                    className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1.5"
+                    className="block text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-1.5"
                   >
                     Phone (optional)
                   </label>
@@ -1346,14 +1354,14 @@ export const AccountPage: React.FC = () => {
                     value={profileForm.phone}
                     onChange={e => setProfileForm({ ...profileForm, phone: e.target.value })}
                     placeholder="+1 (555) 000-0000"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-sm text-zinc-950 dark:text-white focus:outline-none focus:border-[#0d5d50] dark:focus:border-[#38e8c6]"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-sm font-mono tabular-nums text-zinc-950 dark:text-white focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
                   />
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#1c1e24] p-6 space-y-4">
+              <div className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-6 space-y-4">
                 <div>
-                  <h2 className="text-base font-semibold text-zinc-950 dark:text-white">
+                  <h2 className="text-sm font-mono font-bold uppercase tracking-wider text-zinc-950 dark:text-white">
                     Change Password
                   </h2>
                   <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
@@ -1365,7 +1373,7 @@ export const AccountPage: React.FC = () => {
                   <div>
                     <label
                       htmlFor="profile-new-password"
-                      className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1.5"
+                      className="block text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-1.5"
                     >
                       New password
                     </label>
@@ -1377,13 +1385,13 @@ export const AccountPage: React.FC = () => {
                       value={newPassword}
                       onChange={e => setNewPassword(e.target.value)}
                       placeholder="New password"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-sm text-zinc-950 dark:text-white focus:outline-none focus:border-[#0d5d50] dark:focus:border-[#38e8c6]"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-sm text-zinc-950 dark:text-white focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
                     />
                   </div>
                   <div>
                     <label
                       htmlFor="profile-confirm-password"
-                      className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1.5"
+                      className="block text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-1.5"
                     >
                       Confirm new password
                     </label>
@@ -1395,7 +1403,7 @@ export const AccountPage: React.FC = () => {
                       value={confirmPassword}
                       onChange={e => setConfirmPassword(e.target.value)}
                       placeholder="Confirm new password"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-sm text-zinc-950 dark:text-white focus:outline-none focus:border-[#0d5d50] dark:focus:border-[#38e8c6]"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-sm text-zinc-950 dark:text-white focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
                     />
                   </div>
                 </div>
@@ -1404,7 +1412,7 @@ export const AccountPage: React.FC = () => {
               <button
                 type="submit"
                 disabled={profileLoading}
-                className="px-6 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-sm font-semibold hover:opacity-95 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                className="px-6 py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-mono font-bold uppercase tracking-wider hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.97] transition-[transform,background-color,color,opacity] duration-150 ease-[var(--ease-out-strong)] flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 shadow-xs"
               >
                 {profileLoading && <Loader2 className="w-4 h-4 animate-spin" />}
                 <span>Save Changes</span>
@@ -1418,7 +1426,7 @@ export const AccountPage: React.FC = () => {
       {isAddressModalOpen && (
         <div
           onClick={closeAddressModal}
-          className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in motion-reduce:animate-none"
+          className="fixed inset-0 z-50 bg-black/65 dark:bg-black/80 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200 ease-[var(--ease-out-strong)] motion-reduce:animate-none"
         >
           <div
             ref={addressDialogRef}
@@ -1427,12 +1435,12 @@ export const AccountPage: React.FC = () => {
             aria-labelledby="account-address-modal-title"
             tabIndex={-1}
             onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-lg rounded-2xl border border-zinc-200/80 dark:border-white/[0.1] bg-white dark:bg-[#1c1e24] p-6 shadow-2xl space-y-4 outline-hidden"
+            className="w-full max-w-lg rounded-2xl border border-[#e2dfd8] dark:border-white/[0.12] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_24px_64px_rgba(0,0,0,0.35)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_24px_64px_rgba(0,0,0,0.65)] p-6 space-y-4 outline-hidden animate-in zoom-in-95 fade-in duration-200 ease-[var(--ease-out-strong)] motion-reduce:animate-none"
           >
-            <div className="flex items-center justify-between pb-3 border-b border-zinc-200/80 dark:border-white/[0.08]">
+            <div className="flex items-center justify-between pb-3 border-b border-[#e2dfd8] dark:border-white/[0.08]">
               <h3
                 id="account-address-modal-title"
-                className="font-semibold text-base text-zinc-950 dark:text-white"
+                className="font-mono font-bold uppercase text-sm text-zinc-950 dark:text-white"
               >
                 {editingAddress ? 'Edit Address' : 'Add Address'}
               </h3>
@@ -1440,9 +1448,9 @@ export const AccountPage: React.FC = () => {
                 type="button"
                 onClick={closeAddressModal}
                 aria-label="Close address modal"
-                className="text-zinc-400 hover:text-zinc-950 dark:hover:text-white transition-all p-1 cursor-pointer"
+                className="p-1.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] text-zinc-500 hover:text-zinc-950 dark:hover:text-white active:scale-[0.95] transition-[transform,color] duration-150 ease-[var(--ease-out-strong)] cursor-pointer"
               >
-                ✕
+                <X className="w-4 h-4" />
               </button>
             </div>
 
@@ -1458,7 +1466,7 @@ export const AccountPage: React.FC = () => {
             {addressSuccess && (
               <div
                 role="status"
-                className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 text-xs flex items-start gap-2"
+                className="p-3 rounded-xl bg-[#0d5d50]/10 dark:bg-[#38e8c6]/10 border border-[#0d5d50]/25 dark:border-[#38e8c6]/25 text-[#0d5d50] dark:text-[#38e8c6] text-xs flex items-start gap-2"
               >
                 <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
                 <span>{addressSuccess}</span>
@@ -1470,7 +1478,7 @@ export const AccountPage: React.FC = () => {
                 <div>
                   <label
                     htmlFor="address-first-name"
-                    className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1"
+                    className="block font-mono font-bold uppercase text-[10px] tracking-wider text-zinc-700 dark:text-zinc-300 mb-1"
                   >
                     First name
                   </label>
@@ -1482,13 +1490,13 @@ export const AccountPage: React.FC = () => {
                     required
                     value={addressForm.firstName}
                     onChange={(e) => setAddressForm({ ...addressForm, firstName: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-sm text-zinc-950 dark:text-white focus:outline-none focus:border-[#0d5d50] dark:focus:border-[#38e8c6]"
+                    className="w-full px-3 py-2 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] text-sm text-zinc-950 dark:text-white focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
                   />
                 </div>
                 <div>
                   <label
                     htmlFor="address-last-name"
-                    className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1"
+                    className="block font-mono font-bold uppercase text-[10px] tracking-wider text-zinc-700 dark:text-zinc-300 mb-1"
                   >
                     Last name
                   </label>
@@ -1499,7 +1507,7 @@ export const AccountPage: React.FC = () => {
                     required
                     value={addressForm.lastName}
                     onChange={(e) => setAddressForm({ ...addressForm, lastName: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-sm text-zinc-950 dark:text-white focus:outline-none focus:border-[#0d5d50] dark:focus:border-[#38e8c6]"
+                    className="w-full px-3 py-2 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] text-sm text-zinc-950 dark:text-white focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
                   />
                 </div>
               </div>
@@ -1507,7 +1515,7 @@ export const AccountPage: React.FC = () => {
               <div>
                 <label
                   htmlFor="address-company"
-                  className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1"
+                  className="block font-mono font-bold uppercase text-[10px] tracking-wider text-zinc-700 dark:text-zinc-300 mb-1"
                 >
                   Company (optional)
                 </label>
@@ -1517,14 +1525,14 @@ export const AccountPage: React.FC = () => {
                   autoComplete="organization"
                   value={addressForm.company}
                   onChange={(e) => setAddressForm({ ...addressForm, company: e.target.value })}
-                  className="w-full px-3 py-2 rounded-lg border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-sm text-zinc-950 dark:text-white focus:outline-none focus:border-[#0d5d50] dark:focus:border-[#38e8c6]"
+                  className="w-full px-3 py-2 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] text-sm text-zinc-950 dark:text-white focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
                 />
               </div>
 
               <div>
                 <label
                   htmlFor="address-line1"
-                  className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1"
+                  className="block font-mono font-bold uppercase text-[10px] tracking-wider text-zinc-700 dark:text-zinc-300 mb-1"
                 >
                   Address
                 </label>
@@ -1536,14 +1544,14 @@ export const AccountPage: React.FC = () => {
                   value={addressForm.address1}
                   onChange={(e) => setAddressForm({ ...addressForm, address1: e.target.value })}
                   placeholder="Street address"
-                  className="w-full px-3 py-2 rounded-lg border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-sm text-zinc-950 dark:text-white focus:outline-none focus:border-[#0d5d50] dark:focus:border-[#38e8c6]"
+                  className="w-full px-3 py-2 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] text-sm text-zinc-950 dark:text-white focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
                 />
               </div>
 
               <div>
                 <label
                   htmlFor="address-line2"
-                  className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1"
+                  className="block font-mono font-bold uppercase text-[10px] tracking-wider text-zinc-700 dark:text-zinc-300 mb-1"
                 >
                   Apartment, suite, etc. (optional)
                 </label>
@@ -1553,7 +1561,7 @@ export const AccountPage: React.FC = () => {
                   autoComplete="address-line2"
                   value={addressForm.address2}
                   onChange={(e) => setAddressForm({ ...addressForm, address2: e.target.value })}
-                  className="w-full px-3 py-2 rounded-lg border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-sm text-zinc-950 dark:text-white focus:outline-none focus:border-[#0d5d50] dark:focus:border-[#38e8c6]"
+                  className="w-full px-3 py-2 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] text-sm text-zinc-950 dark:text-white focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
                 />
               </div>
 
@@ -1561,7 +1569,7 @@ export const AccountPage: React.FC = () => {
                 <div>
                   <label
                     htmlFor="address-city"
-                    className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1"
+                    className="block font-mono font-bold uppercase text-[10px] tracking-wider text-zinc-700 dark:text-zinc-300 mb-1"
                   >
                     City
                   </label>
@@ -1572,13 +1580,13 @@ export const AccountPage: React.FC = () => {
                     required
                     value={addressForm.city}
                     onChange={(e) => setAddressForm({ ...addressForm, city: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-sm text-zinc-950 dark:text-white focus:outline-none focus:border-[#0d5d50] dark:focus:border-[#38e8c6]"
+                    className="w-full px-3 py-2 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] text-sm text-zinc-950 dark:text-white focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
                   />
                 </div>
                 <div>
                   <label
                     htmlFor="address-province"
-                    className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1"
+                    className="block font-mono font-bold uppercase text-[10px] tracking-wider text-zinc-700 dark:text-zinc-300 mb-1"
                   >
                     State / Province
                   </label>
@@ -1589,13 +1597,13 @@ export const AccountPage: React.FC = () => {
                     required
                     value={addressForm.province}
                     onChange={(e) => setAddressForm({ ...addressForm, province: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-sm text-zinc-950 dark:text-white focus:outline-none focus:border-[#0d5d50] dark:focus:border-[#38e8c6]"
+                    className="w-full px-3 py-2 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] text-sm text-zinc-950 dark:text-white focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
                   />
                 </div>
                 <div>
                   <label
                     htmlFor="address-zip"
-                    className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1"
+                    className="block font-mono font-bold uppercase text-[10px] tracking-wider text-zinc-700 dark:text-zinc-300 mb-1"
                   >
                     Postal code
                   </label>
@@ -1606,7 +1614,7 @@ export const AccountPage: React.FC = () => {
                     required
                     value={addressForm.zip}
                     onChange={(e) => setAddressForm({ ...addressForm, zip: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-sm text-zinc-950 dark:text-white focus:outline-none focus:border-[#0d5d50] dark:focus:border-[#38e8c6]"
+                    className="w-full px-3 py-2 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] text-sm font-mono tabular-nums text-zinc-950 dark:text-white focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
                   />
                 </div>
               </div>
@@ -1615,7 +1623,7 @@ export const AccountPage: React.FC = () => {
                 <div>
                   <label
                     htmlFor="address-country"
-                    className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1"
+                    className="block font-mono font-bold uppercase text-[10px] tracking-wider text-zinc-700 dark:text-zinc-300 mb-1"
                   >
                     Country
                   </label>
@@ -1626,13 +1634,13 @@ export const AccountPage: React.FC = () => {
                     required
                     value={addressForm.country}
                     onChange={(e) => setAddressForm({ ...addressForm, country: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-sm text-zinc-950 dark:text-white focus:outline-none focus:border-[#0d5d50] dark:focus:border-[#38e8c6]"
+                    className="w-full px-3 py-2 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] text-sm text-zinc-950 dark:text-white focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
                   />
                 </div>
                 <div>
                   <label
                     htmlFor="address-phone"
-                    className="block font-medium text-zinc-700 dark:text-zinc-300 mb-1"
+                    className="block font-mono font-bold uppercase text-[10px] tracking-wider text-zinc-700 dark:text-zinc-300 mb-1"
                   >
                     Phone (optional)
                   </label>
@@ -1642,7 +1650,7 @@ export const AccountPage: React.FC = () => {
                     autoComplete="tel"
                     value={addressForm.phone}
                     onChange={(e) => setAddressForm({ ...addressForm, phone: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg border border-zinc-200 dark:border-white/[0.1] bg-zinc-50 dark:bg-[#14161b] text-sm text-zinc-950 dark:text-white focus:outline-none focus:border-[#0d5d50] dark:focus:border-[#38e8c6]"
+                    className="w-full px-3 py-2 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] text-sm font-mono tabular-nums text-zinc-950 dark:text-white focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
                   />
                 </div>
               </div>
@@ -1651,14 +1659,14 @@ export const AccountPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={closeAddressModal}
-                  className="px-4 py-2 rounded-xl border border-zinc-200 dark:border-white/[0.12] text-zinc-600 dark:text-zinc-300 font-medium cursor-pointer"
+                  className="px-4 py-2 rounded-xl border border-[#e2dfd8] dark:border-white/[0.1] bg-[#f8f7f4] dark:bg-[#181b22] text-zinc-600 dark:text-zinc-300 font-mono font-bold uppercase active:scale-[0.97] transition-[transform,border-color] duration-150 ease-[var(--ease-out-strong)] cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={addressLoading}
-                  className="px-5 py-2 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-semibold flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+                  className="px-5 py-2 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-mono font-bold uppercase hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.97] transition-[transform,background-color,color,opacity] duration-150 ease-[var(--ease-out-strong)] flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
                 >
                   {addressLoading && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>Save Address</span>
