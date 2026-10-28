@@ -28,10 +28,10 @@ type RosterViewMode = 'grid' | 'directory'
 
 const ALPHA_BANDS: { id: AlphaBand; label: string }[] = [
   { id: 'ALL', label: 'All Roster' },
-  { id: 'A-F', label: 'A - F' },
-  { id: 'G-M', label: 'G - M' },
-  { id: 'N-S', label: 'N - S' },
-  { id: 'T-Z', label: 'T - Z' },
+  { id: 'A-F', label: 'A – F' },
+  { id: 'G-M', label: 'G – M' },
+  { id: 'N-S', label: 'N – S' },
+  { id: 'T-Z', label: 'T – Z' },
 ]
 
 function matchesAlphaBand(name: string, band: AlphaBand): boolean {
@@ -45,7 +45,7 @@ function matchesAlphaBand(name: string, band: AlphaBand): boolean {
 }
 
 function formatRosterIndex(index: number): string {
-  return `NO. ${String(index + 1).padStart(2, '0')}`
+  return `No. ${String(index + 1).padStart(2, '0')}`
 }
 
 export const SponsorshipArtistsPage: React.FC = () => {
@@ -71,7 +71,7 @@ export const SponsorshipArtistsPage: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [selectedArtist])
 
-  // Filter by authentic artist name, Instagram handle, and alphabetical index
+  // Filter by artist name, Instagram handle, and alphabetical index
   const filteredArtists = useMemo(() => {
     const q = searchQuery.trim().toLowerCase()
     return allArtists
@@ -89,21 +89,21 @@ export const SponsorshipArtistsPage: React.FC = () => {
   }, [allArtists, searchQuery, activeBand])
 
   return (
-    <div className="min-h-[100dvh] bg-[#f5f4f0] dark:bg-[#20222a] text-zinc-900 dark:text-zinc-100 font-sans pb-20 transition-colors duration-200">
-      {/* 1. HERO SECTION — SWISS INDUSTRIAL PRO ROSTER */}
-      <section className="border-b border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] py-14 sm:py-20">
+    <div className="min-h-[100dvh] bg-[#f5f5f7] dark:bg-black text-[#1d1d1f] dark:text-[#f5f5f7] font-sans pb-24 transition-colors duration-200">
+      {/* 1. HERO SECTION */}
+      <section className="pt-12 sm:pt-20 pb-12 sm:pb-16">
         <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
-            <div className="lg:col-span-8 space-y-4">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-[#0d5d50] dark:text-[#38e8c6] text-[11px] font-mono font-bold tracking-wider uppercase">
-                <span>OFFICIAL PRO TEAM · SPONSORSHIP DIRECTORY</span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            <div className="lg:col-span-8 space-y-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/[0.045] dark:bg-white/[0.08] text-xs font-medium text-[#86868b]">
+                <span>Official Pro Team · Sponsorship Directory</span>
               </div>
 
-              <h1 className="text-3xl sm:text-5xl font-['Montserrat',sans-serif] font-black uppercase tracking-tight text-zinc-950 dark:text-white leading-[1.06]">
-                PAPA SPONSORSHIP ARTISTS
+              <h1 className="text-4xl sm:text-6xl font-semibold tracking-[-0.035em] text-[#1d1d1f] dark:text-[#f5f5f7] leading-[1.06]">
+                Papa Sponsorship Artists
               </h1>
 
-              <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed max-w-2xl">
+              <p className="text-base sm:text-lg text-[#86868b] leading-relaxed max-w-2xl font-normal">
                 Official roster of {allArtists.length} professional tattoo artists worldwide sponsored by Papa Tattoo Supply rotary machines, click grips, and 316L sterile cartridge systems.
               </p>
 
@@ -113,46 +113,46 @@ export const SponsorshipArtistsPage: React.FC = () => {
                   href="https://docs.google.com/forms/d/e/1FAIpQLSfgQxxTK1SsF62fydK8bJuJyZ-KIilUX8N-fvpclkZvngMeOA/viewform"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-5 py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-mono font-bold uppercase text-xs tracking-wider flex items-center gap-2 hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.97] transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)] shadow-xs cursor-pointer"
+                  className="px-6 py-3 rounded-full bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f] text-sm font-medium flex items-center gap-2 hover:opacity-85 active:scale-[0.97] transition-[transform,opacity] duration-150 ease-[var(--ease-out-strong)] cursor-pointer"
                 >
                   <span>Join Our Pro Team (Apply Online)</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
+                  <ArrowUpRight className="w-4 h-4" />
                 </a>
 
                 <a
                   href="https://drive.google.com/file/d/1zMU7VE6YcrKKkjqP3wMo2H69Fz9SnOr1/view?usp=sharing"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-3 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-white/25 font-mono font-bold uppercase text-xs tracking-wider flex items-center gap-2 active:scale-[0.97] transition-[transform,border-color,background-color,color] duration-150 ease-[var(--ease-out-strong)] cursor-pointer"
+                  className="px-6 py-3 rounded-full bg-black/[0.05] dark:bg-white/[0.08] hover:bg-black/[0.08] dark:hover:bg-white/[0.12] text-sm font-medium text-[#1d1d1f] dark:text-[#f5f5f7] flex items-center gap-2 active:scale-[0.97] transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] cursor-pointer"
                 >
-                  <FileText className="w-3.5 h-3.5 text-[#0d5d50] dark:text-[#38e8c6]" />
-                  <span>Download Application (PDF)</span>
+                  <FileText className="w-4 h-4 text-[#86868b]" />
+                  <span>Download Application</span>
                 </a>
               </div>
             </div>
 
             {/* Right: Pro Roster Telemetry */}
-            <div className="lg:col-span-4 grid grid-cols-2 gap-3.5">
-              <div className="p-4 rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
-                <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500">
-                  VERIFIED ROSTER
+            <div className="lg:col-span-4 grid grid-cols-2 gap-4">
+              <div className="p-6 rounded-[24px] bg-white dark:bg-[#121214] shadow-[0_20px_50px_-24px_rgba(0,0,0,0.05)] flex flex-col justify-between">
+                <div className="text-xs font-medium text-[#86868b]">
+                  Verified Roster
                 </div>
-                <div className="text-3xl font-black font-mono tabular-nums text-zinc-950 dark:text-white mt-1">
+                <div className="text-3xl sm:text-4xl font-semibold tracking-[-0.03em] tabular-nums text-[#1d1d1f] dark:text-[#f5f5f7] mt-3">
                   {allArtists.length}
                 </div>
-                <div className="text-[11px] font-mono text-[#0d5d50] dark:text-[#38e8c6] mt-0.5">
+                <div className="text-xs text-[#86868b] mt-1.5 font-medium">
                   Sponsored Artists
                 </div>
               </div>
 
-              <div className="p-4 rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
-                <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500">
-                  PRO HARDWARE
+              <div className="p-6 rounded-[24px] bg-white dark:bg-[#121214] shadow-[0_20px_50px_-24px_rgba(0,0,0,0.05)] flex flex-col justify-between">
+                <div className="text-xs font-medium text-[#86868b]">
+                  Pro Hardware
                 </div>
-                <div className="text-3xl font-black font-mono tabular-nums text-zinc-950 dark:text-white mt-1">
+                <div className="text-3xl sm:text-4xl font-semibold tracking-[-0.03em] tabular-nums text-[#1d1d1f] dark:text-[#f5f5f7] mt-3">
                   316L
                 </div>
-                <div className="text-[11px] font-mono text-[#0d5d50] dark:text-[#38e8c6] mt-0.5">
+                <div className="text-xs text-[#86868b] mt-1.5 font-medium">
                   EO Sterile Supply
                 </div>
               </div>
@@ -162,35 +162,35 @@ export const SponsorshipArtistsPage: React.FC = () => {
       </section>
 
       {/* 2. ARTIST ROSTER CONTROLS & EXHIBITION GRID */}
-      <section className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
-        {/* Control Bar: Count + Alphabetical Index + Search + View Switcher */}
-        <div className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-4 sm:p-5 mb-8 space-y-4">
+      <section className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+        {/* Control Bar: Count + Search + View Switcher + Alphabetical Index */}
+        <div className="rounded-[28px] bg-white dark:bg-[#121214] shadow-[0_20px_50px_-24px_rgba(0,0,0,0.05)] p-5 sm:p-6 mb-10 space-y-5">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-            <div className="flex items-center gap-2 text-xs font-mono font-bold tabular-nums text-zinc-700 dark:text-zinc-300 uppercase tracking-wider">
-              <Users className="w-4 h-4 text-[#0d5d50] dark:text-[#38e8c6]" />
+            <div className="flex items-center gap-2 text-sm font-medium text-[#86868b]">
+              <Users className="w-4 h-4" />
               <span>
-                SHOWING {filteredArtists.length} OF {allArtists.length} SPONSORED ARTISTS
+                Showing {filteredArtists.length} of {allArtists.length} sponsored artists
               </span>
             </div>
 
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
               {/* Search Input */}
               <div className="relative flex-1 sm:w-72">
-                <Search className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <Search className="w-4 h-4 text-[#86868b] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
                   type="search"
                   aria-label="Search sponsored artist by name or Instagram handle"
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
-                  placeholder="Search artist name or @handle..."
-                  className="w-full pl-9 pr-8 py-2 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-xs font-mono text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
+                  placeholder="Search artist or @handle…"
+                  className="w-full pl-9 pr-8 py-2 rounded-full bg-black/[0.045] dark:bg-white/[0.08] text-xs font-medium text-[#1d1d1f] dark:text-white placeholder-[#86868b] focus:outline-hidden focus:ring-2 focus:ring-[#1d1d1f]/15 dark:focus:ring-white/20 transition-all duration-150"
                 />
                 {searchQuery && (
                   <button
                     type="button"
                     onClick={() => setSearchQuery('')}
                     aria-label="Clear search"
-                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700 dark:hover:text-white transition-colors duration-150 cursor-pointer"
+                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#86868b] hover:text-[#1d1d1f] dark:hover:text-white transition-colors duration-150 cursor-pointer"
                   >
                     <X className="w-3.5 h-3.5" />
                   </button>
@@ -201,16 +201,16 @@ export const SponsorshipArtistsPage: React.FC = () => {
               <div
                 role="group"
                 aria-label="Roster layout mode"
-                className="inline-flex items-center p-1 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] self-start sm:self-auto"
+                className="inline-flex items-center p-1 rounded-full bg-black/[0.05] dark:bg-white/[0.08] self-start sm:self-auto"
               >
                 <button
                   type="button"
                   onClick={() => setViewMode('grid')}
                   aria-pressed={viewMode === 'grid'}
-                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold uppercase active:scale-[0.97] transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)] cursor-pointer ${
+                  className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium active:scale-[0.97] transition-[background-color,color,transform] duration-150 ease-[var(--ease-out-strong)] cursor-pointer ${
                     viewMode === 'grid'
-                      ? 'bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950'
-                      : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white'
+                      ? 'bg-white dark:bg-[#2c2c2e] text-[#1d1d1f] dark:text-[#f5f5f7] shadow-2xs'
+                      : 'text-[#86868b] hover:text-[#1d1d1f] dark:hover:text-white'
                   }`}
                 >
                   <LayoutGrid className="w-3.5 h-3.5" />
@@ -220,10 +220,10 @@ export const SponsorshipArtistsPage: React.FC = () => {
                   type="button"
                   onClick={() => setViewMode('directory')}
                   aria-pressed={viewMode === 'directory'}
-                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold uppercase active:scale-[0.97] transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)] cursor-pointer ${
+                  className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium active:scale-[0.97] transition-[background-color,color,transform] duration-150 ease-[var(--ease-out-strong)] cursor-pointer ${
                     viewMode === 'directory'
-                      ? 'bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950'
-                      : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white'
+                      ? 'bg-white dark:bg-[#2c2c2e] text-[#1d1d1f] dark:text-[#f5f5f7] shadow-2xs'
+                      : 'text-[#86868b] hover:text-[#1d1d1f] dark:hover:text-white'
                   }`}
                 >
                   <List className="w-3.5 h-3.5" />
@@ -234,28 +234,30 @@ export const SponsorshipArtistsPage: React.FC = () => {
           </div>
 
           {/* Alphabetical Filter Pills */}
-          <div className="flex flex-wrap items-center gap-2 pt-3 border-t border-[#e2dfd8]/70 dark:border-white/[0.06]">
-            <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 mr-1">
-              INDEX FILTER:
+          <div className="flex items-center gap-2 pt-4 border-t border-black/[0.06] dark:border-white/[0.08] overflow-x-auto no-scrollbar">
+            <span className="text-xs font-medium text-[#86868b] mr-1 shrink-0">
+              Filter:
             </span>
-            {ALPHA_BANDS.map(band => {
-              const active = activeBand === band.id
-              return (
-                <button
-                  key={band.id}
-                  type="button"
-                  onClick={() => setActiveBand(band.id)}
-                  aria-pressed={active}
-                  className={`px-3 py-1 rounded-lg text-[11px] font-mono font-bold uppercase whitespace-nowrap active:scale-[0.97] transition-[transform,background-color,border-color,color] duration-150 ease-[var(--ease-out-strong)] cursor-pointer ${
-                    active
-                      ? 'bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950'
-                      : 'bg-[#f8f7f4] dark:bg-[#181b22] text-zinc-600 dark:text-zinc-400 border border-[#e2dfd8] dark:border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] hover:border-zinc-400 dark:hover:border-white/25'
-                  }`}
-                >
-                  {band.label}
-                </button>
-              )
-            })}
+            <div className="inline-flex items-center gap-1 p-1 rounded-full bg-black/[0.05] dark:bg-white/[0.08] shrink-0">
+              {ALPHA_BANDS.map(band => {
+                const active = activeBand === band.id
+                return (
+                  <button
+                    key={band.id}
+                    type="button"
+                    onClick={() => setActiveBand(band.id)}
+                    aria-pressed={active}
+                    className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap active:scale-[0.97] transition-[background-color,color,transform] duration-150 ease-[var(--ease-out-strong)] cursor-pointer ${
+                      active
+                        ? 'bg-white dark:bg-[#2c2c2e] text-[#1d1d1f] dark:text-[#f5f5f7] shadow-2xs'
+                        : 'text-[#86868b] hover:text-[#1d1d1f] dark:hover:text-white'
+                    }`}
+                  >
+                    {band.label}
+                  </button>
+                )
+              })}
+            </div>
           </div>
         </div>
 
@@ -265,13 +267,13 @@ export const SponsorshipArtistsPage: React.FC = () => {
             {filteredArtists.map(({ artist, rosterIndex }, idx) => (
               <article
                 key={artist.id}
-                className="group rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] overflow-hidden flex flex-col justify-between hover:border-zinc-400 dark:hover:border-white/25 transition-colors duration-200"
+                className="group rounded-[28px] bg-white dark:bg-[#121214] shadow-[0_20px_50px_-24px_rgba(0,0,0,0.05)] overflow-hidden flex flex-col justify-between hover:shadow-xl transition-[transform,box-shadow] duration-200"
               >
                 {/* Photo Area: 3:4 Vertical Exhibition Framing */}
                 <button
                   type="button"
                   onClick={() => setSelectedArtist({ artist, rosterIndex })}
-                  className="relative aspect-[3/4] w-full overflow-hidden bg-[#f8f7f4] dark:bg-[#181b22] text-left cursor-pointer focus:outline-hidden"
+                  className="relative aspect-[3/4] w-full overflow-hidden bg-black/[0.045] dark:bg-white/[0.08] text-left cursor-pointer focus:outline-hidden"
                   aria-label={`Inspect pro dossier for ${artist.name}`}
                 >
                   <img
@@ -287,38 +289,36 @@ export const SponsorshipArtistsPage: React.FC = () => {
                     }}
                   />
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent opacity-50 group-hover:opacity-25 transition-opacity duration-300 pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity duration-300 pointer-events-none" />
 
                   {/* Roster Index Pill */}
-                  <div className="absolute top-3 left-3 pointer-events-none">
-                    <span className="px-2 py-0.5 rounded-md bg-black/70 border border-white/15 text-white text-[10px] font-mono font-bold tabular-nums uppercase tracking-wider backdrop-blur-xs">
+                  <div className="absolute top-3.5 left-3.5 pointer-events-none">
+                    <span className="px-2.5 py-1 rounded-full bg-black/60 text-white text-[11px] font-medium tabular-nums backdrop-blur-md">
                       {rosterIndex}
                     </span>
                   </div>
 
-                  <div className="absolute top-3 right-3 pointer-events-none">
-                    <span className="px-2.5 py-0.5 rounded-full bg-black/65 border border-white/15 text-[#38e8c6] text-[10px] font-mono font-bold uppercase tracking-wider backdrop-blur-xs">
-                      PRO TEAM
+                  <div className="absolute top-3.5 right-3.5 pointer-events-none">
+                    <span className="px-2.5 py-1 rounded-full bg-black/60 text-[#f5f5f7] text-[11px] font-medium backdrop-blur-md">
+                      Pro Team
                     </span>
                   </div>
 
-                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[10px] font-mono text-white/90 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-                    <span className="px-2 py-1 rounded-md bg-black/75 border border-white/15 uppercase tracking-wider">
+                  <div className="absolute bottom-3.5 left-3.5 right-3.5 flex items-center justify-between text-xs text-white/90 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    <span className="px-3 py-1.5 rounded-full bg-black/75 backdrop-blur-md font-medium">
                       Inspect Dossier
                     </span>
                   </div>
                 </button>
 
                 {/* Card Body */}
-                <div className="p-4.5 border-t border-[#e2dfd8]/80 dark:border-white/[0.06] bg-white dark:bg-[#22252f] space-y-3.5">
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="min-w-0">
-                      <h3 className="text-sm sm:text-base font-bold uppercase tracking-tight text-zinc-950 dark:text-white truncate">
-                        {artist.name}
-                      </h3>
-                      <div className="text-xs font-mono text-zinc-500 dark:text-zinc-400 truncate mt-0.5">
-                        {artist.handle}
-                      </div>
+                <div className="p-5 border-t border-black/[0.06] dark:border-white/[0.08] space-y-4">
+                  <div className="min-w-0">
+                    <h3 className="text-base font-semibold tracking-[-0.015em] text-[#1d1d1f] dark:text-[#f5f5f7] truncate">
+                      {artist.name}
+                    </h3>
+                    <div className="text-xs text-[#86868b] truncate mt-0.5 font-normal">
+                      {artist.handle}
                     </div>
                   </div>
 
@@ -326,7 +326,7 @@ export const SponsorshipArtistsPage: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => setSelectedArtist({ artist, rosterIndex })}
-                      className="py-2 px-3 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] hover:border-zinc-400 dark:hover:border-white/25 text-zinc-800 dark:text-zinc-200 text-[11px] font-mono font-bold uppercase active:scale-[0.97] transition-[transform,border-color,background-color,color] duration-150 ease-[var(--ease-out-strong)] cursor-pointer"
+                      className="py-2 px-3 rounded-full bg-black/[0.05] dark:bg-white/[0.08] hover:bg-black/[0.08] dark:hover:bg-white/[0.12] text-[#1d1d1f] dark:text-[#f5f5f7] text-xs font-medium active:scale-[0.97] transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] cursor-pointer text-center"
                     >
                       Dossier
                     </button>
@@ -335,7 +335,7 @@ export const SponsorshipArtistsPage: React.FC = () => {
                       href={artist.instagram}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="py-2 px-3 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] text-[11px] font-mono font-bold uppercase active:scale-[0.97] transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)] flex items-center justify-center gap-1 cursor-pointer"
+                      className="py-2 px-3 rounded-full bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f] hover:opacity-85 text-xs font-medium active:scale-[0.97] transition-[transform,opacity] duration-150 ease-[var(--ease-out-strong)] flex items-center justify-center gap-1 cursor-pointer"
                       title={`Open ${artist.name}'s Instagram`}
                     >
                       <span>Instagram</span>
@@ -347,15 +347,15 @@ export const SponsorshipArtistsPage: React.FC = () => {
             ))}
           </div>
         ) : (
-          /* Compact Directory Index Mode */
-          <div className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] overflow-hidden divide-y divide-[#e2dfd8]/80 dark:divide-white/[0.06]">
+          /* Directory Index Mode */
+          <div className="rounded-[28px] bg-white dark:bg-[#121214] shadow-[0_20px_50px_-24px_rgba(0,0,0,0.05)] overflow-hidden divide-y divide-black/[0.06] dark:divide-white/[0.08]">
             {filteredArtists.map(({ artist, rosterIndex }) => (
               <div
                 key={artist.id}
-                className="p-4 sm:px-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-[#f8f7f4] dark:hover:bg-[#181b22] transition-colors duration-150"
+                className="p-4 sm:px-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-black/[0.02] dark:hover:bg-white/[0.03] transition-colors duration-150"
               >
                 <div className="flex items-center gap-4 min-w-0">
-                  <span className="text-xs font-mono font-bold tabular-nums text-[#0d5d50] dark:text-[#38e8c6] w-16 shrink-0">
+                  <span className="text-xs font-medium tabular-nums text-[#86868b] w-14 shrink-0">
                     {rosterIndex}
                   </span>
                   <img
@@ -363,7 +363,7 @@ export const SponsorshipArtistsPage: React.FC = () => {
                     alt={artist.name}
                     loading="lazy"
                     decoding="async"
-                    className="w-11 h-11 rounded-xl object-cover bg-[#f8f7f4] dark:bg-[#181b22] border border-[#e2dfd8] dark:border-white/[0.08] shrink-0"
+                    className="w-12 h-12 rounded-2xl object-cover bg-black/[0.05] dark:bg-white/[0.08] shrink-0"
                     onError={e => {
                       const target = e.currentTarget
                       target.onerror = null
@@ -371,10 +371,10 @@ export const SponsorshipArtistsPage: React.FC = () => {
                     }}
                   />
                   <div className="min-w-0">
-                    <div className="text-sm font-bold uppercase text-zinc-950 dark:text-white truncate">
+                    <div className="text-sm font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] truncate">
                       {artist.name}
                     </div>
-                    <div className="text-xs font-mono text-zinc-500 dark:text-zinc-400 truncate">
+                    <div className="text-xs text-[#86868b] truncate mt-0.5">
                       {artist.handle}
                     </div>
                   </div>
@@ -384,7 +384,7 @@ export const SponsorshipArtistsPage: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setSelectedArtist({ artist, rosterIndex })}
-                    className="px-3.5 py-2 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-xs font-mono font-bold uppercase text-zinc-800 dark:text-zinc-200 hover:border-zinc-400 dark:hover:border-white/25 cursor-pointer active:scale-[0.97] transition-[transform,border-color,background-color,color] duration-150 ease-[var(--ease-out-strong)]"
+                    className="px-4 py-2 rounded-full bg-black/[0.05] dark:bg-white/[0.08] hover:bg-black/[0.08] dark:hover:bg-white/[0.12] text-xs font-medium text-[#1d1d1f] dark:text-[#f5f5f7] cursor-pointer active:scale-[0.97] transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)]"
                   >
                     Inspect Dossier
                   </button>
@@ -392,7 +392,7 @@ export const SponsorshipArtistsPage: React.FC = () => {
                     href={artist.instagram}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-3.5 py-2 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-mono font-bold uppercase inline-flex items-center gap-1.5 hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] cursor-pointer active:scale-[0.97] transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)]"
+                    className="px-4 py-2 rounded-full bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f] text-xs font-medium inline-flex items-center gap-1.5 hover:opacity-85 cursor-pointer active:scale-[0.97] transition-[transform,opacity] duration-150 ease-[var(--ease-out-strong)]"
                   >
                     <span>Instagram</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
@@ -405,8 +405,8 @@ export const SponsorshipArtistsPage: React.FC = () => {
 
         {/* Empty state if search returns nothing */}
         {filteredArtists.length === 0 && (
-          <div className="text-center py-16 border border-dashed border-[#e2dfd8] dark:border-white/15 rounded-2xl p-8 bg-white dark:bg-[#22252f] space-y-3">
-            <div className="font-mono text-xs text-zinc-500">
+          <div className="text-center py-16 rounded-[28px] p-8 bg-white dark:bg-[#121214] shadow-[0_20px_50px_-24px_rgba(0,0,0,0.05)] space-y-4">
+            <div className="text-sm text-[#86868b]">
               No sponsored artists matched &quot;{searchQuery}&quot; in index [{activeBand}].
             </div>
             <button
@@ -415,7 +415,7 @@ export const SponsorshipArtistsPage: React.FC = () => {
                 setSearchQuery('')
                 setActiveBand('ALL')
               }}
-              className="px-4 py-2 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-mono font-bold uppercase active:scale-[0.97] transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)] cursor-pointer"
+              className="px-5 py-2.5 rounded-full bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f] text-xs font-medium active:scale-[0.97] transition-[transform,opacity] duration-150 ease-[var(--ease-out-strong)] cursor-pointer"
             >
               Reset Roster Filters
             </button>
@@ -424,17 +424,17 @@ export const SponsorshipArtistsPage: React.FC = () => {
       </section>
 
       {/* 3. AUTHENTIC SPONSORSHIP CONNECT BANNER */}
-      <section className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 pt-2">
-        <div className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-7 sm:p-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
-          <div className="space-y-2 max-w-xl">
-            <div className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6] uppercase tracking-wider">
-              <ShieldCheck className="w-4 h-4" />
-              <span>PAPA ARTIST RELATIONS DESK</span>
+      <section className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <div className="rounded-[32px] bg-white dark:bg-[#121214] shadow-[0_20px_50px_-24px_rgba(0,0,0,0.05)] p-8 sm:p-12 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+          <div className="space-y-3 max-w-xl">
+            <div className="inline-flex items-center gap-1.5 text-xs font-medium text-[#86868b]">
+              <ShieldCheck className="w-4 h-4 text-[#86868b]" />
+              <span>Papa Artist Relations Desk</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-['Montserrat',sans-serif] font-black uppercase text-zinc-950 dark:text-white">
-              APPLY FOR PRO TEAM SPONSORSHIP
+            <h2 className="text-2xl sm:text-4xl font-semibold tracking-[-0.025em] text-[#1d1d1f] dark:text-[#f5f5f7]">
+              Apply for Pro Team Sponsorship
             </h2>
-            <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed">
+            <p className="text-sm text-[#86868b] leading-relaxed">
               Working full-time in a licensed studio and running Papa Tattoo apparatus? Submit your portfolio online or download our official Sponsorship Application PDF.
             </p>
           </div>
@@ -444,27 +444,27 @@ export const SponsorshipArtistsPage: React.FC = () => {
               href="https://docs.google.com/forms/d/e/1FAIpQLSfgQxxTK1SsF62fydK8bJuJyZ-KIilUX8N-fvpclkZvngMeOA/viewform"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-5 py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-mono font-bold uppercase text-xs tracking-wider flex items-center justify-center gap-2 hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.97] transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)] cursor-pointer shadow-xs"
+              className="flex-1 sm:flex-initial px-6 py-3.5 rounded-full bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f] text-sm font-medium flex items-center justify-center gap-2 hover:opacity-85 active:scale-[0.97] transition-[transform,opacity] duration-150 ease-[var(--ease-out-strong)] cursor-pointer"
             >
               <span>Apply Online</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
+              <ArrowUpRight className="w-4 h-4" />
             </a>
 
             <a
               href="https://drive.google.com/file/d/1zMU7VE6YcrKKkjqP3wMo2H69Fz9SnOr1/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-3 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-zinc-800 dark:text-zinc-200 hover:border-zinc-400 dark:hover:border-white/25 font-mono font-bold uppercase text-xs tracking-wider flex items-center justify-center gap-2 active:scale-[0.97] transition-[transform,border-color,background-color,color] duration-150 ease-[var(--ease-out-strong)] cursor-pointer"
+              className="flex-1 sm:flex-initial px-6 py-3.5 rounded-full bg-black/[0.05] dark:bg-white/[0.08] hover:bg-black/[0.08] dark:hover:bg-white/[0.12] text-[#1d1d1f] dark:text-[#f5f5f7] text-sm font-medium flex items-center justify-center gap-2 active:scale-[0.97] transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] cursor-pointer"
             >
-              <FileText className="w-3.5 h-3.5 text-[#0d5d50] dark:text-[#38e8c6]" />
+              <FileText className="w-4 h-4 text-[#86868b]" />
               <span>Application (PDF)</span>
             </a>
 
             <Link
               to="/contact"
-              className="px-4 py-3 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-white/25 font-mono font-bold uppercase text-xs tracking-wider flex items-center justify-center gap-2 active:scale-[0.97] transition-[transform,border-color,background-color,color] duration-150 ease-[var(--ease-out-strong)] cursor-pointer"
+              className="flex-1 sm:flex-initial px-6 py-3.5 rounded-full bg-black/[0.05] dark:bg-white/[0.08] hover:bg-black/[0.08] dark:hover:bg-white/[0.12] text-[#1d1d1f] dark:text-[#f5f5f7] text-sm font-medium flex items-center justify-center gap-2 active:scale-[0.97] transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] cursor-pointer"
             >
-              <Mail className="w-3.5 h-3.5 text-[#0d5d50] dark:text-[#38e8c6]" />
+              <Mail className="w-4 h-4 text-[#86868b]" />
               <span>Contact Desk</span>
             </Link>
           </div>
@@ -477,15 +477,15 @@ export const SponsorshipArtistsPage: React.FC = () => {
           role="dialog"
           aria-modal="true"
           aria-labelledby="artist-dossier-title"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/65 dark:bg-black/80 backdrop-blur-xs animate-in fade-in duration-200 ease-[var(--ease-out-strong)] motion-reduce:animate-none"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 dark:bg-black/75 backdrop-blur-md animate-in fade-in duration-200 ease-[var(--ease-out-strong)] motion-reduce:animate-none"
           onClick={() => setSelectedArtist(null)}
         >
           <div
-            className="relative w-full max-w-2xl rounded-2xl border border-[#e2dfd8] dark:border-white/[0.12] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_24px_64px_rgba(0,0,0,0.35)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_24px_64px_rgba(0,0,0,0.65)] overflow-hidden animate-in zoom-in-95 fade-in duration-200 ease-[var(--ease-out-strong)] motion-reduce:animate-none"
+            className="relative w-full max-w-2xl rounded-[32px] bg-white dark:bg-[#1c1c1e] shadow-[0_32px_80px_rgba(0,0,0,0.25)] dark:shadow-[0_32px_80px_rgba(0,0,0,0.7)] overflow-hidden animate-in zoom-in-95 fade-in duration-200 ease-[var(--ease-out-strong)] motion-reduce:animate-none"
             onClick={e => e.stopPropagation()}
           >
             <div className="grid grid-cols-1 sm:grid-cols-12">
-              <div className="sm:col-span-5 aspect-[4/4] sm:aspect-auto sm:min-h-[340px] bg-[#f8f7f4] dark:bg-[#181b22] relative overflow-hidden">
+              <div className="sm:col-span-5 aspect-[4/4] sm:aspect-auto sm:min-h-[360px] bg-black/[0.045] dark:bg-white/[0.08] relative overflow-hidden">
                 <img
                   src={selectedArtist.artist.image}
                   alt={selectedArtist.artist.name}
@@ -496,25 +496,25 @@ export const SponsorshipArtistsPage: React.FC = () => {
                     target.src = '/slides/slide_2_premium_cartridges.png'
                   }}
                 />
-                <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-black/75 border border-white/15 text-white text-[10px] font-mono font-bold tabular-nums uppercase">
+                <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-black/65 text-white text-xs font-medium tabular-nums backdrop-blur-md">
                   {selectedArtist.rosterIndex}
                 </span>
               </div>
 
-              <div className="sm:col-span-7 p-6 sm:p-7 flex flex-col justify-between space-y-5">
+              <div className="sm:col-span-7 p-7 sm:p-8 flex flex-col justify-between space-y-6">
                 <div className="space-y-4">
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#0d5d50] dark:text-[#38e8c6]">
-                        OFFICIAL SPONSORED ARTIST
+                      <div className="text-xs font-medium text-[#86868b]">
+                        Official Sponsored Artist
                       </div>
                       <h2
                         id="artist-dossier-title"
-                        className="text-xl sm:text-2xl font-['Montserrat',sans-serif] font-black uppercase text-zinc-950 dark:text-white mt-0.5"
+                        className="text-2xl font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7] mt-1"
                       >
                         {selectedArtist.artist.name}
                       </h2>
-                      <div className="text-xs font-mono text-zinc-500 dark:text-zinc-400 mt-0.5">
+                      <div className="text-xs text-[#86868b] mt-0.5">
                         {selectedArtist.artist.handle}
                       </div>
                     </div>
@@ -523,60 +523,60 @@ export const SponsorshipArtistsPage: React.FC = () => {
                       type="button"
                       onClick={() => setSelectedArtist(null)}
                       aria-label="Close artist dossier"
-                      className="p-2 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] text-zinc-500 hover:text-zinc-950 dark:hover:text-white active:scale-[0.95] transition-[transform,color,background-color] duration-150 ease-[var(--ease-out-strong)] cursor-pointer"
+                      className="w-8 h-8 flex items-center justify-center rounded-full bg-black/[0.05] dark:bg-white/[0.1] hover:bg-black/[0.09] dark:hover:bg-white/[0.16] text-[#1d1d1f]/70 dark:text-[#f5f5f7]/70 hover:text-[#1d1d1f] dark:hover:text-white active:scale-[0.92] transition-[transform,color,background-color] cursor-pointer"
                     >
                       <X className="w-4 h-4" />
                     </button>
                   </div>
 
-                  <p className="text-xs text-zinc-600 dark:text-zinc-300 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-[#86868b] leading-relaxed">
                     Verified member of the Papa Tattoo Supply Pro Team roster, equipped with factory-sterilized 316L membrane cartridges and precision direct-drive rotary hardware.
                   </p>
 
                   {/* Pro Team Hardware Links */}
-                  <div className="p-3.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] space-y-2">
-                    <div className="flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase text-zinc-500">
-                      <Sliders className="w-3.5 h-3.5 text-[#0d5d50] dark:text-[#38e8c6]" />
-                      <span>PRO TEAM STANDARD ISSUE</span>
+                  <div className="p-4 rounded-2xl bg-black/[0.035] dark:bg-white/[0.05] space-y-2.5">
+                    <div className="flex items-center gap-1.5 text-xs font-medium text-[#86868b]">
+                      <Sliders className="w-3.5 h-3.5" />
+                      <span>Pro Team Standard Issue</span>
                     </div>
                     <div className="flex flex-wrap gap-2">
                       <Link
                         to="/collections"
                         search={{ category: 'cartridges' }}
                         onClick={() => setSelectedArtist(null)}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white dark:bg-[#22252f] border border-[#e2dfd8] dark:border-white/[0.08] text-[11px] font-mono font-semibold text-zinc-800 dark:text-zinc-200 hover:border-[#0d5d50] dark:hover:border-[#38e8c6] active:scale-[0.97] transition-[transform,border-color,color] duration-150 ease-[var(--ease-out-strong)]"
+                        className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white dark:bg-[#2c2c2e] text-xs font-medium text-[#1d1d1f] dark:text-[#f5f5f7] shadow-2xs active:scale-[0.97] transition-transform duration-150"
                       >
                         <span>316L Cartridges</span>
-                        <ArrowRight className="w-3 h-3" />
+                        <ArrowRight className="w-3 h-3 text-[#86868b]" />
                       </Link>
                       <Link
                         to="/collections"
                         search={{ category: 'machines' }}
                         onClick={() => setSelectedArtist(null)}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white dark:bg-[#22252f] border border-[#e2dfd8] dark:border-white/[0.08] text-[11px] font-mono font-semibold text-zinc-800 dark:text-zinc-200 hover:border-[#0d5d50] dark:hover:border-[#38e8c6] active:scale-[0.97] transition-[transform,border-color,color] duration-150 ease-[var(--ease-out-strong)]"
+                        className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white dark:bg-[#2c2c2e] text-xs font-medium text-[#1d1d1f] dark:text-[#f5f5f7] shadow-2xs active:scale-[0.97] transition-transform duration-150"
                       >
                         <span>Rotary Pens</span>
-                        <ArrowRight className="w-3 h-3" />
+                        <ArrowRight className="w-3 h-3 text-[#86868b]" />
                       </Link>
                       <Link
                         to="/collections"
                         search={{ category: 'grips' }}
                         onClick={() => setSelectedArtist(null)}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white dark:bg-[#22252f] border border-[#e2dfd8] dark:border-white/[0.08] text-[11px] font-mono font-semibold text-zinc-800 dark:text-zinc-200 hover:border-[#0d5d50] dark:hover:border-[#38e8c6] active:scale-[0.97] transition-[transform,border-color,color] duration-150 ease-[var(--ease-out-strong)]"
+                        className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white dark:bg-[#2c2c2e] text-xs font-medium text-[#1d1d1f] dark:text-[#f5f5f7] shadow-2xs active:scale-[0.97] transition-transform duration-150"
                       >
                         <span>Click Grips</span>
-                        <ArrowRight className="w-3 h-3" />
+                        <ArrowRight className="w-3 h-3 text-[#86868b]" />
                       </Link>
                     </div>
                   </div>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-2.5 pt-2 border-t border-[#e2dfd8]/70 dark:border-white/[0.06]">
+                <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-black/[0.06] dark:border-white/[0.08]">
                   <a
                     href={selectedArtist.artist.instagram}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 py-2.5 px-4 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-mono font-bold uppercase inline-flex items-center justify-center gap-1.5 hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.97] transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)]"
+                    className="flex-1 py-3 px-5 rounded-full bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f] text-xs font-medium inline-flex items-center justify-center gap-1.5 hover:opacity-85 active:scale-[0.97] transition-[transform,opacity] duration-150 ease-[var(--ease-out-strong)]"
                   >
                     <span>Open Instagram Portfolio</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
@@ -584,7 +584,7 @@ export const SponsorshipArtistsPage: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setSelectedArtist(null)}
-                    className="py-2.5 px-4 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] text-xs font-mono font-bold uppercase text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-white/25 active:scale-[0.97] transition-[transform,border-color,color] duration-150 ease-[var(--ease-out-strong)] cursor-pointer"
+                    className="py-3 px-5 rounded-full bg-black/[0.05] dark:bg-white/[0.08] text-xs font-medium text-[#1d1d1f] dark:text-[#f5f5f7] hover:bg-black/[0.08] dark:hover:bg-white/[0.12] active:scale-[0.97] transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] cursor-pointer"
                   >
                     Close
                   </button>

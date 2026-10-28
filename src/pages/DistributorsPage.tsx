@@ -43,7 +43,7 @@ interface Distributor {
 const OFFICIAL_DISTRIBUTORS: Distributor[] = [
   {
     id: 'nuclear-tattoo',
-    hub: 'NORTH AMERICA',
+    hub: 'North America',
     isoCountry: 'US',
     territoryGroup: 'NORTH_AMERICA',
     name: 'Nuclear Tattoo Medical Supply',
@@ -58,7 +58,7 @@ const OFFICIAL_DISTRIBUTORS: Distributor[] = [
   },
   {
     id: 'sd-tattoo',
-    hub: 'WEST COAST US',
+    hub: 'West Coast US',
     isoCountry: 'US',
     territoryGroup: 'NORTH_AMERICA',
     name: 'SD Tattoo Supply',
@@ -73,7 +73,7 @@ const OFFICIAL_DISTRIBUTORS: Distributor[] = [
   },
   {
     id: 'cultura-inkfest',
-    hub: 'CENTRAL AMERICA',
+    hub: 'Central America',
     isoCountry: 'PA',
     territoryGroup: 'LATAM',
     name: 'Cultura Inkfest Tattoo Supply',
@@ -170,90 +170,90 @@ export const DistributorsPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-[100dvh] bg-[#f5f4f0] dark:bg-[#20222a] text-zinc-900 dark:text-zinc-100 font-sans pb-24 transition-colors duration-200">
-      {/* 1. HERO SECTION · GLOBAL FACTORY DISTRIBUTION */}
-      <section className="border-b border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] py-14 sm:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
-            <div className="lg:col-span-7 space-y-5">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] text-[#0d5d50] dark:text-[#38e8c6] text-[11px] font-mono font-bold tracking-wider uppercase">
-                <Globe className="w-3.5 h-3.5" />
-                <span>GLOBAL FACTORY DISTRIBUTION · AUTHORIZED WHOLESALE</span>
+    <div className="min-h-[100dvh] bg-[#f5f5f7] dark:bg-black text-[#1d1d1f] dark:text-[#f5f5f7] font-sans pb-24 transition-colors duration-200">
+      {/* 1. HERO SECTION */}
+      <section className="pt-12 sm:pt-20 pb-12 sm:pb-16">
+        <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            <div className="lg:col-span-7 space-y-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/[0.045] dark:bg-white/[0.08] text-xs font-medium text-[#86868b]">
+                <Globe className="w-3.5 h-3.5 text-[#86868b]" />
+                <span>Global Factory Distribution · Authorized Wholesale</span>
               </div>
 
-              <h1 className="text-3xl sm:text-5xl font-display font-black uppercase tracking-tight text-zinc-950 dark:text-white leading-[1.06]">
-                PAPA TATTOO AUTHORIZED DISTRIBUTORS
+              <h1 className="text-4xl sm:text-6xl font-semibold tracking-[-0.035em] text-[#1d1d1f] dark:text-[#f5f5f7] leading-[1.06]">
+                Papa Tattoo Authorized Distributors
               </h1>
 
-              <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed max-w-2xl">
+              <p className="text-base sm:text-lg text-[#86868b] leading-relaxed max-w-2xl font-normal">
                 Official regional supply depots and certified wholesale partners authorized to distribute authentic Papa Tattoo Supply rotary machines, click grips, and 316L sterile cartridge needles.
               </p>
 
               <div className="pt-2 flex flex-wrap items-center gap-3">
                 <a
                   href="#distributor-list"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-mono font-bold uppercase tracking-wider hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.98] transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)] cursor-pointer shadow-xs"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f] text-sm font-medium hover:opacity-85 active:scale-[0.97] transition-[transform,opacity] duration-150 ease-[var(--ease-out-strong)] cursor-pointer"
                 >
                   <span>View Verified Depots</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <ArrowRight className="w-4 h-4" />
                 </a>
 
                 <a
                   href="#apply-section"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] hover:border-zinc-400 dark:hover:border-white/25 text-zinc-800 dark:text-zinc-200 text-xs font-mono font-bold uppercase tracking-wider active:scale-[0.98] transition-[transform,border-color,color] duration-150 ease-[var(--ease-out-strong)] cursor-pointer"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-black/[0.05] dark:bg-white/[0.08] hover:bg-black/[0.08] dark:hover:bg-white/[0.12] text-sm font-medium text-[#1d1d1f] dark:text-[#f5f5f7] active:scale-[0.97] transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] cursor-pointer"
                 >
-                  <Building2 className="w-3.5 h-3.5 text-[#0d5d50] dark:text-[#38e8c6]" />
+                  <Building2 className="w-4 h-4 text-[#86868b]" />
                   <span>Apply for Territory Distribution</span>
                 </a>
               </div>
             </div>
 
             {/* Stat Pillars */}
-            <div className="lg:col-span-5 grid grid-cols-2 gap-3.5">
-              <div className="p-5 rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
-                <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500">
-                  EXPORT REACH
+            <div className="lg:col-span-5 grid grid-cols-2 gap-4">
+              <div className="p-6 rounded-[24px] bg-white dark:bg-[#121214] shadow-[0_20px_50px_-24px_rgba(0,0,0,0.05)] flex flex-col justify-between">
+                <div className="text-xs font-medium text-[#86868b]">
+                  Export Reach
                 </div>
-                <div className="text-3xl font-black font-mono tabular-nums text-zinc-950 dark:text-white mt-2">
+                <div className="text-3xl sm:text-4xl font-semibold tracking-[-0.03em] tabular-nums text-[#1d1d1f] dark:text-[#f5f5f7] mt-3">
                   60+
                 </div>
-                <div className="text-[11px] font-mono text-[#0d5d50] dark:text-[#38e8c6] mt-1">
+                <div className="text-xs text-[#86868b] mt-1.5 font-medium">
                   Countries Shipped
                 </div>
               </div>
 
-              <div className="p-5 rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
-                <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500">
-                  STERILITY SPEC
+              <div className="p-6 rounded-[24px] bg-white dark:bg-[#121214] shadow-[0_20px_50px_-24px_rgba(0,0,0,0.05)] flex flex-col justify-between">
+                <div className="text-xs font-medium text-[#86868b]">
+                  Sterility Spec
                 </div>
-                <div className="text-3xl font-black font-mono tabular-nums text-zinc-950 dark:text-white mt-2">
+                <div className="text-3xl sm:text-4xl font-semibold tracking-[-0.03em] tabular-nums text-[#1d1d1f] dark:text-[#f5f5f7] mt-3">
                   100%
                 </div>
-                <div className="text-[11px] font-mono text-[#0d5d50] dark:text-[#38e8c6] mt-1">
+                <div className="text-xs text-[#86868b] mt-1.5 font-medium">
                   EO Gas Lot Certified
                 </div>
               </div>
 
-              <div className="p-5 rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
-                <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500">
-                  INSPECTION
+              <div className="p-6 rounded-[24px] bg-white dark:bg-[#121214] shadow-[0_20px_50px_-24px_rgba(0,0,0,0.05)] flex flex-col justify-between">
+                <div className="text-xs font-medium text-[#86868b]">
+                  Inspection
                 </div>
-                <div className="text-3xl font-black font-mono tabular-nums text-zinc-950 dark:text-white mt-2">
+                <div className="text-3xl sm:text-4xl font-semibold tracking-[-0.03em] tabular-nums text-[#1d1d1f] dark:text-[#f5f5f7] mt-3">
                   30x
                 </div>
-                <div className="text-[11px] font-mono text-[#0d5d50] dark:text-[#38e8c6] mt-1">
+                <div className="text-xs text-[#86868b] mt-1.5 font-medium">
                   Optical Tip QC
                 </div>
               </div>
 
-              <div className="p-5 rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
-                <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500">
-                  DISPATCH SLA
+              <div className="p-6 rounded-[24px] bg-white dark:bg-[#121214] shadow-[0_20px_50px_-24px_rgba(0,0,0,0.05)] flex flex-col justify-between">
+                <div className="text-xs font-medium text-[#86868b]">
+                  Dispatch SLA
                 </div>
-                <div className="text-3xl font-black font-mono tabular-nums text-zinc-950 dark:text-white mt-2">
-                  24H
+                <div className="text-3xl sm:text-4xl font-semibold tracking-[-0.03em] tabular-nums text-[#1d1d1f] dark:text-[#f5f5f7] mt-3">
+                  24h
                 </div>
-                <div className="text-[11px] font-mono text-[#0d5d50] dark:text-[#38e8c6] mt-1">
+                <div className="text-xs text-[#86868b] mt-1.5 font-medium">
                   Priority Air &amp; Sea
                 </div>
               </div>
@@ -263,15 +263,15 @@ export const DistributorsPage: React.FC = () => {
       </section>
 
       {/* 2. PARTNER DIRECTORY SECTION */}
-      <section id="distributor-list" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18 scroll-mt-24">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-8 pb-5 border-b border-[#e2dfd8] dark:border-white/[0.08] gap-4">
+      <section id="distributor-list" className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 scroll-mt-24">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-10 pb-6 border-b border-black/[0.06] dark:border-white/[0.08] gap-4">
           <div>
-            <div className="text-[11px] font-mono font-bold tracking-widest text-[#0d5d50] dark:text-[#38e8c6] uppercase flex items-center gap-1.5">
-              <BadgeCheck className="w-3.5 h-3.5" />
-              <span>VERIFIED FACTORY REPRESENTATIVES</span>
+            <div className="text-xs font-medium text-[#86868b] flex items-center gap-1.5">
+              <BadgeCheck className="w-4 h-4 text-[#86868b]" />
+              <span>Verified Factory Representatives</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-display font-black text-zinc-950 dark:text-white uppercase tracking-tight mt-1">
-              OFFICIAL REGIONAL SUPPLY DEPOTS
+            <h2 className="text-2xl sm:text-4xl font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] tracking-[-0.025em] mt-1.5">
+              Official Regional Supply Depots
             </h2>
           </div>
 
@@ -279,7 +279,7 @@ export const DistributorsPage: React.FC = () => {
           <div
             role="group"
             aria-label="Filter distributors by region"
-            className="flex flex-wrap items-center gap-2"
+            className="inline-flex items-center gap-1 p-1 rounded-full bg-black/[0.05] dark:bg-white/[0.08] self-start lg:self-auto"
           >
             {[
               { id: 'ALL' as TerritoryFilter, label: `All Regions (${OFFICIAL_DISTRIBUTORS.length})` },
@@ -293,10 +293,10 @@ export const DistributorsPage: React.FC = () => {
                   type="button"
                   onClick={() => setTerritoryFilter(tab.id)}
                   aria-pressed={active}
-                  className={`px-3.5 py-2 rounded-xl text-xs font-mono font-bold uppercase tabular-nums transition-[transform,background-color,border-color,color,box-shadow] duration-150 ease-[var(--ease-out-strong)] cursor-pointer active:scale-[0.98] ${
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-[background-color,color,transform] duration-150 ease-[var(--ease-out-strong)] cursor-pointer active:scale-[0.98] ${
                     active
-                      ? 'bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 shadow-xs'
-                      : 'bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] text-zinc-600 dark:text-zinc-300 border border-[#e2dfd8] dark:border-white/[0.08] hover:border-zinc-400 dark:hover:border-white/25'
+                      ? 'bg-white dark:bg-[#2c2c2e] text-[#1d1d1f] dark:text-[#f5f5f7] shadow-2xs'
+                      : 'text-[#86868b] hover:text-[#1d1d1f] dark:hover:text-white'
                   }`}
                 >
                   {tab.label}
@@ -310,71 +310,58 @@ export const DistributorsPage: React.FC = () => {
           {filteredDistributors.map(distributor => (
             <article
               key={distributor.id}
-              className="group rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-6 flex flex-col justify-between hover:-translate-y-0.5 hover:border-zinc-400 dark:hover:border-white/25 hover:shadow-lg transition-[transform,border-color,box-shadow] duration-200 ease-[var(--ease-out-strong)]"
+              className="group rounded-[28px] bg-white dark:bg-[#121214] shadow-[0_20px_50px_-24px_rgba(0,0,0,0.05)] p-7 flex flex-col justify-between hover:shadow-xl transition-[transform,box-shadow] duration-200"
             >
               <div>
                 {/* Top Telemetry Bar */}
-                <div className="flex items-center justify-between gap-2 mb-4">
-                  <span className="px-2.5 py-1 rounded-md bg-[#f8f7f4] dark:bg-[#181b22] border border-[#e2dfd8] dark:border-white/[0.08] text-[10px] font-mono font-bold text-zinc-700 dark:text-zinc-300 uppercase">
+                <div className="flex items-center justify-between gap-2 mb-5">
+                  <span className="px-3 py-1 rounded-full bg-black/[0.045] dark:bg-white/[0.08] text-xs font-medium text-[#86868b]">
                     {distributor.isoCountry} · {distributor.hub}
                   </span>
 
-                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#0d5d50]/10 dark:bg-[#38e8c6]/15 text-[#0d5d50] dark:text-[#38e8c6]">
-                    <ShieldCheck className="w-3 h-3" />
-                    <span>VERIFIED</span>
+                  <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-black/[0.045] dark:bg-white/[0.08] text-[#1d1d1f] dark:text-[#f5f5f7]">
+                    <ShieldCheck className="w-3.5 h-3.5" />
+                    <span>Verified</span>
                   </span>
                 </div>
 
                 {/* Logo Box */}
-                <div className="w-full aspect-16/10 rounded-xl bg-[#f8f7f4] dark:bg-[#181b22] border border-[#e2dfd8] dark:border-white/[0.06] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] flex items-center justify-center p-6 mb-5">
+                <div className="w-full aspect-16/10 rounded-2xl bg-black/[0.035] dark:bg-white/[0.05] flex items-center justify-center p-6 mb-6">
                   <img
                     src={distributor.logo}
                     alt={distributor.name}
-                    className="max-h-24 max-w-full object-contain filter dark:brightness-110 transition-transform duration-200 ease-[var(--ease-out-strong)] group-hover:scale-[1.03]"
+                    className="max-h-20 max-w-full object-contain filter dark:brightness-110 transition-transform duration-200 ease-[var(--ease-out-strong)] group-hover:scale-[1.03]"
                   />
                 </div>
 
                 {/* Country & Region */}
-                <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px] font-mono font-bold text-zinc-500 dark:text-zinc-400 uppercase mb-1.5">
-                  <span className="whitespace-nowrap">{distributor.country}</span>
-                  <span>·</span>
-                  <span className="text-[#0d5d50] dark:text-[#38e8c6] whitespace-nowrap">{distributor.region}</span>
+                <div className="text-xs font-medium text-[#86868b] mb-1">
+                  {distributor.country} · {distributor.region}
                 </div>
 
-                {/* Name */}
-                <h3 className="text-lg font-display font-black text-zinc-950 dark:text-white uppercase tracking-tight">
+                <h3 className="text-lg font-semibold tracking-[-0.015em] text-[#1d1d1f] dark:text-[#f5f5f7] mb-2 leading-snug">
                   {distributor.name}
                 </h3>
 
-                <div className="text-[11px] font-mono text-zinc-400 mt-0.5">
-                  {distributor.status}
-                </div>
-
-                {/* Description */}
-                <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-3 leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#86868b] leading-relaxed mb-4">
                   {distributor.description}
                 </p>
 
-                {/* Specialty Hardware */}
-                <div className="mt-4 pt-3.5 border-t border-[#e2dfd8]/70 dark:border-white/[0.06] space-y-1">
-                  <div className="text-[10px] font-mono uppercase text-zinc-400 font-bold">
-                    PRIMARY STOCKED HARDWARE
-                  </div>
-                  <div className="text-xs font-mono font-semibold text-zinc-800 dark:text-zinc-200">
-                    {distributor.specialty}
+                <div className="pt-3 border-t border-black/[0.06] dark:border-white/[0.08]">
+                  <div className="text-xs text-[#86868b]">
+                    <span className="font-medium text-[#1d1d1f] dark:text-[#f5f5f7]">Specialty:</span> {distributor.specialty}
                   </div>
                 </div>
               </div>
 
-              {/* Action Link */}
-              <div className="mt-6 pt-4 border-t border-[#e2dfd8]/70 dark:border-white/[0.06]">
+              <div className="pt-6 mt-6 border-t border-black/[0.06] dark:border-white/[0.08]">
                 <a
                   href={distributor.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] text-xs font-mono font-bold uppercase tracking-wider active:scale-[0.98] transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)] cursor-pointer"
+                  className="w-full py-3 px-4 rounded-full bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f] text-xs font-medium flex items-center justify-center gap-2 hover:opacity-85 active:scale-[0.98] transition-[transform,opacity] duration-150 ease-[var(--ease-out-strong)]"
                 >
-                  <span>Visit Partner Store</span>
+                  <span>Visit Supply Depot</span>
                   <ExternalLink className="w-3.5 h-3.5" />
                 </a>
               </div>
@@ -383,19 +370,19 @@ export const DistributorsPage: React.FC = () => {
         </div>
 
         {/* Open Expansion Territories Strip */}
-        <div className="mt-8 rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-6">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 mb-4 border-b border-[#e2dfd8]/70 dark:border-white/[0.06]">
+        <div className="mt-10 rounded-[28px] bg-white dark:bg-[#121214] shadow-[0_20px_50px_-24px_rgba(0,0,0,0.05)] p-7 sm:p-8">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 mb-5 border-b border-black/[0.06] dark:border-white/[0.08]">
             <div className="space-y-1">
-              <div className="inline-flex items-center gap-1.5 text-[11px] font-mono font-bold uppercase text-[#0d5d50] dark:text-[#38e8c6]">
-                <MapPin className="w-3.5 h-3.5" />
-                <span>OPEN PRIORITY TERRITORIES · 2026 TO 2027</span>
+              <div className="inline-flex items-center gap-1.5 text-xs font-medium text-[#86868b]">
+                <MapPin className="w-3.5 h-3.5 text-[#86868b]" />
+                <span>Open Priority Territories · 2026 to 2027</span>
               </div>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400">
+              <p className="text-xs text-[#86868b]">
                 Select an open regional territory below to pre-fill your wholesale distribution application.
               </p>
             </div>
-            <span className="text-[11px] font-mono text-zinc-400 uppercase">
-              CLICK TO PRE-FILL APPLICATION
+            <span className="text-xs font-medium text-[#86868b]">
+              Click territory to pre-fill
             </span>
           </div>
 
@@ -405,13 +392,13 @@ export const DistributorsPage: React.FC = () => {
                 key={item.code}
                 type="button"
                 onClick={() => handleSelectExpansionTerritory(item.label, item.defaultVolume)}
-                className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] hover:border-zinc-950 dark:hover:border-[#38e8c6] text-xs font-mono text-zinc-800 dark:text-zinc-200 active:scale-[0.98] transition-[transform,border-color,color] duration-150 ease-[var(--ease-out-strong)] cursor-pointer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/[0.045] dark:bg-white/[0.08] hover:bg-black/[0.08] dark:hover:bg-white/[0.12] text-xs font-medium text-[#1d1d1f] dark:text-[#f5f5f7] active:scale-[0.98] transition-all duration-150 cursor-pointer"
               >
-                <span className="px-1.5 py-0.5 rounded bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-[10px] font-bold">
+                <span className="px-1.5 py-0.5 rounded-full bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f] text-[10px] font-semibold">
                   {item.code}
                 </span>
-                <span className="font-semibold">{item.label}</span>
-                <ArrowRight className="w-3 h-3 text-zinc-400" />
+                <span>{item.label}</span>
+                <ArrowRight className="w-3 h-3 text-[#86868b]" />
               </button>
             ))}
           </div>
@@ -419,62 +406,62 @@ export const DistributorsPage: React.FC = () => {
       </section>
 
       {/* 3. WHOLESALE & DISTRIBUTION PERKS */}
-      <section className="bg-[#f8f7f4] dark:bg-[#181b22] border-y border-[#e2dfd8] dark:border-white/[0.08] py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-10 space-y-1">
-            <div className="text-[11px] font-mono font-bold tracking-widest text-[#0d5d50] dark:text-[#38e8c6] uppercase">
-              PARTNER BENEFITS &amp; FACTORY STANDARDS
+      <section className="py-16 sm:py-24">
+        <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-10 space-y-1.5">
+            <div className="text-xs font-medium text-[#86868b]">
+              Partner Benefits &amp; Factory Standards
             </div>
-            <h2 className="text-2xl sm:text-3xl font-display font-black text-zinc-950 dark:text-white uppercase tracking-tight">
-              WHY PARTNER WITH PAPA TATTOO SUPPLY
+            <h2 className="text-2xl sm:text-4xl font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] tracking-[-0.025em]">
+              Why Partner with Papa Tattoo Supply
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            <div className="p-6 rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-[#f8f7f4] dark:bg-[#181b22] border border-[#e2dfd8] dark:border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] text-[#0d5d50] dark:text-[#38e8c6] flex items-center justify-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="p-7 rounded-[28px] bg-white dark:bg-[#121214] shadow-[0_20px_50px_-24px_rgba(0,0,0,0.05)] space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-black/[0.045] dark:bg-white/[0.08] text-[#1d1d1f] dark:text-[#f5f5f7] flex items-center justify-center">
                 <Truck className="w-5 h-5" />
               </div>
-              <h3 className="font-mono font-bold text-sm text-zinc-950 dark:text-white uppercase">
-                DIRECT FACTORY SHIPMENT
+              <h3 className="font-semibold text-lg text-[#1d1d1f] dark:text-[#f5f5f7] tracking-[-0.015em]">
+                Direct Factory Shipment
               </h3>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#86868b] leading-relaxed">
                 Direct export container and air express logistics from our manufacturing floor to your regional warehouse.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-[#f8f7f4] dark:bg-[#181b22] border border-[#e2dfd8] dark:border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] text-[#0d5d50] dark:text-[#38e8c6] flex items-center justify-center">
+            <div className="p-7 rounded-[28px] bg-white dark:bg-[#121214] shadow-[0_20px_50px_-24px_rgba(0,0,0,0.05)] space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-black/[0.045] dark:bg-white/[0.08] text-[#1d1d1f] dark:text-[#f5f5f7] flex items-center justify-center">
                 <ShieldCheck className="w-5 h-5" />
               </div>
-              <h3 className="font-mono font-bold text-sm text-zinc-950 dark:text-white uppercase">
-                BATCH QUALITY CONTROL
+              <h3 className="font-semibold text-lg text-[#1d1d1f] dark:text-[#f5f5f7] tracking-[-0.015em]">
+                Batch Quality Control
               </h3>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#86868b] leading-relaxed">
                 Multi-stage optical needle inspection and EO sterilization certificates supplied with every commercial pallet.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-[#f8f7f4] dark:bg-[#181b22] border border-[#e2dfd8] dark:border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] text-[#0d5d50] dark:text-[#38e8c6] flex items-center justify-center">
+            <div className="p-7 rounded-[28px] bg-white dark:bg-[#121214] shadow-[0_20px_50px_-24px_rgba(0,0,0,0.05)] space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-black/[0.045] dark:bg-white/[0.08] text-[#1d1d1f] dark:text-[#f5f5f7] flex items-center justify-center">
                 <Layers className="w-5 h-5" />
               </div>
-              <h3 className="font-mono font-bold text-sm text-zinc-950 dark:text-white uppercase">
-                TIERED VOLUME MARGINS
+              <h3 className="font-semibold text-lg text-[#1d1d1f] dark:text-[#f5f5f7] tracking-[-0.015em]">
+                Tiered Volume Margins
               </h3>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#86868b] leading-relaxed">
                 Structured factory wholesale price tiers supporting sustainable retail margins and studio bulk programs.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-[#f8f7f4] dark:bg-[#181b22] border border-[#e2dfd8] dark:border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] text-[#0d5d50] dark:text-[#38e8c6] flex items-center justify-center">
+            <div className="p-7 rounded-[28px] bg-white dark:bg-[#121214] shadow-[0_20px_50px_-24px_rgba(0,0,0,0.05)] space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-black/[0.045] dark:bg-white/[0.08] text-[#1d1d1f] dark:text-[#f5f5f7] flex items-center justify-center">
                 <Award className="w-5 h-5" />
               </div>
-              <h3 className="font-mono font-bold text-sm text-zinc-950 dark:text-white uppercase">
-                TERRITORY PROTECTION
+              <h3 className="font-semibold text-lg text-[#1d1d1f] dark:text-[#f5f5f7] tracking-[-0.015em]">
+                Territory Protection
               </h3>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#86868b] leading-relaxed">
                 Authorized partner listing on our global distributor directory with regional studio inquiry routing.
               </p>
             </div>
@@ -483,51 +470,51 @@ export const DistributorsPage: React.FC = () => {
       </section>
 
       {/* 4. BECOME A DISTRIBUTOR APPLICATION FORM */}
-      <section id="apply-section" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 scroll-mt-24">
-        <div className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-7 sm:p-10">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-6 mb-8 border-b border-[#e2dfd8]/70 dark:border-white/[0.06] gap-4">
+      <section id="apply-section" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 scroll-mt-24">
+        <div className="rounded-[32px] bg-white dark:bg-[#121214] shadow-[0_20px_50px_-24px_rgba(0,0,0,0.05)] p-8 sm:p-12">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-6 mb-8 border-b border-black/[0.06] dark:border-white/[0.08] gap-4">
             <div className="space-y-1.5">
-              <div className="text-[11px] font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6] uppercase tracking-wider">
-                WHOLESALE PARTNERSHIP DOSSIER
+              <div className="text-xs font-medium text-[#86868b]">
+                Wholesale Partnership Dossier
               </div>
-              <h2 className="text-2xl sm:text-3xl font-display font-black text-zinc-950 dark:text-white uppercase tracking-tight">
-                APPLY FOR REGIONAL DISTRIBUTION
+              <h2 className="text-2xl sm:text-4xl font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] tracking-[-0.025em]">
+                Apply for Regional Distribution
               </h2>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400">
+              <p className="text-xs sm:text-sm text-[#86868b]">
                 Submit your company credentials. Our international sales engineering team reviews all applications within 24 hours.
               </p>
             </div>
-            <span className="text-[11px] font-mono text-zinc-400 shrink-0">* REQUIRED</span>
+            <span className="text-xs text-[#86868b] shrink-0">* Required</span>
           </div>
 
           {submissionResult ? (
-            <div className="p-8 rounded-2xl border border-[#0d5d50]/30 dark:border-[#38e8c6]/30 bg-[#0d5d50]/10 dark:bg-[#38e8c6]/10 text-center space-y-4">
-              <CheckCircle2 className="w-12 h-12 text-[#0d5d50] dark:text-[#38e8c6] mx-auto" />
+            <div className="p-8 sm:p-10 rounded-[24px] bg-black/[0.03] dark:bg-white/[0.05] text-center space-y-4">
+              <CheckCircle2 className="w-12 h-12 text-[#1d1d1f] dark:text-white mx-auto" />
               {submissionResult.delivered ? (
                 <>
-                  <h3 className="text-lg font-black font-mono text-zinc-950 dark:text-white uppercase">
-                    APPLICATION RECEIVED · UNDER REVIEW
+                  <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">
+                    Application Received · Under Review
                   </h3>
-                  <p className="text-xs font-mono text-zinc-600 dark:text-zinc-400 max-w-md mx-auto">
+                  <p className="text-xs sm:text-sm text-[#86868b] max-w-md mx-auto leading-relaxed">
                     Thank you for your interest in distributing Papa Tattoo Supply apparatus. A dedicated account director will email your wholesale catalog and regional pricing sheet within 24 business hours.
                   </p>
                 </>
               ) : (
                 <>
-                  <h3 className="text-lg font-black font-mono text-zinc-950 dark:text-white uppercase">
-                    WHOLESALE APPLICATION READY TO DISPATCH
+                  <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">
+                    Wholesale Application Ready to Dispatch
                   </h3>
-                  <p className="text-xs font-mono text-zinc-600 dark:text-zinc-400 max-w-lg mx-auto leading-relaxed">
+                  <p className="text-xs sm:text-sm text-[#86868b] max-w-lg mx-auto leading-relaxed">
                     Your distributor credentials for{' '}
-                    <strong className="text-zinc-900 dark:text-white">
+                    <strong className="text-[#1d1d1f] dark:text-white font-medium">
                       {submissionResult.recipient}
                     </strong>{' '}
                     are formatted and ready. Open your mail client to transmit directly, or copy the full application below for webmail.
                   </p>
-                  <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
+                  <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
                     <a
                       href={submissionResult.mailtoUrl}
-                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-mono font-bold uppercase hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.98] transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)]"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f] text-xs font-medium hover:opacity-85 active:scale-[0.98] transition-[transform,opacity] duration-150 ease-[var(--ease-out-strong)]"
                     >
                       <Mail className="w-3.5 h-3.5" />
                       <span>Open Mail App</span>
@@ -535,37 +522,37 @@ export const DistributorsPage: React.FC = () => {
                     <button
                       type="button"
                       onClick={handleCopyApplication}
-                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/15 bg-white dark:bg-[#181b22] text-zinc-800 dark:text-zinc-100 text-xs font-mono font-bold uppercase cursor-pointer hover:border-zinc-500 active:scale-[0.98] transition-[transform,border-color,color] duration-150 ease-[var(--ease-out-strong)]"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-black/[0.05] dark:bg-white/[0.08] hover:bg-black/[0.08] dark:hover:bg-white/[0.12] text-[#1d1d1f] dark:text-[#f5f5f7] text-xs font-medium cursor-pointer active:scale-[0.98] transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)]"
                     >
                       {copied ? (
-                        <Check className="w-3.5 h-3.5 text-[#0d5d50] dark:text-[#38e8c6]" />
+                        <Check className="w-3.5 h-3.5 text-[#1d1d1f] dark:text-white" />
                       ) : (
-                        <Copy className="w-3.5 h-3.5" />
+                        <Copy className="w-3.5 h-3.5 text-[#86868b]" />
                       )}
                       <span>{copied ? 'Copied Application' : 'Copy Full Application'}</span>
                     </button>
                   </div>
                 </>
               )}
-              <div className="pt-2">
+              <div className="pt-3">
                 <button
                   type="button"
                   onClick={() => {
                     setSubmissionResult(null)
                     setCopied(false)
                   }}
-                  className="text-xs font-mono text-zinc-600 dark:text-zinc-300 underline hover:text-zinc-950 dark:hover:text-white cursor-pointer"
+                  className="text-xs text-[#86868b] hover:text-[#1d1d1f] dark:hover:text-white underline cursor-pointer"
                 >
                   Edit or Submit Another Application
                 </button>
               </div>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-5 text-xs font-mono">
+            <form onSubmit={handleSubmit} className="space-y-6 text-xs">
               {formError && (
                 <div
                   role="alert"
-                  className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl border border-red-500/30 bg-red-500/10 text-red-700 dark:text-red-300 text-xs"
+                  className="flex items-center gap-2 px-4 py-3 rounded-2xl bg-red-500/10 text-red-700 dark:text-red-300 text-xs"
                 >
                   <AlertCircle className="w-4 h-4 shrink-0" />
                   <span>{formError}</span>
@@ -576,7 +563,7 @@ export const DistributorsPage: React.FC = () => {
                 <div>
                   <label
                     htmlFor="dist-company"
-                    className="block text-zinc-700 dark:text-zinc-300 font-bold uppercase text-[11px] mb-1.5"
+                    className="block text-xs font-medium text-[#86868b] mb-1.5"
                   >
                     Company / Supply Store Name *
                   </label>
@@ -589,14 +576,14 @@ export const DistributorsPage: React.FC = () => {
                     value={formData.companyName}
                     onChange={e => setFormData({ ...formData, companyName: e.target.value })}
                     placeholder="e.g. Acme Tattoo Supply Co."
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-zinc-900 dark:text-white focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
+                    className="w-full px-4 py-3 rounded-2xl bg-black/[0.045] dark:bg-white/[0.08] text-sm text-[#1d1d1f] dark:text-white placeholder-[#86868b] focus:outline-hidden focus:ring-2 focus:ring-[#1d1d1f]/15 dark:focus:ring-white/20 transition-all"
                   />
                 </div>
 
                 <div>
                   <label
                     htmlFor="dist-contact"
-                    className="block text-zinc-700 dark:text-zinc-300 font-bold uppercase text-[11px] mb-1.5"
+                    className="block text-xs font-medium text-[#86868b] mb-1.5"
                   >
                     Contact Person Name *
                   </label>
@@ -609,7 +596,7 @@ export const DistributorsPage: React.FC = () => {
                     value={formData.contactName}
                     onChange={e => setFormData({ ...formData, contactName: e.target.value })}
                     placeholder="Full Name"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-zinc-900 dark:text-white focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
+                    className="w-full px-4 py-3 rounded-2xl bg-black/[0.045] dark:bg-white/[0.08] text-sm text-[#1d1d1f] dark:text-white placeholder-[#86868b] focus:outline-hidden focus:ring-2 focus:ring-[#1d1d1f]/15 dark:focus:ring-white/20 transition-all"
                   />
                 </div>
               </div>
@@ -618,7 +605,7 @@ export const DistributorsPage: React.FC = () => {
                 <div>
                   <label
                     htmlFor="dist-email"
-                    className="block text-zinc-700 dark:text-zinc-300 font-bold uppercase text-[11px] mb-1.5"
+                    className="block text-xs font-medium text-[#86868b] mb-1.5"
                   >
                     Business Email *
                   </label>
@@ -631,14 +618,14 @@ export const DistributorsPage: React.FC = () => {
                     value={formData.email}
                     onChange={e => setFormData({ ...formData, email: e.target.value })}
                     placeholder="wholesale@yourstore.com"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-zinc-900 dark:text-white focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
+                    className="w-full px-4 py-3 rounded-2xl bg-black/[0.045] dark:bg-white/[0.08] text-sm text-[#1d1d1f] dark:text-white placeholder-[#86868b] focus:outline-hidden focus:ring-2 focus:ring-[#1d1d1f]/15 dark:focus:ring-white/20 transition-all"
                   />
                 </div>
 
                 <div>
                   <label
                     htmlFor="dist-phone"
-                    className="block text-zinc-700 dark:text-zinc-300 font-bold uppercase text-[11px] mb-1.5"
+                    className="block text-xs font-medium text-[#86868b] mb-1.5"
                   >
                     Phone / WhatsApp *
                   </label>
@@ -651,7 +638,7 @@ export const DistributorsPage: React.FC = () => {
                     value={formData.phone}
                     onChange={e => setFormData({ ...formData, phone: e.target.value })}
                     placeholder="+1 (555) 000-0000"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-zinc-900 dark:text-white focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150 tabular-nums"
+                    className="w-full px-4 py-3 rounded-2xl bg-black/[0.045] dark:bg-white/[0.08] text-sm text-[#1d1d1f] dark:text-white placeholder-[#86868b] focus:outline-hidden focus:ring-2 focus:ring-[#1d1d1f]/15 dark:focus:ring-white/20 transition-all tabular-nums"
                   />
                 </div>
               </div>
@@ -660,7 +647,7 @@ export const DistributorsPage: React.FC = () => {
                 <div>
                   <label
                     htmlFor="dist-country"
-                    className="block text-zinc-700 dark:text-zinc-300 font-bold uppercase text-[11px] mb-1.5"
+                    className="block text-xs font-medium text-[#86868b] mb-1.5"
                   >
                     Country / Target Territory *
                   </label>
@@ -673,14 +660,14 @@ export const DistributorsPage: React.FC = () => {
                     value={formData.country}
                     onChange={e => setFormData({ ...formData, country: e.target.value })}
                     placeholder="e.g. United Kingdom, Germany, Australia..."
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-zinc-900 dark:text-white focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
+                    className="w-full px-4 py-3 rounded-2xl bg-black/[0.045] dark:bg-white/[0.08] text-sm text-[#1d1d1f] dark:text-white placeholder-[#86868b] focus:outline-hidden focus:ring-2 focus:ring-[#1d1d1f]/15 dark:focus:ring-white/20 transition-all"
                   />
                 </div>
 
                 <div>
                   <label
                     htmlFor="dist-website"
-                    className="block text-zinc-700 dark:text-zinc-300 font-bold uppercase text-[11px] mb-1.5"
+                    className="block text-xs font-medium text-[#86868b] mb-1.5"
                   >
                     Store Website / Social Handle
                   </label>
@@ -692,7 +679,7 @@ export const DistributorsPage: React.FC = () => {
                     value={formData.website}
                     onChange={e => setFormData({ ...formData, website: e.target.value })}
                     placeholder="https://yourstore.com"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-zinc-900 dark:text-white focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
+                    className="w-full px-4 py-3 rounded-2xl bg-black/[0.045] dark:bg-white/[0.08] text-sm text-[#1d1d1f] dark:text-white placeholder-[#86868b] focus:outline-hidden focus:ring-2 focus:ring-[#1d1d1f]/15 dark:focus:ring-white/20 transition-all"
                   />
                 </div>
               </div>
@@ -701,7 +688,7 @@ export const DistributorsPage: React.FC = () => {
                 <div>
                   <label
                     htmlFor="dist-business-type"
-                    className="block text-zinc-700 dark:text-zinc-300 font-bold uppercase text-[11px] mb-1.5"
+                    className="block text-xs font-medium text-[#86868b] mb-1.5"
                   >
                     Business Model
                   </label>
@@ -710,7 +697,7 @@ export const DistributorsPage: React.FC = () => {
                     name="businessType"
                     value={formData.businessType}
                     onChange={e => setFormData({ ...formData, businessType: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-zinc-900 dark:text-white focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
+                    className="w-full px-4 py-3 rounded-2xl bg-black/[0.045] dark:bg-white/[0.08] text-sm text-[#1d1d1f] dark:text-white focus:outline-hidden focus:ring-2 focus:ring-[#1d1d1f]/15 dark:focus:ring-white/20 transition-all"
                   >
                     <option>Retail &amp; Online Store</option>
                     <option>Physical Tattoo Supply Depot</option>
@@ -722,7 +709,7 @@ export const DistributorsPage: React.FC = () => {
                 <div>
                   <label
                     htmlFor="dist-volume"
-                    className="block text-zinc-700 dark:text-zinc-300 font-bold uppercase text-[11px] mb-1.5"
+                    className="block text-xs font-medium text-[#86868b] mb-1.5"
                   >
                     Estimated Monthly Volume
                   </label>
@@ -731,7 +718,7 @@ export const DistributorsPage: React.FC = () => {
                     name="monthlyVolume"
                     value={formData.monthlyVolume}
                     onChange={e => setFormData({ ...formData, monthlyVolume: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-zinc-900 dark:text-white focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150 tabular-nums"
+                    className="w-full px-4 py-3 rounded-2xl bg-black/[0.045] dark:bg-white/[0.08] text-sm text-[#1d1d1f] dark:text-white focus:outline-hidden focus:ring-2 focus:ring-[#1d1d1f]/15 dark:focus:ring-white/20 transition-all"
                   >
                     <option>500 - 1,500 boxes/mo</option>
                     <option>2,000 - 5,000 boxes/mo</option>
@@ -744,7 +731,7 @@ export const DistributorsPage: React.FC = () => {
               <div>
                 <label
                   htmlFor="dist-message"
-                  className="block text-zinc-700 dark:text-zinc-300 font-bold uppercase text-[11px] mb-1.5"
+                  className="block text-xs font-medium text-[#86868b] mb-1.5"
                 >
                   Message / Territory Notes
                 </label>
@@ -755,27 +742,29 @@ export const DistributorsPage: React.FC = () => {
                   value={formData.message}
                   onChange={e => setFormData({ ...formData, message: e.target.value })}
                   placeholder="Tell us about your distribution channels, current needle brands stocked, or target volume..."
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-zinc-900 dark:text-white focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
+                  className="w-full px-4 py-3 rounded-2xl bg-black/[0.045] dark:bg-white/[0.08] text-sm text-[#1d1d1f] dark:text-white placeholder-[#86868b] focus:outline-hidden focus:ring-2 focus:ring-[#1d1d1f]/15 dark:focus:ring-white/20 transition-all resize-y"
                 />
               </div>
 
-              <button
-                type="submit"
-                disabled={formLoading}
-                className="w-full py-3.5 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-bold text-xs uppercase tracking-wider hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.98] transition-[transform,background-color,color,opacity] duration-150 ease-[var(--ease-out-strong)] flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-              >
-                {formLoading ? (
-                  <>
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                    <span>PREPARING APPLICATION...</span>
-                  </>
-                ) : (
-                  <>
-                    <Send className="w-4 h-4" />
-                    <span>SUBMIT DISTRIBUTOR APPLICATION</span>
-                  </>
-                )}
-              </button>
+              <div className="pt-2">
+                <button
+                  type="submit"
+                  disabled={formLoading}
+                  className="w-full h-12 rounded-full bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f] text-sm font-medium flex items-center justify-center gap-2 hover:opacity-85 active:scale-[0.98] transition-[transform,opacity] duration-150 ease-[var(--ease-out-strong)] disabled:opacity-50 cursor-pointer"
+                >
+                  {formLoading ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>Preparing Application…</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Submit Distributor Application</span>
+                      <Send className="w-3.5 h-3.5" />
+                    </>
+                  )}
+                </button>
+              </div>
             </form>
           )}
         </div>
