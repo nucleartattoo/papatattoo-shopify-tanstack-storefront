@@ -45,17 +45,21 @@ const COOKIE_LIST: CookieItem[] = [
   {
     name: 'PERSISTENT_SHOPPING_CART',
     category: 'Cart & Consent',
-    description:
-      'A link to information about your cart and viewing history, if you have asked for this.',
+    description: 'A link to information about your cart and viewing history, if you have asked.',
+  },
+  {
+    name: 'SECTION-DATA-IDS',
+    category: 'Cart & Consent',
+    description: 'Facilitates client-side caching of customer segments, cart counts, and currency settings.',
   },
   {
     name: 'STF',
-    category: 'Cart & Consent',
+    category: 'Security & Session',
     description: 'Information on products you have emailed to friends.',
   },
   {
     name: 'STORE',
-    category: 'Cart & Consent',
+    category: 'Localization',
     description: 'The store view or language you have selected.',
   },
   {
@@ -84,7 +88,7 @@ const COOKIE_LIST: CookieItem[] = [
     description: 'Facilitates caching of content on the browser to make pages load faster.',
   },
   {
-    name: 'SECTION-DATA-IDS',
+    name: 'SECTION-DATA-CONFIGURE',
     category: 'Performance Cache',
     description: 'Facilitates caching of content on the browser to make pages load faster.',
   },
@@ -92,11 +96,6 @@ const COOKIE_LIST: CookieItem[] = [
     name: 'PRIVATE_CONTENT_VERSION',
     category: 'Performance Cache',
     description: 'Facilitates caching of content on the browser to make pages load faster.',
-  },
-  {
-    name: 'X-MAGENTO-VARY',
-    category: 'Performance Cache',
-    description: 'Facilitates caching of content on the server to make pages load faster.',
   },
   {
     name: 'MAGE-TRANSLATION-FILE-VERSION',
@@ -175,86 +174,86 @@ export const PrivacyPolicyPage: React.FC = () => {
   }, [selectedCategory, cookieQuery])
 
   return (
-    <div className="min-h-[100dvh] bg-[#f5f4f0] dark:bg-[#20222a] text-zinc-900 dark:text-zinc-100 font-sans pb-24 transition-colors duration-200">
-      {/* 1. INDUSTRIAL COMPLIANCE DOSSIER HEADER */}
-      <section className="border-b border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] py-10 sm:py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-[100dvh] bg-[#f5f5f7] dark:bg-black text-[#1d1d1f] dark:text-[#f5f5f7] font-sans pb-24 transition-colors duration-200">
+      {/* 1. HERO COMPLIANCE SPEC & OVERVIEW */}
+      <section className="pt-12 sm:pt-20 pb-12 sm:pb-16">
+        <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb */}
           <nav
             aria-label="Breadcrumb"
-            className="flex items-center gap-2 text-xs font-mono text-zinc-500 dark:text-zinc-400 mb-8"
+            className="flex items-center gap-2 text-xs text-[#86868b] mb-8"
           >
-            <Link to="/" className="hover:text-zinc-900 dark:hover:text-white transition-colors duration-150">
-              HOME
+            <Link to="/" className="hover:text-[#1d1d1f] dark:hover:text-[#f5f5f7] transition-colors duration-150">
+              Home
             </Link>
-            <ChevronRight className="w-3.5 h-3.5 text-zinc-400" />
-            <span className="text-[#0d5d50] dark:text-[#38e8c6] font-bold uppercase">
-              PRIVACY, COOKIE &amp; RMA PROTOCOL
+            <ChevronRight className="w-3 h-3 text-[#86868b]" />
+            <span className="text-[#1d1d1f] dark:text-[#f5f5f7] font-medium">
+              Privacy, Cookies &amp; Terms
             </span>
           </nav>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
-            <div className="lg:col-span-7 space-y-4">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-[#0d5d50] dark:text-[#38e8c6] text-[11px] font-mono font-bold tracking-widest uppercase">
+            <div className="lg:col-span-7 space-y-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/[0.045] dark:bg-white/[0.08] text-xs font-medium text-[#86868b]">
                 <Lock className="w-3.5 h-3.5" />
-                <span>STUDIO COMPLIANCE &amp; RMA DISCLOSURES</span>
+                <span>Compliance &amp; RMA Disclosures</span>
               </div>
 
-              <h1 className="font-['Montserrat',sans-serif] text-3xl sm:text-5xl font-black uppercase tracking-tight leading-[1.04] text-zinc-950 dark:text-white">
-                PRIVACY, COOKIE &amp; RMA POLICY.
+              <h1 className="text-4xl sm:text-6xl font-semibold tracking-[-0.035em] text-[#1d1d1f] dark:text-[#f5f5f7] leading-[1.06]">
+                Privacy, Cookie &amp; RMA Policy
               </h1>
 
-              <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 max-w-2xl leading-relaxed">
-                Official Papa Tattoo Supply data protection standards, browser cookie restriction disclosures, EO-gas sterilization commitments, and 14-day factory RMA servicing terms.
+              <p className="text-base sm:text-lg text-[#86868b] max-w-2xl leading-relaxed">
+                Official Papa Tattoo Supply data protection standards, browser cookie disclosures, EO-gas sterilization certifications, and 14-day factory RMA servicing terms.
               </p>
             </div>
 
             {/* Right 4-Tile Compliance Spec Matrix */}
-            <div className="lg:col-span-5 grid grid-cols-2 gap-3">
-              <div className="p-4 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
-                <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                  CHECKOUT VAULT
+            <div className="lg:col-span-5 grid grid-cols-2 gap-3.5">
+              <div className="p-5 rounded-[22px] bg-white dark:bg-[#121214] shadow-xs border border-black/[0.04] dark:border-white/[0.06]">
+                <div className="text-[11px] font-medium text-[#86868b] uppercase tracking-wide">
+                  Checkout Vault
                 </div>
-                <div className="text-lg font-black font-mono tabular-nums text-zinc-950 dark:text-white mt-1">
+                <div className="text-xl sm:text-2xl font-semibold tracking-tight text-[#1d1d1f] dark:text-[#f5f5f7] mt-1.5 tabular-nums">
                   PCI-DSS L1
                 </div>
-                <div className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-0.5">
+                <div className="text-xs text-[#86868b] mt-1">
                   Encrypted billing tokens
                 </div>
               </div>
 
-              <div className="p-4 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
-                <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                  COOKIE REGISTRY
+              <div className="p-5 rounded-[22px] bg-white dark:bg-[#121214] shadow-xs border border-black/[0.04] dark:border-white/[0.06]">
+                <div className="text-[11px] font-medium text-[#86868b] uppercase tracking-wide">
+                  Cookie Registry
                 </div>
-                <div className="text-lg font-black font-mono tabular-nums text-[#0d5d50] dark:text-[#38e8c6] mt-1">
-                  16 KEYS
+                <div className="text-xl sm:text-2xl font-semibold tracking-tight text-[#1d1d1f] dark:text-[#f5f5f7] mt-1.5 tabular-nums">
+                  16 Keys
                 </div>
-                <div className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-0.5">
+                <div className="text-xs text-[#86868b] mt-1">
                   Session, cart &amp; cache
                 </div>
               </div>
 
-              <div className="p-4 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
-                <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                  FAULT RETURN WINDOW
+              <div className="p-5 rounded-[22px] bg-white dark:bg-[#121214] shadow-xs border border-black/[0.04] dark:border-white/[0.06]">
+                <div className="text-[11px] font-medium text-[#86868b] uppercase tracking-wide">
+                  Return Window
                 </div>
-                <div className="text-lg font-black font-mono tabular-nums text-zinc-950 dark:text-white mt-1">
-                  14 DAYS
+                <div className="text-xl sm:text-2xl font-semibold tracking-tight text-[#1d1d1f] dark:text-[#f5f5f7] mt-1.5 tabular-nums">
+                  14 Days
                 </div>
-                <div className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-0.5">
+                <div className="text-xs text-[#86868b] mt-1">
                   Verified factory defects
                 </div>
               </div>
 
-              <div className="p-4 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
-                <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                  STERILITY PROTOCOL
+              <div className="p-5 rounded-[22px] bg-white dark:bg-[#121214] shadow-xs border border-black/[0.04] dark:border-white/[0.06]">
+                <div className="text-[11px] font-medium text-[#86868b] uppercase tracking-wide">
+                  Sterility Standard
                 </div>
-                <div className="text-lg font-black font-mono tabular-nums text-[#0d5d50] dark:text-[#38e8c6] mt-1">
+                <div className="text-xl sm:text-2xl font-semibold tracking-tight text-[#1d1d1f] dark:text-[#f5f5f7] mt-1.5 tabular-nums">
                   316L + EO
                 </div>
-                <div className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-0.5">
+                <div className="text-xs text-[#86868b] mt-1">
                   Lot-tracked cartridges
                 </div>
               </div>
@@ -264,17 +263,17 @@ export const PrivacyPolicyPage: React.FC = () => {
       </section>
 
       {/* 2. TWO-COLUMN INTERACTIVE DOSSIER BODY */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+      <main className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           {/* Sticky Left Clause Navigation & RMA Bench */}
-          <aside className="lg:col-span-4 xl:col-span-3 lg:sticky lg:top-24 space-y-6">
-            <div className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-5">
-              <div className="flex items-center justify-between text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 pb-3 mb-3 border-b border-[#e2dfd8] dark:border-white/[0.08]">
-                <span>POLICY CLAUSE INDEX</span>
-                <span className="tabular-nums text-[#0d5d50] dark:text-[#38e8c6]">09</span>
+          <aside className="lg:col-span-4 xl:col-span-3 lg:sticky lg:top-24 space-y-5">
+            <div className="rounded-[28px] bg-white dark:bg-[#121214] shadow-xs border border-black/[0.04] dark:border-white/[0.06] p-5">
+              <div className="flex items-center justify-between text-xs font-medium text-[#86868b] pb-3 mb-2 border-b border-black/[0.04] dark:border-white/[0.06]">
+                <span>Policy Clause Index</span>
+                <span className="tabular-nums">09</span>
               </div>
 
-              <nav aria-label="Policy clauses" className="space-y-1 font-mono text-xs">
+              <nav aria-label="Policy clauses" className="space-y-1 text-xs">
                 {DOCUMENT_SECTIONS.map(sec => {
                   const isActive = activeSection === sec.id
                   return (
@@ -289,18 +288,18 @@ export const PrivacyPolicyPage: React.FC = () => {
                           block: 'start',
                         })
                       }}
-                      className={`flex items-center justify-between px-3 py-2 rounded-xl active:scale-[0.98] transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)] ${
+                      className={`flex items-center justify-between px-3.5 py-2.5 rounded-2xl active:scale-[0.98] transition-[background-color,color,transform] duration-150 ease-[var(--ease-out-strong)] ${
                         isActive
-                          ? 'bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 font-bold'
-                          : 'text-zinc-600 dark:text-zinc-400 hover:bg-[#f8f7f4] dark:hover:bg-[#181b22] hover:text-zinc-950 dark:hover:text-white'
+                          ? 'bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f] font-medium shadow-2xs'
+                          : 'text-[#86868b] hover:bg-black/[0.04] dark:hover:bg-white/[0.06] hover:text-[#1d1d1f] dark:hover:text-white'
                       }`}
                     >
                       <span className="truncate">{sec.label}</span>
                       <span
-                        className={`text-[10px] tabular-nums shrink-0 ml-2 ${
+                        className={`text-[11px] tabular-nums shrink-0 ml-2 ${
                           isActive
-                            ? 'text-white/80 dark:text-zinc-950/80'
-                            : 'text-zinc-400 dark:text-zinc-500'
+                            ? 'text-white/80 dark:text-[#1d1d1f]/80'
+                            : 'text-[#86868b]'
                         }`}
                       >
                         {sec.index}
@@ -312,22 +311,22 @@ export const PrivacyPolicyPage: React.FC = () => {
             </div>
 
             {/* Quick Factory RMA Repair Card */}
-            <div className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-5 space-y-3">
-              <div className="flex items-center justify-between text-[10px] font-mono font-bold uppercase tracking-widest text-[#0d5d50] dark:text-[#38e8c6]">
-                <span>FACTORY SERVICE DESK</span>
+            <div className="rounded-[28px] bg-white dark:bg-[#121214] shadow-xs border border-black/[0.04] dark:border-white/[0.06] p-6 space-y-3.5">
+              <div className="flex items-center justify-between text-xs font-medium text-[#86868b]">
+                <span>Factory Service Desk</span>
                 <FileText className="w-3.5 h-3.5" />
               </div>
-              <div className="font-['Montserrat',sans-serif] text-sm font-black uppercase text-zinc-950 dark:text-white">
-                MACHINE RMA FORM (PDF)
+              <div className="text-sm font-semibold tracking-[-0.01em] text-[#1d1d1f] dark:text-[#f5f5f7]">
+                Machine RMA Form (PDF)
               </div>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              <p className="text-xs text-[#86868b] leading-relaxed">
                 Need servicing for a Papa Pen or Rotary apparatus? Download the official factory RMA intake sheet before shipping.
               </p>
               <a
                 href="https://drive.google.com/file/d/1nMPw2A9x_AwQnlFp0yew_2XNbMBKoiEf/view"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-mono font-bold uppercase tracking-wider hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.97] transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)]"
+                className="w-full inline-flex items-center justify-center gap-2 h-11 rounded-full bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f] text-xs font-medium hover:opacity-85 active:scale-[0.98] transition-[transform,opacity] duration-150 ease-[var(--ease-out-strong)] shadow-xs"
               >
                 <span>Open RMA Intake PDF</span>
                 <ExternalLink className="w-3.5 h-3.5" />
@@ -336,24 +335,24 @@ export const PrivacyPolicyPage: React.FC = () => {
           </aside>
 
           {/* Right Clause Cards */}
-          <div id="privacy" className="lg:col-span-8 xl:col-span-9 space-y-8 scroll-mt-28">
+          <div id="privacy" className="lg:col-span-8 xl:col-span-9 space-y-6 scroll-mt-28">
             {/* Section 1: Overview */}
             <section
               id="overview"
-              className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-6 sm:p-8 space-y-4 scroll-mt-28"
+              className="rounded-[28px] bg-white dark:bg-[#121214] shadow-xs border border-black/[0.04] dark:border-white/[0.06] p-6 sm:p-8 space-y-4 scroll-mt-28"
             >
-              <div className="flex items-center justify-between pb-3 border-b border-[#e2dfd8] dark:border-white/[0.08]">
-                <div className="flex items-center gap-2.5">
-                  <ShieldCheck className="w-5 h-5 text-[#0d5d50] dark:text-[#38e8c6]" />
-                  <h2 className="font-['Montserrat',sans-serif] text-base sm:text-lg font-black uppercase tracking-tight text-zinc-950 dark:text-white">
-                    PRIVACY POLICY OVERVIEW
+              <div className="flex items-center justify-between pb-4 border-b border-black/[0.04] dark:border-white/[0.06]">
+                <div className="flex items-center gap-3">
+                  <ShieldCheck className="w-5 h-5 text-[#1d1d1f] dark:text-[#f5f5f7]" />
+                  <h2 className="text-lg sm:text-xl font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7]">
+                    Privacy Policy Overview
                   </h2>
                 </div>
-                <span className="text-[11px] font-mono font-bold tabular-nums text-[#0d5d50] dark:text-[#38e8c6]">
+                <span className="text-xs font-mono tabular-nums text-[#86868b]">
                   01
                 </span>
               </div>
-              <div className="space-y-3 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              <div className="space-y-3 text-sm text-[#86868b] leading-relaxed">
                 <p>
                   This privacy policy sets out how this website (hereafter &quot;the Store&quot;) uses and protects any information that you give the Store while using this website. The Store is committed to ensuring that your privacy is protected. Should we ask you to provide certain information by which you can be identified when using this website, then you can be assured that it will only be used in accordance with this privacy statement.
                 </p>
@@ -366,33 +365,33 @@ export const PrivacyPolicyPage: React.FC = () => {
             {/* Section 2: What We Collect */}
             <section
               id="what-we-collect"
-              className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-6 sm:p-8 space-y-4 scroll-mt-28"
+              className="rounded-[28px] bg-white dark:bg-[#121214] shadow-xs border border-black/[0.04] dark:border-white/[0.06] p-6 sm:p-8 space-y-5 scroll-mt-28"
             >
-              <div className="flex items-center justify-between pb-3 border-b border-[#e2dfd8] dark:border-white/[0.08]">
-                <div className="flex items-center gap-2.5">
-                  <CheckCircle2 className="w-5 h-5 text-[#0d5d50] dark:text-[#38e8c6]" />
-                  <h2 className="font-['Montserrat',sans-serif] text-base sm:text-lg font-black uppercase tracking-tight text-zinc-950 dark:text-white">
-                    WHAT WE COLLECT
+              <div className="flex items-center justify-between pb-4 border-b border-black/[0.04] dark:border-white/[0.06]">
+                <div className="flex items-center gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-[#1d1d1f] dark:text-[#f5f5f7]" />
+                  <h2 className="text-lg sm:text-xl font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7]">
+                    What We Collect
                   </h2>
                 </div>
-                <span className="text-[11px] font-mono font-bold tabular-nums text-[#0d5d50] dark:text-[#38e8c6]">
+                <span className="text-xs font-mono tabular-nums text-[#86868b]">
                   02
                 </span>
               </div>
-              <div className="space-y-4 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              <div className="space-y-4 text-sm text-[#86868b] leading-relaxed">
                 <p>We may collect the following information:</p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 font-mono text-xs">
-                  <div className="p-3.5 rounded-xl bg-[#f8f7f4] dark:bg-[#181b22] border border-[#e2dfd8] dark:border-white/[0.06] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-zinc-800 dark:text-zinc-200">
-                    01 · Full Name &amp; Studio Identity
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
+                  <div className="p-4 rounded-2xl bg-[#f5f5f7] dark:bg-[#18181b] text-[#1d1d1f] dark:text-[#f5f5f7]">
+                    Full Name &amp; Studio Identity
                   </div>
-                  <div className="p-3.5 rounded-xl bg-[#f8f7f4] dark:bg-[#181b22] border border-[#e2dfd8] dark:border-white/[0.06] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-zinc-800 dark:text-zinc-200">
-                    02 · Contact information including email address
+                  <div className="p-4 rounded-2xl bg-[#f5f5f7] dark:bg-[#18181b] text-[#1d1d1f] dark:text-[#f5f5f7]">
+                    Contact information including email address
                   </div>
-                  <div className="p-3.5 rounded-xl bg-[#f8f7f4] dark:bg-[#181b22] border border-[#e2dfd8] dark:border-white/[0.06] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-zinc-800 dark:text-zinc-200">
-                    03 · Demographic information (postcode, preferences, interests)
+                  <div className="p-4 rounded-2xl bg-[#f5f5f7] dark:bg-[#18181b] text-[#1d1d1f] dark:text-[#f5f5f7]">
+                    Demographic information (postcode, preferences, interests)
                   </div>
-                  <div className="p-3.5 rounded-xl bg-[#f8f7f4] dark:bg-[#181b22] border border-[#e2dfd8] dark:border-white/[0.06] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-zinc-800 dark:text-zinc-200">
-                    04 · Information relevant to customer surveys and/or offers
+                  <div className="p-4 rounded-2xl bg-[#f5f5f7] dark:bg-[#18181b] text-[#1d1d1f] dark:text-[#f5f5f7]">
+                    Information relevant to customer surveys and/or offers
                   </div>
                 </div>
                 <p className="text-xs pt-1">
@@ -407,7 +406,7 @@ export const PrivacyPolicyPage: React.FC = () => {
                         block: 'start',
                       })
                     }}
-                    className="text-[#0d5d50] dark:text-[#38e8c6] font-mono font-bold hover:underline"
+                    className="text-[#1d1d1f] dark:text-white font-medium underline"
                   >
                     List of cookies we collect
                   </a>{' '}
@@ -419,31 +418,31 @@ export const PrivacyPolicyPage: React.FC = () => {
             {/* Section 3: What We Do with the Information */}
             <section
               id="how-we-use"
-              className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-6 sm:p-8 space-y-4 scroll-mt-28"
+              className="rounded-[28px] bg-white dark:bg-[#121214] shadow-xs border border-black/[0.04] dark:border-white/[0.06] p-6 sm:p-8 space-y-4 scroll-mt-28"
             >
-              <div className="flex items-center justify-between pb-3 border-b border-[#e2dfd8] dark:border-white/[0.08]">
-                <div className="flex items-center gap-2.5">
-                  <Sliders className="w-5 h-5 text-[#0d5d50] dark:text-[#38e8c6]" />
-                  <h2 className="font-['Montserrat',sans-serif] text-base sm:text-lg font-black uppercase tracking-tight text-zinc-950 dark:text-white">
-                    WHAT WE DO WITH THE INFORMATION WE GATHER
+              <div className="flex items-center justify-between pb-4 border-b border-black/[0.04] dark:border-white/[0.06]">
+                <div className="flex items-center gap-3">
+                  <Sliders className="w-5 h-5 text-[#1d1d1f] dark:text-[#f5f5f7]" />
+                  <h2 className="text-lg sm:text-xl font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7]">
+                    What We Do with the Information We Gather
                   </h2>
                 </div>
-                <span className="text-[11px] font-mono font-bold tabular-nums text-[#0d5d50] dark:text-[#38e8c6]">
+                <span className="text-xs font-mono tabular-nums text-[#86868b]">
                   03
                 </span>
               </div>
-              <div className="space-y-4 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              <div className="space-y-4 text-sm text-[#86868b] leading-relaxed">
                 <p>
                   We require this information to understand your needs and provide you with a better service, and in particular for the following reasons:
                 </p>
-                <ul className="list-disc list-inside space-y-2 pl-2 font-mono text-xs text-zinc-700 dark:text-zinc-300">
+                <ul className="list-disc list-inside space-y-2 pl-2 text-xs sm:text-sm text-[#1d1d1f] dark:text-[#f5f5f7]">
                   <li>Internal record keeping.</li>
                   <li>We may use the information to improve our products and services.</li>
                   <li>
                     We may periodically send promotional emails about new products, special offers or other information which we think you may find interesting using the email address which you have provided.
                   </li>
                   <li>
-                    From time to time, we may also use your information to contact you for market research purposes. We may contact you by email, phone, fax or mail. We may use the information to customise the website according to your interests.
+                    From time to time, we may also use your information to contact you for market research purposes. We may contact you by email or phone. We may use the information to customise the website according to your interests.
                   </li>
                 </ul>
               </div>
@@ -452,20 +451,20 @@ export const PrivacyPolicyPage: React.FC = () => {
             {/* Section 4: Security */}
             <section
               id="security"
-              className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-6 sm:p-8 space-y-4 scroll-mt-28"
+              className="rounded-[28px] bg-white dark:bg-[#121214] shadow-xs border border-black/[0.04] dark:border-white/[0.06] p-6 sm:p-8 space-y-4 scroll-mt-28"
             >
-              <div className="flex items-center justify-between pb-3 border-b border-[#e2dfd8] dark:border-white/[0.08]">
-                <div className="flex items-center gap-2.5">
-                  <Lock className="w-5 h-5 text-[#0d5d50] dark:text-[#38e8c6]" />
-                  <h2 className="font-['Montserrat',sans-serif] text-base sm:text-lg font-black uppercase tracking-tight text-zinc-950 dark:text-white">
-                    SECURITY
+              <div className="flex items-center justify-between pb-4 border-b border-black/[0.04] dark:border-white/[0.06]">
+                <div className="flex items-center gap-3">
+                  <Lock className="w-5 h-5 text-[#1d1d1f] dark:text-[#f5f5f7]" />
+                  <h2 className="text-lg sm:text-xl font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7]">
+                    Security
                   </h2>
                 </div>
-                <span className="text-[11px] font-mono font-bold tabular-nums text-[#0d5d50] dark:text-[#38e8c6]">
+                <span className="text-xs font-mono tabular-nums text-[#86868b]">
                   04
                 </span>
               </div>
-              <div className="space-y-3 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              <div className="space-y-3 text-sm text-[#86868b] leading-relaxed">
                 <p>
                   We are committed to ensuring that your information is secure. In order to prevent unauthorised access or disclosure, we have put in place suitable physical, electronic and managerial procedures to safeguard and secure the information we collect online.
                 </p>
@@ -478,20 +477,20 @@ export const PrivacyPolicyPage: React.FC = () => {
             {/* Section 5: How We Use Cookies */}
             <section
               id="cookies"
-              className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-6 sm:p-8 space-y-4 scroll-mt-28"
+              className="rounded-[28px] bg-white dark:bg-[#121214] shadow-xs border border-black/[0.04] dark:border-white/[0.06] p-6 sm:p-8 space-y-4 scroll-mt-28"
             >
-              <div className="flex items-center justify-between pb-3 border-b border-[#e2dfd8] dark:border-white/[0.08]">
-                <div className="flex items-center gap-2.5">
-                  <Cookie className="w-5 h-5 text-[#0d5d50] dark:text-[#38e8c6]" />
-                  <h2 className="font-['Montserrat',sans-serif] text-base sm:text-lg font-black uppercase tracking-tight text-zinc-950 dark:text-white">
-                    HOW WE USE COOKIES
+              <div className="flex items-center justify-between pb-4 border-b border-black/[0.04] dark:border-white/[0.06]">
+                <div className="flex items-center gap-3">
+                  <Cookie className="w-5 h-5 text-[#1d1d1f] dark:text-[#f5f5f7]" />
+                  <h2 className="text-lg sm:text-xl font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7]">
+                    How We Use Cookies
                   </h2>
                 </div>
-                <span className="text-[11px] font-mono font-bold tabular-nums text-[#0d5d50] dark:text-[#38e8c6]">
+                <span className="text-xs font-mono tabular-nums text-[#86868b]">
                   05
                 </span>
               </div>
-              <div className="space-y-3 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              <div className="space-y-3 text-sm text-[#86868b] leading-relaxed">
                 <p>
                   A cookie is a small file which asks permission to be placed on your computer&apos;s hard drive. Once you agree, the file is added and the cookie helps analyse web traffic or lets you know when you visit a particular site. Cookies allow web applications to respond to you as an individual. The web application can tailor its operations to your needs, likes and dislikes by gathering and remembering information about your preferences.
                 </p>
@@ -510,20 +509,20 @@ export const PrivacyPolicyPage: React.FC = () => {
             {/* Section 6: Links to Other Websites */}
             <section
               id="external-links"
-              className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-6 sm:p-8 space-y-4 scroll-mt-28"
+              className="rounded-[28px] bg-white dark:bg-[#121214] shadow-xs border border-black/[0.04] dark:border-white/[0.06] p-6 sm:p-8 space-y-4 scroll-mt-28"
             >
-              <div className="flex items-center justify-between pb-3 border-b border-[#e2dfd8] dark:border-white/[0.08]">
-                <div className="flex items-center gap-2.5">
-                  <ExternalLink className="w-5 h-5 text-[#0d5d50] dark:text-[#38e8c6]" />
-                  <h2 className="font-['Montserrat',sans-serif] text-base sm:text-lg font-black uppercase tracking-tight text-zinc-950 dark:text-white">
-                    LINKS TO OTHER WEBSITES
+              <div className="flex items-center justify-between pb-4 border-b border-black/[0.04] dark:border-white/[0.06]">
+                <div className="flex items-center gap-3">
+                  <ExternalLink className="w-5 h-5 text-[#1d1d1f] dark:text-[#f5f5f7]" />
+                  <h2 className="text-lg sm:text-xl font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7]">
+                    Links to Other Websites
                   </h2>
                 </div>
-                <span className="text-[11px] font-mono font-bold tabular-nums text-[#0d5d50] dark:text-[#38e8c6]">
+                <span className="text-xs font-mono tabular-nums text-[#86868b]">
                   06
                 </span>
               </div>
-              <div className="space-y-3 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              <div className="space-y-3 text-sm text-[#86868b] leading-relaxed">
                 <p>
                   Our website may contain links to other websites of interest. However, once you have used these links to leave our site, you should note that we do not have any control over that other website. Therefore, we cannot be responsible for the protection and privacy of any information which you provide whilst visiting such sites and such sites are not governed by this privacy statement. You should exercise caution and look at the privacy statement applicable to the website in question.
                 </p>
@@ -533,24 +532,24 @@ export const PrivacyPolicyPage: React.FC = () => {
             {/* Section 7: Controlling Your Personal Information */}
             <section
               id="controlling"
-              className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-6 sm:p-8 space-y-4 scroll-mt-28"
+              className="rounded-[28px] bg-white dark:bg-[#121214] shadow-xs border border-black/[0.04] dark:border-white/[0.06] p-6 sm:p-8 space-y-4 scroll-mt-28"
             >
-              <div className="flex items-center justify-between pb-3 border-b border-[#e2dfd8] dark:border-white/[0.08]">
-                <div className="flex items-center gap-2.5">
-                  <HelpCircle className="w-5 h-5 text-[#0d5d50] dark:text-[#38e8c6]" />
-                  <h2 className="font-['Montserrat',sans-serif] text-base sm:text-lg font-black uppercase tracking-tight text-zinc-950 dark:text-white">
-                    CONTROLLING YOUR PERSONAL INFORMATION
+              <div className="flex items-center justify-between pb-4 border-b border-black/[0.04] dark:border-white/[0.06]">
+                <div className="flex items-center gap-3">
+                  <HelpCircle className="w-5 h-5 text-[#1d1d1f] dark:text-[#f5f5f7]" />
+                  <h2 className="text-lg sm:text-xl font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7]">
+                    Controlling Your Personal Information
                   </h2>
                 </div>
-                <span className="text-[11px] font-mono font-bold tabular-nums text-[#0d5d50] dark:text-[#38e8c6]">
+                <span className="text-xs font-mono tabular-nums text-[#86868b]">
                   07
                 </span>
               </div>
-              <div className="space-y-4 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              <div className="space-y-4 text-sm text-[#86868b] leading-relaxed">
                 <p>
                   You may choose to restrict the collection or use of your personal information in the following ways:
                 </p>
-                <ul className="list-disc list-inside space-y-2 pl-2 font-mono text-xs text-zinc-700 dark:text-zinc-300">
+                <ul className="list-disc list-inside space-y-2 pl-2 text-xs sm:text-sm text-[#1d1d1f] dark:text-[#f5f5f7]">
                   <li>
                     Whenever you are asked to fill in a form on the website, look for the box that you can click to indicate that you do not want the information to be used by anybody for direct marketing purposes.
                   </li>
@@ -565,7 +564,7 @@ export const PrivacyPolicyPage: React.FC = () => {
                   You may request details of personal information which we hold about you under the Data Protection Act 1998. A small fee will be payable. If you would like a copy of the information held on you please email us this request using our Contact Us information.
                 </p>
                 <p>
-                  If you believe that any information we are holding on you is incorrect or incomplete, please write to or email us as soon as possible, at the above address. We will promptly correct any information found to be incorrect.
+                  If you believe that any information we are holding on you is incorrect or incomplete, please write to or email us as soon as possible. We will promptly correct any information found to be incorrect.
                 </p>
               </div>
             </section>
@@ -573,27 +572,27 @@ export const PrivacyPolicyPage: React.FC = () => {
             {/* Section 8: List of Cookies We Collect (Interactive Filterable Registry) */}
             <section
               id="cookie-list"
-              className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] overflow-hidden scroll-mt-28"
+              className="rounded-[28px] bg-white dark:bg-[#121214] shadow-xs border border-black/[0.04] dark:border-white/[0.06] overflow-hidden scroll-mt-28"
             >
-              <div className="p-6 sm:p-8 border-b border-[#e2dfd8] dark:border-white/[0.08] space-y-5">
+              <div className="p-6 sm:p-8 border-b border-black/[0.04] dark:border-white/[0.06] space-y-5">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <Table className="w-5 h-5 text-[#0d5d50] dark:text-[#38e8c6]" />
-                    <h2 className="font-['Montserrat',sans-serif] text-base sm:text-lg font-black uppercase tracking-tight text-zinc-950 dark:text-white">
-                      LIST OF COOKIES WE COLLECT
+                  <div className="flex items-center gap-3">
+                    <Table className="w-5 h-5 text-[#1d1d1f] dark:text-[#f5f5f7]" />
+                    <h2 className="text-lg sm:text-xl font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7]">
+                      List of Cookies We Collect
                     </h2>
                   </div>
-                  <span className="text-[11px] font-mono font-bold tabular-nums text-[#0d5d50] dark:text-[#38e8c6]">
+                  <span className="text-xs font-mono tabular-nums text-[#86868b]">
                     08
                   </span>
                 </div>
 
-                <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
+                <p className="text-sm text-[#86868b]">
                   The table below lists the cookies we collect and what information they store across session security, persistent cart state, browser cache, and translation storage.
                 </p>
 
-                {/* Interactive Filter Controls */}
-                <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-3 pt-1">
+                {/* Interactive Segmented Filter Controls & Search */}
+                <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-4 pt-1">
                   <div className="flex flex-wrap gap-1.5" role="group" aria-label="Filter cookies by category">
                     {COOKIE_CATEGORIES.map(category => {
                       const count =
@@ -606,10 +605,10 @@ export const PrivacyPolicyPage: React.FC = () => {
                           key={category}
                           type="button"
                           onClick={() => setSelectedCategory(category)}
-                          className={`px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold uppercase tabular-nums cursor-pointer active:scale-[0.97] transition-[transform,background-color,color,border-color] duration-150 ease-[var(--ease-out-strong)] ${
+                          className={`px-3.5 py-1.5 rounded-full text-xs font-medium cursor-pointer active:scale-[0.98] transition-[background-color,color,transform,box-shadow] duration-150 ease-[var(--ease-out-strong)] ${
                             isSelected
-                              ? 'bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 border border-transparent'
-                              : 'bg-[#f8f7f4] dark:bg-[#181b22] text-zinc-600 dark:text-zinc-400 border border-[#e2dfd8] dark:border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] hover:text-zinc-950 dark:hover:text-white'
+                              ? 'bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f] shadow-xs'
+                              : 'bg-black/[0.045] dark:bg-white/[0.08] text-[#86868b] hover:text-[#1d1d1f] dark:hover:text-white'
                           }`}
                         >
                           {category} ({count})
@@ -622,40 +621,40 @@ export const PrivacyPolicyPage: React.FC = () => {
                     <label htmlFor="cookie-registry-search" className="sr-only">
                       Search cookie name or purpose
                     </label>
-                    <Search className="w-3.5 h-3.5 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    <Search className="w-4 h-4 text-[#86868b] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                     <input
                       id="cookie-registry-search"
                       type="search"
                       value={cookieQuery}
                       onChange={e => setCookieQuery(e.target.value)}
-                      placeholder="Filter cookie key..."
-                      className="w-full pl-8 pr-3 py-1.5 rounded-lg border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-xs font-mono text-zinc-950 dark:text-white placeholder-zinc-400 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
+                      placeholder="Filter cookies..."
+                      className="w-full pl-10 pr-4 h-10 rounded-full bg-black/[0.045] dark:bg-white/[0.08] text-xs text-[#1d1d1f] dark:text-[#f5f5f7] placeholder-[#86868b] outline-hidden focus:bg-white dark:focus:bg-[#1c1c1e] transition-colors duration-150"
                     />
                   </div>
                 </div>
               </div>
 
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs font-mono">
-                  <thead className="bg-[#f8f7f4] dark:bg-[#181b22] border-b border-[#e2dfd8] dark:border-white/[0.08] text-zinc-900 dark:text-white uppercase font-bold tracking-wider">
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-black/[0.02] dark:bg-white/[0.03] border-b border-black/[0.04] dark:border-white/[0.06] text-[#86868b] font-medium uppercase tracking-wider">
                     <tr>
-                      <th scope="col" className="px-6 py-3.5 w-1/3">
+                      <th scope="col" className="px-6 py-4 w-1/3">
                         Cookie Name
                       </th>
-                      <th scope="col" className="px-4 py-3.5 w-44">
+                      <th scope="col" className="px-4 py-4 w-44">
                         Classification
                       </th>
-                      <th scope="col" className="px-6 py-3.5">
-                        Cookie Description
+                      <th scope="col" className="px-6 py-4">
+                        Description
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[#e2dfd8]/70 dark:divide-white/[0.06]">
+                  <tbody className="divide-y divide-black/[0.04] dark:divide-white/[0.06]">
                     {filteredCookies.length === 0 ? (
                       <tr>
                         <td
                           colSpan={3}
-                          className="px-6 py-8 text-center text-zinc-500 dark:text-zinc-400"
+                          className="px-6 py-10 text-center text-[#86868b]"
                         >
                           No cookies match &quot;{cookieQuery}&quot;.
                         </td>
@@ -664,20 +663,20 @@ export const PrivacyPolicyPage: React.FC = () => {
                       filteredCookies.map((item) => (
                         <tr
                           key={item.name}
-                          className="hover:bg-[#f8f7f4]/80 dark:hover:bg-white/[0.02] transition-colors duration-150"
+                          className="hover:bg-black/[0.015] dark:hover:bg-white/[0.02] transition-colors duration-150"
                         >
                           <th
                             scope="row"
-                            className="px-6 py-3.5 text-zinc-950 dark:text-[#38e8c6] font-bold align-top"
+                            className="px-6 py-4 text-[#1d1d1f] dark:text-[#f5f5f7] font-mono font-medium align-top"
                           >
                             {item.name}
                           </th>
-                          <td className="px-4 py-3.5 align-top">
-                            <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] bg-[#f8f7f4] dark:bg-[#181b22] text-zinc-600 dark:text-zinc-300 border border-[#e2dfd8] dark:border-white/[0.08]">
+                          <td className="px-4 py-4 align-top">
+                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-black/[0.04] dark:bg-white/[0.08] text-[#86868b]">
                               {item.category}
                             </span>
                           </td>
-                          <td className="px-6 py-3.5 text-zinc-600 dark:text-zinc-400 align-top font-sans">
+                          <td className="px-6 py-4 text-[#86868b] align-top font-normal leading-relaxed">
                             {item.description}
                           </td>
                         </tr>
@@ -691,55 +690,55 @@ export const PrivacyPolicyPage: React.FC = () => {
             {/* Section 9: Commercial Terms & RMA Protocols */}
             <section
               id="terms"
-              className="rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-6 sm:p-8 space-y-6 scroll-mt-28"
+              className="rounded-[28px] bg-white dark:bg-[#121214] shadow-xs border border-black/[0.04] dark:border-white/[0.06] p-6 sm:p-8 space-y-6 scroll-mt-28"
             >
-              <div className="flex items-center justify-between pb-3 border-b border-[#e2dfd8] dark:border-white/[0.08]">
-                <div className="flex items-center gap-2.5">
-                  <FileCheck2 className="w-5 h-5 text-[#0d5d50] dark:text-[#38e8c6]" />
-                  <h2 className="font-['Montserrat',sans-serif] text-base sm:text-lg font-black uppercase tracking-tight text-zinc-950 dark:text-white">
-                    COMMERCIAL SALE TERMS, STERILITY &amp; RMA PROTOCOL
+              <div className="flex items-center justify-between pb-4 border-b border-black/[0.04] dark:border-white/[0.06]">
+                <div className="flex items-center gap-3">
+                  <FileCheck2 className="w-5 h-5 text-[#1d1d1f] dark:text-[#f5f5f7]" />
+                  <h2 className="text-lg sm:text-xl font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7]">
+                    Commercial Sale Terms, Sterility &amp; RMA Protocol
                   </h2>
                 </div>
-                <span className="text-[11px] font-mono font-bold tabular-nums text-[#0d5d50] dark:text-[#38e8c6]">
+                <span className="text-xs font-mono tabular-nums text-[#86868b]">
                   09
                 </span>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* 14-Day Return Policy */}
-                <div className="p-5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] space-y-2">
-                  <h3 className="font-mono font-bold text-xs uppercase text-zinc-900 dark:text-white flex items-center gap-2">
-                    <AlertCircle className="w-4 h-4 text-[#0d5d50] dark:text-[#38e8c6]" />
+                <div className="p-6 rounded-[22px] bg-[#f5f5f7] dark:bg-[#18181b] space-y-2">
+                  <h3 className="font-semibold text-sm text-[#1d1d1f] dark:text-[#f5f5f7] flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 text-[#86868b]" />
                     <span>14-Day Fault Return Policy</span>
                   </h3>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed font-sans">
-                    Items can be returned for replacement or full refund if a genuine manufacturing fault is confirmed within 14 days from the date you received the parcel. If an incorrect item or specification was dispatched due to warehouse error, Papa Tattoo Supply will ship the correct replacement immediately and reimburse standard return shipping fees.
+                  <p className="text-xs text-[#86868b] leading-relaxed">
+                    Items can be returned for replacement or full refund if a genuine manufacturing fault is confirmed within 14 days from the date you received the parcel. If an incorrect item was dispatched due to warehouse error, Papa Tattoo Supply will ship the correct replacement immediately and reimburse standard return shipping fees.
                   </p>
                 </div>
 
                 {/* Quality Standards & Sterilization */}
                 <div
                   id="quality"
-                  className="p-5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] space-y-2 scroll-mt-28"
+                  className="p-6 rounded-[22px] bg-[#f5f5f7] dark:bg-[#18181b] space-y-2 scroll-mt-28"
                 >
-                  <h3 className="font-mono font-bold text-xs uppercase text-zinc-900 dark:text-white flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-[#0d5d50] dark:text-[#38e8c6]" />
+                  <h3 className="font-semibold text-sm text-[#1d1d1f] dark:text-[#f5f5f7] flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-[#86868b]" />
                     <span>316L Stainless Steel &amp; EO Gas</span>
                   </h3>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed font-sans">
+                  <p className="text-xs text-[#86868b] leading-relaxed">
                     Papa Tattoo cartridge needles are manufactured with Japanese 316L surgical stainless steel pins and sealed with safety rebound membranes. Cartridges are individually packaged with EO Gas sterilization alongside batch-specific lot tracking.
                   </p>
                 </div>
               </div>
 
               {/* Official Factory RMA Repair PDF Form */}
-              <div className="p-5 rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#f8f7f4] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="p-6 rounded-[22px] bg-[#f5f5f7] dark:bg-[#18181b] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
-                  <div className="font-mono font-bold text-xs text-zinc-950 dark:text-white uppercase flex items-center gap-2">
-                    <FileText className="w-4 h-4 text-[#0d5d50] dark:text-[#38e8c6]" />
+                  <div className="font-semibold text-sm text-[#1d1d1f] dark:text-[#f5f5f7] flex items-center gap-2">
+                    <FileText className="w-4 h-4 text-[#86868b]" />
                     <span>Official Papa Machine Repair Protocol (RMA Form)</span>
                   </div>
-                  <div className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
+                  <div className="text-xs text-[#86868b] mt-1">
                     If your Papa Pen or Rotary apparatus requires factory servicing, print and complete the official RMA intake sheet.
                   </div>
                 </div>
@@ -747,7 +746,7 @@ export const PrivacyPolicyPage: React.FC = () => {
                   href="https://drive.google.com/file/d/1nMPw2A9x_AwQnlFp0yew_2XNbMBKoiEf/view"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-mono font-bold uppercase tracking-wider shrink-0 hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.97] transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)]"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f] text-xs font-medium shrink-0 hover:opacity-85 active:scale-[0.98] transition-[transform,opacity] duration-150 ease-[var(--ease-out-strong)] shadow-xs"
                 >
                   <span>Download RMA PDF</span>
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -756,21 +755,21 @@ export const PrivacyPolicyPage: React.FC = () => {
             </section>
 
             {/* Contact Support Footer Card */}
-            <div className="p-6 sm:p-8 rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div className="space-y-1">
-                <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#0d5d50] dark:text-[#38e8c6]">
-                  COMPLIANCE &amp; LOGISTICS DESK
+            <div className="p-6 sm:p-8 rounded-[28px] bg-white dark:bg-[#121214] shadow-xs border border-black/[0.04] dark:border-white/[0.06] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+              <div className="space-y-1.5">
+                <div className="text-xs font-medium text-[#86868b]">
+                  Compliance &amp; Logistics Desk
                 </div>
-                <h3 className="font-['Montserrat',sans-serif] text-base font-black uppercase text-zinc-950 dark:text-white">
+                <h3 className="text-lg sm:text-xl font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7]">
                   Questions Regarding Data Privacy, Orders, or RMA?
                 </h3>
-                <p className="text-xs text-zinc-600 dark:text-zinc-400">
+                <p className="text-xs sm:text-sm text-[#86868b]">
                   Route your inquiry directly to our 24/7 technical support and studio dispatch desk.
                 </p>
               </div>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-mono font-bold uppercase tracking-wider shrink-0 hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.97] transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)]"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f] text-xs font-medium shrink-0 hover:opacity-85 active:scale-[0.98] transition-[transform,opacity] duration-150 ease-[var(--ease-out-strong)] shadow-xs"
               >
                 <Mail className="w-3.5 h-3.5" />
                 <span>Contact Support</span>
