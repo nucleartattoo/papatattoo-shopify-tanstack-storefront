@@ -172,8 +172,8 @@ export const HeaderSearchBar: React.FC<HeaderSearchBarProps> = ({
         className="relative flex items-center"
       >
         {/* Left Magnifying Glass Icon */}
-        <div className="absolute left-3 sm:left-3.5 flex items-center pointer-events-none text-zinc-400 dark:text-zinc-500">
-          <Search className="w-4 h-4 text-[#0d9488] dark:text-[#2EE6CA]" />
+        <div className="absolute left-3.5 flex items-center pointer-events-none text-[#86868b]">
+          <Search className="w-3.5 h-3.5" />
         </div>
 
         {/* Input Field */}
@@ -191,13 +191,13 @@ export const HeaderSearchBar: React.FC<HeaderSearchBarProps> = ({
           onFocus={() => setIsOpen(true)}
           onKeyDown={handleKeyDown}
           placeholder={defaultPlaceholder}
-          className="w-full h-10 pl-9 sm:pl-10 pr-10 text-xs font-mono rounded-xl border border-zinc-200/70 dark:border-zinc-800/70 bg-zinc-50 dark:bg-[#11141B] text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-500 focus:outline-hidden focus:border-[#0d9488] dark:focus:border-[#2EE6CA] focus:ring-1 focus:ring-[#2EE6CA]/20 transition-colors shadow-xs"
+          className="w-full h-9 pl-9 pr-10 text-xs font-sans rounded-full border border-transparent bg-black/[0.045] dark:bg-white/[0.08] text-[#1d1d1f] dark:text-[#f5f5f7] placeholder:text-[#86868b] focus:outline-hidden focus:bg-white dark:focus:bg-[#1c1c1e] focus:border-black/15 dark:focus:border-white/20 transition-all duration-150"
           autoComplete="off"
           spellCheck="false"
         />
 
         {/* Right Action Widgets: Clear button & Hotkey indicator */}
-        <div className="absolute right-2.5 flex items-center gap-1.5">
+        <div className="absolute right-3 flex items-center gap-1.5">
           {query ? (
             <button
               type="button"
@@ -206,7 +206,7 @@ export const HeaderSearchBar: React.FC<HeaderSearchBarProps> = ({
                 setSelectedIndex(-1)
                 inputRef.current?.focus()
               }}
-              className="p-1 rounded-md text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 transition-colors cursor-pointer"
+              className="p-0.5 rounded-full text-[#86868b] hover:text-[#1d1d1f] dark:hover:text-white transition-colors cursor-pointer"
               aria-label="Clear search query"
               title="Clear search"
             >
@@ -214,7 +214,7 @@ export const HeaderSearchBar: React.FC<HeaderSearchBarProps> = ({
             </button>
           ) : (
             !isMobile && (
-              <kbd className="hidden xl:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono text-zinc-400 border border-zinc-200/70 dark:border-zinc-800/70 rounded bg-zinc-100/60 dark:bg-[#181C25] pointer-events-none select-none">
+              <kbd className="hidden xl:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-sans text-[#86868b] rounded-md bg-black/[0.04] dark:bg-white/[0.06] pointer-events-none select-none">
                 <Command className="w-2.5 h-2.5" />
                 <span>K</span>
               </kbd>

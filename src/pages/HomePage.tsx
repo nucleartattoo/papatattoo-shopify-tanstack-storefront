@@ -195,20 +195,20 @@ export const HomePage: React.FC = () => {
     .replace(/\s*\(machine\)/i, '')
 
   return (
-    <div className="w-full bg-transparent text-zinc-900 dark:text-zinc-100 font-sans overflow-x-hidden">
+    <div className="w-full bg-transparent text-[#1d1d1f] dark:text-[#f5f5f7] font-sans overflow-x-hidden">
       {/* ============================================================ */}
       {/* ACT 1: FLAGSHIP SPECIMEN STAGE (PRIMARY ABOVE-THE-FOLD HERO) */}
       {/* ============================================================ */}
-      <section className="relative pt-6 pb-10 sm:pt-10 sm:pb-14 lg:py-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <section className="relative pt-8 pb-14 sm:pt-12 sm:pb-20 lg:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             {/* Left Column: Machine Switcher, Headline, Telemetry & Direct Action */}
-            <div className="lg:col-span-6 space-y-5">
-              {/* Flagship Machine Selector Tabs */}
+            <div className="lg:col-span-6 space-y-7">
+              {/* Flagship Machine Selector Tabs (Apple Segmented Pill Control) */}
               <div
                 role="tablist"
                 aria-label="Select flagship rotary machine"
-                className="inline-flex flex-wrap lg:flex-nowrap items-center gap-1 p-1 rounded-xl bg-[#eceae4]/90 dark:bg-[#181b22] border border-[#e2dfd8] dark:border-white/[0.07]"
+                className="inline-flex max-w-full overflow-x-auto no-scrollbar items-center gap-1 p-1 rounded-full bg-black/[0.05] dark:bg-white/[0.08]"
               >
                 {machineBenchmarks.map((bm, idx) => {
                   const isSelected = idx === activeMachineIndex
@@ -227,10 +227,10 @@ export const HomePage: React.FC = () => {
                       role="tab"
                       aria-selected={isSelected}
                       onClick={() => handleSelectHeroMachine(idx)}
-                      className={`px-2.5 xl:px-3.5 py-1.5 rounded-lg text-[11px] xl:text-xs font-mono font-semibold whitespace-nowrap transition-[transform,background-color,color,box-shadow] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] cursor-pointer ${
+                      className={`px-3.5 xl:px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-[transform,background-color,color,box-shadow] duration-200 ease-[var(--ease-spring)] active:scale-[0.97] cursor-pointer ${
                         isSelected
-                          ? 'bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 shadow-xs'
-                          : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white'
+                          ? 'bg-white text-[#1d1d1f] dark:bg-[#2c2c2e] dark:text-white shadow-[0_2px_8px_rgba(0,0,0,0.08)]'
+                          : 'text-[#86868b] hover:text-[#1d1d1f] dark:hover:text-white'
                       }`}
                     >
                       {shortLabel}
@@ -240,69 +240,69 @@ export const HomePage: React.FC = () => {
               </div>
 
               {/* Active Machine Headline & Summary */}
-              <div className="space-y-2.5">
-                <div className="text-xs font-mono text-[#0d5d50] dark:text-[#38e8c6] font-semibold">
+              <div className="space-y-3.5">
+                <div className="text-xs font-medium tracking-[-0.01em] text-[#86868b]">
                   {activeBenchmark?.roleTag} · {activeBenchmark?.chassisLabel}
                 </div>
 
-                <h1 className="text-4xl sm:text-5xl xl:text-[60px] font-black tracking-tighter text-zinc-950 dark:text-white font-['Montserrat',sans-serif] leading-[0.95]">
+                <h1 className="text-4xl sm:text-6xl xl:text-[64px] font-semibold tracking-[-0.034em] text-[#1d1d1f] dark:text-[#f5f5f7] leading-[1.02]">
                   {activeBenchmark?.handle === 'papa-pen-v3-black-full-set'
-                    ? 'PAPA PEN V3'
+                    ? 'Papa Pen V3'
                     : activeBenchmark?.handle === 'papa-pen-v2-1'
-                    ? 'PAPA PEN V2'
+                    ? 'Papa Pen V2'
                     : activeBenchmark?.handle === 'papa-apollo-rotary-black'
-                    ? 'APOLLO ROTARY'
-                    : 'PAPA PEN CLASSIC'}
+                    ? 'Apollo Rotary'
+                    : 'Papa Pen Classic'}
                 </h1>
 
-                <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-lg">
+                <p className="text-base sm:text-lg text-[#86868b] leading-relaxed max-w-lg font-normal">
                   {activeBenchmark?.bestFor}. Driven by a{' '}
-                  <span className="font-semibold text-zinc-950 dark:text-white">
+                  <span className="font-medium text-[#1d1d1f] dark:text-[#f5f5f7]">
                     {activeBenchmark?.motorLabel.toLowerCase()}
                   </span>{' '}
-                  for zero-bogging torque across lining and dense color packing.
+                  for effortless lining and dense color saturation.
                 </p>
               </div>
 
-              {/* 3-Column Live Engineering Telemetry Strip */}
-              <div className="grid grid-cols-3 gap-2.5 p-3.5 rounded-2xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white/85 dark:bg-[#1a1d24]/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-md">
+              {/* Borderless Apple-Style Typographic Telemetry Strip */}
+              <div className="grid grid-cols-3 gap-6 pt-2 border-t border-black/[0.06] dark:border-white/[0.08] max-w-lg">
                 <div>
-                  <span className="text-[10px] font-mono text-zinc-500 dark:text-zinc-400 block">
-                    Stroke Cam
-                  </span>
-                  <span className="text-xs sm:text-sm font-mono font-bold text-zinc-950 dark:text-white mt-0.5 block tabular-nums truncate">
+                  <span className="text-xl sm:text-2xl font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7] block tabular-nums truncate">
                     {cleanStrokeLabel}
                   </span>
-                </div>
-                <div className="border-x border-[#eceae4] dark:border-white/[0.08] px-3">
-                  <span className="text-[10px] font-mono text-zinc-500 dark:text-zinc-400 block">
-                    Operating Range
+                  <span className="text-xs text-[#86868b] mt-0.5 block">
+                    Stroke Cam
                   </span>
-                  <span className="text-xs sm:text-sm font-mono font-bold text-zinc-950 dark:text-white mt-0.5 block tabular-nums truncate">
+                </div>
+                <div>
+                  <span className="text-xl sm:text-2xl font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7] block tabular-nums truncate">
                     {cleanVoltageLabel}
                   </span>
-                </div>
-                <div className="pl-1">
-                  <span className="text-[10px] font-mono text-zinc-500 dark:text-zinc-400 block">
-                    Balance Mass
+                  <span className="text-xs text-[#86868b] mt-0.5 block">
+                    Operating Range
                   </span>
-                  <span className="text-xs sm:text-sm font-mono font-bold text-zinc-950 dark:text-white mt-0.5 block tabular-nums truncate">
+                </div>
+                <div>
+                  <span className="text-xl sm:text-2xl font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7] block tabular-nums truncate">
                     {cleanWeightLabel}
+                  </span>
+                  <span className="text-xs text-[#86868b] mt-0.5 block">
+                    Balance Mass
                   </span>
                 </div>
               </div>
 
-              {/* Authentic Price & Primary Actions */}
-              <div className="pt-1 flex flex-wrap sm:flex-nowrap items-center gap-2.5 xl:gap-3.5">
-                <div className="pr-1.5 xl:pr-2.5 shrink-0">
-                  <span className="text-[10px] font-mono text-zinc-500 dark:text-zinc-400 block">
-                    Factory Direct
+              {/* Authentic Price & Primary Pill Actions */}
+              <div className="pt-1 flex flex-wrap items-center gap-3 sm:gap-4">
+                <div className="pr-2 shrink-0">
+                  <span className="text-[11px] text-[#86868b] block">
+                    From
                   </span>
                   <div className="flex items-baseline gap-1 tabular-nums">
-                    <span className="text-2xl xl:text-3xl font-black font-mono text-zinc-950 dark:text-white tracking-tight">
+                    <span className="text-2xl xl:text-3xl font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] tracking-[-0.025em]">
                       ${activePrice.toFixed(2)}
                     </span>
-                    <span className="text-[11px] font-mono text-zinc-500 dark:text-zinc-400">
+                    <span className="text-xs text-[#86868b]">
                       {activeCurrency}
                     </span>
                   </div>
@@ -311,21 +311,21 @@ export const HomePage: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleBuyActiveMachine}
-                  className={`px-4 xl:px-6 py-3 rounded-xl font-mono font-bold text-xs uppercase tracking-wider inline-flex items-center gap-2 whitespace-nowrap shrink-0 transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] shadow-sm cursor-pointer ${
+                  className={`px-6 py-3 rounded-full font-sans font-medium text-sm inline-flex items-center gap-2 whitespace-nowrap shrink-0 transition-[transform,background-color,opacity] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] cursor-pointer ${
                     addedHeroCart
                       ? 'bg-emerald-600 text-white'
-                      : 'bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-zinc-200'
+                      : 'bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f] hover:opacity-88'
                   }`}
                 >
                   {addedHeroCart ? (
                     <>
                       <Check className="w-4 h-4" />
-                      <span>Added to Cart</span>
+                      <span>Added to Bag</span>
                     </>
                   ) : (
                     <>
                       <ShoppingBag className="w-4 h-4" />
-                      <span>Add to Cart</span>
+                      <span>Add to Bag</span>
                     </>
                   )}
                 </button>
@@ -338,33 +338,27 @@ export const HomePage: React.FC = () => {
                       activeBenchmark?.handle ||
                       'papa-pen-v2-1',
                   }}
-                  className="px-3.5 xl:px-5 py-3 rounded-xl border border-[#d6d3cb] dark:border-white/15 bg-white/80 dark:bg-[#22252f] hover:border-zinc-950 dark:hover:border-white text-xs font-mono font-semibold text-zinc-800 dark:text-zinc-200 hover:text-zinc-950 dark:hover:text-white inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 transition-[transform,border-color,color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97]"
+                  className="px-5 py-3 rounded-full bg-black/[0.05] dark:bg-white/[0.08] hover:bg-black/[0.09] dark:hover:bg-white/[0.14] text-sm font-medium text-[#1d1d1f] dark:text-[#f5f5f7] inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97]"
                 >
-                  <span>View Specs</span>
+                  <span>Learn more</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
             </div>
 
-            {/* Right Column: High-Contrast Specimen Stage with Optional 3D Toggle */}
+            {/* Right Column: Pure Studio Specimen Stage with Optional 3D Toggle */}
             <div className="lg:col-span-6">
-              <div className="relative aspect-[4/3] sm:aspect-[16/11] lg:aspect-square w-full rounded-3xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white/85 dark:bg-[#181b22] p-6 sm:p-10 flex items-center justify-center overflow-hidden shadow-[0_24px_60px_-20px_rgba(18,18,16,0.12),inset_0_1px_0_rgba(255,255,255,0.8)] dark:shadow-[0_28px_70px_-20px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.07)]">
-                {/* Subtle Radial Instrument Glow */}
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-8 rounded-full bg-[radial-gradient(circle,rgba(56,232,198,0.14)_0%,transparent_68%)] pointer-events-none"
-                />
-
+              <div className="relative aspect-[4/3] sm:aspect-[16/11] lg:aspect-square w-full rounded-[32px] bg-white dark:bg-[#121214] p-8 sm:p-12 flex items-center justify-center overflow-hidden shadow-[0_20px_50px_-24px_rgba(0,0,0,0.06)] dark:shadow-[0_24px_60px_-24px_rgba(0,0,0,0.65)]">
                 {/* On-Demand 2D Studio Photo / 3D Interactive Switcher */}
                 {activeBenchmark?.supports3D && (
-                  <div className="absolute top-5 right-5 z-20 inline-flex items-center p-1 rounded-xl bg-[#f5f4f0]/90 dark:bg-[#22252f]/90 border border-[#e2dfd8] dark:border-white/10 backdrop-blur-md">
+                  <div className="absolute top-5 right-5 z-20 inline-flex items-center p-1 rounded-full bg-[#f5f5f7]/90 dark:bg-[#1c1c1e]/90 backdrop-blur-md">
                     <button
                       type="button"
                       onClick={() => setStageMode('photo')}
-                      className={`px-3 py-1.5 rounded-lg text-[11px] font-mono font-semibold inline-flex items-center gap-1.5 transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] cursor-pointer ${
+                      className={`px-3.5 py-1.5 rounded-full text-xs font-medium inline-flex items-center gap-1.5 transition-[transform,background-color,color,box-shadow] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] cursor-pointer ${
                         stageMode === 'photo'
-                          ? 'bg-zinc-950 text-white dark:bg-white dark:text-zinc-950'
-                          : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white'
+                          ? 'bg-white text-[#1d1d1f] dark:bg-[#2c2c2e] dark:text-white shadow-2xs'
+                          : 'text-[#86868b] hover:text-[#1d1d1f] dark:hover:text-white'
                       }`}
                     >
                       <ImageIcon className="w-3.5 h-3.5" />
@@ -373,14 +367,14 @@ export const HomePage: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => setStageMode('3d')}
-                      className={`px-3 py-1.5 rounded-lg text-[11px] font-mono font-semibold inline-flex items-center gap-1.5 transition-[transform,background-color,color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] cursor-pointer ${
+                      className={`px-3.5 py-1.5 rounded-full text-xs font-medium inline-flex items-center gap-1.5 transition-[transform,background-color,color,box-shadow] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] cursor-pointer ${
                         stageMode === '3d'
-                          ? 'bg-zinc-950 text-white dark:bg-white dark:text-zinc-950'
-                          : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white'
+                          ? 'bg-white text-[#1d1d1f] dark:bg-[#2c2c2e] dark:text-white shadow-2xs'
+                          : 'text-[#86868b] hover:text-[#1d1d1f] dark:hover:text-white'
                       }`}
                     >
-                      <Box className="w-3.5 h-3.5 text-[#0d5d50] dark:text-[#38e8c6]" />
-                      <span>3D Model</span>
+                      <Box className="w-3.5 h-3.5" />
+                      <span>3D View</span>
                     </button>
                   </div>
                 )}
@@ -409,9 +403,9 @@ export const HomePage: React.FC = () => {
                     <img
                       src={heroImageUrl}
                       alt={activeProduct?.title || activeBenchmark?.fallbackName}
-                      className={`max-h-[82%] max-w-[82%] w-auto h-auto object-contain transition-[transform,opacity,filter] duration-200 ease-[var(--ease-out-strong)] group-hover:scale-[1.035] drop-shadow-[0_20px_34px_rgba(18,18,16,0.16)] dark:drop-shadow-[0_24px_44px_rgba(0,0,0,0.65)] ${
+                      className={`max-h-[84%] max-w-[84%] w-auto h-auto object-contain transition-[transform,opacity,filter] duration-300 ease-[var(--ease-spring)] group-hover:scale-[1.03] drop-shadow-[0_20px_34px_rgba(0,0,0,0.12)] dark:drop-shadow-[0_24px_44px_rgba(0,0,0,0.65)] ${
                         isBlurTransitioning
-                          ? 'opacity-65 blur-[2px] scale-[0.97]'
+                          ? 'opacity-60 blur-[3px] scale-[0.975]'
                           : 'opacity-100 blur-0 scale-100'
                       }`}
                       fetchPriority="high"
@@ -425,17 +419,17 @@ export const HomePage: React.FC = () => {
                   </Link>
                 )}
 
-                {/* Bottom Specimen Bar */}
-                <div className="absolute bottom-5 inset-x-5 z-20 flex items-center justify-between gap-3 px-4 py-2.5 rounded-2xl bg-[#f5f4f0]/90 dark:bg-[#22252f]/90 backdrop-blur-md border border-[#e2dfd8] dark:border-white/[0.08] text-xs font-mono">
-                  <span className="text-zinc-600 dark:text-zinc-300 truncate">
+                {/* Minimal Bottom Caption */}
+                <div className="absolute bottom-5 inset-x-6 z-20 flex items-center justify-between gap-3 text-xs text-[#86868b]">
+                  <span className="truncate">
                     {activeBenchmark?.motorLabel}
                   </span>
                   <Link
                     to="/products"
-                    className="text-[#0d5d50] dark:text-[#38e8c6] font-semibold hover:underline shrink-0 inline-flex items-center gap-1"
+                    className="text-[#1d1d1f] dark:text-[#f5f5f7] font-medium hover:opacity-70 shrink-0 inline-flex items-center gap-1 transition-opacity"
                   >
-                    <span>Compare {allModelGroups.length || 28} Models</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    <span>Compare all {allModelGroups.length || 28} models</span>
+                    <ArrowRight className="w-3 h-3" />
                   </Link>
                 </div>
               </div>
@@ -453,36 +447,39 @@ export const HomePage: React.FC = () => {
       {/* ACT 3: INTERACTIVE FLAGSHIP SHOWROOM (SWATCH FAMILIES)       */}
       {/* ============================================================ */}
       {featuredModels.length > 0 && (
-        <section className="py-20 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl 2xl:max-w-[1440px] mx-auto border-b border-[#e2dfd8] dark:border-white/[0.08]">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
-            <div className="space-y-2 max-w-xl">
-              <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-zinc-950 dark:text-white font-['Montserrat',sans-serif]">
-                FLAGSHIP STUDIO SYSTEMS
+        <section className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 max-w-7xl 2xl:max-w-[1440px] mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+            <div className="space-y-2.5 max-w-xl">
+              <p className="text-xs font-medium text-[#86868b]">
+                Precision Hardware
+              </p>
+              <h2 className="text-3xl sm:text-5xl font-semibold tracking-[-0.03em] text-[#1d1d1f] dark:text-[#f5f5f7]">
+                Flagship Studio Systems.
               </h2>
-              <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400">
-                Select anodized finishes and cartridge series directly inside each hardware family.
+              <p className="text-base text-[#86868b]">
+                Explore anodized finishes and sterile configurations across each hardware family.
               </p>
             </div>
 
             <div className="flex flex-wrap items-center gap-2.5 shrink-0">
               <Link
                 to="/products"
-                className="px-4 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 text-xs font-mono font-semibold inline-flex items-center gap-1.5 whitespace-nowrap hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97]"
+                className="px-5 py-2.5 rounded-full bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f] text-xs font-medium inline-flex items-center gap-1.5 whitespace-nowrap hover:opacity-85 transition-[transform,opacity] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97]"
               >
-                <span>Open Hardware Lineup</span>
+                <span>Explore all hardware</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
               <Link
                 to="/products"
                 search={{ view: 'sheet' }}
-                className="px-4 py-2.5 rounded-xl border border-[#d6d3cb] dark:border-white/15 bg-white dark:bg-[#22252f] text-xs font-mono font-semibold text-zinc-700 dark:text-zinc-200 whitespace-nowrap hover:border-zinc-950 dark:hover:border-white transition-[transform,border-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97]"
+                className="px-5 py-2.5 rounded-full bg-black/[0.05] dark:bg-white/[0.08] hover:bg-black/[0.09] dark:hover:bg-white/[0.14] text-xs font-medium text-[#1d1d1f] dark:text-[#f5f5f7] whitespace-nowrap transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97]"
               >
-                <span>Quick-Order Sheet ({products.length || 46} SKUs)</span>
+                <span>Quick-order sheet ({products.length || 46})</span>
               </Link>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredModels.map(group => (
               <HardwareModelCard key={group.id} group={group} />
             ))}
@@ -495,70 +492,65 @@ export const HomePage: React.FC = () => {
       {/* ============================================================ */}
       <section
         id="showcase-cartridges"
-        className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl 2xl:max-w-[1440px] mx-auto border-b border-[#e2dfd8] dark:border-white/[0.08]"
+        className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl 2xl:max-w-[1440px] mx-auto"
       >
-        <div className="max-w-2xl mb-10 space-y-2.5">
-          <div className="text-xs font-mono font-semibold uppercase tracking-wider text-amber-700 dark:text-amber-400">
+        <div className="max-w-2xl mb-12 space-y-2.5">
+          <div className="text-xs font-medium text-[#86868b]">
             Japanese 316L Surgical Metallurgy
           </div>
-          <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-zinc-950 dark:text-white font-['Montserrat',sans-serif]">
-            PAPA NEEDLE CARTRIDGES
+          <h2 className="text-3xl sm:text-5xl font-semibold tracking-[-0.03em] text-[#1d1d1f] dark:text-[#f5f5f7]">
+            Papa Needle Cartridges.
           </h2>
-          <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 leading-relaxed">
+          <p className="text-base text-[#86868b] leading-relaxed">
             Automated micro-fixture soldering eliminates needle deflection. Internal silicone membrane prevents pigment backflow into rotary motors.
           </p>
         </div>
 
         {/* 3-Cell Asymmetric Bento Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-          {/* Cell 1 (7 Cols): Tinted Architectural Specimen Showcase */}
-          <div className="lg:col-span-7 relative rounded-3xl bg-[#efeae0]/85 dark:bg-[#14161d] text-zinc-950 dark:text-white border border-amber-500/25 dark:border-white/[0.08] p-7 sm:p-10 flex flex-col justify-between overflow-hidden shadow-[0_20px_50px_-20px_rgba(18,18,16,0.08),inset_0_1px_0_rgba(255,255,255,0.7)] dark:shadow-[0_24px_60px_-20px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.08)]">
-            <div
-              aria-hidden="true"
-              className="absolute -right-16 -top-16 w-96 h-96 rounded-full bg-[radial-gradient(circle,rgba(230,179,102,0.22)_0%,transparent_70%)] pointer-events-none"
-            />
-
-            <div className="relative z-10 flex flex-wrap items-center justify-between gap-4">
+          {/* Cell 1 (7 Cols): Clean Architectural Specimen Showcase */}
+          <div className="lg:col-span-7 relative rounded-[32px] bg-white dark:bg-[#121214] text-[#1d1d1f] dark:text-[#f5f5f7] p-8 sm:p-10 flex flex-col justify-between overflow-hidden shadow-[0_20px_50px_-24px_rgba(0,0,0,0.05)]">
+            <div className="relative z-10 flex flex-wrap items-start justify-between gap-4">
               <div className="space-y-1">
-                <span className="text-xs font-mono text-amber-700 dark:text-amber-400 font-semibold">
-                  62 Configurations · Sterile Blister Box of 20
+                <span className="text-xs font-medium text-[#86868b]">
+                  62 Configurations · Sterile Box of 20
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-black tracking-tight font-['Montserrat',sans-serif]">
-                  MEMBRANE SEALED PRECISION
+                <h3 className="text-2xl sm:text-3xl font-semibold tracking-[-0.025em]">
+                  Membrane-Sealed Precision.
                 </h3>
               </div>
 
-              <div className="text-right font-mono">
-                <span className="text-[11px] text-zinc-500 dark:text-zinc-400 block">Box of 20</span>
-                <span className="text-xl sm:text-2xl font-black text-amber-700 dark:text-amber-400 tabular-nums">
-                  $22.00 - $25.00
+              <div className="text-right">
+                <span className="text-[11px] text-[#86868b] block">Box of 20</span>
+                <span className="text-xl sm:text-2xl font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] tabular-nums tracking-tight">
+                  $22.00 – $25.00
                 </span>
               </div>
             </div>
 
-            <div className="relative z-10 my-6 flex items-center justify-center min-h-[240px] sm:min-h-[280px]">
+            <div className="relative z-10 my-8 flex items-center justify-center min-h-[240px] sm:min-h-[280px]">
               <img
                 src="/product-images/papa-premium-tattoo-cartridges-round-cutout.webp"
                 alt="Papa Premium 316L Needle Cartridges"
                 loading="lazy"
-                className="max-h-[250px] sm:max-h-[290px] w-auto object-contain drop-shadow-[0_20px_36px_rgba(18,18,16,0.18)] dark:drop-shadow-[0_28px_50px_rgba(0,0,0,0.75)] transition-transform duration-300 ease-[var(--ease-out-strong)] hover:scale-[1.03]"
+                className="max-h-[250px] sm:max-h-[290px] w-auto object-contain drop-shadow-[0_20px_36px_rgba(0,0,0,0.14)] dark:drop-shadow-[0_28px_50px_rgba(0,0,0,0.75)] transition-transform duration-300 ease-[var(--ease-spring)] hover:scale-[1.03]"
               />
             </div>
 
-            <div className="relative z-10 flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-amber-900/10 dark:border-white/[0.08]">
-              <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-zinc-600 dark:text-zinc-300">
+            <div className="relative z-10 flex flex-wrap items-center justify-between gap-4 pt-5 border-t border-black/[0.06] dark:border-white/[0.08]">
+              <div className="flex flex-wrap items-center gap-3 text-xs text-[#86868b]">
                 <span>100% EO Gas Sterilized</span>
-                <span className="text-zinc-400 dark:text-white/25">|</span>
+                <span className="opacity-40">·</span>
                 <span>Medical Polycarbonate Housing</span>
               </div>
 
               <Link
                 to="/products/$handle"
                 params={{ handle: 'papa-premium-tattoo-cartridges' }}
-                className="px-6 py-3 rounded-xl bg-zinc-950 text-white dark:bg-amber-400 dark:text-zinc-950 font-mono font-bold text-xs uppercase tracking-wider inline-flex items-center gap-2 hover:bg-zinc-800 dark:hover:bg-amber-300 transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97]"
+                className="px-6 py-3 rounded-full bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f] font-medium text-xs inline-flex items-center gap-2 hover:opacity-85 transition-[transform,opacity] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97]"
               >
                 <span>Configure 62 Sizes</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
           </div>
@@ -566,13 +558,13 @@ export const HomePage: React.FC = () => {
           {/* Right Column (5 Cols): 2 Stacked Engineering Bento Cells */}
           <div className="lg:col-span-5 flex flex-col gap-6">
             {/* Cell 2: 4 Needle Taper Configurations */}
-            <div className="flex-1 rounded-3xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#1a1d24] p-6 sm:p-7 flex flex-col justify-between shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
-              <div className="flex items-center justify-between gap-2 mb-4">
-                <h3 className="text-base font-bold text-zinc-950 dark:text-white tracking-tight">
+            <div className="flex-1 rounded-[32px] bg-white dark:bg-[#121214] p-7 sm:p-8 flex flex-col justify-between shadow-[0_20px_50px_-24px_rgba(0,0,0,0.05)]">
+              <div className="flex items-center justify-between gap-2 mb-5">
+                <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] tracking-[-0.015em]">
                   Four Needle Geometries
                 </h3>
-                <span className="text-xs font-mono text-zinc-500 dark:text-zinc-400">
-                  0.25 mm - 0.35 mm Gauges
+                <span className="text-xs text-[#86868b]">
+                  0.25 – 0.35 mm
                 </span>
               </div>
 
@@ -582,18 +574,18 @@ export const HomePage: React.FC = () => {
                     key={item.code}
                     to="/products/$handle"
                     params={{ handle: 'papa-premium-tattoo-cartridges' }}
-                    className="group p-3.5 rounded-2xl border border-[#eceae4] dark:border-white/[0.06] bg-[#f8f7f4] dark:bg-[#22252f]/70 hover:border-amber-500/50 transition-[transform,border-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.98]"
+                    className="group p-4 rounded-2xl bg-[#f5f5f7] dark:bg-[#1c1c1e] hover:bg-black/[0.06] dark:hover:bg-white/[0.08] transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.98]"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-sm font-mono font-black text-amber-700 dark:text-amber-400">
+                      <span className="text-sm font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">
                         {item.code}
                       </span>
-                      <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400 group-hover:text-zinc-950 dark:group-hover:text-white transition-colors" />
+                      <ArrowUpRight className="w-3.5 h-3.5 text-[#86868b] group-hover:text-[#1d1d1f] dark:group-hover:text-white transition-colors" />
                     </div>
-                    <div className="text-xs font-bold text-zinc-950 dark:text-white mt-1">
+                    <div className="text-xs font-medium text-[#1d1d1f] dark:text-[#f5f5f7] mt-1">
                       {item.name}
                     </div>
-                    <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-0.5 leading-snug">
+                    <p className="text-[11px] text-[#86868b] mt-0.5 leading-snug">
                       {item.spec}
                     </p>
                   </Link>
@@ -602,22 +594,22 @@ export const HomePage: React.FC = () => {
             </div>
 
             {/* Cell 3: Standard vs Premium Comparison Tile */}
-            <div className="rounded-3xl border border-[#e2dfd8] dark:border-white/[0.08] bg-[#eceae4]/75 dark:bg-[#1e212a] p-6 sm:p-7 flex items-center justify-between gap-5">
+            <div className="rounded-[32px] bg-white dark:bg-[#121214] p-7 sm:p-8 flex items-center justify-between gap-5 shadow-[0_20px_50px_-24px_rgba(0,0,0,0.05)]">
               <div className="space-y-2">
-                <span className="text-xs font-mono font-semibold text-[#0d5d50] dark:text-[#38e8c6]">
+                <span className="text-xs font-medium text-[#86868b]">
                   High-Volume Studio Pack
                 </span>
-                <h3 className="text-lg font-black text-zinc-950 dark:text-white font-['Montserrat',sans-serif]">
-                  STANDARD SERIES CARTRIDGES
+                <h3 className="text-xl font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7]">
+                  Standard Series Cartridges
                 </h3>
-                <p className="text-xs text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-xs">
+                <p className="text-xs text-[#86868b] leading-relaxed max-w-xs">
                   Universal twist-fit housing for daily workhorse lining and shading at $22.00 per box.
                 </p>
                 <div className="pt-1">
                   <Link
                     to="/products/$handle"
                     params={{ handle: 'papa-standard-tattoo-cartridges' }}
-                    className="text-xs font-mono font-bold text-zinc-950 dark:text-white hover:text-[#0d5d50] dark:hover:text-[#38e8c6] inline-flex items-center gap-1.5 transition-colors"
+                    className="text-xs font-medium text-[#1d1d1f] dark:text-[#f5f5f7] hover:opacity-70 inline-flex items-center gap-1 transition-opacity"
                   >
                     <span>Shop Standard Series</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -639,23 +631,23 @@ export const HomePage: React.FC = () => {
       {/* ============================================================ */}
       {/* ACT 5: CORDLESS POWER & CNC GRIPS (DUAL MONOLITH SHOWCASE)   */}
       {/* ============================================================ */}
-      <section className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl 2xl:max-w-[1440px] mx-auto border-b border-[#e2dfd8] dark:border-white/[0.08]">
+      <section className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl 2xl:max-w-[1440px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
           {/* Monolith 1: Papa Volt Wireless Power */}
-          <div className="rounded-3xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white/80 dark:bg-[#181b22] p-7 sm:p-10 flex flex-col justify-between shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
-            <div className="space-y-3">
-              <div className="text-xs font-mono font-semibold text-[#0d5d50] dark:text-[#38e8c6]">
-                5V - 12V Regulated Output · Universal RCA Fitment
+          <div className="rounded-[32px] bg-white dark:bg-[#121214] p-8 sm:p-10 flex flex-col justify-between shadow-[0_20px_50px_-24px_rgba(0,0,0,0.05)]">
+            <div className="space-y-2.5">
+              <div className="text-xs font-medium text-[#86868b]">
+                5V – 12V Regulated Output · Universal RCA Fitment
               </div>
-              <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-zinc-950 dark:text-white font-['Montserrat',sans-serif]">
-                PAPA VOLT WIRELESS POWER
+              <h2 className="text-2xl sm:text-4xl font-semibold tracking-[-0.028em] text-[#1d1d1f] dark:text-[#f5f5f7]">
+                Papa Volt Wireless Power.
               </h2>
-              <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              <p className="text-sm sm:text-base text-[#86868b] leading-relaxed">
                 Ultra-compact 2,000 mAh lithium dock delivering up to 8 hours of low-ripple voltage without tethering cords.
               </p>
             </div>
 
-            <div className="my-4 flex items-center justify-center">
+            <div className="my-6 flex items-center justify-center">
               <ParallaxApparatusStage
                 imageSrc="/product-images/img_041_papa_volt_large_cutout.webp"
                 alt="Papa Volt Wireless Battery Dock"
@@ -665,29 +657,29 @@ export const HomePage: React.FC = () => {
               />
             </div>
 
-            <div className="space-y-5">
-              <div className="grid grid-cols-3 gap-3 p-3.5 rounded-2xl bg-[#f5f4f0] dark:bg-[#22252f] text-center font-mono">
+            <div className="space-y-6">
+              <div className="grid grid-cols-3 gap-4 pt-5 border-t border-black/[0.06] dark:border-white/[0.08]">
                 <div>
-                  <span className="text-sm font-black text-zinc-950 dark:text-white block">
+                  <span className="text-lg sm:text-xl font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7] block tabular-nums">
                     2,000 mAh
                   </span>
-                  <span className="text-[10px] text-zinc-500 dark:text-zinc-400">
+                  <span className="text-xs text-[#86868b]">
                     Lithium Cell
                   </span>
                 </div>
-                <div className="border-x border-[#e2dfd8] dark:border-white/[0.08]">
-                  <span className="text-sm font-black text-zinc-950 dark:text-white block">
-                    5V - 12V
+                <div>
+                  <span className="text-lg sm:text-xl font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7] block tabular-nums">
+                    5V – 12V
                   </span>
-                  <span className="text-[10px] text-zinc-500 dark:text-zinc-400">
+                  <span className="text-xs text-[#86868b]">
                     Clean Drive
                   </span>
                 </div>
                 <div>
-                  <span className="text-sm font-black text-zinc-950 dark:text-white block">
+                  <span className="text-lg sm:text-xl font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7] block">
                     USB-C
                   </span>
-                  <span className="text-[10px] text-zinc-500 dark:text-zinc-400">
+                  <span className="text-xs text-[#86868b]">
                     Fast Charge
                   </span>
                 </div>
@@ -697,37 +689,37 @@ export const HomePage: React.FC = () => {
                 <Link
                   to="/products/$handle"
                   params={{ handle: 'papa-volt-battery' }}
-                  className="px-6 py-3 rounded-xl bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-mono font-bold text-xs uppercase tracking-wider inline-flex items-center gap-2 hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97]"
+                  className="px-6 py-3 rounded-full bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f] font-medium text-xs inline-flex items-center gap-2 hover:opacity-85 transition-[transform,opacity] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97]"
                 >
                   <span>Explore Papa Volt</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
                 <Link
                   to="/products"
                   search={{ category: 'power' }}
-                  className="text-xs font-mono font-semibold text-[#0d5d50] dark:text-[#38e8c6] hover:underline"
+                  className="text-xs font-medium text-[#86868b] hover:text-[#1d1d1f] dark:hover:text-white transition-colors"
                 >
-                  All Power Units →
+                  All power units →
                 </Link>
               </div>
             </div>
           </div>
 
           {/* Monolith 2: CNC Adjustable Click Grips */}
-          <div className="rounded-3xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white/80 dark:bg-[#181b22] p-7 sm:p-10 flex flex-col justify-between shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
-            <div className="space-y-3">
-              <div className="text-xs font-mono font-semibold text-[#0d5d50] dark:text-[#38e8c6]">
+          <div className="rounded-[32px] bg-white dark:bg-[#121214] p-8 sm:p-10 flex flex-col justify-between shadow-[0_20px_50px_-24px_rgba(0,0,0,0.05)]">
+            <div className="space-y-2.5">
+              <div className="text-xs font-medium text-[#86868b]">
                 Aerospace 6061-T6 Billet · 316L Stainless Backstem
               </div>
-              <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-zinc-950 dark:text-white font-['Montserrat',sans-serif]">
-                CNC CLICK GRIPS
+              <h2 className="text-2xl sm:text-4xl font-semibold tracking-[-0.028em] text-[#1d1d1f] dark:text-[#f5f5f7]">
+                CNC Click Grips.
               </h2>
-              <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              <p className="text-sm sm:text-base text-[#86868b] leading-relaxed">
                 Ratcheted millimeter click-stop needle depth locking shifts balance forward to reduce wrist fatigue.
               </p>
             </div>
 
-            <div className="my-4 flex items-center justify-center">
+            <div className="my-6 flex items-center justify-center">
               <ParallaxApparatusStage
                 imageSrc="/product-images/img_111_papa_adjustment_grips_1__cutout.webp"
                 alt="Papa CNC Adjustable Click Grip"
@@ -737,29 +729,29 @@ export const HomePage: React.FC = () => {
               />
             </div>
 
-            <div className="space-y-5">
-              <div className="grid grid-cols-3 gap-3 p-3.5 rounded-2xl bg-[#f5f4f0] dark:bg-[#22252f] text-center font-mono">
+            <div className="space-y-6">
+              <div className="grid grid-cols-3 gap-4 pt-5 border-t border-black/[0.06] dark:border-white/[0.08]">
                 <div>
-                  <span className="text-sm font-black text-zinc-950 dark:text-white block">
+                  <span className="text-lg sm:text-xl font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7] block">
                     6061-T6
                   </span>
-                  <span className="text-[10px] text-zinc-500 dark:text-zinc-400">
+                  <span className="text-xs text-[#86868b]">
                     Anodized Alloy
                   </span>
                 </div>
-                <div className="border-x border-[#e2dfd8] dark:border-white/[0.08]">
-                  <span className="text-sm font-black text-zinc-950 dark:text-white block">
+                <div>
+                  <span className="text-lg sm:text-xl font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7] block">
                     Click-Stop
                   </span>
-                  <span className="text-[10px] text-zinc-500 dark:text-zinc-400">
+                  <span className="text-xs text-[#86868b]">
                     Depth Lock
                   </span>
                 </div>
                 <div>
-                  <span className="text-sm font-black text-zinc-950 dark:text-white block">
+                  <span className="text-lg sm:text-xl font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7] block tabular-nums">
                     134 °C
                   </span>
-                  <span className="text-[10px] text-zinc-500 dark:text-zinc-400">
+                  <span className="text-xs text-[#86868b]">
                     Autoclavable
                   </span>
                 </div>
@@ -769,12 +761,12 @@ export const HomePage: React.FC = () => {
                 <Link
                   to="/products"
                   search={{ category: 'grips' }}
-                  className="px-6 py-3 rounded-xl bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-mono font-bold text-xs uppercase tracking-wider inline-flex items-center gap-2 hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97]"
+                  className="px-6 py-3 rounded-full bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f] font-medium text-xs inline-flex items-center gap-2 hover:opacity-85 transition-[transform,opacity] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97]"
                 >
                   <span>Explore 8 Grip Models</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
-                <span className="text-xs font-mono font-bold text-zinc-500 dark:text-zinc-400 tabular-nums">
+                <span className="text-xs font-medium text-[#86868b] tabular-nums">
                   From $79.95 USD
                 </span>
               </div>
@@ -792,45 +784,45 @@ export const HomePage: React.FC = () => {
           <div className="lg:col-span-7 space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
               <div className="space-y-1.5">
-                <div className="text-xs font-mono font-semibold uppercase tracking-wider text-[#0d5d50] dark:text-[#38e8c6]">
+                <div className="text-xs font-medium text-[#86868b]">
                   Official Pro Team Roster
                 </div>
-                <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-zinc-950 dark:text-white font-['Montserrat',sans-serif]">
-                  TRUSTED BY 40+ RESIDENT ARTISTS
+                <h2 className="text-3xl sm:text-4xl font-semibold tracking-[-0.028em] text-[#1d1d1f] dark:text-[#f5f5f7]">
+                  Trusted by 40+ Resident Artists.
                 </h2>
               </div>
 
               <Link
                 to="/sponsorship-artists"
-                className="text-xs font-mono font-bold text-zinc-950 dark:text-white hover:text-[#0d5d50] dark:hover:text-[#38e8c6] inline-flex items-center gap-1.5 shrink-0 transition-colors"
+                className="text-xs font-medium text-[#1d1d1f] dark:text-[#f5f5f7] hover:opacity-70 inline-flex items-center gap-1 shrink-0 transition-opacity"
               >
-                <span>Full Artist Directory</span>
+                <span>Full artist directory</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {FEATURED_ARTISTS.map(artist => (
                 <Link
                   key={artist.id}
                   to="/sponsorship-artists"
-                  className="group relative aspect-[4/5] rounded-2xl overflow-hidden border border-[#e2dfd8] dark:border-white/[0.08] bg-zinc-900"
+                  className="group relative aspect-[4/5] rounded-2xl overflow-hidden bg-zinc-900"
                 >
                   <img
                     src={artist.image}
                     alt={artist.name}
                     loading="lazy"
-                    className="w-full h-full object-cover object-center transition-transform duration-300 ease-[var(--ease-out-strong)] group-hover:scale-[1.05]"
+                    className="w-full h-full object-cover object-center transition-transform duration-300 ease-[var(--ease-spring)] group-hover:scale-[1.04]"
                   />
                   <div
                     aria-hidden="true"
-                    className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"
+                    className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent"
                   />
-                  <div className="absolute bottom-3 inset-x-3 text-left">
-                    <div className="text-xs font-bold text-white truncate">
+                  <div className="absolute bottom-3.5 inset-x-3.5 text-left">
+                    <div className="text-xs font-semibold text-white truncate">
                       {artist.name}
                     </div>
-                    <div className="text-[10px] font-mono text-zinc-300 truncate">
+                    <div className="text-[11px] text-white/70 truncate">
                       {artist.handle}
                     </div>
                   </div>
@@ -840,73 +832,73 @@ export const HomePage: React.FC = () => {
           </div>
 
           {/* Right 5 Columns: Architectural Studio & Wholesale Ledger */}
-          <div className="lg:col-span-5 rounded-3xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#181b22] p-7 sm:p-9 divide-y divide-[#eceae4] dark:divide-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
-            <div className="pb-6 space-y-2.5">
+          <div className="lg:col-span-5 rounded-[32px] bg-white dark:bg-[#121214] p-8 sm:p-10 divide-y divide-black/[0.06] dark:divide-white/[0.08] shadow-[0_20px_50px_-24px_rgba(0,0,0,0.05)]">
+            <div className="pb-6 space-y-2">
               <div className="flex items-center justify-between">
-                <h3 className="text-base font-bold text-zinc-950 dark:text-white tracking-tight">
+                <h3 className="text-base font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] tracking-[-0.015em]">
                   40+ Countries Express Dispatch
                 </h3>
-                <Truck className="w-5 h-5 text-[#0d5d50] dark:text-[#38e8c6] shrink-0" />
+                <Truck className="w-4.5 h-4.5 text-[#86868b] shrink-0" />
               </div>
-              <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#86868b] leading-relaxed">
                 Priority air logistics and verified regional distributors serving tattoo studios across North America, Europe, UK, and Australia.
               </p>
               <div className="pt-1">
                 <Link
                   to="/distributors"
-                  className="text-xs font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6] hover:underline inline-flex items-center gap-1"
+                  className="text-xs font-medium text-[#1d1d1f] dark:text-[#f5f5f7] hover:opacity-70 inline-flex items-center gap-1 transition-opacity"
                 >
-                  <span>Authorized Distributors</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <span>Authorized distributors</span>
+                  <ArrowRight className="w-3 h-3" />
                 </Link>
               </div>
             </div>
 
-            <div className="py-6 space-y-2.5">
+            <div className="py-6 space-y-2">
               <div className="flex items-center justify-between">
-                <h3 className="text-base font-bold text-zinc-950 dark:text-white tracking-tight">
+                <h3 className="text-base font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] tracking-[-0.015em]">
                   Class 100,000 Cleanroom Sterility
                 </h3>
-                <FileCheck2 className="w-5 h-5 text-amber-500 shrink-0" />
+                <FileCheck2 className="w-4.5 h-4.5 text-[#86868b] shrink-0" />
               </div>
-              <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#86868b] leading-relaxed">
                 Every cartridge needle and disposable grip is individually blister-sealed and certified with EO Gas batch indicators.
               </p>
               <div className="pt-1">
                 <Link
                   to="/about"
-                  className="text-xs font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6] hover:underline inline-flex items-center gap-1"
+                  className="text-xs font-medium text-[#1d1d1f] dark:text-[#f5f5f7] hover:opacity-70 inline-flex items-center gap-1 transition-opacity"
                 >
-                  <span>Engineering Standards</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <span>Engineering standards</span>
+                  <ArrowRight className="w-3 h-3" />
                 </Link>
               </div>
             </div>
 
-            <div className="pt-6 space-y-2.5">
+            <div className="pt-6 space-y-2">
               <div className="flex items-center justify-between">
-                <h3 className="text-base font-bold text-zinc-950 dark:text-white tracking-tight">
+                <h3 className="text-base font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] tracking-[-0.015em]">
                   Direct Factory Warranty &amp; Wholesale
                 </h3>
-                <ShieldCheck className="w-5 h-5 text-[#0d5d50] dark:text-[#38e8c6] shrink-0" />
+                <ShieldCheck className="w-4.5 h-4.5 text-[#86868b] shrink-0" />
               </div>
-              <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#86868b] leading-relaxed">
                 Dedicated studio volume pricing, custom anodized batch runs, and in-house rotary motor servicing.
               </p>
-              <div className="pt-1 flex flex-wrap items-center gap-4">
+              <div className="pt-1 flex flex-wrap items-center gap-5">
                 <Link
                   to="/contact"
-                  className="text-xs font-mono font-bold text-[#0d5d50] dark:text-[#38e8c6] hover:underline inline-flex items-center gap-1"
+                  className="text-xs font-medium text-[#1d1d1f] dark:text-[#f5f5f7] hover:opacity-70 inline-flex items-center gap-1 transition-opacity"
                 >
-                  <span>Direct Factory Inquiry</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <span>Direct factory inquiry</span>
+                  <ArrowRight className="w-3 h-3" />
                 </Link>
                 <Link
                   to="/sponsorship-artists"
-                  className="text-xs font-mono font-semibold text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white inline-flex items-center gap-1 transition-colors"
+                  className="text-xs font-medium text-[#86868b] hover:text-[#1d1d1f] dark:hover:text-white inline-flex items-center gap-1 transition-colors"
                 >
                   <Award className="w-3.5 h-3.5" />
-                  <span>Apply for Sponsorship</span>
+                  <span>Apply for sponsorship</span>
                 </Link>
               </div>
             </div>

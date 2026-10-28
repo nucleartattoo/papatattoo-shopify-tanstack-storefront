@@ -3,63 +3,63 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  --font-display: 'Montserrat', 'Plus Jakarta Sans', sans-serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Plus Jakarta Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'SF Mono', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Plus Jakarta Sans', system-ui, sans-serif;
 
   --color-papa-cyan: #38e8c6;
-  --color-papa-cyan-glow: rgba(56, 232, 198, 0.35);
-  --color-papa-cyan-dim: rgba(56, 232, 198, 0.12);
+  --color-papa-cyan-glow: rgba(56, 232, 198, 0.25);
+  --color-papa-cyan-dim: rgba(56, 232, 198, 0.1);
   --color-cyber-cyan: #38e8c6;
   --color-cyber-amber: #e6b366;
-  --color-obsidian: #20222a;
-  --color-obsidian-void: #191b21;
-  --color-obsidian-subtle: #252832;
-  --color-obsidian-card: #2a2d38;
-  --color-obsidian-border: #3e4354;
-  --color-titanium: #b0b5c4;
-  --color-titanium-bright: #f8f9fa;
+  --color-obsidian: #000000;
+  --color-obsidian-void: #000000;
+  --color-obsidian-subtle: #121214;
+  --color-obsidian-card: #161618;
+  --color-obsidian-border: rgba(255, 255, 255, 0.08);
+  --color-titanium: #86868b;
+  --color-titanium-bright: #f5f5f7;
 
-  /* Option A: Concrete & Raw Paper Aesthetic Tokens */
-  --color-plaster: #f5f4f0;
+  /* Apple Titanium & Space Black Tokens */
+  --color-plaster: #f5f5f7;
   --color-plaster-card: #ffffff;
-  --color-concrete: #eceae4;
-  --color-concrete-border: #e2dfd8;
-  --color-ink-black: #121210;
-  --color-ink-muted: #6b6860;
+  --color-concrete: #efeff4;
+  --color-concrete-border: rgba(0, 0, 0, 0.06);
+  --color-ink-black: #1d1d1f;
+  --color-ink-muted: #86868b;
   --color-ink-emerald: #0d5d50;
   --color-artisan-bronze: #a36f39;
 
-  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
-  --ease-in-strong: cubic-bezier(0.68, 0, 0.77, 0);
-  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-strong: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-strong: cubic-bezier(0.64, 0, 0.78, 0);
+  --ease-in-out-strong: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
   --ease-drawer-exit: cubic-bezier(0.28, 0, 0.68, 1);
 }
 
 :root {
-  --bg-primary: #f5f4f0;
-  --bg-secondary: #eceae4;
+  --bg-primary: #f5f5f7;
+  --bg-secondary: #efeff4;
   --bg-card: #ffffff;
-  --border-color: #e2dfd8;
-  --text-primary: #121210;
-  --text-secondary: #6b6860;
+  --border-color: rgba(0, 0, 0, 0.06);
+  --text-primary: #1d1d1f;
+  --text-secondary: #86868b;
   --brand-cyan: #0d5d50;
-  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
-  --ease-in-strong: cubic-bezier(0.68, 0, 0.77, 0);
-  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-out-strong: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-strong: cubic-bezier(0.64, 0, 0.78, 0);
+  --ease-in-out-strong: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
   --ease-drawer-exit: cubic-bezier(0.28, 0, 0.68, 1);
 }
 
 .dark {
-  --bg-primary: #20222a;
-  --bg-secondary: #252832;
-  --bg-card: #2a2d38;
-  --border-color: #3e4354;
-  --text-primary: #f8f9fa;
-  --text-secondary: #b0b5c4;
+  --bg-primary: #000000;
+  --bg-secondary: #121214;
+  --bg-card: #161618;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --text-primary: #f5f5f7;
+  --text-secondary: #86868b;
   --brand-cyan: #38e8c6;
 }
 
@@ -116,41 +116,39 @@ a:active {
 
 /* Apple Translucent Materials & Depth (§12) */
 .apple-glass-chrome {
-  background-color: rgba(245, 244, 240, 0.82);
+  background-color: rgba(251, 251, 253, 0.8);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
 }
 
 .dark .apple-glass-chrome {
-  background-color: rgba(22, 24, 31, 0.82);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  background-color: rgba(22, 22, 23, 0.8);
 }
 
 .apple-glass-popover {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(24px) saturate(190%);
   -webkit-backdrop-filter: blur(24px) saturate(190%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.75),
-    0 22px 54px -12px rgba(18, 18, 16, 0.2);
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 20px 48px -12px rgba(0, 0, 0, 0.14);
 }
 
 .dark .apple-glass-popover {
-  background-color: rgba(24, 27, 34, 0.88);
+  background-color: rgba(28, 28, 30, 0.88);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.09),
-    0 24px 64px -12px rgba(0, 0, 0, 0.78);
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 24px 60px -12px rgba(0, 0, 0, 0.75);
 }
 
 .apple-glass-sheet {
-  background-color: rgba(245, 244, 240, 0.94);
+  background-color: rgba(251, 251, 253, 0.94);
   backdrop-filter: blur(28px) saturate(190%);
   -webkit-backdrop-filter: blur(28px) saturate(190%);
 }
 
 .dark .apple-glass-sheet {
-  background-color: rgba(32, 34, 42, 0.94);
+  background-color: rgba(22, 22, 24, 0.94);
 }
 
 /* Interactive cursor defaults (restoring pointer cursor for buttons in Tailwind v4) */
@@ -180,16 +178,16 @@ button:disabled,
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.3);
+  background: rgba(134, 134, 139, 0.3);
   border-radius: 9999px;
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: rgba(46, 230, 202, 0.2);
+  background: rgba(134, 134, 139, 0.35);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(46, 230, 202, 0.5);
+  background: rgba(134, 134, 139, 0.55);
 }
 
 .no-scrollbar {
@@ -199,193 +197,6 @@ button:disabled,
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;
-}
-
-/* Sacred geometry glowing grid background */
-.sacred-grid-bg {
-  background-size: 32px 32px;
-  background-image:
-    linear-gradient(to right, rgba(148, 163, 184, 0.08) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
-}
-
-.dark .sacred-grid-bg {
-  background-image:
-    linear-gradient(to right, rgba(56, 232, 198, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(56, 232, 198, 0.06) 1px, transparent 1px);
-}
-
-/* Artistic Studio Lighting Atmosphere (Breaks flat dark void with soft emerald & warm amber aurora) */
-.art-aurora-bg {
-  position: relative;
-}
-.art-aurora-bg::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse 65% 50% at 20% 15%, rgba(56, 232, 198, 0.09) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 45% at 80% 55%, rgba(230, 179, 102, 0.08) 0%, transparent 55%),
-    radial-gradient(ellipse 55% 50% at 45% 90%, rgba(56, 232, 198, 0.06) 0%, transparent 60%);
-  z-index: 0;
-}
-
-/* Tattoo Stencil Sacred Geometry Background Pattern */
-.tattoo-stencil-pattern {
-  background-size: 56px 56px;
-  background-image:
-    radial-gradient(circle at 28px 28px, rgba(56, 232, 198, 0.06) 1.5px, transparent 1.5px),
-    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-}
-
-/* Fluid Ink & Smoke Drift Keyframes */
-@keyframes fluid-ink-drift {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
-  }
-  50% {
-    transform: translate3d(60px, 40px, 0) scale(1.08) rotate(4deg);
-  }
-  100% {
-    transform: translate3d(-40px, 80px, 0) scale(0.96) rotate(-3deg);
-  }
-}
-
-@keyframes fluid-ink-drift-reverse {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
-  }
-  50% {
-    transform: translate3d(-50px, -40px, 0) scale(1.06) rotate(-5deg);
-  }
-  100% {
-    transform: translate3d(30px, -70px, 0) scale(0.95) rotate(3deg);
-  }
-}
-
-@keyframes fluid-ink-pulse {
-  0% {
-    transform: scale(0.95) translate3d(0, 0, 0);
-    opacity: 0.45;
-  }
-  50% {
-    transform: scale(1.06) translate3d(20px, -20px, 0);
-    opacity: 0.65;
-  }
-  100% {
-    transform: scale(0.98) translate3d(-20px, 15px, 0);
-    opacity: 0.5;
-  }
-}
-
-/* Cyberpunk High-Tech Apparatus Utilities */
-.cyber-grid-overlay {
-  background-size: 24px 24px;
-  background-image:
-    radial-gradient(circle, rgba(0, 240, 255, 0.12) 1px, transparent 1px);
-}
-
-.dark .cyber-grid-overlay {
-  background-image:
-    radial-gradient(circle, rgba(0, 240, 255, 0.18) 1px, transparent 1px);
-}
-
-/* Technical HUD Corner Brackets */
-.hud-corner-bracket {
-  position: relative;
-}
-.hud-corner-bracket::before,
-.hud-corner-bracket::after {
-  content: '';
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  pointer-events: none;
-  transition:
-    opacity 200ms var(--ease-out-strong),
-    border-color 200ms var(--ease-out-strong),
-    filter 200ms var(--ease-out-strong);
-}
-.hud-corner-bracket::before {
-  top: -1px;
-  left: -1px;
-  border-top: 2px solid #00f0ff;
-  border-left: 2px solid #00f0ff;
-  opacity: 0.6;
-}
-.hud-corner-bracket::after {
-  bottom: -1px;
-  right: -1px;
-  border-bottom: 2px solid #00f0ff;
-  border-right: 2px solid #00f0ff;
-  opacity: 0.6;
-}
-.group:hover .hud-corner-bracket::before,
-.group:hover .hud-corner-bracket::after {
-  opacity: 1;
-  border-color: #2ee6ca;
-  filter: drop-shadow(0 0 4px rgba(0, 240, 255, 0.7));
-}
-
-/* Subtle Sci-Fi Angled Chamfer Cut-Path */
-.cyber-chamfer-sm {
-  clip-path: polygon(
-    0 0,
-    calc(100% - 8px) 0,
-    100% 8px,
-    100% 100%,
-    8px 100%,
-    0 calc(100% - 8px)
-  );
-}
-
-.cyber-chamfer-md {
-  clip-path: polygon(
-    0 0,
-    calc(100% - 14px) 0,
-    100% 14px,
-    100% 100%,
-    14px 100%,
-    0 calc(100% - 14px)
-  );
-}
-
-/* High-Voltage Neon Glows */
-.cyber-glow-cyan {
-  box-shadow: 0 0 25px -5px rgba(0, 240, 255, 0.25);
-}
-
-.cyber-glow-cyan-hover:hover {
-  box-shadow: 0 0 30px -3px rgba(0, 240, 255, 0.4);
-}
-
-.cyber-glow-amber {
-  box-shadow: 0 0 25px -5px rgba(255, 184, 0, 0.25);
-}
-
-/* Subtle Technical Scanline Texture */
-.cyber-scanlines {
-  background: linear-gradient(
-    to bottom,
-    rgba(255,255,255,0),
-    rgba(255,255,255,0) 50%,
-    rgba(0, 240, 255, 0.02) 50%,
-    rgba(0, 240, 255, 0.02)
-  );
-  background-size: 100% 4px;
-}
-
-.dark .cyber-scanlines {
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0),
-    rgba(0, 0, 0, 0) 50%,
-    rgba(0, 240, 255, 0.03) 50%,
-    rgba(0, 240, 255, 0.03)
-  );
-  background-size: 100% 4px;
 }
 
 /* Product WYSIWYG Description overrides */
@@ -484,11 +295,11 @@ button:disabled,
   }
 
   .apple-glass-chrome {
-    background-color: #f5f4f0 !important;
+    background-color: #fbfbfd !important;
   }
 
   .dark .apple-glass-chrome {
-    background-color: #16181f !important;
+    background-color: #161617 !important;
   }
 
   .apple-glass-popover {
@@ -496,15 +307,15 @@ button:disabled,
   }
 
   .dark .apple-glass-popover {
-    background-color: #181b22 !important;
+    background-color: #1c1c1e !important;
   }
 
   .apple-glass-sheet {
-    background-color: #f5f4f0 !important;
+    background-color: #fbfbfd !important;
   }
 
   .dark .apple-glass-sheet {
-    background-color: #20222a !important;
+    background-color: #161618 !important;
   }
 }
 

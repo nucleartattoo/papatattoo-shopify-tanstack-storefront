@@ -7,13 +7,10 @@ import {
   Plus,
   RotateCw,
   Scale,
-  ShoppingBag,
-  Sparkles,
   X,
 } from 'lucide-react'
 import { ShopifyProduct, ShopifyVariant } from '../../types/shopify'
 import { useCart } from '../../context/CartContext'
-import { useLocale } from '../../context/LocaleContext'
 import { formatProductImageUrl } from '../../utils/imageUrl'
 import { ModelViewer3D } from '../common/ModelViewer3D'
 import { HardwareModelGroup, MachineBenchmarkItem } from '../../lib/hardwareLineup'
@@ -36,7 +33,6 @@ function resolveDefaultVariant(product: ShopifyProduct): ShopifyVariant {
 
 export const HardwareModelCard: React.FC<{ group: HardwareModelGroup }> = ({ group }) => {
   const { addToCart } = useCart()
-  const { t } = useLocale()
 
   const firstAvailableIdx = group.options.findIndex(o => o.available)
   const [selectedIdx, setSelectedIdx] = useState(firstAvailableIdx >= 0 ? firstAvailableIdx : 0)
@@ -84,69 +80,43 @@ export const HardwareModelCard: React.FC<{ group: HardwareModelGroup }> = ({ gro
 
   const categoryBadge =
     group.category === 'machines'
-      ? 'ROTARY'
+      ? 'Rotary'
       : group.category === 'cartridges'
-      ? '316L NEEDLES'
+      ? '316L Needles'
       : group.category === 'grips'
-      ? 'GRIP INTERFACE'
+      ? 'Grip System'
       : group.category === 'power'
-      ? 'POWER & DRIVE'
-      : 'STUDIO GEAR'
+      ? 'Wireless Power'
+      : 'Studio Gear'
 
   return (
-    <article
-      className={`group relative rounded-2xl border p-5 flex flex-col justify-between shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-[border-color,box-shadow,transform] duration-200 ease-[var(--ease-out-strong)] ${
-        group.isFlagshipAmber
-          ? 'border-amber-500/30 dark:border-amber-500/35 bg-white dark:bg-[#22252f] hover:border-amber-500/55 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_16px_34px_-12px_rgba(180,115,20,0.18)] dark:hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_16px_34px_rgba(245,158,11,0.12)]'
-          : 'border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] hover:border-zinc-300 dark:hover:border-white/20 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_16px_34px_-12px_rgba(18,18,16,0.1)] dark:hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_16px_34px_rgba(0,0,0,0.45)]'
-      }`}
-    >
+    <article className="group relative rounded-[28px] bg-white dark:bg-[#121214] p-6 flex flex-col justify-between shadow-[0_14px_36px_-18px_rgba(0,0,0,0.06)] hover:shadow-[0_22px_48px_-18px_rgba(0,0,0,0.11)] dark:shadow-[0_16px_40px_-18px_rgba(0,0,0,0.55)] transition-[box-shadow,transform] duration-250 ease-[var(--ease-spring)]">
       <div>
-        {/* Header Metadata Row */}
-        <div className="flex items-center justify-between gap-2 mb-3.5">
-          {group.isFlagshipAmber ? (
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[10px] font-mono font-semibold tracking-wider uppercase bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20">
-              <Sparkles className="w-3 h-3 text-amber-500" />
-              <span>Flagship Series</span>
-            </span>
-          ) : (
-            <span className="text-[10px] font-mono font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
-              {categoryBadge}
-            </span>
-          )}
+        {/* Minimal Eyebrow Row */}
+        <div className="flex items-center justify-between gap-2 mb-2">
+          <span className="text-[11px] font-medium text-[#86868b]">
+            {group.isFlagshipAmber ? 'Flagship Series' : categoryBadge}
+          </span>
 
-          {activeOption.available ? (
-            <span className="text-[10px] font-mono font-semibold text-[#0d5d50] dark:text-[#38e8c6] whitespace-nowrap">
-              {t('card_in_stock')}
-            </span>
-          ) : (
-            <span className="text-[10px] font-mono text-zinc-400 dark:text-zinc-500 whitespace-nowrap">
+          {!activeOption.available && (
+            <span className="text-[11px] font-medium text-[#86868b] whitespace-nowrap">
               Sold out
             </span>
           )}
         </div>
 
-        {/* Specimen Stage */}
+        {/* Borderless Integrated Specimen Stage (No box-in-box) */}
         <Link
           to="/products/$handle"
           params={{ handle: activeProduct.handle }}
-          className="relative aspect-square w-full rounded-xl bg-[#f8f7f4] dark:bg-[#181b22] flex items-center justify-center p-4 overflow-hidden border border-[#eceae4] dark:border-white/[0.06] shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
+          className="relative aspect-square w-full rounded-2xl flex items-center justify-center p-4 overflow-hidden"
         >
-          <div
-            className="absolute inset-6 rounded-full opacity-[0.07] dark:opacity-[0.14] blur-2xl transition-opacity duration-200 ease-[var(--ease-out-strong)] group-hover:opacity-[0.15] dark:group-hover:opacity-[0.24] pointer-events-none"
-            style={{
-              background: group.isFlagshipAmber
-                ? '#f59e0b'
-                : activeOption.swatchCss || '#2ee6ca',
-            }}
-          />
-
           <img
             src={currentImage}
             alt={activeProduct.title}
             loading="lazy"
-            className={`relative max-h-[86%] max-w-[86%] w-auto h-auto object-contain transition-[transform,opacity,filter] duration-200 ease-[var(--ease-out-strong)] group-hover:scale-[1.04] drop-shadow-[0_10px_18px_rgba(18,18,16,0.1)] dark:drop-shadow-[0_14px_24px_rgba(0,0,0,0.5)] ${
-              isTransitioning ? 'opacity-75 blur-[1.5px]' : 'opacity-100 blur-0'
+            className={`relative max-h-[86%] max-w-[86%] w-auto h-auto object-contain transition-[transform,opacity,filter] duration-300 ease-[var(--ease-spring)] group-hover:scale-[1.04] drop-shadow-[0_12px_22px_rgba(0,0,0,0.1)] dark:drop-shadow-[0_16px_28px_rgba(0,0,0,0.55)] ${
+              isTransitioning ? 'opacity-70 blur-[2px] scale-[0.98]' : 'opacity-100 blur-0 scale-100'
             }`}
             onError={e => {
               const image = e.currentTarget
@@ -159,17 +129,9 @@ export const HardwareModelCard: React.FC<{ group: HardwareModelGroup }> = ({ gro
 
         {/* Anodized Swatches / Edition Selector */}
         {hasSwatches && (
-          <div className="mt-3.5 pt-0.5">
+          <div className="mt-3 pt-0.5">
             {group.options[0].swatchType === 'dot' ? (
-              <div className="space-y-1.5">
-                <div className="flex items-center justify-between gap-2 text-[11px] font-mono">
-                  <span className="text-zinc-400 dark:text-zinc-500">
-                    {group.swatchLabelPrefix || 'Finish'} ({group.options.length})
-                  </span>
-                  <span className="text-zinc-700 dark:text-zinc-300 font-medium truncate">
-                    {activeOption.label}
-                  </span>
-                </div>
+              <div className="space-y-2">
                 <div className="flex flex-wrap items-center gap-2" role="radiogroup" aria-label={`${group.masterTitle} finish`}>
                   {group.options.map((opt, idx) => {
                     const isSelected = idx === safeIdx
@@ -182,29 +144,32 @@ export const HardwareModelCard: React.FC<{ group: HardwareModelGroup }> = ({ gro
                         aria-label={`${opt.label}${opt.available ? '' : ' (Sold out)'}`}
                         title={`${opt.label}${opt.available ? '' : ' · Sold out'}`}
                         onClick={() => handleSelectOption(idx)}
-                        className={`relative w-5 h-5 rounded-full transition-transform duration-150 ease-[var(--ease-out-strong)] active:scale-90 ${
+                        className={`relative w-4 h-4 rounded-full transition-transform duration-150 ease-[var(--ease-out-strong)] active:scale-90 ${
                           isSelected
-                            ? 'ring-2 ring-offset-2 ring-zinc-900 dark:ring-[#38e8c6] ring-offset-white dark:ring-offset-[#22252f] scale-105'
-                            : 'ring-1 ring-black/15 dark:ring-white/20 hover:scale-110 opacity-85 hover:opacity-100'
+                            ? 'ring-2 ring-offset-2 ring-[#1d1d1f] dark:ring-white ring-offset-white dark:ring-offset-[#121214] scale-105'
+                            : 'ring-1 ring-black/15 dark:ring-white/20 hover:scale-110 opacity-80 hover:opacity-100'
                         }`}
                         style={{ background: opt.swatchCss }}
                       >
-                        <span className="absolute inset-0 rounded-full shadow-[inset_0_1px_1px_rgba(255,255,255,0.45)] pointer-events-none" />
+                        <span className="absolute inset-0 rounded-full shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)] pointer-events-none" />
                         {!opt.available && (
                           <span
                             aria-hidden="true"
                             className="absolute inset-0 flex items-center justify-center pointer-events-none"
                           >
-                            <span className="w-5 h-[1.5px] bg-red-500/90 -rotate-45 rounded-full" />
+                            <span className="w-4 h-[1.5px] bg-red-500/90 -rotate-45 rounded-full" />
                           </span>
                         )}
                       </button>
                     )
                   })}
                 </div>
+                <div className="text-[11px] text-[#86868b] truncate">
+                  {activeOption.label}
+                </div>
               </div>
             ) : (
-              <div className="flex flex-wrap items-center gap-1.5" role="radiogroup" aria-label={`${group.masterTitle} edition`}>
+              <div className="inline-flex flex-wrap items-center gap-1 p-0.5 rounded-full bg-black/[0.04] dark:bg-white/[0.06]" role="radiogroup" aria-label={`${group.masterTitle} edition`}>
                 {group.options.map((opt, idx) => {
                   const isSelected = idx === safeIdx
                   return (
@@ -214,10 +179,10 @@ export const HardwareModelCard: React.FC<{ group: HardwareModelGroup }> = ({ gro
                       role="radio"
                       aria-checked={isSelected}
                       onClick={() => handleSelectOption(idx)}
-                      className={`px-2.5 py-1 rounded-lg text-[11px] font-mono font-medium transition-[background-color,color,border-color,transform] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] border ${
+                      className={`px-2.5 py-1 rounded-full text-[11px] font-medium transition-[background-color,color,transform,box-shadow] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] ${
                         isSelected
-                          ? 'bg-zinc-950 text-white border-zinc-950 dark:bg-[#38e8c6] dark:text-zinc-950 dark:border-[#38e8c6]'
-                          : 'bg-[#f8f7f4] dark:bg-[#181b22] text-zinc-600 dark:text-zinc-300 border-[#e2dfd8] dark:border-white/10 hover:border-zinc-400 dark:hover:border-white/25'
+                          ? 'bg-white text-[#1d1d1f] dark:bg-[#2c2c2e] dark:text-white shadow-2xs'
+                          : 'text-[#86868b] hover:text-[#1d1d1f] dark:hover:text-white'
                       }`}
                     >
                       {opt.label}
@@ -236,43 +201,31 @@ export const HardwareModelCard: React.FC<{ group: HardwareModelGroup }> = ({ gro
             params={{ handle: activeProduct.handle }}
             className="block"
           >
-            <h3
-              className={`font-bold text-[15px] leading-snug tracking-tight transition-colors duration-150 line-clamp-2 ${
-                group.isFlagshipAmber
-                  ? 'text-zinc-950 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400'
-                  : 'text-zinc-950 dark:text-white group-hover:text-[#0d5d50] dark:group-hover:text-[#38e8c6]'
-              }`}
-            >
+            <h3 className="font-semibold text-base leading-snug tracking-[-0.015em] text-[#1d1d1f] dark:text-[#f5f5f7] group-hover:opacity-75 transition-opacity duration-150 line-clamp-2">
               {group.masterTitle}
             </h3>
           </Link>
-          <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed line-clamp-2">
+          <p className="text-xs text-[#86868b] leading-relaxed line-clamp-2">
             {group.specLine}
           </p>
         </div>
       </div>
 
-      {/* Pricing & Direct Action */}
-      <div className="mt-5 pt-3.5 border-t border-[#eceae4] dark:border-white/[0.08] flex items-center justify-between gap-2.5">
+      {/* Pricing & Direct Pill Action */}
+      <div className="mt-5 pt-3.5 border-t border-black/[0.05] dark:border-white/[0.06] flex items-center justify-between gap-2.5">
         <div className="min-w-0">
-          <span className="text-[10px] font-mono text-zinc-400 dark:text-zinc-500 uppercase tracking-wider block">
+          <span className="text-[11px] text-[#86868b] block">
             {group.category === 'cartridges' || titleLower.includes('disposable')
               ? 'Box of 20'
               : hasMultipleVariants
               ? 'From'
-              : 'Unit'}
+              : 'Price'}
           </span>
           <div className="flex items-baseline gap-1 whitespace-nowrap tabular-nums">
-            <span
-              className={`text-base sm:text-[17px] font-bold font-mono tracking-tight ${
-                group.isFlagshipAmber
-                  ? 'text-amber-700 dark:text-amber-400'
-                  : 'text-zinc-950 dark:text-white'
-              }`}
-            >
+            <span className="text-base sm:text-[17px] font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] tracking-[-0.015em]">
               {amountFormatted}
             </span>
-            <span className="text-[10px] font-mono text-zinc-400 dark:text-zinc-500">
+            <span className="text-[11px] text-[#86868b]">
               {currencyCode}
             </span>
           </div>
@@ -282,7 +235,7 @@ export const HardwareModelCard: React.FC<{ group: HardwareModelGroup }> = ({ gro
           <Link
             to="/products/$handle"
             params={{ handle: activeProduct.handle }}
-            className="inline-flex items-center justify-center px-3 py-1.5 rounded-lg font-mono text-[10px] font-semibold uppercase tracking-wider bg-zinc-100 dark:bg-zinc-800 text-zinc-400 dark:text-zinc-500 border border-zinc-200 dark:border-white/[0.06] shrink-0 whitespace-nowrap"
+            className="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-xs font-medium bg-black/[0.04] dark:bg-white/[0.06] text-[#86868b] shrink-0 whitespace-nowrap"
           >
             Sold out
           </Link>
@@ -290,25 +243,19 @@ export const HardwareModelCard: React.FC<{ group: HardwareModelGroup }> = ({ gro
           <Link
             to="/products/$handle"
             params={{ handle: activeProduct.handle }}
-            className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-semibold uppercase tracking-wider transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] shrink-0 whitespace-nowrap ${
-              group.isFlagshipAmber
-                ? 'bg-amber-500 text-zinc-950 hover:bg-amber-400 shadow-xs'
-                : 'bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-zinc-200 shadow-xs'
-            }`}
+            className="inline-flex items-center gap-1 px-4 py-2 rounded-full text-xs font-medium bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f] hover:opacity-85 transition-[transform,opacity] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] shrink-0 whitespace-nowrap"
           >
-            <span>Select</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <span>Buy</span>
+            <ArrowRight className="w-3 h-3" />
           </Link>
         ) : (
           <button
             type="button"
             onClick={handleQuickAdd}
-            className={`inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl font-mono text-xs font-semibold transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] shrink-0 whitespace-nowrap ${
+            className={`inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium transition-[transform,background-color,opacity] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] shrink-0 whitespace-nowrap ${
               addedFeedback
                 ? 'bg-emerald-600 text-white'
-                : group.isFlagshipAmber
-                ? 'bg-amber-500 text-zinc-950 hover:bg-amber-400 shadow-xs'
-                : 'bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-zinc-200 shadow-xs'
+                : 'bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f] hover:opacity-85'
             }`}
             aria-label={`Add ${activeProduct.title} to cart`}
           >
@@ -320,7 +267,7 @@ export const HardwareModelCard: React.FC<{ group: HardwareModelGroup }> = ({ gro
             ) : (
               <>
                 <Plus className="w-3.5 h-3.5" />
-                <ShoppingBag className="w-3.5 h-3.5" />
+                <span>Add</span>
               </>
             )}
           </button>

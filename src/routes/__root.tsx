@@ -14,7 +14,6 @@ import appCss from '../index.css?url'
 import { Header } from '../components/common/Header'
 import { Footer } from '../components/common/Footer'
 import { CartDrawer } from '../components/cart/CartDrawer'
-import { FluidInkBackground } from '../components/common/FluidInkBackground'
 import { NotFound } from '../components/common/NotFound'
 import { GlobalErrorFallback } from '../components/common/GlobalErrorFallback'
 import { ThemeProvider } from '../context/ThemeContext'
@@ -78,8 +77,8 @@ export const Route = createRootRouteWithContext<RouterContext>()({
         name: 'twitter:image',
         content: 'https://papatattoo.com/slides/slide_2_premium_cartridges.png',
       },
-      { name: 'theme-color', content: '#20222a', media: '(prefers-color-scheme: dark)' },
-      { name: 'theme-color', content: '#f5f4f0', media: '(prefers-color-scheme: light)' },
+      { name: 'theme-color', content: '#000000', media: '(prefers-color-scheme: dark)' },
+      { name: 'theme-color', content: '#f5f5f7', media: '(prefers-color-scheme: light)' },
     ],
     links: [
       { rel: 'manifest', href: '/manifest.json' },
@@ -141,9 +140,7 @@ function RootComponent() {
       <ThemeProvider>
         <LocaleProvider>
           <CartProvider>
-            <div className="min-h-[100dvh] flex flex-col bg-[#f5f4f0] dark:bg-[#20222a] text-zinc-900 dark:text-zinc-100 transition-colors duration-300 relative overflow-x-clip">
-              {/* Organic Fluid Ink & Smoke Ambient Canvas */}
-              <FluidInkBackground />
+            <div className="min-h-[100dvh] flex flex-col bg-[#f5f5f7] dark:bg-black text-[#1d1d1f] dark:text-[#f5f5f7] transition-colors duration-300 relative overflow-x-clip">
               <Header />
               <main className="flex-1 relative z-10">
                 <Outlet />
@@ -186,7 +183,7 @@ function RootDocument({
           }}
         />
       </head>
-      <body suppressHydrationWarning className="bg-[#f5f4f0] dark:bg-[#20222a] transition-colors duration-200 antialiased selection:bg-[#0d5d50] selection:text-white dark:selection:bg-[#38e8c6] dark:selection:text-zinc-950">
+      <body suppressHydrationWarning className="bg-[#f5f5f7] dark:bg-black transition-colors duration-200 antialiased selection:bg-zinc-900 selection:text-white dark:selection:bg-white dark:selection:text-zinc-950">
         {children}
         <Scripts />
       </body>

@@ -39,69 +39,61 @@ export const Footer: React.FC = () => {
   }
 
   return (
-    <footer className="border-t border-[#e2dfd8] dark:border-white/[0.08] bg-[#f5f4f0] dark:bg-[#181b22] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] text-[#6b6860] dark:text-zinc-400 font-sans transition-colors duration-200">
-      {/* Top Banner - Buyer Trust & Engineering Standards */}
-      <div className="border-b border-[#e2dfd8]/80 dark:border-white/[0.06] py-8">
-        <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-xs font-mono">
-          <div className="flex items-center gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-white dark:bg-[#22252f] border border-[#e2dfd8] dark:border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] flex items-center justify-center shrink-0">
-              <Cpu className="w-4 h-4 text-[#0d5d50] dark:text-[#38e8c6]" />
-            </div>
+    <footer className="border-t border-black/[0.06] dark:border-white/[0.08] bg-[#f5f5f7] dark:bg-[#0a0a0c] text-[#86868b] font-sans transition-colors duration-200">
+      {/* Top Banner - Restrained Borderless Apple-style Pillars */}
+      <div className="border-b border-black/[0.06] dark:border-white/[0.06] py-10">
+        <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-xs">
+          <div className="flex items-start gap-3">
+            <Cpu className="w-4 h-4 text-[#1d1d1f] dark:text-[#f5f5f7] mt-0.5 shrink-0" />
             <div>
-              <div className="font-bold text-zinc-950 dark:text-white uppercase tracking-tight">6061-T6 AIRCRAFT ALLOY</div>
-              <div className="text-zinc-500 dark:text-zinc-400 text-[11px] font-sans mt-0.5">Ultra-light zero-fatigue machine grips</div>
+              <div className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] tracking-[-0.01em]">6061-T6 Aircraft Alloy</div>
+              <div className="text-[#86868b] text-xs mt-0.5 leading-relaxed">Ultra-light zero-fatigue machine grips</div>
             </div>
           </div>
 
-          <div className="flex items-center gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-white dark:bg-[#22252f] border border-[#e2dfd8] dark:border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] flex items-center justify-center shrink-0">
-              <ShieldCheck className="w-4 h-4 text-[#0d5d50] dark:text-[#38e8c6]" />
-            </div>
+          <div className="flex items-start gap-3">
+            <ShieldCheck className="w-4 h-4 text-[#1d1d1f] dark:text-[#f5f5f7] mt-0.5 shrink-0" />
             <div>
-              <div className="font-bold text-zinc-950 dark:text-white uppercase tracking-tight">AUTOCLAVABLE CORE</div>
-              <div className="text-zinc-500 dark:text-zinc-400 text-[11px] font-sans mt-0.5">Resistant to high-temp medical sterilization</div>
+              <div className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] tracking-[-0.01em]">Autoclavable Core</div>
+              <div className="text-[#86868b] text-xs mt-0.5 leading-relaxed">Engineered for high-temp medical sterilization</div>
             </div>
           </div>
 
-          <div className="flex items-center gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-white dark:bg-[#22252f] border border-[#e2dfd8] dark:border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] flex items-center justify-center shrink-0">
-              <Globe className="w-4 h-4 text-[#0d5d50] dark:text-[#38e8c6]" />
-            </div>
+          <div className="flex items-start gap-3">
+            <Globe className="w-4 h-4 text-[#1d1d1f] dark:text-[#f5f5f7] mt-0.5 shrink-0" />
             <div>
-              <div className="font-bold text-zinc-950 dark:text-white uppercase tracking-tight">40+ NATIONS LOGISTICS</div>
-              <div className="text-zinc-500 dark:text-zinc-400 text-[11px] font-sans mt-0.5">Priority air freight &amp; parlor dispatch worldwide</div>
+              <div className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] tracking-[-0.01em]">40+ Countries Dispatch</div>
+              <div className="text-[#86868b] text-xs mt-0.5 leading-relaxed">Priority air freight &amp; studio delivery worldwide</div>
             </div>
           </div>
 
-          <div className="flex items-center gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-white dark:bg-[#22252f] border border-[#e2dfd8] dark:border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] flex items-center justify-center shrink-0">
-              <BadgeCheck className="w-4 h-4 text-[#0d5d50] dark:text-[#38e8c6]" />
-            </div>
+          <div className="flex items-start gap-3">
+            <BadgeCheck className="w-4 h-4 text-[#1d1d1f] dark:text-[#f5f5f7] mt-0.5 shrink-0" />
             <div>
-              <div className="font-bold text-zinc-950 dark:text-white uppercase tracking-tight">100% EO GAS CERTIFIED</div>
-              <div className="text-zinc-500 dark:text-zinc-400 text-[11px] font-sans mt-0.5">Individual blister batch sterility guarantee</div>
+              <div className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] tracking-[-0.01em]">100% EO Gas Certified</div>
+              <div className="text-[#86868b] text-xs mt-0.5 leading-relaxed">Individual blister batch sterility guarantee</div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Main Grid */}
-      <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
           {/* Brand & Mission */}
           <div className="md:col-span-5 space-y-4">
             <Logo size="lg" />
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 max-w-sm leading-relaxed">
+            <p className="text-xs text-[#86868b] max-w-sm leading-relaxed">
               {t('footer_tagline')}
             </p>
 
-            {/* Direct Contacts From Logo */}
-            <div className="pt-2 space-y-2 text-xs font-mono">
+            {/* Direct Contacts */}
+            <div className="pt-1 space-y-2 text-xs">
               <a
                 href="mailto:papatattoosupply@gmail.com"
-                className="inline-flex items-center gap-2.5 text-zinc-600 dark:text-zinc-300 hover:text-[#0d5d50] dark:hover:text-[#38e8c6] transition-colors duration-150"
+                className="inline-flex items-center gap-2 text-[#1d1d1f]/80 dark:text-[#f5f5f7]/80 hover:text-[#1d1d1f] dark:hover:text-white transition-colors duration-150"
               >
-                <Mail className="w-3.5 h-3.5 text-[#0d5d50] dark:text-[#38e8c6]" />
+                <Mail className="w-3.5 h-3.5 text-[#86868b]" />
                 <span>papatattoosupply@gmail.com</span>
               </a>
 
@@ -110,9 +102,9 @@ export const Footer: React.FC = () => {
                   href="https://instagram.com/papatattoosupply"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 text-zinc-600 dark:text-zinc-300 hover:text-[#0d5d50] dark:hover:text-[#38e8c6] transition-colors duration-150"
+                  className="inline-flex items-center gap-2 text-[#1d1d1f]/80 dark:text-[#f5f5f7]/80 hover:text-[#1d1d1f] dark:hover:text-white transition-colors duration-150"
                 >
-                  <svg className="w-3.5 h-3.5 text-[#0d5d50] dark:text-[#38e8c6]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg className="w-3.5 h-3.5 text-[#86868b]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
                     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
                     <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
@@ -125,15 +117,15 @@ export const Footer: React.FC = () => {
 
           {/* Quick Links */}
           <div className="md:col-span-2 space-y-3">
-            <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-zinc-950 dark:text-white">
-              EQUIPMENT
+            <h4 className="text-xs font-semibold tracking-[-0.01em] text-[#1d1d1f] dark:text-[#f5f5f7]">
+              Products
             </h4>
-            <ul className="space-y-2 text-xs">
+            <ul className="space-y-2.5 text-xs">
               <li>
                 <Link
                   to="/collections"
                   search={{ category: 'grips' }}
-                  className="hover:text-zinc-950 dark:hover:text-[#38e8c6] transition-colors duration-150"
+                  className="hover:text-[#1d1d1f] dark:hover:text-white transition-colors duration-150"
                 >
                   Cartridge Grips
                 </Link>
@@ -142,7 +134,7 @@ export const Footer: React.FC = () => {
                 <Link
                   to="/collections"
                   search={{ category: 'machines' }}
-                  className="hover:text-zinc-950 dark:hover:text-[#38e8c6] transition-colors duration-150"
+                  className="hover:text-[#1d1d1f] dark:hover:text-white transition-colors duration-150"
                 >
                   Rotary Machines
                 </Link>
@@ -151,7 +143,7 @@ export const Footer: React.FC = () => {
                 <Link
                   to="/collections"
                   search={{ category: 'cartridges' }}
-                  className="hover:text-zinc-950 dark:hover:text-[#38e8c6] transition-colors duration-150"
+                  className="hover:text-[#1d1d1f] dark:hover:text-white transition-colors duration-150"
                 >
                   Needle Cartridges
                 </Link>
@@ -160,17 +152,17 @@ export const Footer: React.FC = () => {
                 <Link
                   to="/collections"
                   search={{ category: 'power' }}
-                  className="hover:text-zinc-950 dark:hover:text-[#38e8c6] transition-colors duration-150"
+                  className="hover:text-[#1d1d1f] dark:hover:text-white transition-colors duration-150"
                 >
-                  Wireless Power Supplies
+                  Wireless Power
                 </Link>
               </li>
               <li>
                 <Link
                   to="/products"
-                  className="hover:text-zinc-950 dark:hover:text-[#38e8c6] transition-colors duration-150 inline-flex items-center gap-1 text-[#0d5d50] dark:text-[#38e8c6] font-medium pt-1"
+                  className="hover:opacity-75 transition-opacity duration-150 inline-flex items-center gap-1 text-[#1d1d1f] dark:text-[#f5f5f7] font-medium pt-0.5"
                 >
-                  <span>All Apparatus Index</span>
+                  <span>All Products</span>
                   <ArrowUpRight className="w-3 h-3" />
                 </Link>
               </li>
@@ -179,22 +171,22 @@ export const Footer: React.FC = () => {
 
           {/* Company & Studio Program */}
           <div className="md:col-span-2 space-y-3">
-            <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-zinc-950 dark:text-white">
-              COMPANY &amp; PRO
+            <h4 className="text-xs font-semibold tracking-[-0.01em] text-[#1d1d1f] dark:text-[#f5f5f7]">
+              Company
             </h4>
-            <ul className="space-y-2 text-xs">
+            <ul className="space-y-2.5 text-xs">
               <li>
-                <Link to="/about" className="hover:text-zinc-950 dark:hover:text-[#38e8c6] transition-colors duration-150">
+                <Link to="/about" className="hover:text-[#1d1d1f] dark:hover:text-white transition-colors duration-150">
                   About Papa Tattoo
                 </Link>
               </li>
               <li>
-                <Link to="/distributors" className="hover:text-zinc-950 dark:hover:text-[#38e8c6] transition-colors duration-150">
+                <Link to="/distributors" className="hover:text-[#1d1d1f] dark:hover:text-white transition-colors duration-150">
                   Official Distributors
                 </Link>
               </li>
               <li>
-                <Link to="/sponsorship-artists" className="hover:text-zinc-950 dark:hover:text-[#38e8c6] transition-colors duration-150">
+                <Link to="/sponsorship-artists" className="hover:text-[#1d1d1f] dark:hover:text-white transition-colors duration-150">
                   Sponsorship Artists
                 </Link>
               </li>
@@ -203,15 +195,15 @@ export const Footer: React.FC = () => {
                   href="https://drive.google.com/file/d/1nMPw2A9x_AwQnlFp0yew_2XNbMBKoiEf/view"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-zinc-950 dark:hover:text-[#38e8c6] transition-colors duration-150 inline-flex items-center gap-1 text-[#0d5d50] dark:text-[#38e8c6] font-medium"
+                  className="hover:text-[#1d1d1f] dark:hover:text-white transition-colors duration-150 inline-flex items-center gap-1"
                 >
-                  <span>Machine Repair (RMA)</span>
+                  <span>Machine Service (RMA)</span>
                   <ArrowUpRight className="w-3 h-3" />
                 </a>
               </li>
               <li>
-                <Link to="/contact" className="hover:text-zinc-950 dark:hover:text-[#38e8c6] transition-colors duration-150">
-                  Direct Factory Contact
+                <Link to="/contact" className="hover:text-[#1d1d1f] dark:hover:text-white transition-colors duration-150">
+                  Contact Support
                 </Link>
               </li>
             </ul>
@@ -219,11 +211,11 @@ export const Footer: React.FC = () => {
 
           {/* Newsletter / Studio Dispatch Alert */}
           <div className="md:col-span-3 space-y-3">
-            <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-zinc-950 dark:text-white">
-              TECHNICAL DISPATCH
+            <h4 className="text-xs font-semibold tracking-[-0.01em] text-[#1d1d1f] dark:text-[#f5f5f7]">
+              Studio Updates
             </h4>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
-              Subscribe for new batch drops, limited anodized runs, and studio volume announcements.
+            <p className="text-xs text-[#86868b] leading-relaxed">
+              Receive notifications on new hardware releases, limited anodized finishes, and studio volume programs.
             </p>
             <form onSubmit={handleDispatchSubmit} className="space-y-2">
               <div className="flex gap-1.5">
@@ -239,68 +231,64 @@ export const Footer: React.FC = () => {
                   }}
                   placeholder="artist@studio.com"
                   aria-label="Email address for dispatch subscription"
-                  className="flex-1 min-w-0 px-3.5 py-2.5 text-xs font-mono rounded-xl border border-[#e2dfd8] dark:border-white/[0.08] bg-white dark:bg-[#22252f] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] text-zinc-900 dark:text-zinc-100 focus:outline-hidden focus:border-[#0d5d50] dark:focus:border-[#38e8c6] transition-colors duration-150"
+                  className="flex-1 min-w-0 px-4 py-2 text-xs font-sans rounded-full border border-black/[0.08] dark:border-white/[0.1] bg-white dark:bg-[#161618] text-[#1d1d1f] dark:text-[#f5f5f7] placeholder:text-[#86868b] focus:outline-hidden focus:border-[#1d1d1f] dark:focus:border-white transition-colors duration-150"
                 />
                 <button
                   type="submit"
                   disabled={dispatchLoading}
-                  aria-label="Subscribe to technical dispatch"
-                  className="px-3.5 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-[#38e8c6] dark:text-zinc-950 text-xs font-mono font-bold uppercase hover:bg-[#0d5d50] dark:hover:bg-[#2dd4b5] active:scale-[0.97] disabled:opacity-50 transition-[transform,background-color,color,opacity] duration-150 ease-[var(--ease-out-strong)] cursor-pointer shrink-0"
+                  aria-label="Subscribe to studio updates"
+                  className="px-4 py-2 rounded-full bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f] text-xs font-medium hover:opacity-85 active:scale-[0.97] disabled:opacity-50 transition-[transform,opacity] duration-150 ease-[var(--ease-out-strong)] cursor-pointer shrink-0"
                 >
-                  {dispatchLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <ArrowUpRight className="w-4 h-4" />}
+                  {dispatchLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <span>Join</span>}
                 </button>
               </div>
               {dispatchError ? (
-                <span role="alert" className="text-[11px] text-red-600 dark:text-red-400 font-mono block">
+                <span role="alert" className="text-[11px] text-red-600 dark:text-red-400 block">
                   {dispatchError}
                 </span>
               ) : dispatchResult ? (
-                <div className="text-[11px] font-mono text-[#0d5d50] dark:text-[#38e8c6] flex items-start gap-1.5 leading-snug">
+                <div className="text-[11px] text-emerald-700 dark:text-emerald-400 flex items-start gap-1.5 leading-snug">
                   <CheckCircle2 className="w-3.5 h-3.5 shrink-0 mt-0.5" />
                   <span>
                     {dispatchResult.delivered ? (
-                      'Subscribed to Technical Dispatch.'
+                      'Subscribed to Studio Updates.'
                     ) : (
                       <>
                         Ready:{' '}
-                        <a href={dispatchResult.mailtoUrl} className="underline font-bold">
-                          send confirmation email to {dispatchResult.recipient}
+                        <a href={dispatchResult.mailtoUrl} className="underline font-medium">
+                          confirm subscription
                         </a>
                         .
                       </>
                     )}
                   </span>
                 </div>
-              ) : (
-                <span className="text-[10px] text-zinc-500 dark:text-zinc-400 font-mono block">
-                  Zero spam. Professional releases only.
-                </span>
-              )}
+              ) : null}
             </form>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-[#e2dfd8]/80 dark:border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono text-zinc-500">
+        <div className="mt-12 pt-6 border-t border-black/[0.06] dark:border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#86868b]">
           <div>© {new Date().getFullYear()} {t('footer_rights')}</div>
           <div className="flex flex-wrap items-center gap-6">
-            <Link to="/about" className="hover:text-zinc-950 dark:hover:text-[#38e8c6] transition-colors duration-150">
-              ABOUT US
+            <Link to="/about" className="hover:text-[#1d1d1f] dark:hover:text-white transition-colors duration-150">
+              About
             </Link>
-            <Link to="/distributors" className="hover:text-zinc-950 dark:hover:text-[#38e8c6] transition-colors duration-150">
-              DISTRIBUTORS
+            <Link to="/distributors" className="hover:text-[#1d1d1f] dark:hover:text-white transition-colors duration-150">
+              Distributors
             </Link>
-            <Link to="/sponsorship-artists" className="hover:text-zinc-950 dark:hover:text-[#38e8c6] transition-colors duration-150">
-              ARTISTS
+            <Link to="/sponsorship-artists" className="hover:text-[#1d1d1f] dark:hover:text-white transition-colors duration-150">
+              Artists
             </Link>
-            <Link to="/privacy-policy" hash="privacy" className="hover:text-zinc-950 dark:hover:text-[#38e8c6] transition-colors duration-150">
-              PRIVACY DISCLOSURE
+            <Link to="/privacy-policy" hash="privacy" className="hover:text-[#1d1d1f] dark:hover:text-white transition-colors duration-150">
+              Privacy Policy
             </Link>
-            <Link to="/privacy-policy" hash="terms" className="hover:text-zinc-950 dark:hover:text-[#38e8c6] transition-colors duration-150">
-              TERMS OF SALE
+            <Link to="/privacy-policy" hash="terms" className="hover:text-[#1d1d1f] dark:hover:text-white transition-colors duration-150">
+              Terms of Sale
             </Link>
-            <Link to="/privacy-policy" hash="quality" className="hover:text-zinc-950 dark:hover:text-[#38e8c6] transition-colors duration-150">
-              QUALITY STANDARDS
+            <Link to="/privacy-policy" hash="quality" className="hover:text-[#1d1d1f] dark:hover:text-white transition-colors duration-150">
+              Quality Standards
             </Link>
           </div>
         </div>
