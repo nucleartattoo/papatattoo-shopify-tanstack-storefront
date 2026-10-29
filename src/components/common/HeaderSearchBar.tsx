@@ -223,7 +223,7 @@ export const HeaderSearchBar: React.FC<HeaderSearchBarProps> = ({
         </div>
       </form>
 
-      {/* Live Suggestions Dropdown (Autocomplete — anchored to input origin with translucent material §7, §12) */}
+      {/* Live Suggestions Dropdown (Autocomplete, anchored to input origin with translucent material §7, §12) */}
       {isOpen && (
         <div className="origin-top absolute top-full left-0 right-0 mt-2 rounded-2xl border border-zinc-200/80 dark:border-white/[0.1] apple-glass-popover overflow-hidden z-50 text-xs animate-in fade-in zoom-in-95 duration-150 ease-[var(--ease-out-strong)]">
           {/* Case A: Query is Empty - Popular Searches & Quick Categories */}

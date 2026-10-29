@@ -204,7 +204,7 @@ export const ParallaxApparatusStage: React.FC<ParallaxApparatusStageProps> = ({
         }}
       />
 
-      {/* Floating Hardware Specimen — driven directly by rAF spring with zero CSS transition lag (§1, §3) */}
+      {/* Floating Hardware Specimen, driven directly by rAF spring with zero CSS transition lag (§1, §3) */}
       <div
         ref={stageRef}
         className="relative z-10 w-full h-full flex items-center justify-center will-change-transform"

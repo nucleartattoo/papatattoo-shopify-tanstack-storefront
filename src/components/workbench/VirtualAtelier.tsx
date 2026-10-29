@@ -500,7 +500,7 @@ export const VirtualAtelier: React.FC = () => {
               className="w-full py-4 px-6 rounded-2xl bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-mono font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:opacity-90 active:scale-[0.98] transition-all duration-200 shadow-xl cursor-pointer"
             >
               <ShoppingBag className="w-4 h-4" />
-              <span>ADD PAPA PEN V2 TO CART — ${penPrice.toFixed(2)} USD</span>
+              <span>ADD PAPA PEN V2 TO CART · ${penPrice.toFixed(2)} USD</span>
               <ArrowRight className="w-4 h-4" />
             </button>
 

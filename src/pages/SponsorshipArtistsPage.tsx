@@ -28,10 +28,10 @@ type RosterViewMode = 'grid' | 'directory'
 
 const ALPHA_BANDS: { id: AlphaBand; label: string }[] = [
   { id: 'ALL', label: 'All Roster' },
-  { id: 'A-F', label: 'A – F' },
-  { id: 'G-M', label: 'G – M' },
-  { id: 'N-S', label: 'N – S' },
-  { id: 'T-Z', label: 'T – Z' },
+  { id: 'A-F', label: 'A to F' },
+  { id: 'G-M', label: 'G to M' },
+  { id: 'N-S', label: 'N to S' },
+  { id: 'T-Z', label: 'T to Z' },
 ]
 
 function matchesAlphaBand(name: string, band: AlphaBand): boolean {

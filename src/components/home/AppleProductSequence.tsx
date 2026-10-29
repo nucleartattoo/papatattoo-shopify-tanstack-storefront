@@ -226,7 +226,7 @@ export const AppleProductSequence: React.FC = () => {
               PAPA VOLT POWER
             </h3>
             <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 font-sans leading-relaxed">
-              Ultra-lightweight lithium battery dock delivering uninterrupted 5–12V clean current for up to 8 continuous hours of tattooing.
+              Ultra-lightweight lithium battery dock delivering uninterrupted 5 to 12V clean current for up to 8 continuous hours of tattooing.
             </p>
             <div className="pt-1 flex items-center justify-end gap-2.5 font-mono text-xs font-bold text-[#38e8c6]">
               <span>RCA UNIVERSAL DOCK</span>

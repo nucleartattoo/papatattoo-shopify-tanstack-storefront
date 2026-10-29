@@ -194,7 +194,7 @@ export const AppleScrollytelling: React.FC = () => {
               Engineered with custom German coreless motor. Delivers zero-vibration needle puncture force for crisp single-pass lines.
             </p>
             <div className="inline-flex items-center gap-3 font-mono text-xs text-[#38e8c6] font-bold">
-              <span>6V – 12.6V OPERATING</span>
+              <span>6V to 12.6V OPERATING</span>
               <span>·</span>
               <span>9,800 MAX RPM</span>
             </div>
@@ -256,7 +256,7 @@ export const AppleScrollytelling: React.FC = () => {
               className="px-8 py-4 rounded-full bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-mono font-black text-xs uppercase tracking-wider flex items-center gap-2.5 hover:opacity-90 active:scale-95 transition-all shadow-2xl cursor-pointer"
             >
               <ShoppingBag className="w-4 h-4" />
-              <span>ADD TO CART — $199.00 USD</span>
+              <span>ADD TO CART · $199.00 USD</span>
               <ArrowRight className="w-4 h-4" />
             </button>
 
