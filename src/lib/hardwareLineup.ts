@@ -583,7 +583,7 @@ export function getHardwareTechnicalProfile(product: ShopifyProduct): HardwareTe
         'Every machine chassis undergoes individual concentricity inspection, motor run-in testing, and acoustic dampening verification prior to factory dispatch.',
       ],
       highlights: [
-        isV3 ? '3.5 – 4.5 mm Modular Stroke' : isApollo ? '4.0 mm Direct Stroke' : '3.5 mm Precision Stroke',
+        isV3 ? '3.5 - 4.5 mm Modular Stroke' : isApollo ? '4.0 mm Direct Stroke' : '3.5 mm Precision Stroke',
         'German Coreless Motor',
         'Gold-Plated RCA Interface',
       ],
@@ -611,10 +611,10 @@ export function getHardwareTechnicalProfile(product: ShopifyProduct): HardwareTe
         {
           label: 'OPERATING VOLTAGE',
           value: isV3
-            ? '4.5 V – 13.0 V DC (6.5 – 9.5 V Optimal)'
+            ? '4.5 V - 13.0 V DC (6.5 - 9.5 V Optimal)'
             : isV2
-            ? '5.0 V – 12.6 V DC'
-            : '5.0 V – 12.0 V DC',
+            ? '5.0 V - 12.6 V DC'
+            : '5.0 V - 12.0 V DC',
         },
         {
           label: 'NET MASS & BALANCE',
@@ -727,7 +727,7 @@ export function getHardwareTechnicalProfile(product: ShopifyProduct): HardwareTe
           label: 'DEPTH ADJUSTMENT',
           value: isDisposable
             ? 'Fixed Calibrated Needle Projection'
-            : '0 – 4.5 mm Ratcheted Ball-Detent Click Collar',
+            : '0 - 4.5 mm Ratcheted Ball-Detent Click Collar',
         },
         {
           label: 'STERILIZATION RATING',
@@ -737,7 +737,7 @@ export function getHardwareTechnicalProfile(product: ShopifyProduct): HardwareTe
         },
         {
           label: 'BARREL DIAMETER',
-          value: isLedge ? '32 mm Tapered Finger-Ledge Profile' : '30 – 32 mm Knurled Ergonomic Contour',
+          value: isLedge ? '32 mm Tapered Finger-Ledge Profile' : '30 - 32 mm Knurled Ergonomic Contour',
         },
         {
           label: 'DRIVE BAR & MOUNT',
@@ -773,11 +773,11 @@ export function getHardwareTechnicalProfile(product: ShopifyProduct): HardwareTe
           : isPedal
           ? 'Weighted cast-metal 360° foot switch engineered for instant, zero-deadzone contact from any approach angle on the studio floor.'
           : 'Precision DC power supply engineered to maintain flat, ripple-free voltage output under heavy magnum load without motor sag.',
-        'Every power component is load-tested across 4.5 V – 13.0 V DC to guarantee clean current delivery and overload protection.',
+        'Every power component is load-tested across 4.5 V - 13.0 V DC to guarantee clean current delivery and overload protection.',
       ],
       highlights: [
         isBattery ? '2,000 mAh · 8h Runtime' : isCord ? '24K Gold-Plated RCA' : 'Zero-Ripple DC Output',
-        isBattery ? '5.0 – 12.0 V Digital OLED' : isPedal ? '360° Weighted Actuation' : 'Overload & Short Protection',
+        isBattery ? '5.0 - 12.0 V Digital OLED' : isPedal ? '360° Weighted Actuation' : 'Overload & Short Protection',
         'Universal Studio Fitment',
       ],
       specs: [
@@ -794,10 +794,10 @@ export function getHardwareTechnicalProfile(product: ShopifyProduct): HardwareTe
         {
           label: 'VOLTAGE / RATING',
           value: isBattery
-            ? '5.0 V – 12.0 V DC (0.1 V Precision Step)'
+            ? '5.0 V - 12.0 V DC (0.1 V Precision Step)'
             : isCord
             ? 'Low-Impedance < 0.05 Ω Signal Path'
-            : '4.5 V – 16.0 V DC Continuous Load Rated',
+            : '4.5 V - 16.0 V DC Continuous Load Rated',
         },
         {
           label: 'CONNECTOR TERMINAL',
@@ -813,7 +813,7 @@ export function getHardwareTechnicalProfile(product: ShopifyProduct): HardwareTe
         },
         {
           label: 'CHARGING / INPUT',
-          value: isBattery ? 'USB-C Fast Charge (1.5h Full Cycle)' : '100–240 V AC Universal Studio Input',
+          value: isBattery ? 'USB-C Fast Charge (1.5h Full Cycle)' : '100-240 V AC Universal Studio Input',
         },
         {
           label: 'SAFETY PROTECTION',
@@ -874,7 +874,7 @@ export function getHardwareTechnicalProfile(product: ShopifyProduct): HardwareTe
         value: isTray
           ? 'Magnetic / Arm-Mount & Countertop Workstation Organization'
           : isCase
-          ? '2–4 Machines, Power Units, Cords & Cartridge Storage'
+          ? '2-4 Machines, Power Units, Cords & Cartridge Storage'
           : 'Professional Tattoo Parlor Daily Operations',
       },
       {
