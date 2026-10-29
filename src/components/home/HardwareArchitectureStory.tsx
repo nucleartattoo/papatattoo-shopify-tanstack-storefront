@@ -90,23 +90,27 @@ export const HardwareArchitectureStory: React.FC = () => {
   const currentPillar = ARCHITECTURE_PILLARS[activeTab] || ARCHITECTURE_PILLARS[0]
 
   return (
-    <section className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl 2xl:max-w-[1440px] mx-auto">
+    <section className="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl 2xl:max-w-[1440px] mx-auto text-zinc-100">
       {/* Section Header */}
       <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 space-y-3">
-        <h2 className="text-3xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.035em] text-[#1d1d1f] dark:text-[#f5f5f7] leading-[1.05]">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-[11px] font-mono tracking-widest text-zinc-400 uppercase">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#2EE6CA]" />
+          <span>Core Engineering Disciplines</span>
+        </div>
+        <h2 className="text-3xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.035em] text-white leading-[1.05]">
           Precision Engineering. Inside and Out.
         </h2>
-        <p className="text-base sm:text-lg text-[#86868b] leading-relaxed max-w-2xl mx-auto">
-          Every tolerance is calibrated to sub-millimeter precision for unyielding reliability in professional studios.
+        <p className="text-base sm:text-lg text-zinc-400 leading-relaxed max-w-2xl mx-auto font-sans">
+          Every tolerance is calibrated to sub-millimeter precision for unyielding reliability in professional studios worldwide.
         </p>
       </div>
 
-      {/* Apple-Style Segmented Navigation Bar */}
+      {/* Segmented Navigation Bar */}
       <div className="flex justify-center mb-10 sm:mb-14">
         <div
           role="tablist"
           aria-label="Engineering innovations"
-          className="inline-flex max-w-full overflow-x-auto no-scrollbar items-center gap-1.5 p-1.5 rounded-full bg-black/[0.04] dark:bg-white/[0.08]"
+          className="inline-flex max-w-full overflow-x-auto no-scrollbar items-center gap-1.5 p-1.5 rounded-full bg-white/[0.05] border border-white/10"
         >
           {ARCHITECTURE_PILLARS.map((pillar, index) => {
             const isSelected = index === activeTab
@@ -119,8 +123,8 @@ export const HardwareArchitectureStory: React.FC = () => {
                 onClick={() => setActiveTab(index)}
                 className={`px-4 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap transition-[transform,background-color,color,box-shadow] duration-200 ease-[var(--ease-spring)] active:scale-[0.97] cursor-pointer ${
                   isSelected
-                    ? 'bg-white text-[#1d1d1f] dark:bg-[#2c2c2e] dark:text-white shadow-[0_2px_10px_rgba(0,0,0,0.08)]'
-                    : 'text-[#86868b] hover:text-[#1d1d1f] dark:hover:text-white'
+                    ? 'bg-white text-[#090A0C] shadow-[0_2px_12px_rgba(255,255,255,0.12)] font-semibold'
+                    : 'text-zinc-400 hover:text-white'
                 }`}
               >
                 {pillar.pillLabel}
@@ -131,21 +135,27 @@ export const HardwareArchitectureStory: React.FC = () => {
       </div>
 
       {/* Main Architectural Showcase Container */}
-      <div className="rounded-[32px] bg-white dark:bg-[#121214] p-8 sm:p-12 lg:p-16 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.06)] dark:shadow-[0_30px_70px_-24px_rgba(0,0,0,0.7)] transition-all duration-300">
+      <div className="relative rounded-[32px] bg-[#0E1014] border border-white/[0.08] p-8 sm:p-12 lg:p-16 shadow-[0_24px_60px_rgba(0,0,0,0.6)] overflow-hidden transition-all duration-300">
+        {/* Top Specular Chamfer Highlight */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none"
+        />
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           {/* Left Column: Visual Apparatus Specimen */}
-          <div className="lg:col-span-6 flex items-center justify-center relative min-h-[300px] sm:min-h-[380px] lg:min-h-[460px] rounded-2xl bg-[#f5f5f7] dark:bg-[#1c1c1e]/60 p-8 overflow-hidden group">
+          <div className="lg:col-span-6 flex items-center justify-center relative min-h-[300px] sm:min-h-[380px] lg:min-h-[460px] rounded-2xl bg-[#090A0C] border border-white/[0.05] p-8 overflow-hidden group">
             {/* Subtle Radial Glow */}
             <div
               aria-hidden="true"
-              className="absolute inset-0 bg-radial from-black/[0.03] dark:from-white/[0.04] to-transparent pointer-events-none"
+              className="absolute inset-0 bg-radial from-white/[0.04] to-transparent pointer-events-none"
             />
 
             <img
               key={currentPillar.id}
               src={currentPillar.imageSrc}
               alt={currentPillar.imageAlt}
-              className="relative z-10 max-h-[320px] sm:max-h-[380px] w-auto object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.15)] dark:drop-shadow-[0_24px_50px_rgba(0,0,0,0.8)] transition-all duration-300 ease-[var(--ease-spring)] group-hover:scale-[1.03]"
+              className="relative z-10 max-h-[320px] sm:max-h-[380px] w-auto object-contain drop-shadow-[0_24px_50px_rgba(0,0,0,0.9)] transition-all duration-300 ease-[var(--ease-spring)] group-hover:scale-[1.03]"
               loading="lazy"
             />
           </div>
@@ -153,42 +163,42 @@ export const HardwareArchitectureStory: React.FC = () => {
           {/* Right Column: Detailed Engineering Data & Telemetry */}
           <div className="lg:col-span-6 space-y-6">
             <div className="space-y-2.5">
-              <span className="text-xs font-semibold text-[#86868b] uppercase tracking-wide">
+              <span className="text-[11px] font-mono text-[#2EE6CA] uppercase tracking-widest block">
                 {currentPillar.pillLabel}
               </span>
-              <h3 className="text-2xl sm:text-4xl font-semibold tracking-[-0.03em] text-[#1d1d1f] dark:text-[#f5f5f7] leading-tight">
+              <h3 className="text-2xl sm:text-4xl font-semibold tracking-[-0.03em] text-white leading-tight">
                 {currentPillar.headline}
               </h3>
-              <p className="text-base text-[#86868b] leading-relaxed">
+              <p className="text-base text-zinc-400 leading-relaxed font-sans">
                 {currentPillar.subheadline}
               </p>
             </div>
 
-            {/* Apple-Style Telemetry Metrics Strip */}
-            <div className="grid grid-cols-2 gap-4 py-4 border-y border-black/[0.06] dark:border-white/[0.08]">
+            {/* Telemetry Metrics Strip */}
+            <div className="grid grid-cols-2 gap-4 py-4 border-y border-white/[0.08] font-mono">
               <div>
-                <span className="text-2xl sm:text-3xl font-semibold tracking-[-0.025em] text-[#1d1d1f] dark:text-[#f5f5f7] tabular-nums block">
+                <span className="text-2xl sm:text-3xl font-semibold tracking-[-0.025em] text-white tabular-nums block">
                   {currentPillar.primaryMetric}
                 </span>
-                <span className="text-xs text-[#86868b] mt-0.5 block">
+                <span className="text-xs text-zinc-500 mt-0.5 block uppercase tracking-wider">
                   {currentPillar.metricLabel}
                 </span>
               </div>
               <div>
-                <span className="text-2xl sm:text-3xl font-semibold tracking-[-0.025em] text-[#1d1d1f] dark:text-[#f5f5f7] tabular-nums block">
+                <span className="text-2xl sm:text-3xl font-semibold tracking-[-0.025em] text-white tabular-nums block">
                   {currentPillar.secondaryMetric}
                 </span>
-                <span className="text-xs text-[#86868b] mt-0.5 block">
+                <span className="text-xs text-zinc-500 mt-0.5 block uppercase tracking-wider">
                   {currentPillar.secondaryMetricLabel}
                 </span>
               </div>
             </div>
 
             {/* Technical Highlights Checklist */}
-            <ul className="space-y-2.5 text-xs sm:text-sm text-[#1d1d1f]/85 dark:text-[#f5f5f7]/85">
+            <ul className="space-y-2.5 text-xs sm:text-sm text-zinc-300 font-sans">
               {currentPillar.bulletPoints.map((point, idx) => (
                 <li key={idx} className="flex items-start gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-4 h-4 text-[#2EE6CA] shrink-0 mt-0.5" />
                   <span>{point}</span>
                 </li>
               ))}
@@ -199,7 +209,7 @@ export const HardwareArchitectureStory: React.FC = () => {
               <Link
                 to="/products/$handle"
                 params={{ handle: currentPillar.productHandle }}
-                className="px-6 py-3 rounded-full bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f] text-xs sm:text-sm font-medium inline-flex items-center gap-2 hover:opacity-88 transition-[transform,opacity] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97]"
+                className="px-6 py-3 rounded-full bg-white text-[#090A0C] text-xs sm:text-sm font-medium inline-flex items-center gap-2 hover:bg-zinc-200 transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] shadow-[0_4px_20px_rgba(255,255,255,0.08)]"
               >
                 <span>{currentPillar.ctaText}</span>
                 <ArrowRight className="w-4 h-4" />

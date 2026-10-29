@@ -192,6 +192,27 @@ const HERO_SLIDES: HeroSlideItem[] = [
   },
 ]
 
+const PEN_V3_FINISHES = [
+  {
+    id: 'stealth-black',
+    label: 'Obsidian',
+    css: 'linear-gradient(135deg, #27272a 0%, #09090b 100%)',
+    image: '/product-images/img_214_img_5795_cutout.webp',
+  },
+  {
+    id: 'titanium-gunmetal',
+    label: 'Gunmetal',
+    css: 'linear-gradient(135deg, #71717a 0%, #27272a 100%)',
+    image: '/product-images/img_026_black_cutout.webp',
+  },
+  {
+    id: 'aerospace-silver',
+    label: 'Silver',
+    css: 'linear-gradient(135deg, #f4f4f5 0%, #a1a1aa 100%)',
+    image: '/product-images/img_030_img_4352_cutout.webp',
+  },
+] as const
+
 const SLIDE_INTERVAL_MS = 6500
 
 interface FullpageHeroSliderProps {
@@ -205,6 +226,8 @@ export const FullpageHeroSlider: React.FC<FullpageHeroSliderProps> = ({
   const prefersReducedMotion = usePrefersReducedMotion()
 
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [penFinishIdx, setPenFinishIdx] = useState(0)
+  const [glareCoords, setGlareCoords] = useState({ x: 65, y: 45 })
   const [isPaused, setIsPaused] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
   const [addedCartSlideId, setAddedCartSlideId] = useState<string | null>(null)
@@ -228,6 +251,10 @@ export const FullpageHeroSlider: React.FC<FullpageHeroSliderProps> = ({
   })
 
   const currentSlide = HERO_SLIDES[currentIndex]
+  const activeCutoutImage =
+    currentIndex === 0
+      ? PEN_V3_FINISHES[penFinishIdx]?.image || currentSlide.cutoutImage
+      : currentSlide.cutoutImage
 
   const handleNext = useCallback(() => {
     setCurrentIndex(prev => (prev + 1) % HERO_SLIDES.length)
@@ -409,6 +436,15 @@ export const FullpageHeroSlider: React.FC<FullpageHeroSliderProps> = ({
     setDragOffsetPx(rubberband(dx, width, 0.45))
   }
 
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const rect = sliderStageRef.current?.getBoundingClientRect()
+    if (rect && rect.width > 0 && rect.height > 0) {
+      const x = Math.round(((e.clientX - rect.left) / rect.width) * 100)
+      const y = Math.round(((e.clientY - rect.top) / rect.height) * 100)
+      setGlareCoords({ x, y })
+    }
+  }
+
   const finishPointerGesture = (
     e: React.PointerEvent<HTMLElement>,
     cancelled = false
@@ -449,18 +485,19 @@ export const FullpageHeroSlider: React.FC<FullpageHeroSliderProps> = ({
       aria-label="Papa Flagship Apparatus Fullpage Presentation"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onMouseMove={handleMouseMove}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={e => finishPointerGesture(e, false)}
       onPointerCancel={e => finishPointerGesture(e, true)}
       className="relative w-full min-h-[calc(100dvh-3.5rem)] lg:h-[calc(100dvh-3.5rem)] min-h-[640px] flex flex-col justify-between overflow-hidden select-none bg-[#07080a] text-white touch-pan-y"
     >
-      {/* Dynamic Ambient Optical Atmosphere */}
+      {/* Dynamic Ambient Optical Atmosphere & Cursor Micro-Glare */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 pointer-events-none transition-all duration-1000 ease-[var(--ease-spring)]"
+        className="absolute inset-0 pointer-events-none transition-all duration-700 ease-[var(--ease-spring)]"
         style={{
-          background: `radial-gradient(ellipse 75% 65% at 66% 48%, rgba(${currentSlide.glowRgb}, 0.16) 0%, transparent 68%), radial-gradient(circle at 18% 78%, rgba(255, 255, 255, 0.02) 0%, transparent 45%)`,
+          background: `radial-gradient(circle 600px at ${glareCoords.x}% ${glareCoords.y}%, rgba(255, 255, 255, 0.045) 0%, transparent 70%), radial-gradient(ellipse 75% 65% at 66% 48%, rgba(${currentSlide.glowRgb}, 0.16) 0%, transparent 68%), radial-gradient(circle at 18% 78%, rgba(255, 255, 255, 0.02) 0%, transparent 45%)`,
         }}
       />
 
@@ -551,6 +588,38 @@ export const FullpageHeroSlider: React.FC<FullpageHeroSliderProps> = ({
               ))}
             </div>
 
+            {/* Slide 0 Anodized Finish Selector */}
+            {currentIndex === 0 && (
+              <div className="flex items-center gap-3 pt-1">
+                <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">
+                  ANODIZED FINISH:
+                </span>
+                <div className="flex items-center gap-2">
+                  {PEN_V3_FINISHES.map((f, idx) => {
+                    const isSel = idx === penFinishIdx
+                    return (
+                      <button
+                        key={f.id}
+                        type="button"
+                        onClick={() => setPenFinishIdx(idx)}
+                        className={`group relative flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono transition-all cursor-pointer ${
+                          isSel
+                            ? 'bg-white/15 text-white ring-1 ring-white/30 shadow-[0_2px_10px_rgba(255,255,255,0.1)]'
+                            : 'bg-white/5 text-zinc-400 hover:text-white'
+                        }`}
+                      >
+                        <span
+                          className="w-2.5 h-2.5 rounded-full border border-white/20"
+                          style={{ background: f.css }}
+                        />
+                        <span>{f.label}</span>
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
+
             {/* Direct Dual Action Buttons */}
             <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-2">
               <Link
@@ -612,8 +681,8 @@ export const FullpageHeroSlider: React.FC<FullpageHeroSliderProps> = ({
               }
             >
               <img
-                key={currentSlide.id}
-                src={currentSlide.cutoutImage}
+                key={`${currentSlide.id}-${penFinishIdx}`}
+                src={activeCutoutImage}
                 alt={currentSlide.title}
                 draggable={false}
                 loading={currentIndex === 0 ? 'eager' : 'lazy'}
