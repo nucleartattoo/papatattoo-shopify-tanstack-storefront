@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Link, useLoaderData } from '@tanstack/react-router'
 import { ModelViewer3D } from '../components/common/ModelViewer3D'
 import { ParallaxApparatusStage } from '../components/common/ParallaxApparatusStage'
-import { HomeSlider } from '../components/home/HomeSlider'
+import { HardwareArchitectureStory } from '../components/home/HardwareArchitectureStory'
 import { HardwareModelCard } from '../components/product/HardwareLineupModules'
 import { useCart } from '../context/CartContext'
 import { catalogQueryOptions } from '../lib/catalog.queries'
@@ -42,21 +42,25 @@ const NEEDLE_CONFIG_FAMILIES = [
     code: 'RL',
     name: 'Round Liner',
     spec: 'Tight grouping for crisp single-pass outlines',
+    image: '/product-images/papa-premium-tattoo-cartridges-round-cutout.webp',
   },
   {
     code: 'RS',
     name: 'Round Shader',
     spec: 'Open cylindrical matrix for soft transitions',
+    image: '/product-images/img_002_papa-cartridges-needles-round_cutout.webp',
   },
   {
     code: 'M1',
     name: 'Weaved Magnum',
     spec: 'Dual-row flat array for high-density color packing',
+    image: '/product-images/img_001_papa-cartridges-needles-magnum_cutout.webp',
   },
   {
     code: 'M1C',
     name: 'Curved Magnum',
     spec: 'Arched tip profile for seamless whip shading',
+    image: '/product-images/img_005_papa_cartridges2_cutout.webp',
   },
 ] as const
 
@@ -84,6 +88,7 @@ export const HomePage: React.FC = () => {
 
   // Default to Papa Pen V2 (index 1) or first available benchmark
   const [activeMachineIndex, setActiveMachineIndex] = useState(1)
+  const [activeNeedleIndex, setActiveNeedleIndex] = useState(0)
   const [stageMode, setStageMode] = useState<'photo' | '3d'>('photo')
   const [isBlurTransitioning, setIsBlurTransitioning] = useState(false)
   const [addedHeroCart, setAddedHeroCart] = useState(false)
@@ -197,109 +202,197 @@ export const HomePage: React.FC = () => {
   return (
     <div className="w-full bg-transparent text-[#1d1d1f] dark:text-[#f5f5f7] font-sans overflow-x-hidden">
       {/* ============================================================ */}
-      {/* ACT 1: FLAGSHIP SPECIMEN STAGE (PRIMARY ABOVE-THE-FOLD HERO) */}
+      {/* ACT 1: FLAGSHIP CENTER STAGE SPECIMEN THEATER (HERO)        */}
       {/* ============================================================ */}
-      <section className="relative pt-8 pb-14 sm:pt-12 sm:pb-20 lg:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-            {/* Left Column: Machine Switcher, Headline, Telemetry & Direct Action */}
-            <div className="lg:col-span-6 space-y-7">
-              {/* Flagship Machine Selector Tabs (Apple Segmented Pill Control) */}
-              <div
-                role="tablist"
-                aria-label="Select flagship rotary machine"
-                className="inline-flex max-w-full overflow-x-auto no-scrollbar items-center gap-1 p-1 rounded-full bg-black/[0.05] dark:bg-white/[0.08]"
+      <section className="relative pt-6 pb-12 sm:pt-10 sm:pb-16 lg:pt-12 lg:pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto relative z-10 flex flex-col items-center text-center">
+          {/* Flagship Machine Selector Tabs (Apple Segmented Pill Control) */}
+          <div
+            role="tablist"
+            aria-label="Select flagship rotary machine"
+            className="inline-flex max-w-full overflow-x-auto no-scrollbar items-center gap-1 p-1 rounded-full bg-black/[0.05] dark:bg-white/[0.08] mb-6 sm:mb-8"
+          >
+            {machineBenchmarks.map((bm, idx) => {
+              const isSelected = idx === activeMachineIndex
+              const shortLabel =
+                bm.handle === 'papa-pen-v3-black-full-set'
+                  ? 'Papa Pen V3'
+                  : bm.handle === 'papa-pen-v2-1'
+                  ? 'Papa Pen V2'
+                  : bm.handle === 'papa-apollo-rotary-black'
+                  ? 'Apollo Rotary'
+                  : 'Papa Pen Classic'
+              return (
+                <button
+                  key={bm.handle}
+                  type="button"
+                  role="tab"
+                  aria-selected={isSelected}
+                  onClick={() => handleSelectHeroMachine(idx)}
+                  className={`px-4 sm:px-5 py-1.5 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap transition-[transform,background-color,color,box-shadow] duration-200 ease-[var(--ease-spring)] active:scale-[0.97] cursor-pointer ${
+                    isSelected
+                      ? 'bg-white text-[#1d1d1f] dark:bg-[#2c2c2e] dark:text-white shadow-[0_2px_10px_rgba(0,0,0,0.08)]'
+                      : 'text-[#86868b] hover:text-[#1d1d1f] dark:hover:text-white'
+                  }`}
+                >
+                  {shortLabel}
+                </button>
+              )
+            })}
+          </div>
+
+          {/* Active Machine Title & Value Prop */}
+          <div className="space-y-3 max-w-3xl mx-auto mb-8 sm:mb-10">
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl xl:text-[80px] font-semibold tracking-[-0.038em] text-[#1d1d1f] dark:text-[#f5f5f7] leading-[1.02]">
+              {activeBenchmark?.handle === 'papa-pen-v3-black-full-set'
+                ? 'Papa Pen V3'
+                : activeBenchmark?.handle === 'papa-pen-v2-1'
+                ? 'Papa Pen V2'
+                : activeBenchmark?.handle === 'papa-apollo-rotary-black'
+                ? 'Apollo Rotary'
+                : 'Papa Pen Classic'}
+            </h1>
+
+            <p className="text-base sm:text-lg text-[#86868b] leading-relaxed max-w-xl mx-auto font-normal">
+              {activeBenchmark?.bestFor}. German coreless power with forward-balanced mass.
+            </p>
+          </div>
+
+          {/* Central Specimen Stage (Architectural Theater with 2D / 3D Switcher) */}
+          <div className="relative w-full max-w-5xl aspect-[16/10] sm:aspect-[16/9] lg:aspect-[21/10] rounded-[32px] bg-white dark:bg-[#121214] p-6 sm:p-10 flex items-center justify-center overflow-hidden shadow-[0_24px_60px_-24px_rgba(0,0,0,0.06)] dark:shadow-[0_28px_70px_-24px_rgba(0,0,0,0.7)] mb-8 sm:mb-10">
+            {/* Ambient Backlight Halo */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-radial from-black/[0.03] dark:from-white/[0.03] to-transparent pointer-events-none"
+            />
+
+            {/* On-Demand 2D Studio Photo / 3D Interactive Switcher */}
+            {activeBenchmark?.supports3D && (
+              <div className="absolute top-5 right-5 z-20 inline-flex items-center p-1 rounded-full bg-[#f5f5f7]/90 dark:bg-[#1c1c1e]/90 backdrop-blur-md">
+                <button
+                  type="button"
+                  onClick={() => setStageMode('photo')}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-medium inline-flex items-center gap-1.5 transition-[transform,background-color,color,box-shadow] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] cursor-pointer ${
+                    stageMode === 'photo'
+                      ? 'bg-white text-[#1d1d1f] dark:bg-[#2c2c2e] dark:text-white shadow-2xs'
+                      : 'text-[#86868b] hover:text-[#1d1d1f] dark:hover:text-white'
+                  }`}
+                >
+                  <ImageIcon className="w-3.5 h-3.5" />
+                  <span>Photo</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setStageMode('3d')}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-medium inline-flex items-center gap-1.5 transition-[transform,background-color,color,box-shadow] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] cursor-pointer ${
+                    stageMode === '3d'
+                      ? 'bg-white text-[#1d1d1f] dark:bg-[#2c2c2e] dark:text-white shadow-2xs'
+                      : 'text-[#86868b] hover:text-[#1d1d1f] dark:hover:text-white'
+                  }`}
+                >
+                  <Box className="w-3.5 h-3.5" />
+                  <span>3D View</span>
+                </button>
+              </div>
+            )}
+
+            {stageMode === '3d' && activeBenchmark?.supports3D ? (
+              <ModelViewer3D
+                src="/models/papapenv2.glb"
+                poster={heroImageUrl}
+                alt={activeProduct?.title || 'Papa Pen 3D Specimen'}
+                className="w-full h-full"
+                autoRotate={true}
+                cameraOrbit="75deg 78deg 2.2m"
+                fieldOfView="28deg"
+              />
+            ) : (
+              <Link
+                to="/products/$handle"
+                params={{
+                  handle:
+                    activeProduct?.handle ||
+                    activeBenchmark?.handle ||
+                    'papa-pen-v2-1',
+                }}
+                className="relative z-10 w-full h-full flex items-center justify-center group"
               >
-                {machineBenchmarks.map((bm, idx) => {
-                  const isSelected = idx === activeMachineIndex
-                  const shortLabel =
-                    bm.handle === 'papa-pen-v3-black-full-set'
-                      ? 'Papa Pen V3'
-                      : bm.handle === 'papa-pen-v2-1'
-                      ? 'Papa Pen V2'
-                      : bm.handle === 'papa-apollo-rotary-black'
-                      ? 'Apollo Rotary'
-                      : 'Papa Pen Classic'
-                  return (
-                    <button
-                      key={bm.handle}
-                      type="button"
-                      role="tab"
-                      aria-selected={isSelected}
-                      onClick={() => handleSelectHeroMachine(idx)}
-                      className={`px-3.5 xl:px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-[transform,background-color,color,box-shadow] duration-200 ease-[var(--ease-spring)] active:scale-[0.97] cursor-pointer ${
-                        isSelected
-                          ? 'bg-white text-[#1d1d1f] dark:bg-[#2c2c2e] dark:text-white shadow-[0_2px_8px_rgba(0,0,0,0.08)]'
-                          : 'text-[#86868b] hover:text-[#1d1d1f] dark:hover:text-white'
-                      }`}
-                    >
-                      {shortLabel}
-                    </button>
-                  )
-                })}
-              </div>
+                <img
+                  src={heroImageUrl}
+                  alt={activeProduct?.title || activeBenchmark?.fallbackName}
+                  className={`max-h-[86%] max-w-[86%] w-auto h-auto object-contain transition-[transform,opacity,filter] duration-300 ease-[var(--ease-spring)] group-hover:scale-[1.03] drop-shadow-[0_20px_40px_rgba(0,0,0,0.14)] dark:drop-shadow-[0_24px_50px_rgba(0,0,0,0.75)] ${
+                    isBlurTransitioning
+                      ? 'opacity-60 blur-[3px] scale-[0.975]'
+                      : 'opacity-100 blur-0 scale-100'
+                  }`}
+                  fetchPriority="high"
+                  onError={e => {
+                    const img = e.currentTarget
+                    if (rawHeroImage && img.src !== rawHeroImage) {
+                      img.src = rawHeroImage
+                    }
+                  }}
+                />
+              </Link>
+            )}
 
-              {/* Active Machine Headline & Summary */}
-              <div className="space-y-3.5">
-                <div className="text-xs font-medium tracking-[-0.01em] text-[#86868b]">
-                  {activeBenchmark?.roleTag} · {activeBenchmark?.chassisLabel}
-                </div>
+            {/* Subtle Top-Left Chassis Spec */}
+            <div className="absolute top-5 left-6 z-20 text-xs text-[#86868b] hidden sm:block">
+              {activeBenchmark?.roleTag} · {activeBenchmark?.chassisLabel}
+            </div>
 
-                <h1 className="text-4xl sm:text-6xl xl:text-[64px] font-semibold tracking-[-0.034em] text-[#1d1d1f] dark:text-[#f5f5f7] leading-[1.02]">
-                  {activeBenchmark?.handle === 'papa-pen-v3-black-full-set'
-                    ? 'Papa Pen V3'
-                    : activeBenchmark?.handle === 'papa-pen-v2-1'
-                    ? 'Papa Pen V2'
-                    : activeBenchmark?.handle === 'papa-apollo-rotary-black'
-                    ? 'Apollo Rotary'
-                    : 'Papa Pen Classic'}
-                </h1>
+            {/* Minimal Bottom Caption */}
+            <div className="absolute bottom-5 inset-x-6 z-20 flex items-center justify-between gap-3 text-xs text-[#86868b]">
+              <span className="truncate">
+                {activeBenchmark?.motorLabel}
+              </span>
+              <Link
+                to="/products"
+                className="text-[#1d1d1f] dark:text-[#f5f5f7] font-medium hover:opacity-70 shrink-0 inline-flex items-center gap-1 transition-opacity"
+              >
+                <span>Compare all {allModelGroups.length || 28} models</span>
+                <ArrowRight className="w-3 h-3" />
+              </Link>
+            </div>
+          </div>
 
-                <p className="text-base sm:text-lg text-[#86868b] leading-relaxed max-w-lg font-normal">
-                  {activeBenchmark?.bestFor}. Driven by a{' '}
-                  <span className="font-medium text-[#1d1d1f] dark:text-[#f5f5f7]">
-                    {activeBenchmark?.motorLabel.toLowerCase()}
-                  </span>{' '}
-                  for effortless lining and dense color saturation.
-                </p>
-              </div>
-
-              {/* Borderless Apple-Style Typographic Telemetry Strip */}
-              <div className="grid grid-cols-3 gap-6 pt-2 border-t border-black/[0.06] dark:border-white/[0.08] max-w-lg">
+          {/* Telemetry & Direct Action Command Bar (Apple-Style Floating Dock) */}
+          <div className="w-full max-w-5xl rounded-2xl bg-white/80 dark:bg-[#161618]/80 backdrop-blur-md border border-black/[0.06] dark:border-white/[0.08] p-4 sm:p-6 shadow-[0_12px_36px_-12px_rgba(0,0,0,0.05)]">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              {/* 3 Telemetry Metrics */}
+              <div className="grid grid-cols-3 gap-6 sm:gap-10 text-left w-full md:w-auto">
                 <div>
-                  <span className="text-xl sm:text-2xl font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7] block tabular-nums truncate">
+                  <span className="text-lg sm:text-2xl font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7] block tabular-nums">
                     {cleanStrokeLabel}
                   </span>
-                  <span className="text-xs text-[#86868b] mt-0.5 block">
+                  <span className="text-[11px] sm:text-xs text-[#86868b] mt-0.5 block">
                     Stroke Cam
                   </span>
                 </div>
                 <div>
-                  <span className="text-xl sm:text-2xl font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7] block tabular-nums truncate">
+                  <span className="text-lg sm:text-2xl font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7] block tabular-nums">
                     {cleanVoltageLabel}
                   </span>
-                  <span className="text-xs text-[#86868b] mt-0.5 block">
+                  <span className="text-[11px] sm:text-xs text-[#86868b] mt-0.5 block">
                     Operating Range
                   </span>
                 </div>
                 <div>
-                  <span className="text-xl sm:text-2xl font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7] block tabular-nums truncate">
+                  <span className="text-lg sm:text-2xl font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7] block tabular-nums">
                     {cleanWeightLabel}
                   </span>
-                  <span className="text-xs text-[#86868b] mt-0.5 block">
+                  <span className="text-[11px] sm:text-xs text-[#86868b] mt-0.5 block">
                     Balance Mass
                   </span>
                 </div>
               </div>
 
-              {/* Authentic Price & Primary Pill Actions */}
-              <div className="pt-1 flex flex-wrap items-center gap-3 sm:gap-4">
-                <div className="pr-2 shrink-0">
-                  <span className="text-[11px] text-[#86868b] block">
-                    From
-                  </span>
+              {/* Pricing & Actions */}
+              <div className="flex items-center gap-3 sm:gap-4 shrink-0 w-full md:w-auto justify-end">
+                <div className="text-right pr-2">
+                  <span className="text-[10px] text-[#86868b] block">From</span>
                   <div className="flex items-baseline gap-1 tabular-nums">
-                    <span className="text-2xl xl:text-3xl font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] tracking-[-0.025em]">
+                    <span className="text-2xl sm:text-3xl font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] tracking-[-0.025em]">
                       ${activePrice.toFixed(2)}
                     </span>
                     <span className="text-xs text-[#86868b]">
@@ -311,7 +404,7 @@ export const HomePage: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleBuyActiveMachine}
-                  className={`px-6 py-3 rounded-full font-sans font-medium text-sm inline-flex items-center gap-2 whitespace-nowrap shrink-0 transition-[transform,background-color,opacity] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] cursor-pointer ${
+                  className={`px-6 py-3 rounded-full font-sans font-medium text-xs sm:text-sm inline-flex items-center gap-2 whitespace-nowrap shrink-0 transition-[transform,background-color,opacity] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] cursor-pointer ${
                     addedHeroCart
                       ? 'bg-emerald-600 text-white'
                       : 'bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f] hover:opacity-88'
@@ -338,100 +431,11 @@ export const HomePage: React.FC = () => {
                       activeBenchmark?.handle ||
                       'papa-pen-v2-1',
                   }}
-                  className="px-5 py-3 rounded-full bg-black/[0.05] dark:bg-white/[0.08] hover:bg-black/[0.09] dark:hover:bg-white/[0.14] text-sm font-medium text-[#1d1d1f] dark:text-[#f5f5f7] inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97]"
+                  className="px-5 py-3 rounded-full bg-black/[0.05] dark:bg-white/[0.08] hover:bg-black/[0.09] dark:hover:bg-white/[0.14] text-xs sm:text-sm font-medium text-[#1d1d1f] dark:text-[#f5f5f7] inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97]"
                 >
                   <span>Learn more</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
-              </div>
-            </div>
-
-            {/* Right Column: Pure Studio Specimen Stage with Optional 3D Toggle */}
-            <div className="lg:col-span-6">
-              <div className="relative aspect-[4/3] sm:aspect-[16/11] lg:aspect-square w-full rounded-[32px] bg-white dark:bg-[#121214] p-8 sm:p-12 flex items-center justify-center overflow-hidden shadow-[0_20px_50px_-24px_rgba(0,0,0,0.06)] dark:shadow-[0_24px_60px_-24px_rgba(0,0,0,0.65)]">
-                {/* On-Demand 2D Studio Photo / 3D Interactive Switcher */}
-                {activeBenchmark?.supports3D && (
-                  <div className="absolute top-5 right-5 z-20 inline-flex items-center p-1 rounded-full bg-[#f5f5f7]/90 dark:bg-[#1c1c1e]/90 backdrop-blur-md">
-                    <button
-                      type="button"
-                      onClick={() => setStageMode('photo')}
-                      className={`px-3.5 py-1.5 rounded-full text-xs font-medium inline-flex items-center gap-1.5 transition-[transform,background-color,color,box-shadow] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] cursor-pointer ${
-                        stageMode === 'photo'
-                          ? 'bg-white text-[#1d1d1f] dark:bg-[#2c2c2e] dark:text-white shadow-2xs'
-                          : 'text-[#86868b] hover:text-[#1d1d1f] dark:hover:text-white'
-                      }`}
-                    >
-                      <ImageIcon className="w-3.5 h-3.5" />
-                      <span>Photo</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setStageMode('3d')}
-                      className={`px-3.5 py-1.5 rounded-full text-xs font-medium inline-flex items-center gap-1.5 transition-[transform,background-color,color,box-shadow] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] cursor-pointer ${
-                        stageMode === '3d'
-                          ? 'bg-white text-[#1d1d1f] dark:bg-[#2c2c2e] dark:text-white shadow-2xs'
-                          : 'text-[#86868b] hover:text-[#1d1d1f] dark:hover:text-white'
-                      }`}
-                    >
-                      <Box className="w-3.5 h-3.5" />
-                      <span>3D View</span>
-                    </button>
-                  </div>
-                )}
-
-                {stageMode === '3d' && activeBenchmark?.supports3D ? (
-                  <ModelViewer3D
-                    src="/models/papapenv2.glb"
-                    poster={heroImageUrl}
-                    alt={activeProduct?.title || 'Papa Pen 3D Specimen'}
-                    className="w-full h-full"
-                    autoRotate={true}
-                    cameraOrbit="75deg 78deg 2.2m"
-                    fieldOfView="28deg"
-                  />
-                ) : (
-                  <Link
-                    to="/products/$handle"
-                    params={{
-                      handle:
-                        activeProduct?.handle ||
-                        activeBenchmark?.handle ||
-                        'papa-pen-v2-1',
-                    }}
-                    className="relative z-10 w-full h-full flex items-center justify-center group"
-                  >
-                    <img
-                      src={heroImageUrl}
-                      alt={activeProduct?.title || activeBenchmark?.fallbackName}
-                      className={`max-h-[84%] max-w-[84%] w-auto h-auto object-contain transition-[transform,opacity,filter] duration-300 ease-[var(--ease-spring)] group-hover:scale-[1.03] drop-shadow-[0_20px_34px_rgba(0,0,0,0.12)] dark:drop-shadow-[0_24px_44px_rgba(0,0,0,0.65)] ${
-                        isBlurTransitioning
-                          ? 'opacity-60 blur-[3px] scale-[0.975]'
-                          : 'opacity-100 blur-0 scale-100'
-                      }`}
-                      fetchPriority="high"
-                      onError={e => {
-                        const img = e.currentTarget
-                        if (rawHeroImage && img.src !== rawHeroImage) {
-                          img.src = rawHeroImage
-                        }
-                      }}
-                    />
-                  </Link>
-                )}
-
-                {/* Minimal Bottom Caption */}
-                <div className="absolute bottom-5 inset-x-6 z-20 flex items-center justify-between gap-3 text-xs text-[#86868b]">
-                  <span className="truncate">
-                    {activeBenchmark?.motorLabel}
-                  </span>
-                  <Link
-                    to="/products"
-                    className="text-[#1d1d1f] dark:text-[#f5f5f7] font-medium hover:opacity-70 shrink-0 inline-flex items-center gap-1 transition-opacity"
-                  >
-                    <span>Compare all {allModelGroups.length || 28} models</span>
-                    <ArrowRight className="w-3 h-3" />
-                  </Link>
-                </div>
               </div>
             </div>
           </div>
@@ -439,9 +443,9 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ============================================================ */}
-      {/* ACT 2: WIDESCREEN EXHIBITION RELEASES (7 STUDIO BANNERS)     */}
+      {/* ACT 2: ARCHITECTURE & PRECISION ENGINEERING STORY            */}
       {/* ============================================================ */}
-      <HomeSlider />
+      <HardwareArchitectureStory />
 
       {/* ============================================================ */}
       {/* ACT 3: INTERACTIVE FLAGSHIP SHOWROOM (SWATCH FAMILIES)       */}
@@ -513,25 +517,26 @@ export const HomePage: React.FC = () => {
             <div className="relative z-10 flex flex-wrap items-start justify-between gap-4">
               <div className="space-y-1">
                 <span className="text-xs font-medium text-[#86868b]">
-                  62 Configurations · Sterile Box of 20
+                  {NEEDLE_CONFIG_FAMILIES[activeNeedleIndex]?.code} · {NEEDLE_CONFIG_FAMILIES[activeNeedleIndex]?.name} · Sterile Box of 20
                 </span>
                 <h3 className="text-2xl sm:text-3xl font-semibold tracking-[-0.025em]">
-                  Membrane-Sealed Precision.
+                  {NEEDLE_CONFIG_FAMILIES[activeNeedleIndex]?.name} Precision.
                 </h3>
               </div>
 
               <div className="text-right">
                 <span className="text-[11px] text-[#86868b] block">Box of 20</span>
                 <span className="text-xl sm:text-2xl font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] tabular-nums tracking-tight">
-                  $22.00 – $25.00
+                  $22.00 - $25.00
                 </span>
               </div>
             </div>
 
             <div className="relative z-10 my-8 flex items-center justify-center min-h-[240px] sm:min-h-[280px]">
               <img
-                src="/product-images/papa-premium-tattoo-cartridges-round-cutout.webp"
-                alt="Papa Premium 316L Needle Cartridges"
+                key={NEEDLE_CONFIG_FAMILIES[activeNeedleIndex]?.code}
+                src={NEEDLE_CONFIG_FAMILIES[activeNeedleIndex]?.image}
+                alt={`Papa ${NEEDLE_CONFIG_FAMILIES[activeNeedleIndex]?.name} Needles`}
                 loading="lazy"
                 className="max-h-[250px] sm:max-h-[290px] w-auto object-contain drop-shadow-[0_20px_36px_rgba(0,0,0,0.14)] dark:drop-shadow-[0_28px_50px_rgba(0,0,0,0.75)] transition-transform duration-300 ease-[var(--ease-spring)] hover:scale-[1.03]"
               />
@@ -564,32 +569,45 @@ export const HomePage: React.FC = () => {
                   Four Needle Geometries
                 </h3>
                 <span className="text-xs text-[#86868b]">
-                  0.25 – 0.35 mm
+                  0.25 - 0.35 mm
                 </span>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {NEEDLE_CONFIG_FAMILIES.map(item => (
-                  <Link
-                    key={item.code}
-                    to="/products/$handle"
-                    params={{ handle: 'papa-premium-tattoo-cartridges' }}
-                    className="group p-4 rounded-2xl bg-[#f5f5f7] dark:bg-[#1c1c1e] hover:bg-black/[0.06] dark:hover:bg-white/[0.08] transition-[transform,background-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.98]"
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">
-                        {item.code}
-                      </span>
-                      <ArrowUpRight className="w-3.5 h-3.5 text-[#86868b] group-hover:text-[#1d1d1f] dark:group-hover:text-white transition-colors" />
-                    </div>
-                    <div className="text-xs font-medium text-[#1d1d1f] dark:text-[#f5f5f7] mt-1">
-                      {item.name}
-                    </div>
-                    <p className="text-[11px] text-[#86868b] mt-0.5 leading-snug">
-                      {item.spec}
-                    </p>
-                  </Link>
-                ))}
+                {NEEDLE_CONFIG_FAMILIES.map((item, idx) => {
+                  const isCurrent = idx === activeNeedleIndex
+                  return (
+                    <button
+                      key={item.code}
+                      type="button"
+                      onClick={() => setActiveNeedleIndex(idx)}
+                      className={`text-left group p-4 rounded-2xl transition-[transform,background-color,box-shadow] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.98] cursor-pointer ${
+                        isCurrent
+                          ? 'bg-[#e5e5ea] dark:bg-[#2c2c2e] shadow-[0_4px_16px_rgba(0,0,0,0.08)]'
+                          : 'bg-[#f5f5f7] dark:bg-[#1c1c1e] hover:bg-black/[0.05] dark:hover:bg-white/[0.07]'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">
+                          {item.code}
+                        </span>
+                        <ArrowUpRight
+                          className={`w-3.5 h-3.5 transition-colors ${
+                            isCurrent
+                              ? 'text-[#1d1d1f] dark:text-white'
+                              : 'text-[#86868b] group-hover:text-[#1d1d1f] dark:group-hover:text-white'
+                          }`}
+                        />
+                      </div>
+                      <div className="text-xs font-medium text-[#1d1d1f] dark:text-[#f5f5f7] mt-1">
+                        {item.name}
+                      </div>
+                      <p className="text-[11px] text-[#86868b] mt-0.5 leading-snug">
+                        {item.spec}
+                      </p>
+                    </button>
+                  )
+                })}
               </div>
             </div>
 
@@ -637,7 +655,7 @@ export const HomePage: React.FC = () => {
           <div className="rounded-[32px] bg-white dark:bg-[#121214] p-8 sm:p-10 flex flex-col justify-between shadow-[0_20px_50px_-24px_rgba(0,0,0,0.05)]">
             <div className="space-y-2.5">
               <div className="text-xs font-medium text-[#86868b]">
-                5V – 12V Regulated Output · Universal RCA Fitment
+                5V - 12V Regulated Output · Universal RCA Fitment
               </div>
               <h2 className="text-2xl sm:text-4xl font-semibold tracking-[-0.028em] text-[#1d1d1f] dark:text-[#f5f5f7]">
                 Papa Volt Wireless Power.
@@ -669,7 +687,7 @@ export const HomePage: React.FC = () => {
                 </div>
                 <div>
                   <span className="text-lg sm:text-xl font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7] block tabular-nums">
-                    5V – 12V
+                    5V - 12V
                   </span>
                   <span className="text-xs text-[#86868b]">
                     Clean Drive
@@ -697,9 +715,10 @@ export const HomePage: React.FC = () => {
                 <Link
                   to="/products"
                   search={{ category: 'power' }}
-                  className="text-xs font-medium text-[#86868b] hover:text-[#1d1d1f] dark:hover:text-white transition-colors"
+                  className="text-xs font-medium text-[#86868b] hover:text-[#1d1d1f] dark:hover:text-white transition-colors inline-flex items-center gap-1"
                 >
-                  All power units →
+                  <span>All power units</span>
+                  <ArrowRight className="w-3 h-3" />
                 </Link>
               </div>
             </div>
