@@ -1,7 +1,7 @@
 import React from 'react'
 import { ShoppingBag, Check } from 'lucide-react'
 
-export type PdpSectionId = 'overview' | 'engineering' | 'specs' | 'service'
+export type PdpSectionId = 'overview' | 'replenishment' | 'engineering' | 'specs' | 'service'
 
 interface StickyProductSubNavProps {
   title: string
@@ -14,14 +14,8 @@ interface StickyProductSubNavProps {
   onAddToCart: () => void
   isAvailable: boolean
   isAddedAnimation: boolean
+  hasReplenishment?: boolean
 }
-
-const SECTION_LINKS: Array<{ id: PdpSectionId; label: string }> = [
-  { id: 'overview', label: 'Overview' },
-  { id: 'engineering', label: 'Engineering' },
-  { id: 'specs', label: 'Tech Specs' },
-  { id: 'service', label: 'Warranty & Service' },
-]
 
 export const StickyProductSubNav: React.FC<StickyProductSubNavProps> = ({
   title,
@@ -34,7 +28,15 @@ export const StickyProductSubNav: React.FC<StickyProductSubNavProps> = ({
   onAddToCart,
   isAvailable,
   isAddedAnimation,
+  hasReplenishment = false,
 }) => {
+  const sectionLinks: Array<{ id: PdpSectionId; label: string }> = [
+    { id: 'overview', label: 'Overview' },
+    ...(hasReplenishment ? [{ id: 'replenishment' as PdpSectionId, label: 'Studio Matrix' }] : []),
+    { id: 'engineering', label: 'Engineering' },
+    { id: 'specs', label: 'Tech Specs' },
+    { id: 'service', label: 'Warranty & Service' },
+  ]
   return (
     <nav
       aria-label="Product Sub-Navigation"
@@ -60,7 +62,7 @@ export const StickyProductSubNav: React.FC<StickyProductSubNavProps> = ({
 
           {/* Center: In-Page Section Anchor Tabs (Desktop) */}
           <div className="hidden md:flex items-center gap-1 p-1 rounded-full bg-black/[0.03] dark:bg-white/[0.05]">
-            {SECTION_LINKS.map(tab => {
+            {sectionLinks.map(tab => {
               const isActive = activeSection === tab.id
               return (
                 <button
@@ -122,7 +124,7 @@ export const StickyProductSubNav: React.FC<StickyProductSubNavProps> = ({
 
         {/* Mobile Horizontal Micro-Tabs */}
         <div className="md:hidden flex items-center gap-2 overflow-x-auto no-scrollbar py-1.5 border-t border-black/[0.04] dark:border-white/[0.06]">
-          {SECTION_LINKS.map(tab => {
+          {sectionLinks.map(tab => {
             const isActive = activeSection === tab.id
             return (
               <button

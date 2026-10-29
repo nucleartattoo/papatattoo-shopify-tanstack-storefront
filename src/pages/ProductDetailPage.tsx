@@ -5,6 +5,7 @@ import { ShopifyProduct, ShopifyVariant } from '../types/shopify'
 import { catalogQueryOptions, productByHandleQueryOptions } from '../lib/catalog.queries'
 import { useCart } from '../context/CartContext'
 import { CartridgeMatrixSelector } from '../components/product/CartridgeMatrixSelector'
+import { StudioReplenishmentMatrix } from '../components/product/StudioReplenishmentMatrix'
 import { HardwareModelCard } from '../components/product/HardwareLineupModules'
 import {
   StickyProductSubNav,
@@ -105,6 +106,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
 
   const primaryActionRef = useRef<HTMLDivElement>(null)
   const overviewRef = useRef<HTMLElement>(null)
+  const replenishmentRef = useRef<HTMLElement>(null)
   const engineeringRef = useRef<HTMLElement>(null)
   const specsRef = useRef<HTMLElement>(null)
   const serviceRef = useRef<HTMLElement>(null)
@@ -150,6 +152,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
       const serviceTop = serviceRef.current?.offsetTop ?? Infinity
       const specsTop = specsRef.current?.offsetTop ?? Infinity
       const engineeringTop = engineeringRef.current?.offsetTop ?? Infinity
+      const replenishmentTop = replenishmentRef.current?.offsetTop ?? Infinity
 
       if (scrollY >= serviceTop) {
         setActiveSection('service')
@@ -157,6 +160,8 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
         setActiveSection('specs')
       } else if (scrollY >= engineeringTop) {
         setActiveSection('engineering')
+      } else if (scrollY >= replenishmentTop && replenishmentRef.current) {
+        setActiveSection('replenishment')
       } else {
         setActiveSection('overview')
       }
@@ -170,6 +175,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
     setActiveSection(sectionId)
     let targetEl: HTMLElement | null = null
     if (sectionId === 'overview') targetEl = overviewRef.current
+    else if (sectionId === 'replenishment') targetEl = replenishmentRef.current
     else if (sectionId === 'engineering') targetEl = engineeringRef.current
     else if (sectionId === 'specs') targetEl = specsRef.current
     else if (sectionId === 'service') targetEl = serviceRef.current
@@ -472,6 +478,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
         onAddToCart={handleAddToCart}
         isAvailable={isAvailableForSale}
         isAddedAnimation={addedAnimation}
+        hasReplenishment={isCartridge}
       />
 
       <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8">
@@ -791,6 +798,28 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
               </div>
             )}
 
+            {/* Cartridge B2B Quick Jump Banner */}
+            {isCartridge && (
+              <div className="p-4 rounded-2xl bg-emerald-500/[0.05] dark:bg-emerald-500/[0.08] border border-emerald-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
+                <div className="space-y-0.5">
+                  <div className="text-xs font-semibold text-emerald-800 dark:text-emerald-300 flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                    <span>B2B Studio Procurement Matrix</span>
+                  </div>
+                  <div className="text-[11px] text-[#86868b]">
+                    Need multiple needle sizes? Allocate multi-box orders with 1-click presets and up to 15% volume allowance.
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleNavigateSection('replenishment')}
+                  className="px-3.5 py-1.5 rounded-full bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f] text-xs font-medium shrink-0 hover:opacity-88 active:scale-[0.97] transition-all cursor-pointer shadow-xs whitespace-nowrap"
+                >
+                  Open Studio Matrix ›
+                </button>
+              </div>
+            )}
+
             {/* Variant / Needle Matrix Selector */}
             {product.options && product.options.some(o => o.name.toLowerCase() === 'type') ? (
               <CartridgeMatrixSelector
@@ -937,7 +966,20 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
         </section>
 
         {/* =========================================================================
-            ACT 2: Engineering Highlights & Macro Anatomy Showcase (#engineering)
+            ACT 2 (Cartridge Specialization): Studio Replenishment Matrix (#replenishment)
+        ========================================================================= */}
+        {isCartridge && (
+          <section
+            id="replenishment"
+            ref={replenishmentRef}
+            className="scroll-mt-28 mb-24 pt-6"
+          >
+            <StudioReplenishmentMatrix product={product} />
+          </section>
+        )}
+
+        {/* =========================================================================
+            ACT 3: Engineering Highlights & Macro Anatomy Showcase (#engineering)
         ========================================================================= */}
         <section
           id="engineering"

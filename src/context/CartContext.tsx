@@ -3,6 +3,12 @@ import { CartLineItem, ShopifyProduct, ShopifyVariant } from '../types/shopify'
 import { createShopifyCart } from '../lib/shopify'
 import { isSafeCheckoutUrl } from '../utils/sanitizeHtml'
 
+export interface CartBatchEntry {
+  product: ShopifyProduct
+  variant: ShopifyVariant
+  quantity: number
+}
+
 interface CartContextType {
   items: CartLineItem[]
   isOpen: boolean
@@ -12,6 +18,7 @@ interface CartContextType {
   openCart: () => void
   closeCart: () => void
   addToCart: (product: ShopifyProduct, variant: ShopifyVariant, quantity?: number) => void
+  addBatchToCart: (entries: CartBatchEntry[], autoOpen?: boolean) => void
   removeFromCart: (merchandiseId: string) => void
   updateQuantity: (merchandiseId: string, quantity: number) => void
   clearCart: () => void
@@ -107,6 +114,46 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsOpen(true)
   }
 
+  const addBatchToCart = (entries: CartBatchEntry[], autoOpen = true) => {
+    if (!entries || entries.length === 0) return
+    setItems(prevItems => {
+      let currentItems = [...prevItems]
+      for (const entry of entries) {
+        const { product, variant, quantity } = entry
+        if (quantity <= 0) continue
+        const existingIndex = currentItems.findIndex(i => i.merchandiseId === variant.id)
+        const priceNum =
+          parseFloat(variant.price.amount) ||
+          parseFloat(product.priceRange.minVariantPrice.amount) ||
+          0
+        const imgUrl = product.images?.edges?.[0]?.node?.url || ''
+
+        if (existingIndex >= 0) {
+          currentItems[existingIndex] = {
+            ...currentItems[existingIndex],
+            quantity: currentItems[existingIndex].quantity + quantity,
+          }
+        } else {
+          currentItems.push({
+            id: `${product.id}-${variant.id}`,
+            merchandiseId: variant.id,
+            productId: product.id,
+            title: product.title,
+            variantTitle: variant.title,
+            price: priceNum,
+            currencyCode: variant.price.currencyCode || 'USD',
+            quantity,
+            image: imgUrl,
+          })
+        }
+      }
+      return currentItems
+    })
+    if (autoOpen) {
+      setIsOpen(true)
+    }
+  }
+
   const removeFromCart = (merchandiseId: string) => {
     setItems(prev => prev.filter(item => item.merchandiseId !== merchandiseId))
   }
@@ -168,6 +215,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         openCart,
         closeCart,
         addToCart,
+        addBatchToCart,
         removeFromCart,
         updateQuantity,
         clearCart,
