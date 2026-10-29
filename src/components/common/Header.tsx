@@ -119,13 +119,7 @@ export const Header: React.FC<HeaderProps> = ({ onSelectCategory }) => {
   }
 
   return (
-    <header
-      className={`sticky top-0 z-40 w-full border-b transition-colors duration-300 ${
-        isHome
-          ? 'bg-[#08090C]/90 backdrop-blur-xl border-white/[0.08] text-white [&_a]:text-zinc-300 [&_a:hover]:text-white [&_button]:text-zinc-300 [&_button:hover]:text-white'
-          : 'border-black/[0.06] dark:border-white/[0.08] apple-glass-chrome'
-      }`}
-    >
+    <header className="sticky top-0 z-40 w-full border-b border-black/[0.06] dark:border-white/[0.08] apple-glass-chrome transition-colors duration-300">
       <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-4 xl:gap-8">
         {/* Logo & Desktop Nav Menu */}
         <div className="flex items-center gap-6 xl:gap-8 shrink-0">

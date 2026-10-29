@@ -120,21 +120,11 @@ export const Footer: React.FC = () => {
   }
 
   return (
-    <footer
-      className={`border-t transition-colors duration-200 font-sans ${
-        isHome
-          ? 'border-white/[0.08] bg-[#08090C] text-zinc-400'
-          : 'border-black/[0.06] dark:border-white/[0.08] bg-[#f5f5f7] dark:bg-[#0c0d0f] text-[#86868b]'
-      }`}
-    >
+    <footer className="border-t border-black/[0.06] dark:border-white/[0.08] bg-[#f5f5f7] dark:bg-[#0c0d0f] text-[#86868b] font-sans transition-colors duration-200">
       {/* 1. Hardware Engineering Accreditation & Certification Matrix */}
       <section
         aria-labelledby="hardware-accreditations-heading"
-        className={`border-b py-12 lg:py-16 ${
-          isHome
-            ? 'border-white/[0.08] bg-[#0A0B0E]'
-            : 'border-black/[0.06] dark:border-white/[0.08] bg-white/50 dark:bg-black/30 backdrop-blur-xs'
-        }`}
+        className="border-b border-black/[0.06] dark:border-white/[0.08] py-12 lg:py-16 bg-white/50 dark:bg-black/30 backdrop-blur-xs"
       >
         <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
@@ -145,9 +135,7 @@ export const Footer: React.FC = () => {
             </div>
             <h2
               id="hardware-accreditations-heading"
-              className={`text-2xl sm:text-3xl font-semibold tracking-[-0.025em] ${
-                isHome ? 'text-white' : 'text-[#1d1d1f] dark:text-[#f5f5f7]'
-              }`}
+              className="text-2xl sm:text-3xl font-semibold tracking-[-0.025em] text-[#1d1d1f] dark:text-[#f5f5f7]"
             >
               Certified Medical Standards &amp; Precision Machining.
             </h2>
@@ -163,11 +151,7 @@ export const Footer: React.FC = () => {
               return (
                 <div
                   key={item.id}
-                  className={`rounded-2xl p-5 border transition-all duration-200 shadow-2xs flex flex-col justify-between space-y-4 ${
-                    isHome
-                      ? 'bg-[#0E1014] border-white/[0.08] text-zinc-300'
-                      : 'bg-white dark:bg-[#15171c] border-black/[0.06] dark:border-white/[0.08] hover:border-black/15 dark:hover:border-white/20'
-                  }`}
+                  className="rounded-2xl p-5 bg-white dark:bg-[#15171c] border border-black/[0.06] dark:border-white/[0.08] hover:border-black/15 dark:hover:border-white/20 transition-all duration-200 shadow-2xs flex flex-col justify-between space-y-4"
                 >
                   <div className="space-y-3">
                     <div className="flex items-center justify-between gap-2">

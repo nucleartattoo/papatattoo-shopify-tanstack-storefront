@@ -1,11 +1,11 @@
 import React from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useLoaderData } from '@tanstack/react-router'
-import { AtelierHeroMonolith } from '../components/home/AtelierHeroMonolith'
-import { AtelierRigBuilder } from '../components/home/AtelierRigBuilder'
-import { AtelierCaliperMetrology } from '../components/home/AtelierCaliperMetrology'
-import { AtelierWholesaleTerminal } from '../components/home/AtelierWholesaleTerminal'
-import { AtelierMasterMonograph } from '../components/home/AtelierMasterMonograph'
+import { CleanroomHero } from '../components/home/CleanroomHero'
+import { CleanroomHardwareLineup } from '../components/home/CleanroomHardwareLineup'
+import { CleanroomNeedleMatrix } from '../components/home/CleanroomNeedleMatrix'
+import { CleanroomPowerAndGrip } from '../components/home/CleanroomPowerAndGrip'
+import { CleanroomProTeam } from '../components/home/CleanroomProTeam'
 import { catalogQueryOptions } from '../lib/catalog.queries'
 import { ShopifyProduct } from '../types/shopify'
 
@@ -26,31 +26,31 @@ export const HomePage: React.FC = () => {
   const products = queryProducts ?? loaderProducts ?? EMPTY_PRODUCTS
 
   return (
-    <div className="w-full bg-[#08090C] text-zinc-100 font-sans overflow-x-hidden selection:bg-[#2EE6CA]/20 selection:text-[#2EE6CA]">
+    <div className="w-full bg-white dark:bg-[#000000] text-[#1d1d1f] dark:text-[#f5f5f7] font-sans overflow-x-hidden selection:bg-black/10 dark:selection:bg-white/20">
       {/* ============================================================ */}
-      {/* ACT 1: MONUMENTAL ARCHITECTURAL HERO & 4-MODULE ANATOMY     */}
+      {/* ACT 1: CLEANROOM SCULPTURE HERO & FINISH SELECTION           */}
       {/* ============================================================ */}
-      <AtelierHeroMonolith products={products} />
+      <CleanroomHero products={products} />
 
       {/* ============================================================ */}
-      {/* ACT 2: STUDIO WORKBENCH OS (LIVE MODULAR RIG BUILDER)        */}
+      {/* ACT 2: FOUR-TIER HARDWARE LINEUP EXHIBIT                     */}
       {/* ============================================================ */}
-      <AtelierRigBuilder products={products} />
+      <CleanroomHardwareLineup />
 
       {/* ============================================================ */}
-      {/* ACT 3: SURGICAL METROLOGY & LIVE PENETRATION CALIPER        */}
+      {/* ACT 3: JAPANESE 316L SURGICAL METALLURGY SPECIMEN STAGE     */}
       {/* ============================================================ */}
-      <AtelierCaliperMetrology />
+      <CleanroomNeedleMatrix />
 
       {/* ============================================================ */}
-      {/* ACT 4: HIGH-VOLUME STUDIO REPLENISHMENT TERMINAL            */}
+      {/* ACT 4: CORDLESS POWER & CNC RATCHET CLICK GRIPS              */}
       {/* ============================================================ */}
-      <AtelierWholesaleTerminal products={products} />
+      <CleanroomPowerAndGrip />
 
       {/* ============================================================ */}
-      {/* ACT 5: PRO TEAM NOIR MONOGRAPH & MACHINE TUNING PRESETS     */}
+      {/* ACT 5: RESIDENT PRO TEAM & ACCREDITED SERVICE GUARANTEES    */}
       {/* ============================================================ */}
-      <AtelierMasterMonograph />
+      <CleanroomProTeam />
     </div>
   )
 }
